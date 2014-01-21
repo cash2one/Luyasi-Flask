@@ -1,0 +1,30 @@
+{% extends "qingbank/base.html" %}
+
+{% block title %}
+通讯录-{{contact.name}}
+{% endblock title%}
+
+
+{% block main %}
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="page-header">
+      <h2>{{contact.name}} <small>{{contact.department.name}} - {{contact.duty}}</small></h2>
+    </div>
+
+    <dl>
+      <dt><h4>联系方式</h4></dt>
+      <dd>
+        <dl class="dl-horizontal">
+          <dt>办公电话</dt><dd>{{contact.telephone}}</dd>
+          <dt>内线电话</dt><dd>{{contact.innerphone}}</dd>
+          <dt>移动电话</dt><dd>{{contact.mobile}}</dd>
+          <dt>传真电话</dt><dd>{{contact.fax}}</dd>
+        </dl>
+      </dd>
+    </dl>
+  </div>
+</div>
+{% endblock main%}
+
