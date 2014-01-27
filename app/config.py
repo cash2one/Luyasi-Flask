@@ -2,15 +2,13 @@
 
 import os
 
-# from app.jsonhelper import JSONEncoder
-
-
 _basedir = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
 
-ADMINS = frozenset(['youremail@yourdomain.com'])
-SECRET_KEY = 'SecretKeyForSessionSigning'
+ADMINS = frozenset(['kinorsi@gmail.com'])
+# SecretKeyForSessionSigning
+SECRET_KEY = 'luyasikinorsi'
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'luyasi_flask.db')
 DATABASE_CONNECT_OPTIONS = {}
@@ -18,7 +16,7 @@ DATABASE_CONNECT_OPTIONS = {}
 THREADS_PER_PAGE = 8
 
 CSRF_ENABLED = True
-CSRF_SESSION_KEY = "somethingimpossibletoguess"
+CSRF_SESSION_KEY = "kinorsiluyasi"
 
 RECAPTCHA_USE_SSL = False
 RECAPTCHA_PUBLIC_KEY = '6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J'
@@ -30,6 +28,7 @@ SECURITY_TRACKABLE = True
 SECURITY_CONFIRMABLE = False
 SECURITY_RECOVERABLE = True
 SECURITY_CHANGEABLE = True
+SECURITY_USER_IDENTITY_ATTRIBUTES = ['email','password']
 #修改密码后不发邮件
 SECURITY_SEND_PASSWORD_CHANGE_EMAIL =  False
 SECURITY_URL_PREFIX = '/security'

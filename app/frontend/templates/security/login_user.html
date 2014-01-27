@@ -1,6 +1,6 @@
 {% extends "qingbank/base.html" %}
 
-{% from "security/_macros.html" import render_field_with_errors, render_field %}
+{% from "macros/fieldmacros.html" import render_error %}
 {% include "security/_messages.html" %}
 
 {% block container %}
@@ -14,9 +14,11 @@
 			<div class="form-group">
 				{{login_user_form.email(class="form-control", placeholder="用户名/邮箱", autofocus="")}} 
 			</div>
+			{{render_error(login_user_form.email)}}
 			<div class="form-group">
 				{{login_user_form.password(class="form-control", placeholder="密码")}} 
 			</div>
+			{{render_error(login_user_form.password)}}
 			<div class="form-group">
 				<label class="checkbox"> 
 					{{login_user_form.remember}}保持登陆

@@ -27,8 +27,6 @@ def create_app(package_name, package_path, settings_override=None, register_secu
 	security_datastore = SQLAlchemyUserDatastore(db, User, Role)
 	security.init_app(app, security_datastore)
 	
-	
-
 	register_blueprints(app, package_name, package_path)
 	
 	return app
