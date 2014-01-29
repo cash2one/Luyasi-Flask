@@ -1,6 +1,8 @@
-from .models import Department, Contact
-from ..core import Service
 from sqlalchemy import or_
+
+from ..core import Service
+from .models import Contact, Department
+
 
 class ContactService(Service):
 	__model__ = Contact
@@ -14,4 +16,3 @@ class ContactService(Service):
 
 class DepartmentService(Service):
 	__model__ = Department
-

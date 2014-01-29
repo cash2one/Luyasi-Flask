@@ -15,4 +15,3 @@ class ContactForm(Form):
 	qq = TextField('QQ')
 	# department_id = db.Column(db.Integer(), db.ForeignKey('qingbank_department.id'))
 	# department = db.relationship('Department', backref=db.backref('contacts', lazy='dynamic'))	
-

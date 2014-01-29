@@ -1,13 +1,13 @@
 #-*- coding:utf-8 -*-
-from flask.ext.script import Manager, prompt_bool
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.security import Security, SQLAlchemyUserDatastore
-from flask import Flask
 from app import config
 from app.core import db
-from app.security.models import User, Role
-
 from app.helpers import import_model
+from app.qingbank.models import *
+from app.security.models import *
+from flask import Flask
+from flask.ext.script import Manager, prompt_bool
+from flask.ext.security import Security, SQLAlchemyUserDatastore
+from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -19,8 +19,6 @@ security = Security(app, user_datastore)
 manager = Manager(app)
 
 #引入model进行处理
-from app.qingbank.models import *
-from app.security.models import *
 
 @manager.command
 def test():
@@ -43,14 +41,24 @@ def drop_db():
 		db.drop_all()
 		print 'Droping finished'
 
+@manager.command
+def recreate_db():
+	"Drops all the databse tables and recreate it"
+	if prompt_bool("Are you sure to drop your databse?"):
+		print 'Droping database'
+		db.drop_all()
+		print 'Droping finished'
+		print "Creating database"
+		db.create_all()
+		print 'Create finished'
+		
+
+
 # 不工作
 @manager.command
-def create_user(username, password):
+def create_user(username, email, password):
 	"Creates a user with username and password"
-	# if username==None or password==None:
-	# 	print 'username / password is empty'
-	# 	return
-	user_datastore.create_user(email=username, password=password)
+	user_datastore.create_user(email=email, password=password, username=username)
 	db.session.commit()
 
 if __name__ == '__main__':

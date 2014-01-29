@@ -24,4 +24,3 @@ def list_contact_page(page):
 def contact_detail(id):
 	contact = api_contact.get_or_404(id)
 	return render_template('qingbank/contact_detail.html', contact=contact)
-	

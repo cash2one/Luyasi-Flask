@@ -1,9 +1,12 @@
 #-*- coding:utf-8 -*-
-import pkgutil, importlib
-from flask.json import JSONEncoder as BaseJSONEncoder
+import importlib
+import pkgutil
+
 from flask import Blueprint
+from flask.json import JSONEncoder as BaseJSONEncoder
 
 from .core import db
+
 
 def register_blueprints(app, package_name, package_path):
     """Register all Blueprint instances on the specified Flask application found
@@ -87,4 +90,3 @@ class JsonSerializer(object):
             rv.pop(key, None)
 
         return rv
-

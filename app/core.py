@@ -1,10 +1,11 @@
 #-*- coding:utf-8 -*-
 # from flask_mail import Mail
-from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.admin import Admin
 from flask.ext.security import Security
-# from flask.ext.mail import Mail
+from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy import or_
+from flask.ext.babel import Babel
+# from flask.ext.mail import Mail
 
 #: Flask-SQLAlchemy extension instance
 db = SQLAlchemy()
@@ -20,6 +21,8 @@ security = Security()
 #: Flask-Login extension instance
 # login_manager = LoginManager()
 
+# Flask-Babel
+babel = Babel()
 
 class OverholtFormError(Exception):
     """Raise when an error processing a form occurs."""
@@ -156,4 +159,3 @@ class Service(object):
         self._isinstance(model)
         db.session.delete(model)
         db.session.commit()
-

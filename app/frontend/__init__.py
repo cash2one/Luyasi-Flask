@@ -2,14 +2,18 @@
 
 from functools import wraps
 
-from flask.ext.security import login_required
 from flask.ext.admin.contrib.sqla import ModelView
+from flask.ext.security import current_user, login_required
 
 from .. import appfactory
 from ..core import admin, db
-
-from ..security.models import User, Role
 from ..qingbank.models import Contact, Department
+from ..security.models import Role, User
+
+# 控制管理面板FLask-Admin的权限
+class AuthModelView(ModelView):
+    def is_accessible(self):
+        return current_user.has_role('管理员')
 
 def create_app(settings_override=None):
     app = appfactory.create_app(__name__, __path__, settings_override)
@@ -18,10 +22,10 @@ def create_app(settings_override=None):
     # assets.init_app(app)
 
     # init Flask-Admin views
-    admin.add_view(ModelView(User, db.session, name="Users", endpoint="users", category='User Manage'))
-    admin.add_view(ModelView(Role, db.session, name="Roles", endpoint="roles", category='User Manage'))
-    admin.add_view(ModelView(Contact,db.session, name='Contacts', endpoint='contacts', category='Qingbank'))
-    admin.add_view(ModelView(Department,db.session, name='Departments', endpoint='departments', category='Qingbank'))
+    admin.add_view(AuthModelView(User, db.session, name="Users", endpoint="users", category='User Manage'))
+    admin.add_view(AuthModelView(Role, db.session, name="Roles", endpoint="roles", category='User Manage'))
+    admin.add_view(AuthModelView(Contact,db.session, name='Contacts', endpoint='contacts', category='Qingbank'))
+    admin.add_view(AuthModelView(Department,db.session, name='Departments', endpoint='departments', category='Qingbank'))
 
     admin.init_app(app)
 

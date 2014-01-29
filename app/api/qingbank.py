@@ -2,8 +2,9 @@
 from flask import Blueprint, request
 
 from . import route
-from ..services import api_contact, api_department
 from ..core import LuyasiError, LuyasiFormError
+from ..services import api_contact, api_department
+from flask.ext.babel import gettext
 
 bp_contact = Blueprint('qingbank_contact', __name__, url_prefix='/qingbank/contact')
 bp_department = Blueprint('qingbank_department', __name__, url_prefix='/qingbank/department')

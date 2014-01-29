@@ -1,6 +1,7 @@
 #-*- coding:utf-8 -*-
+from flask.ext.security import RoleMixin, UserMixin
+
 from ..core import db
-from flask.ext.security import UserMixin, RoleMixin
 
 # middle table
 roles_users = db.Table('roles_users',
@@ -17,12 +18,9 @@ class Role(db.Model, RoleMixin):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
     email = db.Column(db.String(255), unique=True)
+    username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean())
-    # def is_active(self):
-    #     return self.active
-    # def is_authenticated(self):
-    #     return True 
 
     # 要有邮件服务器才能使用
     confirmed_at = db.Column(db.DateTime())
@@ -34,4 +32,3 @@ class User(db.Model, UserMixin):
     login_count = db.Column(db.Integer())
     def __repr__(self):
         return self.email
-

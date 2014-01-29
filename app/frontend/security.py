@@ -1,11 +1,10 @@
 #-*- coding:utf-8 -*-
 from flask import Blueprint, render_template, request
-
 from flask.ext.security import current_user
 
 from . import route
-from ..services import api_contact, api_department
 from ..qingbank.forms import ContactForm
+from ..services import api_contact, api_department
 
 bp = Blueprint('security-frontend', __name__, template_folder='templates', static_folder='static', url_prefix='/security')
 

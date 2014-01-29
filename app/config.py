@@ -28,7 +28,8 @@ SECURITY_TRACKABLE = True
 SECURITY_CONFIRMABLE = False
 SECURITY_RECOVERABLE = True
 SECURITY_CHANGEABLE = True
-SECURITY_USER_IDENTITY_ATTRIBUTES = ['email','password']
+# 登陆时可以选用的字段
+SECURITY_USER_IDENTITY_ATTRIBUTES = ['email','username']
 #修改密码后不发邮件
 SECURITY_SEND_PASSWORD_CHANGE_EMAIL =  False
 SECURITY_URL_PREFIX = '/security'
@@ -40,3 +41,10 @@ SECURITY_REGISTERABLE = True
 SECURITY_SEND_REGISTER_EMAIL = False
 SECURITY_TOKEN_AUTHENTICATION_HEADER = 'auth_token'
 SECURITY_TOKEN_AUTHENTICATION_KEY = 'auth_token'
+
+# babel config
+BABEL_DEFAULT_LOCALE = 'zh_Hans_CN'
+BABEL_DEFAULT_TIMEZONE = 'UTC'
+#related command-working dir: app
+# 抽取: pybabel extract -F babel.cfg -o messages.pot .
+# 生成：pybabel init -i messages.pot -d frontend/translations -l cs

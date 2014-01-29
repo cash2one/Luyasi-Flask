@@ -1,16 +1,14 @@
 #-*- coding:utf-8 -*-
 
-from flask import Flask, Blueprint, render_template
+from app import config
+from app.security.models import Role, User
+from flask import Blueprint, Flask, render_template
 from flask.ext.security import SQLAlchemyUserDatastore
 
-from .core import db, security
+from .core import db, security, babel
 from .helpers import register_blueprints
-from app import config
-
-from app.security.models import User, Role
 
 # from app.core import login_manager
-from app.security.models import User
 
 def create_app(package_name, package_path, settings_override=None, register_security_blueprint=True):
 	"""
@@ -23,6 +21,8 @@ def create_app(package_name, package_path, settings_override=None, register_secu
 	db.init_app(app)
 	# mail.init_app(app)
 
+	# init babel
+	babel.init_app(app)
 	# init Flask-Security
 	security_datastore = SQLAlchemyUserDatastore(db, User, Role)
 	security.init_app(app, security_datastore)
@@ -30,4 +30,3 @@ def create_app(package_name, package_path, settings_override=None, register_secu
 	register_blueprints(app, package_name, package_path)
 	
 	return app
-

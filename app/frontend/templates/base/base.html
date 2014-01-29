@@ -61,6 +61,15 @@ body { padding-bottom: 71px; }
                 <li><a href="{{ url_for('security.logout') }}">退出</a></li>
                 {% else %}
                 <li><a href="{{ url_for('security.login') }}">登陆</a></li>
+                {% if security.registerable %}
+                <li><a href="{{ url_for_security('register') }}">注册</a></li>
+                {% endif %}
+                {% if security.recoverable %}
+                <li><a href="{{ url_for_security('forgot_password') }}">忘记密码</a></li>
+                {% endif %}
+                {% if security.confirmable %}
+                <li><a href="{{ url_for_security('send_confirmation') }}">确认帐号</a></li>
+                {% endif %}                
                 {% endif %}
             </ul>
         </div>

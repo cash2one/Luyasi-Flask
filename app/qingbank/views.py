@@ -10,4 +10,3 @@
 # def list_contact():
 # 	contacts = api_contact.all()
 # 	return jsonify(contacts = contacts), 200
-
