@@ -3,10 +3,15 @@ from flask import Blueprint, render_template, request
 
 from . import route
 from ..services import api_contact, api_department
+from flask.ext.principal import Permission, RoleNeed
 
 bp = Blueprint('qingbank-frontend', __name__, template_folder='templates', static_folder='static', url_prefix='/qingbank')
 
+# admin_permission = Permission(RoleNeed('admin'))
+
+
 @bp.route('/')
+# @admin_permission.require()
 def index():
     """Returns the dashboard interface."""
     return render_template('qingbank/index.html')

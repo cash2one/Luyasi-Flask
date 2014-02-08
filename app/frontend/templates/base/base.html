@@ -65,7 +65,7 @@ body { padding-bottom: 71px; }
                 <li><a href="{{ url_for_security('register') }}">注册</a></li>
                 {% endif %}
                 {% if security.recoverable %}
-                <li><a href="{{ url_for_security('forgot_password') }}">忘记密码</a></li>
+                <li><a href="{{ url_for_security('forgot_password') }}">找回密码</a></li>
                 {% endif %}
                 {% if security.confirmable %}
                 <li><a href="{{ url_for_security('send_confirmation') }}">确认帐号</a></li>

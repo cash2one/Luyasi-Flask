@@ -2,13 +2,11 @@
 
 from app import config
 from app.security.models import Role, User
-from flask import Blueprint, Flask, render_template
+from flask import Blueprint, Flask, render_template, template_rendered, current_app
 from flask.ext.security import SQLAlchemyUserDatastore
 
-from .core import db, security, babel
+from .core import db, security, babel, mail
 from .helpers import register_blueprints
-
-# from app.core import login_manager
 
 def create_app(package_name, package_path, settings_override=None, register_security_blueprint=True):
 	"""
@@ -19,7 +17,7 @@ def create_app(package_name, package_path, settings_override=None, register_secu
 	app.config.from_object(config)
 	# 使用这样的方式init，不能调用db.create_all()
 	db.init_app(app)
-	# mail.init_app(app)
+	mail.init_app(app)
 
 	# init babel
 	babel.init_app(app)

@@ -5,15 +5,15 @@ from flask.ext.security import Security
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy import or_
 from flask.ext.babel import Babel
-# from flask.ext.mail import Mail
+from flask.ext.mail import Mail
 
 #: Flask-SQLAlchemy extension instance
 db = SQLAlchemy()
 #: Flask-Admin extension instance
-admin = Admin(name='Admin')
+admin = Admin(name='Admin', base_template='admin/admin_base.html')
 
 #: Flask-Mail extension instance
-# mail = Mail()
+mail = Mail()
 
 #: Flask-Security extension instance
 security = Security()

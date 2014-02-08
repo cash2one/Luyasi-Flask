@@ -3,7 +3,7 @@ from flask.ext.security import RoleMixin, UserMixin
 
 from ..core import db
 
-# middle table
+# 用在Flask-Security里的
 roles_users = db.Table('roles_users',
     db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
     db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
