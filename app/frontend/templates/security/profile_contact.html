@@ -3,19 +3,24 @@
 
 {% block rightmain %}
 <div class="col-md-6">
-	<form class="form-horizontal">
+	<form class="form-horizontal" method="POST" action="{{ url_for('.profile_contact') }}">
 		{% for field in form %}
 			{% if field.name == 'csrf_token' %}
 				{{field}}
 			{% else %}
 			<div class="form-group">
-				{{field.label(class="control-label col-sm-2")}}
-				<div class="col-sm-10">
-					{{field(class="form-control")}}
+				{{field.label(class="control-label col-sm-4")}}
+				<div class="col-sm-8">
+					{% if field.name in ('name', )%}
+						{{field(class="form-control", readonly="true")}}
+					{% else %}
+						{{field(class="form-control")}}
+					{% endif %}
 				</div>
 			</div>
 			{% endif %}
 		{% endfor %}
+		<button class="btn btn-lg btn-primary btn-block">保存修改</button>
 	</form>
 </div>
 {% endblock rightmain %}

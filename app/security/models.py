@@ -13,7 +13,7 @@ class Role(db.Model, RoleMixin):
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
     def __repr__(self):
-        return self.name
+        return str.format('<Role {0}>', self.name)
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
@@ -31,4 +31,4 @@ class User(db.Model, UserMixin):
     current_login_ip = db.Column(db.String(80))
     login_count = db.Column(db.Integer())
     def __repr__(self):
-        return self.email
+        return str.format('<User {0}>', self.username or self.email)

@@ -11,7 +11,7 @@ class Department(db.Model, JsonSerializer):
 	name = db.Column(db.String(20), unique=True)
 	address = db.Column(db.String(255))
 	def __repr__(self):
-		return self.name
+		return str.format('<Department {0}>', self.name)
 
 
 class Contact(db.Model, JsonSerializer):
@@ -20,7 +20,6 @@ class Contact(db.Model, JsonSerializer):
 	__tablename__ = 'qingbank_contact'
 	
 	id = db.Column(db.Integer(), primary_key=True)
-	#employee_no = db.Column(db.String(10))
 	name = db.Column(db.String(10))
 	name_pinyin = db.Column(db.String(30))
 	name_shot = db.Column(db.String(10))
@@ -34,6 +33,6 @@ class Contact(db.Model, JsonSerializer):
 	department_id = db.Column(db.Integer(), db.ForeignKey('qingbank_department.id'))
 	department = db.relationship('Department', backref=db.backref('contacts', lazy='dynamic'))
 	user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
-	user = db.relationship('User', backref=db.backref('contact', lazy='dynamic'))
+	user = db.relationship('User', backref=db.backref('contact'), uselist=False)
 	def __repr__(self):
-          return '<Contact %r>' % (self.name)
+          return str.format('<Contact {0}>', self.name)

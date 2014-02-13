@@ -18,15 +18,24 @@ class AuthModelView(ModelView):
 
 class UserView(AuthModelView):
     column_searchable_list = ('email', 'username',)
-
     def __init__(self):
         super(UserView, self).__init__(User, db.session, name='Users', endpoint='users', category='User Manage')
 
 class RoleView(AuthModelView):
     column_searchable_list = ('name',)
-
     def __init__(self):
         super(RoleView, self).__init__(Role, db.session, name="Roles", endpoint="roles", category='User Manage')
+
+class ContactView(AuthModelView):
+    column_searchable_list = ('name',)
+    column_exclude_list = ('user',)
+    def __init__(self):
+        super(ContactView, self).__init__(Contact, db.session, name="Contacts", endpoint="contacts", category='Qingbank')
+
+class DepartmentView(AuthModelView):
+    column_searchable_list = ('name',)
+    def __init__(self):
+        super(DepartmentView, self).__init__(Department, db.session, name="Departments", endpoint="departments", category='Qingbank')
 
 
 def create_app(settings_override=None):
@@ -38,8 +47,8 @@ def create_app(settings_override=None):
     # init Flask-Admin views
     admin.add_view(UserView())
     admin.add_view(RoleView())
-    admin.add_view(AuthModelView(Contact,db.session, name='Contacts', endpoint='contacts', category='Qingbank'))
-    admin.add_view(AuthModelView(Department,db.session, name='Departments', endpoint='departments', category='Qingbank'))
+    admin.add_view(ContactView())
+    admin.add_view(DepartmentView())
 
     admin.init_app(app)
 

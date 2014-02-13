@@ -2,9 +2,9 @@
 
 {% block sidebar %}
 <div data-spy="affix">
-	<ul class="list-unstyled">
-		<li><a href="{{ url_for('.profile_contact') }}">联系信息</a></li>
-		<li><a href="{{ url_for('.profile_security') }}">个人安全</a></li>
+	<ul class="list-group">
+		<li class="list-group-item"><a href="{{ url_for('security-frontend.profile_contact') }}">联系信息</a></li>
+		<li class="list-group-item"><a href="{{ url_for_security('change_password') }}">修改密码</a></li>
 	</ul>
 </div>
 {% endblock sidebar %}
