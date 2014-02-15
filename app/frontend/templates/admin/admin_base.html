@@ -4,7 +4,7 @@
 {% if current_user and current_user.is_authenticated() %}
 <div class="btn-group pull-right">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-        <i class="icon-user"></i> {{ current_user.contact.name or current_user.username }} <span class="caret"></span>
+        <i class="icon-user"></i> {{ current_user.contact[0].name or current_user.username }} <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
         <li><a href="{{ url_for_security('logout') }}">退出</a></li>

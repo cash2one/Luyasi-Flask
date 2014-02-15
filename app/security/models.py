@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 from flask.ext.security import RoleMixin, UserMixin
-
+from flask.ext.babel import gettext
 from ..core import db
 
 # 用在Flask-Security里的
@@ -13,7 +13,8 @@ class Role(db.Model, RoleMixin):
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
     def __repr__(self):
-        return str.format('<Role {0}>', self.name)
+        # return str.format('<Role {0}>', self.name)
+        return gettext(u'%(value)s', value=self.name)
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
@@ -21,6 +22,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean())
+
+    # contact = db.relationship('Contact', backref='user', uselist=True)
 
     # 要有邮件服务器才能使用
     confirmed_at = db.Column(db.DateTime())
@@ -31,4 +34,4 @@ class User(db.Model, UserMixin):
     current_login_ip = db.Column(db.String(80))
     login_count = db.Column(db.Integer())
     def __repr__(self):
-        return str.format('<User {0}>', self.username or self.email)
+        return gettext(u'%(value)s', value=self.username or self.email)

@@ -57,7 +57,7 @@ body { padding-bottom: 71px; }
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user and current_user.is_authenticated() %}
-                <li><a href="{{ url_for('security-frontend.index') }}"><span class="glyphicon glyphicon-user"></span> {{current_user.contact.name or current_user.username}}</a></li>
+                <li><a href="{{ url_for('security-frontend.index') }}"><span class="glyphicon glyphicon-user"></span> {{current_user.contact[0].name or current_user.username}}</a></li>
                 {% if current_user.has_role('管理员') %}
                 <li><a href="/admin"><span class="glyphicon glyphicon-cog"></span> 管理</a></li>
                 {% endif %}

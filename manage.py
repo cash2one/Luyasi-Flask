@@ -70,10 +70,11 @@ def import_qingbank_user(filepath):
     max_row = sheet.nrows
     print 'Begin init qingbank contact'
     name_dict = {}
-    # max_row = 3
+#     max_row = 3
     for i in range(1, max_row):
-        print 'row', i
+        print str.format('{0}/{1}', i, max_row)
         employee_id = sheet.row_values(i)[0].strip()
+        dept_name = sheet.row_values(i)[1].strip()
         name = sheet.row_values(i)[2].strip()
         name_pinyin = pinyin.get(name)
         name_shot = pinyin.get_initial(name, '')
@@ -81,8 +82,13 @@ def import_qingbank_user(filepath):
         # 创建到数据库
         user = user_datastore.create_user(username=employee_id, password=name_pinyin)
         db.session.commit()
+        dept = api_department.first(name=dept_name)
+        if dept is None:
+            dept = api_department.create(name=dept_name)
 
-        api_contact.create(name=name,  name_pinyin=name_pinyin, name_shot=name_shot, user_id=user.id)
+        api_contact.create(name=name,  name_pinyin=name_pinyin, name_shot=name_shot, user_id=user.id, department_id=dept.id)
+        
+        
 
 
 if __name__ == '__main__':

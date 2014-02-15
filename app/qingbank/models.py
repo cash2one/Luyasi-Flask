@@ -1,6 +1,7 @@
 #-*- coding:utf-8 -*-
 from ..core import db
 from ..helpers import JsonSerializer
+from flask.ext.babel import gettext
 
 
 class Department(db.Model, JsonSerializer):
@@ -11,7 +12,7 @@ class Department(db.Model, JsonSerializer):
 	name = db.Column(db.String(20), unique=True)
 	address = db.Column(db.String(255))
 	def __repr__(self):
-		return str.format('<Department {0}>', self.name)
+		return gettext(u'%(value)s', value=self.name)
 
 
 class Contact(db.Model, JsonSerializer):
@@ -32,7 +33,10 @@ class Contact(db.Model, JsonSerializer):
 	
 	department_id = db.Column(db.Integer(), db.ForeignKey('qingbank_department.id'))
 	department = db.relationship('Department', backref=db.backref('contacts', lazy='dynamic'))
+
 	user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
-	user = db.relationship('User', backref=db.backref('contact'), uselist=False)
+	user = db.relationship('User', backref=db.backref('contact', uselist=True))
+
 	def __repr__(self):
-          return str.format('<Contact {0}>', self.name)
+          return gettext(u'%(value)s', value=self.name)
+

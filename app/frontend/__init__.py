@@ -17,7 +17,10 @@ class AuthModelView(ModelView):
         #return  current_user.is_authenticated() #最好用角色
 
 class UserView(AuthModelView):
-    column_searchable_list = ('email', 'username',)
+    column_searchable_list = ('username',)
+    #内联一个表单
+    # inline_models = (Contact,)
+    column_exclude_list = ('email',)
     def __init__(self):
         super(UserView, self).__init__(User, db.session, name='Users', endpoint='users', category='User Manage')
 

@@ -18,12 +18,12 @@ def index():
 @route(bp, '/profile/contact', methods=['GET', 'POST'])
 def profile_contact():
     """联系信息"""
-    form = CF(request.form,  obj=current_user.contact)
+    form = CF(request.form,  obj=current_user.contact[0])
     # form.populate_obj(current_user.contact)这是把值 放到model的方法
     
     if form.validate_on_submit():
-        form.populate_obj(current_user.contact)
-        api_contact.save(current_user.contact)
+        form.populate_obj(current_user.contact[0])
+        api_contact.update(current_user.contact[0])
         return redirect(url_for('.profile_contact'))
     return render_template('security/profile_contact.html', form=form)
 
