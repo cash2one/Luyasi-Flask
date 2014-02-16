@@ -1,4 +1,5 @@
 {% extends "qingbank/base.html" %}
+{% from "macros/_pager.html" import render_pager %}
 
 {% block title %}
 通讯录
@@ -16,6 +17,7 @@
 		</div>
 	</form>
     <hr/>
+    {{render_pager(contacts,'.list_contact_page', searchContact=searchContact) }}
     <ul class="list-unstyled">
 		{% for contact in contacts.items %}
         <li>
@@ -37,25 +39,7 @@
 		{% endfor %}
 	</ul>
 
-  <ul class="pagination">
-    {% if contacts.has_prev %}
-      <li><a href="{{ url_for('.list_contact_page', page=contacts.prev_num, searchContact=searchContact) }}">&laquo;</a></li>
-    {% endif %}
-    {% for page in contacts.iter_pages(left_current=3, right_current=4) %}
-      {% if page %}
-        {% if page != contacts.page %}
-          <li><a href="{{ url_for('.list_contact_page', page=page, searchContact=searchContact) }}">{{ page }}</a></li>
-        {% else %}
-           <li class="active"><span>{{page}}<span class="sr-only">{{page}}</span></span></li>
-        {% endif %}
-      {% else %}
-        <li><span class=ellipsis>…</span><li>
-      {% endif %}
-    {% endfor %}
-    {% if contacts.has_next %}
-      <li><a href="{{ url_for('.list_contact_page', page=contacts.next_num, searchContact=searchContact) }}">&raquo;</a></li>
-    {% endif %}
-  </ul>
+  {{render_pager(contacts,'.list_contact_page', searchContact=searchContact) }}
 
 {% endblock main%}
 
