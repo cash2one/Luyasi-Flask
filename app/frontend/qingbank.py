@@ -16,7 +16,8 @@ def index():
     """Returns the dashboard interface."""
     return render_template('qingbank/index.html')
 
-@route(bp, '/contacts/<int:page>', methods=['GET'])
+@bp.route('/contacts/<int:page>', methods=['GET'])
+#@route(bp, '/contacts/<int:page>', methods=['GET'])
 def list_contact_page(page):
 	searchContact = request.args.get('searchContact', '').strip()
 	if len(searchContact) > 0:
@@ -25,7 +26,7 @@ def list_contact_page(page):
 		page_contacts = api_contact.get_page(page)
 	return render_template('qingbank/contact_list.html', contacts=page_contacts, searchContact=searchContact)
 
-@route(bp, '/contact/<int:id>')
+@bp.route('/contact/<int:id>', methods=['GET'])
 def contact_detail(id):
 	contact = api_contact.get_or_404(id)
 	return render_template('qingbank/contact_detail.html', contact=contact)
