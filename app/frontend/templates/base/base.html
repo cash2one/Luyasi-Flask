@@ -58,7 +58,7 @@ body { padding-bottom: 71px; }
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user and current_user.is_authenticated() %}
                 <li><a href="{{ url_for('security-frontend.index') }}"><span class="glyphicon glyphicon-user"></span> {{current_user.contact[0].name or current_user.username}}</a></li>
-                {% if current_user.has_role('管理员') %}
+                {% if current_user.canAdmin() %}
                 <li><a href="/admin"><span class="glyphicon glyphicon-cog"></span> 管理</a></li>
                 {% endif %}
                 <li><a href="{{ url_for('security.logout') }}"><span class="glyphicon glyphicon-log-out"></span> 退出</a></li>

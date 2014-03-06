@@ -7,14 +7,21 @@ from flask.ext.security import current_user, login_required
 
 from .. import appfactory
 from ..core import admin, db
-from ..qingbank.models import Contact, Department
+from ..qingbank.models import Contact, Department, DocNode
 from ..security.models import Role, User
 
 # 控制管理面板FLask-Admin的权限
 class AuthModelView(ModelView):
+    allowRoles = ()
     def is_accessible(self):
-        return  current_user.has_role('管理员')
+        return  current_user.has_role('超级管理员') or self._hasOtherRole()
         #return  current_user.is_authenticated() #最好用角色
+    def _hasOtherRole(self):
+        for r in self.allowRoles:
+            if current_user.has_role(r):
+                return True
+        return False
+
 
 class UserView(AuthModelView):
     column_searchable_list = ('username',)
@@ -30,7 +37,8 @@ class RoleView(AuthModelView):
         super(RoleView, self).__init__(Role, db.session, name="Roles", endpoint="roles", category='User Manage')
 
 class ContactView(AuthModelView):
-    column_searchable_list = ('name',)
+    allowRoles = ('通讯录管理员',)
+    column_searchable_list = ('name', 'name_shot', 'name_pinyin')
     column_exclude_list = ('user',)
     def __init__(self):
         super(ContactView, self).__init__(Contact, db.session, name="Contacts", endpoint="contacts", category='Qingbank')
@@ -39,6 +47,10 @@ class DepartmentView(AuthModelView):
     column_searchable_list = ('name',)
     def __init__(self):
         super(DepartmentView, self).__init__(Department, db.session, name="Departments", endpoint="departments", category='Qingbank')
+
+class DocNodeView(AuthModelView):
+    def __init__(self):
+        super(DocNodeView, self).__init__(DocNode, db.session, name="DocNodes", endpoint="docnodes", category='Qingbank')
 
 
 def create_app(settings_override=None):
@@ -52,6 +64,7 @@ def create_app(settings_override=None):
     admin.add_view(RoleView())
     admin.add_view(ContactView())
     admin.add_view(DepartmentView())
+    admin.add_view(DocNodeView())
 
     admin.init_app(app)
 

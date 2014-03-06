@@ -10,7 +10,7 @@
 	<form method="get" action="{{ url_for('.list_contact_page', page=1) }}">
 		<div class="input-group">
 		  <input type="text" class="form-control" id="searchContact" name="searchContact" 
-		  placeholder="可以输入拼音，拼音首字母，全名" value="{{searchContact}}">
+		  placeholder="可以输入拼音，拼音首字母，全名，电话号码等" value="{{searchContact}}">
 		  <div class="input-group-btn">
 		  	<button class="btn btn-primary" id="search">查找</button>
 		  </div>
@@ -23,15 +23,15 @@
         <li>
             <div class="row">
 
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <h4 class="list-group-item-heading"><a target="blank" href="{{url_for('.contact_detail', id=contact.id)}}">{{contact.name}}</a></h4>
                     <p class="list-group-item-text"> {{contact.department.name}}</p>
                 </div>
-                <div class="col-md-6 text-left"> 
+                <div class="col-md-7 text-left"> 
                 	<dl class="dl-horizontal">
-			  <dt>办公电话：</dt><dd>{{contact.telephone or '无'}} </dd>
-			  <dt>内线电话：</dt><dd>{{contact.innerphone or '无'}}</dd>
-			</dl>  
+		  <dt>办公电话：</dt><dd>{{contact.telephone or '无'}} </dd>
+		  <dt>移动电话：</dt><dd>{{contact.mobile or '无'}}</dd>
+		</dl>  
                 </div>
              </div>
         </li>

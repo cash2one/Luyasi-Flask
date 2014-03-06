@@ -35,3 +35,8 @@ class User(db.Model, UserMixin):
     login_count = db.Column(db.Integer())
     def __repr__(self):
         return gettext(u'%(value)s', value=self.username or self.email)
+    def canAdmin(self):
+        for role in self.roles:
+            if '管理员' in role.name:
+                return True
+        return False

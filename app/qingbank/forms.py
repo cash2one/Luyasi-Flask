@@ -38,5 +38,7 @@ CF = model_form(Contact,
 	 		'label': '办公电话'
 	 	}, 'innerphone': {
 	 		'label': '内线'
+	 	}, 'description': {
+	 		'label': '备注'
 	 	}
 	})

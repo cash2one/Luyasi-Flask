@@ -30,6 +30,7 @@ class Contact(db.Model, JsonSerializer):
 	innerphone = db.Column(db.String(20))
 	fax = db.Column(db.String(14))
 	qq = db.Column(db.String(20))
+	description = db.Column(db.String(50))
 	
 	department_id = db.Column(db.Integer(), db.ForeignKey('qingbank_department.id'))
 	department = db.relationship('Department', backref=db.backref('contacts', lazy='dynamic'))
@@ -40,3 +41,18 @@ class Contact(db.Model, JsonSerializer):
 	def __repr__(self):
           return gettext(u'%(value)s', value=self.name)
 
+
+class DocNode(db.Model, JsonSerializer):
+	"""用来表示文档结构的一个节点"""
+	__tablename__ = 'qingbank_doc'
+
+	id = db.Column(db.Integer(), primary_key=True)
+	name = db.Column(db.String(255))
+	link = db.Column(db.String(255))
+	order = db.Column(db.Integer(), default=0)
+	is_leaf = db.Column(db.Boolean(), default=False)
+	parent_id = db.Column(db.Integer(), db.ForeignKey('qingbank_doc.id'))
+	parent = db.relationship('DocNode', remote_side=[id], backref='children')
+
+	def __repr__(self):
+		return gettext(u'%(value)s', value=self.name)
