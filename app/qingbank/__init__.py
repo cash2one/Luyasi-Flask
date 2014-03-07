@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 from sqlalchemy import or_
 
 from ..core import Service
@@ -8,7 +9,8 @@ class ContactService(Service):
 	__model__ = Contact
 
 	def search(self, keyword):
-		query = self.__model__.query.filter(or_(
+		query = self.__model__.query.join(self.__model__.department).filter(or_(
+			Department.name.contains(keyword),
 			self.__model__.mobile.contains(keyword),
 			self.__model__.telephone.contains(keyword),
 			self.__model__.fax.contains(keyword),
