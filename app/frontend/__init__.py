@@ -76,6 +76,9 @@ def create_app(settings_override=None):
     return app
 
 def handle_error(e):
+    #500的系统错误需要回滚db，不然数据库状态不对
+    if e == 500:
+        db.session.rollback()
     return render_template('%s.html' % e.code), e.code    
 
 #用于frotend的route
