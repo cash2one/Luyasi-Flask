@@ -9,7 +9,8 @@ from .core import db
 
 
 def register_blueprints(app, package_name, package_path):
-    """Register all Blueprint instances on the specified Flask application found
+    """
+    Register all Blueprint instances on the specified Flask application found
     in all modules for the specified package.
 
     :param app: the Flask application
@@ -24,7 +25,7 @@ def register_blueprints(app, package_name, package_path):
             if isinstance(item, Blueprint):
                 app.register_blueprint(item)
             rv.append(item)
-    if app.debug:
+    if app.config['DEBUG_ROUTE']:
         print 'route rules:'
         for rule in app.url_map.iter_rules():
             print rule, rule.endpoint

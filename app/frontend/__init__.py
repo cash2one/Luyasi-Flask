@@ -12,6 +12,7 @@ from ..security.models import Role, User
 
 # 控制管理面板FLask-Admin的权限
 class AuthModelView(ModelView):
+    '''Roles that allow to access the view.'''
     allowRoles = ()
     def is_accessible(self):
         return  current_user.has_role('超级管理员') or self._hasOtherRole()
@@ -54,6 +55,7 @@ class DocNodeView(AuthModelView):
 
 
 def create_app(settings_override=None):
+    """Different app use this to create app."""
     app = appfactory.create_app(__name__, __path__, settings_override)
 
     # Init assets

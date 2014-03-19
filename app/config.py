@@ -2,9 +2,11 @@
 
 import os
 
-_basedir = os.path.abspath(os.path.dirname(__file__))
-
+#Flask的debug开关。有利于看出错信息。
 DEBUG = True
+
+#是否需要显示所有的blueprint route
+DEBUG_ROUTE = False
 
 from flask.ext.babel import gettext, ngettext
 
@@ -15,6 +17,7 @@ ADMINS = frozenset(['kinorsi@gmail.com'])
 # SecretKeyForSessionSigning
 SECRET_KEY = 'luyasikinorsi'
 
+_basedir = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'luyasi_flask.db')
 DATABASE_CONNECT_OPTIONS = {}
 

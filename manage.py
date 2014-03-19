@@ -1,5 +1,9 @@
 #-*- coding:utf-8 -*-
 
+'''
+Some useful script for manage this app.
+'''
+
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')

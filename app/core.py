@@ -9,6 +9,7 @@ from flask.ext.mail import Mail
 
 #: Flask-SQLAlchemy extension instance
 db = SQLAlchemy()
+
 #: Flask-Admin extension instance
 admin = Admin(name='Admin', base_template='admin/admin_base.html')
 

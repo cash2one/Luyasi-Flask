@@ -1,12 +1,8 @@
 #-*- coding:utf-8 -*-
-# run.py 用来启动web server
-# from app import app
+# runserver.py 用来启动web server
 
-
-# app.run(debug=True)
 #解决jinja2在从view返回中文到template会出错的问题。
 import sys
-
 from app import api, frontend
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
@@ -14,8 +10,7 @@ from werkzeug.wsgi import DispatcherMiddleware
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-
-from flask.ext.security import forms
+# from flask.ext.security import forms
 
 #api接口
 api_app = api.create_app()
