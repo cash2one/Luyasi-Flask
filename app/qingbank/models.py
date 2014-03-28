@@ -36,7 +36,7 @@ class Contact(db.Model, JsonSerializer):
 	department = db.relationship('Department', backref=db.backref('contacts', lazy='dynamic'))
 
 	user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
-	user = db.relationship('User', backref=db.backref('contact', uselist=True))
+	user = db.relationship('User', backref=db.backref('contact', uselist=True, lazy='dynamic'))
 
 	def __repr__(self):
           return gettext(u'%(value)s', value=self.name)

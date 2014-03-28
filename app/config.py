@@ -11,9 +11,8 @@ DEBUG_ROUTE = False
 from flask.ext.babel import gettext, ngettext
 
 #在qingbank里不用mail
-ENABLE_SECURITY_MAIL = False
+ENABLE_SECURITY_MAIL = True
 
-ADMINS = frozenset(['kinorsi@gmail.com'])
 # SecretKeyForSessionSigning
 SECRET_KEY = 'luyasikinorsi'
 
@@ -32,27 +31,45 @@ RECAPTCHA_PRIVATE_KEY = '6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu'
 RECAPTCHA_OPTIONS = {'theme': 'white'}
 
 #: Flask-Security 配置
+SECURITY_EMAIL_SENDER='kinorsi@gmail.com'
 SECURITY_TRACKABLE = True
 SECURITY_CONFIRMABLE = False
 SECURITY_RECOVERABLE = True
 SECURITY_CHANGEABLE = True
+SECURITY_REGISTERABLE = True
 #加密算法
 # SECURITY_PASSWORD_HASH = 'sha512_crypt'
 # SECURITY_PASSWORD_SALT = '567HNtH731dfASd45hhHIJHIH'
 
 # 登陆时可以使用的字段
 SECURITY_USER_IDENTITY_ATTRIBUTES = ['email','username']
-#修改密码后不发邮件
-SECURITY_SEND_PASSWORD_CHANGE_EMAIL =  ENABLE_SECURITY_MAIL
+
+
 SECURITY_URL_PREFIX = '/security'
 SECURITY_POST_LOGIN_VIEW = '/qingbank/'
 SECURITY_POST_LOGOUT_VIEW = '/qingbank/'
+SECURITY_POST_REGISTER_VIEW = '/qingbank/'
+SECURITY_POST_CONFIRM_VIEW = '/qingbank/'
+
 SECURITY_MSG_LOGIN = (u'请先登陆', 'info')
-# 可以注册
-SECURITY_REGISTERABLE = True
-SECURITY_SEND_REGISTER_EMAIL = ENABLE_SECURITY_MAIL
+
+# 邮件功能
+SECURITY_SEND_REGISTER_EMAIL=ENABLE_SECURITY_MAIL #发送注册邮件
+SECURITY_SEND_PASSWORD_CHANGE_EMAIL=ENABLE_SECURITY_MAIL #发送密码更新邮件
+
 SECURITY_TOKEN_AUTHENTICATION_HEADER = 'auth_token'
 SECURITY_TOKEN_AUTHENTICATION_KEY = 'auth_token'
+#注册邮件是否需要进行验证
+SECURITY_CONFIRMABLE=ENABLE_SECURITY_MAIL
+
+#flask-security各类邮件头
+SECURITY_EMAIL_SUBJECT_REGISTER='感谢您注册kinorsi.com通行证'
+SECURITY_EMAIL_SUBJECT_PASSWORDLESS='你使用了kinorsi.com无密码登陆方式'
+SECURITY_EMAIL_SUBJECT_PASSWORD_NOTICE='您的kinorsi.com通行证已经成功重置'
+SECURITY_EMAIL_SUBJECT_PASSWORD_RESET='请验证您的kinorsi.com通行证密码重置'
+SECURITY_EMAIL_SUBJECT_PASSWORD_CHANGE_NOTICE='您的kinorsi.com通行证密码修改成功'
+SECURITY_EMAIL_SUBJECT_CONFIRM='请验证kinorsi.com注册'
+
 
 # babel config
 BABEL_DEFAULT_LOCALE = 'zh_Hans_CN'
@@ -61,21 +78,15 @@ BABEL_DEFAULT_TIMEZONE = 'UTC'
 # 抽取: pybabel extract -F babel.cfg -o messages.pot .
 # 生成：pybabel init -i messages.pot -d frontend/translations -l cs
 
-# Flask-Mail的配置
-# MAIL_DEFAULT_SENDER = 'kikycen@163.com'
-# MAIL_SERVER = 'smtp.163.com'
-# MAIL_PORT = 25
-# MAIL_USE_TLS = True
-# MAIL_USERNAME = 'kikycen@163.com'
-# MAIL_PASSWORD = 'cenkiky'
-
-MAIL_DEFAULT_SENDER = "luyasi hello"
-MAIL_SERVER = 'smtp.gmail.com'
-MAIL_PORT = 587
-MAIL_USE_TLS = True
-MAIL_USE_SSL = False
+#gmail.com
+MAIL_DEFAULT_SENDER = "kinorsi@gmail.com"
+MAIL_SERVER = 'smtp.googlemail.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
 MAIL_USERNAME = 'kinorsi@gmail.com'
 MAIL_PASSWORD = 'www.gmail.com'
+
 
 
 #Security 信息翻译用
