@@ -15,6 +15,10 @@ from flask import Flask
 from flask.ext.script import Manager, prompt_bool
 from flask.ext.security import Security, SQLAlchemyUserDatastore
 from flask.ext.sqlalchemy import SQLAlchemy
+#database migrate 
+from migrate.versioning import api
+
+import os
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -37,6 +41,42 @@ def create_db():
     db.create_all()
     print 'synchronization finished'
 
+@manager.command
+def create_db_migrate():
+    """Create database migrate."""
+    # db.create_all()
+    if not os.path.exists(config.SQLALCHEMY_MIGRATE_REPO):
+        api.create(config.SQLALCHEMY_MIGRATE_REPO, 'database repository')
+        api.version_control(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO)
+    else:
+        api.version_control(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO, api.version(config.SQLALCHEMY_MIGRATE_REPO))
+
+@manager.command
+def db_migrate():
+    """Generate migration. So use it after database changes"""
+    import imp
+    migration = config.SQLALCHEMY_MIGRATE_REPO + '/versions/%03d_migration.py' % (api.db_version(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO) + 1)
+    tmp_module = imp.new_module('old_model')
+    old_model = api.create_model(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO)
+    exec old_model in tmp_module.__dict__
+    script = api.make_update_script_for_model(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO, tmp_module.meta, db.metadata)
+    open(migration, "wt").write(script)
+    api.upgrade(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO)
+    print 'New migration saved as ' + migration
+    print 'Current database version: ' + str(api.db_version(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO))    
+
+@manager.command
+def db_upgrade():
+    """Upgrade database"""
+    api.upgrade(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO)
+    print 'Current database version: ' + str(api.db_version(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO))
+
+@manager.command
+def db_downgrade():
+    """Downgrade database one version."""
+    v = api.db_version(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO)
+    api.downgrade(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO, v - 1)
+    print 'Current database version: ' + str(api.db_version(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO))    
 
 @manager.command
 def drop_db():
@@ -125,9 +165,7 @@ def import_qingbank_user(filepath=None):
 
 @manager.command
 def init_doc_tree(dirpath=None):
-    '''
-    初始化树形目录结构
-    '''
+    """Init doc like tree"""
     from app.services import api_node
     import os
     #根目录

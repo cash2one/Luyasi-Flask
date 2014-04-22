@@ -9,6 +9,26 @@ DEBUG = True
 DEBUG_ROUTE = False
 
 from flask.ext.babel import gettext, ngettext
+from sanction import Client
+
+#OAuth client初始化
+# OAUTH_QQ = Client(
+# 	auth_endpoint="https://graph.qq.com/oauth2.0/authorize",
+# 	token_endpoint="https://graph.qq.com/oauth2.0/token",
+# 	resource_endpoint="https://graph.qq.com",
+# 	client_id="101055610",
+# 	client_secret="15053e08bfb35e21e14a23186457ece6"		
+# )
+
+OAUTH_QQ = {
+	"auth_endpoint": "https://graph.qq.com/oauth2.0/authorize",
+	"token_endpoint": "https://graph.qq.com/oauth2.0/token",
+	"resource_endpoint": "https://graph.qq.com",
+	"client_id" :"101055610",
+	"client_secret": "15053e08bfb35e21e14a23186457ece6"			
+}
+
+SERVER_HOST = 'kinorsi.com:5000'
 
 #在qingbank里不用mail
 ENABLE_SECURITY_MAIL = True
@@ -17,7 +37,13 @@ ENABLE_SECURITY_MAIL = True
 SECRET_KEY = 'luyasikinorsi'
 
 _basedir = os.path.abspath(os.path.dirname(__file__))
+
+#openid dir
+# OPENID_FS_STORE_PATH = os.path.join(_basedir, 'openid_tmp')
+
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'luyasi_flask.db')
+# database migrate 
+SQLALCHEMY_MIGRATE_REPO = os.path.join(_basedir, 'db_repository')
 DATABASE_CONNECT_OPTIONS = {}
 
 THREADS_PER_PAGE = 8
@@ -43,9 +69,17 @@ SECURITY_REGISTERABLE = True
 
 # 登陆时可以使用的字段
 SECURITY_USER_IDENTITY_ATTRIBUTES = ['email','username']
-
+#OpenID的提供方
+OPENID_PROVIDERS = [
+    { 'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id' },
+    { 'name': 'Yahoo', 'url': 'https://me.yahoo.com' },
+    { 'name': 'AOL', 'url': 'http://openid.aol.com/<username>' },
+    { 'name': 'Flickr', 'url': 'http://www.flickr.com/<username>' },
+    { 'name': 'MyOpenID', 'url': 'https://www.myopenid.com' }]
 
 SECURITY_URL_PREFIX = '/security'
+# 自己增加的用于openid
+SECURITY_OPENID_LOGIN_URL = '/openid_login'
 SECURITY_POST_LOGIN_VIEW = '/qingbank/'
 SECURITY_POST_LOGOUT_VIEW = '/qingbank/'
 SECURITY_POST_REGISTER_VIEW = '/qingbank/'

@@ -22,8 +22,16 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean())
+    nickname = db.Column(db.String(80))
 
-    # contact = db.relationship('Contact', backref='user', uselist=True)
+    #openid登陆后可以绑定旧有的帐号
+    bind_username = db.Column(db.String(255))
+    bind_email = db.Column(db.String(80))
+    # use for openid
+    openid = db.Column(db.String(80))
+    provider = db.Column(db.String(20))
+    #openid and provider should be unique
+    __table_args__ = (db.UniqueConstraint('openid', 'provider', name='_openid_provider_uc'),)
 
     # 要有邮件服务器才能使用
     confirmed_at = db.Column(db.DateTime())
@@ -33,8 +41,10 @@ class User(db.Model, UserMixin):
     last_login_ip = db.Column(db.String(80))
     current_login_ip = db.Column(db.String(80))
     login_count = db.Column(db.Integer())
+
     def __repr__(self):
         return gettext(u'%(value)s', value=self.username or self.email)
+
     def canAdmin(self):
         for role in self.roles:
             if '管理员' in role.name:

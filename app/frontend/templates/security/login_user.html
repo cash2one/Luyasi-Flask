@@ -3,6 +3,7 @@
 {% from "macros/fieldmacros.html" import render_error %}
 
 {% block container %}
+
 <div class='row'>
 	<div class="col-md-8">
 		{% include "security/_messages.html" %}		
@@ -35,7 +36,15 @@
 			<div class="text-center">
 				什么？<a href="{{url_for_security('forgot_password')}}">忘记密码！</a>
 			</div>
+			<input type="hidden" name="next" value="http://localhost:5000/qingbank">
 		</form>
+		<div>
+			{% for pr in providers %}
+				<a href="{{url_for_security('openid_login', openid=pr.url)}}">{{pr.name}}</a>|
+			{% endfor %}
+		</div>
+		<div><a href="/openid/qq"><img src="{{ url_for('static', filename='qingbank/icon/qq_bt_blue_76X24.png') }}" /></a></div>
 	</div>
+	
 </div>
 {% endblock %}

@@ -57,7 +57,7 @@ body { padding-bottom: 71px; }
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user and current_user.is_authenticated() %}
-                <li><a href="{{ url_for('security-frontend.index') }}"><span class="glyphicon glyphicon-user"></span> {{current_user.username or current_user.email}}</a></li>
+                <li><a href="{{ url_for('security-frontend.index') }}"><span class="glyphicon glyphicon-user"></span> {{current_user.nickname or current_user.username or current_user.email}}</a></li>
                 {% if current_user.canAdmin() %}
                 <li><a href="/admin"><span class="glyphicon glyphicon-cog"></span> 管理</a></li>
                 {% endif %}
@@ -71,7 +71,7 @@ body { padding-bottom: 71px; }
                 <li><a href="{{ url_for_security('forgot_password') }}">找回密码</a></li>
                 {% endif %}
                 {% if security.confirmable %}
-                <li><a href="{{ url_for_security('send_confirmation') }}">确认帐号</a></li>
+                <li><a href="{{ url_for_security('send_confirmation') }}">激活帐号</a></li>
                 {% endif %}                
                 {% endif %}
             </ul>
