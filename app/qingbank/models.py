@@ -35,7 +35,7 @@ class Contact(db.Model, JsonSerializer):
 	department_id = db.Column(db.Integer(), db.ForeignKey('qingbank_department.id'))
 	department = db.relationship('Department', backref=db.backref('contacts', lazy='dynamic'))
 
-	user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
+	user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
 	user = db.relationship('User', backref=db.backref('contact', uselist=True, lazy='dynamic'))
 
 	def __repr__(self):
@@ -50,7 +50,7 @@ class DocNode(db.Model, JsonSerializer):
 	name = db.Column(db.String(255))
 	link = db.Column(db.String(255))
 	order = db.Column(db.Integer(), default=0)
-	is_leaf = db.Column(db.Boolean(), default=False)
+	is_leaf = db.Column(db.Boolean(name='is_leaf'), default=False)
 	parent_id = db.Column(db.Integer(), db.ForeignKey('qingbank_doc.id'))
 	parent = db.relationship('DocNode', remote_side=[id], backref='children')
 

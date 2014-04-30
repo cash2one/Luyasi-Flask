@@ -4,11 +4,13 @@ from flask.ext.babel import gettext
 from ..core import db
 
 # 用在Flask-Security里的
-roles_users = db.Table('roles_users',
-    db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-    db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+roles_users = db.Table('security_roles_users',
+    db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id')),
+    db.Column('role_id', db.Integer(), db.ForeignKey('security_role.id')))
 
 class Role(db.Model, RoleMixin):
+    __tablename__ = 'security_role'
+
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
@@ -17,11 +19,13 @@ class Role(db.Model, RoleMixin):
         return gettext(u'%(value)s', value=self.name)
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'security_user'
+
     id = db.Column(db.Integer(), primary_key=True)
     email = db.Column(db.String(255), unique=True)
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(255))
-    active = db.Column(db.Boolean())
+    active = db.Column(db.Boolean(name='active'))
     nickname = db.Column(db.String(80))
 
     #openid登陆后可以绑定旧有的帐号
@@ -30,8 +34,8 @@ class User(db.Model, UserMixin):
     # use for openid
     openid = db.Column(db.String(80))
     provider = db.Column(db.String(20))
-    #openid and provider should be unique
-    __table_args__ = (db.UniqueConstraint('openid', 'provider', name='_openid_provider_uc'),)
+    #openid and provider should be unique. 命名规则和sqlalchem metadata一样。
+    __table_args__ = (db.UniqueConstraint('openid', 'provider', name='uq__user__openid__provider'),)
 
     # 要有邮件服务器才能使用
     confirmed_at = db.Column(db.DateTime())

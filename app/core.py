@@ -10,6 +10,15 @@ from flask.ext.mail import Mail
 #: Flask-SQLAlchemy extension instance
 # 1.0版本的flask-sqlalchemy的autoflush为False.不好用~所以这里改为True
 db = SQLAlchemy(session_options={'autocommit': False, 'autoflush': True})
+# 修改sqlalchemy生成约束时的命名规则。其中要注意ck，这是个check，这样以后在定义db.Boolean的时候要加个name:db.Boolean(name='sth')
+convention = {
+  "ix": 'ix__%(column_0_label)s',
+  "uq": "uq__%(table_name)s__%(column_0_name)s",
+  "ck": "ck__%(table_name)s__%(constraint_name)s",
+  "fk": "fk__%(table_name)s__%(column_0_name)s__%(referred_table_name)s",
+  "pk": "pk__%(table_name)s"
+}
+db.metadata.naming_convention=convention
 
 #: Flask-Admin extension instance - 在测试中会重复给admin.add_views而出现bug，所以admin的初始化最好放在create_app中
 # admin = Admin(name='Admin', base_template='admin/admin_base.html')
