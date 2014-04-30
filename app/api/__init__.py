@@ -6,16 +6,15 @@
 from functools import wraps
 
 from flask import jsonify
-from flask.ext.security import (auth_token_required, login_required,
-                                SQLAlchemyUserDatastore)
+from flask.ext.security import (auth_token_required, login_required, SQLAlchemyUserDatastore)
 
 from .. import appfactory
-from ..core import admin, db, security
+from ..core import db, security
 from ..helpers import JSONEncoder
 
 
 def create_app(settings_override=None, register_security_blueprint=True):
-    app = appfactory.create_app(__name__, __path__, register_security_blueprint)
+    app = appfactory.create_app(__name__, __path__, settings_override=settings_override, register_security_blueprint=register_security_blueprint)
     app.json_encoder = JSONEncoder
 
     return app

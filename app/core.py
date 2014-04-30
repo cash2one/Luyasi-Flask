@@ -8,10 +8,11 @@ from flask.ext.babel import Babel
 from flask.ext.mail import Mail
 
 #: Flask-SQLAlchemy extension instance
-db = SQLAlchemy()
+# 1.0版本的flask-sqlalchemy的autoflush为False.不好用~所以这里改为True
+db = SQLAlchemy(session_options={'autocommit': False, 'autoflush': True})
 
-#: Flask-Admin extension instance
-admin = Admin(name='Admin', base_template='admin/admin_base.html')
+#: Flask-Admin extension instance - 在测试中会重复给admin.add_views而出现bug，所以admin的初始化最好放在create_app中
+# admin = Admin(name='Admin', base_template='admin/admin_base.html')
 
 #: Flask-Mail extension instance
 mail = Mail()
@@ -19,13 +20,11 @@ mail = Mail()
 #: Flask-Security extension instance
 security = Security()
 
-#: Flask-Login extension instance
-# login_manager = LoginManager()
 
 # Flask-Babel
 babel = Babel()
 
-class OverholtFormError(Exception):
+class LuyasiFormError(Exception):
     """Raise when an error processing a form occurs."""
 
     def __init__(self, errors=None):
@@ -34,11 +33,6 @@ class OverholtFormError(Exception):
 class LuyasiError(Exception):
     def __init__(self, msg):
         self.msg = msg
-
-class LuyasiFormError(Exception):
-    def __init__(self, error=None):
-        self.error = error
-        
 
 class Service(object):
     """A :class:`Service` instance encapsulates common SQLAlchemy model

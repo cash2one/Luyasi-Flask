@@ -1,6 +1,7 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 import importlib
 import pkgutil
+import logging.handlers
 
 from flask import Blueprint
 from flask.json import JSONEncoder as BaseJSONEncoder
@@ -81,9 +82,9 @@ class JsonSerializer(object):
         rv = dict()
         for key in public:
             rv[key] = getattr(self, key)
-            #把单独的关联对象，显示为对应的名字
+            # 把单独的关联对象，显示为对应的名字
             if isinstance(rv[key], db.Model):
-                rv[key]=rv[key].__repr__()
+                rv[key] = rv[key].__repr__()
         for key, modifier in modifiers.items():
             value = getattr(self, key)
             rv[key] = modifier(value, self)
@@ -91,3 +92,73 @@ class JsonSerializer(object):
             rv.pop(key, None)
 
         return rv
+
+class TlsSMTPHandler(logging.handlers.SMTPHandler):
+    """Gmail should use this to do email logging. But it seems not work!"""
+    def emit(self, record):
+        """
+        Emit a record.
+        Format the record and send it to the specified addressees.
+        """
+        try:
+            import smtplib
+            import string  # for tls add this line
+            try:
+                from email.utils import formatdate
+            except ImportError:
+                formatdate = self.date_time
+            port = self.mailport
+            if not port:
+                port = smtplib.SMTP_PORT
+            smtp = smtplib.SMTP(self.mailhost, port)
+            msg = self.format(record)
+            msg = "From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\n\r\n%s" % (
+                            self.fromaddr,
+                            string.join(self.toaddrs, ","),
+                            self.getSubject(record),
+                            formatdate(), msg)
+            if self.username:
+                smtp.ehlo()  # for tls add this line
+                smtp.starttls()  # for tls add this line
+                smtp.ehlo()  # for tls add this line
+                smtp.login(self.username, self.password)
+            smtp.sendmail(self.fromaddr, self.toaddrs, msg)
+            smtp.quit()
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except:
+            self.handleError(record)
+
+class SslSTMPHandler(logging.handlers.SMTPHandler):
+    """When use SSL, need to use this. Currently used with QQEmail"""
+    def emit(self, record):
+        """
+        Emit a record.
+
+        Format the record and send it to the specified addressees.
+        """
+        try:
+            import smtplib
+            from email.utils import formatdate
+            port = self.mailport
+            if not port:
+                port = smtplib.SMTP_PORT
+            smtp = smtplib.SMTP_SSL(self.mailhost, port, timeout=self._timeout)
+            msg = self.format(record)
+            msg = "From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\n\r\n%s" % (
+                            self.fromaddr,
+                            ",".join(self.toaddrs),
+                            self.getSubject(record),
+                            formatdate(), msg)
+            if self.username:
+                if self.secure is not None:
+                    smtp.ehlo()
+                    smtp.starttls(*self.secure)
+                    smtp.ehlo()
+                smtp.login(self.username, self.password)
+            smtp.sendmail(self.fromaddr, self.toaddrs, msg)
+            smtp.quit()
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except:
+            self.handleError(record)    

@@ -2,11 +2,13 @@
 
 from functools import wraps
 
+from flask import render_template
 from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.security import current_user, login_required
+from flask.ext.admin import Admin
 
 from .. import appfactory
-from ..core import admin, db
+from ..core import db
 from ..qingbank.models import Contact, Department, DocNode
 from ..security.models import Role, User
 
@@ -58,8 +60,8 @@ def create_app(settings_override=None):
     """Different app use this to create app."""
     app = appfactory.create_app(__name__, __path__, settings_override)
 
-    # Init assets
-    # assets.init_app(app)
+    #这个只有网页上使用，放在这里的最大原因是为了防止在单元测试时重复增加adminview的endpoint
+    admin = Admin(name='Admin', base_template='admin/admin_base.html')
 
     # init Flask-Admin views
     admin.add_view(UserView())
@@ -67,7 +69,6 @@ def create_app(settings_override=None):
     admin.add_view(ContactView())
     admin.add_view(DepartmentView())
     admin.add_view(DocNodeView())
-
     admin.init_app(app)
 
     # Register custom error handlers
@@ -83,7 +84,7 @@ def handle_error(e):
         db.session.rollback()
     return render_template('%s.html' % e.code), e.code    
 
-#用于frotend的route
+#用于frontend的route
 def route(bp, *args, **kwargs):
     def decorator(f):
         @bp.route(*args, **kwargs)

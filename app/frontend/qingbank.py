@@ -4,10 +4,10 @@ from flask import Blueprint, render_template, request
 from . import route
 from ..services import api_contact, api_department
 from flask.ext.principal import Permission, RoleNeed
-from ..core import mail
-from flask.ext.mail import Message
+# from ..core import mail
+# from flask.ext.mail import Message
 
-bp = Blueprint('qingbank-frontend', __name__, template_folder='templates', static_folder='static', url_prefix='/qingbank')
+bp = Blueprint('qingbank-frontend', __name__,    template_folder='templates', static_folder='static', url_prefix='/qingbank')
 
 # admin_permission = Permission(RoleNeed('admin'))
 
@@ -33,10 +33,10 @@ def contact_detail(id):
 	contact = api_contact.get_or_404(id)
 	return render_template('qingbank/contact_detail.html', contact=contact)
 
-@bp.route('/sendmail', methods=['GET'])
-def send_mail():
-	msg = Message('a subject', recipients=['172440249@qq.com'])
-	msg.body='text body'
-	msg.html = '<h1>h1</h1> Html test'
-	mail.send(msg)
-	return 'OK'
+# @bp.route('/sendmail', methods=['GET'])
+# def send_mail():
+# 	msg = Message('a subject', recipients=['172440249@qq.com'])
+# 	msg.body='text body'
+# 	msg.html = '<h1>h1</h1> Html test'
+# 	mail.send(msg)
+# 	return 'OK'

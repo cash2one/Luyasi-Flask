@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 from flask import Blueprint, render_template, request, redirect, session, g, current_app, url_for
 from flask.ext.security import login_user, LoginForm, current_user
 from flask.ext.security.utils import get_url
@@ -21,7 +21,7 @@ def qq_parser(res):
 	try:
 	    match = re.match('callback\((.*)\)', res)
 	    if match != None:
-	        result = match.group(1)
+	    	result = match.group(1)
 	        jsonRes = loads(result)
 	    else:
 	        jsonRes = loads(res)
@@ -29,7 +29,7 @@ def qq_parser(res):
 	    jsonRes = dict(parse_qsl(res))
 
 	if jsonRes.has_key('expires_in'):
-		jsonRes['expires_in']=long(jsonRes['expires_in'])
+		jsonRes['expires_in'] = long(jsonRes['expires_in'])
 	
 	return jsonRes	   
 
@@ -44,17 +44,17 @@ def openid_authenticate(provider):
 	oauth_kwargs = current_app.config[str.format('OAUTH_{0}', provider.upper())]
 	c = Client(**oauth_kwargs)
 
-	return redirect(c.auth_uri(redirect_uri=str.format('{0}/openid/{1}/login', current_app.config['SERVER_HOST'], provider)))
+	return redirect(c.auth_uri(redirect_uri=str.format('{0}/openid/{1}/login', current_app.config['KINORSI_SERVER_HOST'], provider)))
 
 @bp.route('/openid/<provider>/login')
 def openid_login(provider):
-	#get parser for provider
+	# get parser for provider
 	parser = eval(str.format('{0}_parser', provider.lower()))
 	code = request.args.get('code')
 	oauth_kwargs = current_app.config[str.format('OAUTH_{0}', provider.upper())]
 	c = Client(**oauth_kwargs)	
 	# get request token
-	c.request_token(parser=parser, redirect_uri="kinorsi.com",grant_type='authorization_code', code=code)
+	c.request_token(parser=parser, redirect_uri="kinorsi.com", grant_type='authorization_code', code=code)
 
 	if hasattr(c, 'error') and c.error != 0:
 		print 'error:', c.error_description
@@ -62,13 +62,13 @@ def openid_login(provider):
 		session['access_token'] = c.access_token
 		session['refresh_token'] = c.refresh_token
 		session[u'expires_in'] = c.expires_in
-		#get open id
+		# get open id
 		res = c.request("/oauth2.0/me", parser=parser)
-		res['oauth_consumer_key']=res['client_id']
-		#get nickname. 
-		user_info = c.request('/user/get_user_info?' + urllib.urlencode(res), method='GET',parser=parser)
+		res['oauth_consumer_key'] = res['client_id']
+		# get nickname. 
+		user_info = c.request('/user/get_user_info?' + urllib.urlencode(res), method='GET', parser=parser)
 
-		#看看是不是已经在数据库中了，没有就写一个
+		# 看看是不是已经在数据库中了，没有就写一个
 		security = current_app.extensions['security']
 		datastore = security.datastore
 		user = datastore.find_user(openid=res['openid'], provider=provider.lower())
@@ -82,7 +82,7 @@ def openid_login(provider):
 
 		next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) or ''
 		
-		#如果用户没有绑定，可以让用户尝试进行首次的帐号绑定。如果不绑也可以在以后再绑
+		# 如果用户没有绑定，可以让用户尝试进行首次的帐号绑定。如果不绑也可以在以后再绑
 		if user.bind_username is None and user.bind_email is None:
 			return redirect(url_for('.bind_user'))
 
@@ -95,7 +95,7 @@ def bind_user():
 	form = form_class()
 
 	if form.validate_on_submit():
-		#这里要确认用户为username还是邮箱
+		# 这里要确认用户为username还是邮箱
 		match = re.match(r'^.+@[^.].*\.[a-z]{2,10}$', form.email.data, re.IGNORECASE)
 		if match is None:
 			current_user.bind_username = form.email.data

@@ -9,17 +9,8 @@ DEBUG = True
 DEBUG_ROUTE = False
 
 from flask.ext.babel import gettext, ngettext
-from sanction import Client
 
-#OAuth client初始化
-# OAUTH_QQ = Client(
-# 	auth_endpoint="https://graph.qq.com/oauth2.0/authorize",
-# 	token_endpoint="https://graph.qq.com/oauth2.0/token",
-# 	resource_endpoint="https://graph.qq.com",
-# 	client_id="101055610",
-# 	client_secret="15053e08bfb35e21e14a23186457ece6"		
-# )
-
+#OAuth client配置信息
 OAUTH_QQ = {
 	"auth_endpoint": "https://graph.qq.com/oauth2.0/authorize",
 	"token_endpoint": "https://graph.qq.com/oauth2.0/token",
@@ -28,20 +19,55 @@ OAUTH_QQ = {
 	"client_secret": "15053e08bfb35e21e14a23186457ece6"			
 }
 
-SERVER_HOST = 'kinorsi.com:5000'
+#SERVER_NAME就flask的自有配置。。上次不小心用了SERVER_NAME，搞到所有请求都是not found
+KINORSI_SERVER_NAME = 'kinorsi.com'
+KINORSI_SERVER_PORT = '5000'
+KINORSI_SERVER_HOST = str.format('%s:%s', KINORSI_SERVER_NAME, KINORSI_SERVER_PORT)
 
 #在qingbank里不用mail
 ENABLE_SECURITY_MAIL = True
+
+#gmail.com-for logging.写log和正常发邮件有所不同。。
+# MAIL_DEFAULT_SENDER = "kinorsi@gmail.com"
+# MAIL_SERVER = 'smtp.gmail.com'
+# MAIL_PORT = 587#465
+# MAIL_USE_TLS = False
+# MAIL_USE_SSL = True
+# MAIL_USERNAME = 'kinorsi@gmail.com'
+# MAIL_PASSWORD = 'www.gmail.com'
+
+#kinorsi.com - 可用
+# MAIL_DEFAULT_SENDER = "postmaster@kinorsi.com"
+# MAIL_SERVER = 'smtp.kinorsi.com'
+# MAIL_USERNAME = 'postmaster@kinorsi.com'
+# MAIL_PASSWORD = 'laogong2LAOPO'
+
+#mail.qq.com-使用helpers.SslSMTPHandler就可以了。
+MAIL_DEFAULT_SENDER = "kinorsi@qq.com"
+MAIL_SERVER = 'smtp.qq.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = 'kinorsi@qq.com'
+MAIL_PASSWORD = 'chouchou2TOUTOU'
+
+#收邮件用的管理员
+ADMINS=['172440249@qq.com']
+
 
 # SecretKeyForSessionSigning
 SECRET_KEY = 'luyasikinorsi'
 
 _basedir = os.path.abspath(os.path.dirname(__file__))
 
+#和app同一级路径存储log
+LOGGING_DIR = os.path.join(_basedir, '../logs')
+
 #openid dir
 # OPENID_FS_STORE_PATH = os.path.join(_basedir, 'openid_tmp')
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'luyasi_flask.db')
+
 # database migrate 
 SQLALCHEMY_MIGRATE_REPO = os.path.join(_basedir, 'db_repository')
 DATABASE_CONNECT_OPTIONS = {}
@@ -57,7 +83,7 @@ RECAPTCHA_PRIVATE_KEY = '6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu'
 RECAPTCHA_OPTIONS = {'theme': 'white'}
 
 #: Flask-Security 配置
-SECURITY_EMAIL_SENDER='kinorsi@gmail.com'
+SECURITY_EMAIL_SENDER=MAIL_DEFAULT_SENDER
 SECURITY_TRACKABLE = True
 SECURITY_CONFIRMABLE = False
 SECURITY_RECOVERABLE = True
@@ -70,12 +96,12 @@ SECURITY_REGISTERABLE = True
 # 登陆时可以使用的字段
 SECURITY_USER_IDENTITY_ATTRIBUTES = ['email','username']
 #OpenID的提供方
-OPENID_PROVIDERS = [
-    { 'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id' },
-    { 'name': 'Yahoo', 'url': 'https://me.yahoo.com' },
-    { 'name': 'AOL', 'url': 'http://openid.aol.com/<username>' },
-    { 'name': 'Flickr', 'url': 'http://www.flickr.com/<username>' },
-    { 'name': 'MyOpenID', 'url': 'https://www.myopenid.com' }]
+# OPENID_PROVIDERS = [
+#     { 'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id' },
+#     { 'name': 'Yahoo', 'url': 'https://me.yahoo.com' },
+#     { 'name': 'AOL', 'url': 'http://openid.aol.com/<username>' },
+#     { 'name': 'Flickr', 'url': 'http://www.flickr.com/<username>' },
+#     { 'name': 'MyOpenID', 'url': 'https://www.myopenid.com' }]
 
 SECURITY_URL_PREFIX = '/security'
 # 自己增加的用于openid
@@ -111,16 +137,6 @@ BABEL_DEFAULT_TIMEZONE = 'UTC'
 #related command-working dir: app
 # 抽取: pybabel extract -F babel.cfg -o messages.pot .
 # 生成：pybabel init -i messages.pot -d frontend/translations -l cs
-
-#gmail.com
-MAIL_DEFAULT_SENDER = "kinorsi@gmail.com"
-MAIL_SERVER = 'smtp.googlemail.com'
-MAIL_PORT = 465
-MAIL_USE_TLS = False
-MAIL_USE_SSL = True
-MAIL_USERNAME = 'kinorsi@gmail.com'
-MAIL_PASSWORD = 'www.gmail.com'
-
 
 
 #Security 信息翻译用
