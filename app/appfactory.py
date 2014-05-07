@@ -13,11 +13,17 @@ def create_app(package_name, package_path, settings_override=None, register_secu
 	"""
 	Create Flask application. 
 	Currently used modules that need to init includes:
-	1.Flask-SQLAlchemy
-	2.Flask-Mail
-	3.Flask-Babel
-	4.Flask-Security
-	5.Flask-Amdin: init int the front_app
+
+	* `Flask-SQLAlchemy <https://pythonhosted.org/Flask-SQLAlchemy>`_
+	* `Flask-Mail <http://pythonhosted.org/Flask-Mail/>`_
+	* `Flask-Babel <http://pythonhosted.org/Flask-Babel/>`_
+	* `Flask-Security <http://pythonhosted.org/Flask-Security/>`_
+	* `Flask-Amdin(only init from the frontend) <http://flask-admin.readthedocs.org/en/latest/index.html>`_ 
+
+	:param package_name: package name of the app.
+	:param package_path: package path of the app.
+	:param settings_override: setting that will override the existed setting items.
+	:param register_security_blueprint: flag to specify if the Flask-Security to register blueprint or not.
 	"""
 	app = Flask(package_name, instance_relative_config=True)
 	# 基本配置
@@ -35,7 +41,7 @@ def create_app(package_name, package_path, settings_override=None, register_secu
 
 	# init Flask-Security
 	security_datastore = SQLAlchemyUserDatastore(db, User, Role)
-	security.init_app(app, security_datastore)
+	security.init_app(app, security_datastore, register_blueprint=register_security_blueprint)
 	
 	# 注册view
 	register_blueprints(app, package_name, package_path)

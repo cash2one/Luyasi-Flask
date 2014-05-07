@@ -6,10 +6,12 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy import or_
 from flask.ext.babel import Babel
 from flask.ext.mail import Mail
-
-#: Flask-SQLAlchemy extension instance
-# 1.0版本的flask-sqlalchemy的autoflush为False.不好用~所以这里改为True
+from flask.ext.admin.contrib.sqla import ModelView
+from flask.ext.security import current_user
+# Flask-SQLAlchemy extension instance
+# Version 1.0 Flask-SQLalchemy autoflush default value is False. Here let it be True.
 db = SQLAlchemy(session_options={'autocommit': False, 'autoflush': True})
+
 # 修改sqlalchemy生成约束时的命名规则。其中要注意ck，这是个check，这样以后在定义db.Boolean的时候要加个name:db.Boolean(name='sth')
 convention = {
   "ix": 'ix__%(column_0_label)s',
@@ -20,18 +22,37 @@ convention = {
 }
 db.metadata.naming_convention=convention
 
-#: Flask-Admin extension instance - 在测试中会重复给admin.add_views而出现bug，所以admin的初始化最好放在create_app中
+# Flask-Admin extension instance - 在测试中会重复给admin.add_views而出现bug，所以admin的初始化最好放在create_app中
 # admin = Admin(name='Admin', base_template='admin/admin_base.html')
 
-#: Flask-Mail extension instance
+# Flask-Mail extension instance
 mail = Mail()
 
-#: Flask-Security extension instance
+# Flask-Security extension instance
 security = Security()
-
 
 # Flask-Babel
 babel = Babel()
+
+# 控制管理面板FLask-Admin的权限
+class AuthModelView(ModelView):
+    """Subclass of :class:`flask.ext.admin.contrib.sqla.ModelView`. This view need spedific roles to access.
+    """
+
+    #: roles allowed to access this type views.
+    allowedRoles = ()
+
+    def is_accessible(self):
+        """return True if accessable."""
+        return  current_user.has_role(u'超级管理员') or self._hasAllowedRole()
+        #return  current_user.is_authenticated() #最好用角色
+
+    def _hasAllowedRole(self):
+        """Has allowed roles or not."""
+        for r in self.allowedRoles:
+            if current_user.has_role(r):
+                return True
+        return False
 
 class LuyasiFormError(Exception):
     """Raise when an error processing a form occurs."""
@@ -101,7 +122,7 @@ class Service(object):
         """Returns a list of instances of the service's model with the specified
         ids.
 
-        :param *ids: instance ids
+        :param ids: instance ids
         """
         return self.__model__.query.filter(self.__model__.id.in_(ids)).all()
 
@@ -109,7 +130,7 @@ class Service(object):
         """Returns a list of instances of the service's model filtered by the
         specified key word arguments.
 
-        :param **kwargs: filter parameters
+        :param kwargs: filter parameters
         """
         return self.__model__.query.filter_by(**kwargs)
 
@@ -117,7 +138,7 @@ class Service(object):
         """Returns the first instance found of the service's model filtered by
         the specified key word arguments.
 
-        :param **kwargs: filter parameters
+        :param kwargs: filter parameters
         """
         return self.find(**kwargs).first()
 
@@ -132,14 +153,14 @@ class Service(object):
     def new(self, **kwargs):
         """Returns a new, unsaved instance of the service's model class.
 
-        :param **kwargs: instance parameters
+        :param kwargs: instance parameters
         """
         return self.__model__(**self._preprocess_params(kwargs))
 
     def create(self, **kwargs):
         """Returns a new, saved instance of the service's model class.
 
-        :param **kwargs: instance parameters
+        :param kwargs: instance parameters
         """
         return self.save(self.new(**kwargs))
 
@@ -147,7 +168,7 @@ class Service(object):
         """Returns an updated instance of the service's model class.
 
         :param model: the model to update
-        :param **kwargs: update parameters
+        :param kwargs: update parameters
         """
         self._isinstance(model)
         for k, v in self._preprocess_params(kwargs).items():

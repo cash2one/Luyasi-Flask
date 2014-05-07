@@ -11,13 +11,13 @@ bp = Blueprint('security-frontend', __name__, template_folder='templates', stati
 
 @route(bp, '/profile/', methods=['GET'])
 def index():
-    """个人中心的主页面"""
+    """Rerturn personal profile page."""
     return render_template('security/profile.html')
 
 
 @route(bp, '/profile/contact', methods=['GET', 'POST'])
 def profile_contact():
-    """联系信息"""
+    """Contact of personal profile."""
     if current_user.contact.count() >=1:
         form = ContactForm(request.form,  obj=current_user.contact[0])
     else:
@@ -38,5 +38,5 @@ def profile_contact():
 
 @route(bp, '/profile/security', methods=['GET'])
 def profile_security():
-    """修改密码"""
+    """Change personal profile password."""
     return render_template('security/profile_security.html')    

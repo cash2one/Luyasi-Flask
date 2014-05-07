@@ -15,12 +15,17 @@ bp = Blueprint('qingbank-frontend', __name__,    template_folder='templates', st
 @bp.route('/')
 # @admin_permission.require()
 def index():
-    """Returns the dashboard interface."""
+    """Returns the qingbank index page."""
     return render_template('qingbank/index.html')
 
 @bp.route('/contacts/<int:page>', methods=['GET'])
 #@route(bp, '/contacts/<int:page>', methods=['GET'])
 def list_contact_page(page):
+	"""Return one page contacts.
+
+	:param page: current page need to be return. page >= 1.
+	"""
+
 	searchContact = request.args.get('searchContact', '').strip()
 	if len(searchContact) > 0:
 		page_contacts = api_contact.search(searchContact).paginate(page)
@@ -30,6 +35,10 @@ def list_contact_page(page):
 
 @bp.route('/contact/<int:id>', methods=['GET'])
 def contact_detail(id):
+	"""Return detail contact for the given id.
+
+	:param id: contact id.
+	"""
 	contact = api_contact.get_or_404(id)
 	return render_template('qingbank/contact_detail.html', contact=contact)
 

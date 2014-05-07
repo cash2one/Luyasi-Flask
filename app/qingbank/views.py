@@ -1,13 +1,25 @@
 #-*- coding:utf-8 -*-
-# from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for, jsonify, json
 
-# from . import api_contact, api_department
+import app.core
+from .models import Contact, Department, DocNode 
 
+class ContactView(app.core.AuthModelView):
+    """Admin view for :class:`~app.qingbank.models.Contact`"""
 
-# mod = Blueprint('contact', __name__, url_prefix='/qingbank')
+    allowRoles = (u'通讯录管理员',)
+    column_searchable_list = ('name', 'name_shot', 'name_pinyin')
+    column_exclude_list = ('user',)
+    def __init__(self):
+        super(ContactView, self).__init__(Contact, app.core.db.session, name="Contacts", endpoint="contacts", category='Qingbank')
 
-# @mod.route('/contact')
-# def list_contact():
-# 	contacts = api_contact.all()
-# 	return jsonify(contacts = contacts), 200
+class DepartmentView(app.core.AuthModelView):
+    """Admin view for :class:`~app.qingbank.models.Department`"""
 
+    column_searchable_list = ('name',)
+    def __init__(self):
+        super(DepartmentView, self).__init__(Department, app.core.db.session, name="Departments", endpoint="departments", category='Qingbank')
+
+class DocNodeView(app.core.AuthModelView):
+    """Admin view for :class:`~app.qingbank.models.DocNode`"""    
+    def __init__(self):
+        super(DocNodeView, self).__init__(DocNode, app.core.db.session, name="DocNodes", endpoint="docnodes", category='Qingbank')

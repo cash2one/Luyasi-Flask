@@ -1,5 +1,9 @@
 #-*- coding:utf-8 -*-
 
+"""
+Flask app setting.
+"""
+
 import os
 
 #Flask的debug开关。有利于看出错信息。
@@ -12,7 +16,7 @@ from flask.ext.babel import gettext, ngettext
 
 #OAuth client配置信息
 OAUTH_QQ = {
-	"auth_endpoint": "https://graph.qq.com/oauth2.0/authorize",
+	"auth_endpoint": "https://graph.qq.com/oauth2.0/authorize",	
 	"token_endpoint": "https://graph.qq.com/oauth2.0/token",
 	"resource_endpoint": "https://graph.qq.com",
 	"client_id" :"101055610",
@@ -24,7 +28,7 @@ KINORSI_SERVER_NAME = 'kinorsi.com'
 KINORSI_SERVER_PORT = '5000'
 KINORSI_SERVER_HOST = str.format('%s:%s', KINORSI_SERVER_NAME, KINORSI_SERVER_PORT)
 
-#在qingbank里不用mail
+#: In some case, email will not used at all. e.g. When use qingbank module only.
 ENABLE_SECURITY_MAIL = True
 
 #gmail.com-for logging.写log和正常发邮件有所不同。。
@@ -82,7 +86,7 @@ RECAPTCHA_PUBLIC_KEY = '6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J'
 RECAPTCHA_PRIVATE_KEY = '6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu'
 RECAPTCHA_OPTIONS = {'theme': 'white'}
 
-#: Flask-Security 配置
+# Flask-Security 配置
 SECURITY_EMAIL_SENDER=MAIL_DEFAULT_SENDER
 SECURITY_TRACKABLE = True
 SECURITY_CONFIRMABLE = False

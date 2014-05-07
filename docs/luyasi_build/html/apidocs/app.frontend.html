@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>app.frontend package &mdash; Luyasi 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Luyasi 1 documentation" href="../index.html" />
+    <link rel="up" title="app" href="modules.html" />
+    <link rel="next" title="app.home package" href="app.home.html" />
+    <link rel="prev" title="app.security package" href="app.security.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="app.home.html" title="app.home package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="app.security.html" title="app.security package"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Luyasi 1 documentation</a> &raquo;</li>
+          <li><a href="modules.html" accesskey="U">app</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="app-frontend-package">
+<h1>app.frontend package<a class="headerlink" href="#app-frontend-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-app.frontend.kinorsi">
+<span id="app-frontend-kinorsi-module"></span><h2>app.frontend.kinorsi module<a class="headerlink" href="#module-app.frontend.kinorsi" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="app.frontend.kinorsi.bind_user">
+<tt class="descclassname">app.frontend.kinorsi.</tt><tt class="descname">bind_user</tt><big>(</big><big>)</big><a class="headerlink" href="#app.frontend.kinorsi.bind_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind user local account with openid account</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.kinorsi.index">
+<tt class="descclassname">app.frontend.kinorsi.</tt><tt class="descname">index</tt><big>(</big><big>)</big><a class="headerlink" href="#app.frontend.kinorsi.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return index page</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.kinorsi.openid_authenticate">
+<tt class="descclassname">app.frontend.kinorsi.</tt><tt class="descname">openid_authenticate</tt><big>(</big><em>provider</em><big>)</big><a class="headerlink" href="#app.frontend.kinorsi.openid_authenticate" title="Permalink to this definition">¶</a></dt>
+<dd><p>return openid authenticate url for client to authenticate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>provider</strong> &#8211; OAuth2 provider.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.kinorsi.openid_login">
+<tt class="descclassname">app.frontend.kinorsi.</tt><tt class="descname">openid_login</tt><big>(</big><em>provider</em><big>)</big><a class="headerlink" href="#app.frontend.kinorsi.openid_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return OAuth2 login view for the given provider.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>provider</strong> &#8211; OAuth2 provider.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.kinorsi.qq_parser">
+<tt class="descclassname">app.frontend.kinorsi.</tt><tt class="descname">qq_parser</tt><big>(</big><em>res</em><big>)</big><a class="headerlink" href="#app.frontend.kinorsi.qq_parser" title="Permalink to this definition">¶</a></dt>
+<dd><p>OAuth2 response parser for QQ</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>res</strong> &#8211; OAuth2 response.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.frontend.qingbank">
+<span id="app-frontend-qingbank-module"></span><h2>app.frontend.qingbank module<a class="headerlink" href="#module-app.frontend.qingbank" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="app.frontend.qingbank.contact_detail">
+<tt class="descclassname">app.frontend.qingbank.</tt><tt class="descname">contact_detail</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#app.frontend.qingbank.contact_detail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return detail contact for the given id.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; contact id.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.qingbank.index">
+<tt class="descclassname">app.frontend.qingbank.</tt><tt class="descname">index</tt><big>(</big><big>)</big><a class="headerlink" href="#app.frontend.qingbank.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the qingbank index page.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.qingbank.list_contact_page">
+<tt class="descclassname">app.frontend.qingbank.</tt><tt class="descname">list_contact_page</tt><big>(</big><em>page</em><big>)</big><a class="headerlink" href="#app.frontend.qingbank.list_contact_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return one page contacts.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>page</strong> &#8211; current page need to be return. page &gt;= 1.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.frontend.security">
+<span id="app-frontend-security-module"></span><h2>app.frontend.security module<a class="headerlink" href="#module-app.frontend.security" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="app.frontend.security.index">
+<tt class="descclassname">app.frontend.security.</tt><tt class="descname">index</tt><big>(</big><big>)</big><a class="headerlink" href="#app.frontend.security.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rerturn personal profile page.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.security.profile_contact">
+<tt class="descclassname">app.frontend.security.</tt><tt class="descname">profile_contact</tt><big>(</big><big>)</big><a class="headerlink" href="#app.frontend.security.profile_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contact of personal profile.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.security.profile_security">
+<tt class="descclassname">app.frontend.security.</tt><tt class="descname">profile_security</tt><big>(</big><big>)</big><a class="headerlink" href="#app.frontend.security.profile_security" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change personal profile password.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.frontend">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.frontend" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="app.frontend.create_app">
+<tt class="descclassname">app.frontend.</tt><tt class="descname">create_app</tt><big>(</big><em>settings_override=None</em><big>)</big><a class="headerlink" href="#app.frontend.create_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create frontend application.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>settings_override</strong> &#8211; settings that need to override Default to None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">app.frontend package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-app.frontend.kinorsi">app.frontend.kinorsi module</a></li>
+<li><a class="reference internal" href="#module-app.frontend.qingbank">app.frontend.qingbank module</a></li>
+<li><a class="reference internal" href="#module-app.frontend.security">app.frontend.security module</a></li>
+<li><a class="reference internal" href="#module-app.frontend">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="app.security.html"
+                        title="previous chapter">app.security package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="app.home.html"
+                        title="next chapter">app.home package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/apidocs/app.frontend.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="app.home.html" title="app.home package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="app.security.html" title="app.security package"
+             >previous</a> |</li>
+        <li><a href="../index.html">Luyasi 1 documentation</a> &raquo;</li>
+          <li><a href="modules.html" >app</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Kinorsi Huang.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

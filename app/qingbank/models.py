@@ -43,7 +43,7 @@ class Contact(db.Model, JsonSerializer):
 
 
 class DocNode(db.Model, JsonSerializer):
-	"""用来表示文档结构的一个节点"""
+	"""Node for document"""
 	__tablename__ = 'qingbank_doc'
 
 	id = db.Column(db.Integer(), primary_key=True)

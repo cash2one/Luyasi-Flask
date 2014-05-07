@@ -10,13 +10,13 @@ from ..core import db
 
 
 class ContactForm(Form):
-	name = TextField('名字')
-	duty = TextField('职务')
+	name = TextField(u'名字')
+	duty = TextField(u'职务')
 	#department = TextField('部门')
-	mobile = TextField('移动电话')
-	telephone =TextField('办公电话')
-	innerphone = TextField('内线')
-	fax = TextField('传真')
+	mobile = TextField(u'移动电话')
+	telephone =TextField(u'办公电话')
+	innerphone = TextField(u'内线')
+	fax = TextField(u'传真')
 
 
 CF = model_form(Contact, 

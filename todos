@@ -8,4 +8,5 @@
 6.注册成功后的跳转要修改
 7.在readthedocs里
 8.转成mysql.sqlite在修改column时不好用。MySQL-python安装好像要编译，参考http://stackoverflow.com/questions/2272786/python-issueunable-to-find-vcvarsall-bat
+9.使用wingide -- OK
 

@@ -33,5 +33,4 @@ def contact():
 
 	print contactRes.read()
 
-# login()
-contact()
+

@@ -6,6 +6,9 @@ from .models import Contact, Department, DocNode
 
 
 class ContactService(Service):
+	"""Contact api service.
+	"""
+
 	__model__ = Contact
 
 	def search(self, keyword):
@@ -21,7 +24,12 @@ class ContactService(Service):
 		return query
 
 class DepartmentService(Service):
+	"""Department api service.
+	"""
+
 	__model__ = Department
 
 class NodeService(Service):
+	"""Node api service.
+	"""
 	__model__ = DocNode

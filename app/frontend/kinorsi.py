@@ -17,7 +17,10 @@ _security = LocalProxy(lambda: current_app.extensions['security'])
 _datastore = LocalProxy(lambda: _security.datastore)
 
 def qq_parser(res):
-	"""OAuth2 response parser for QQ """
+	"""OAuth2 response parser for QQ 
+	
+	:param res: OAuth2 response.
+	"""
 	try:
 	    match = re.match('callback\((.*)\)', res)
 	    if match != None:
@@ -40,7 +43,10 @@ def index():
 
 @bp.route('/openid/<provider>')
 def openid_authenticate(provider):
-	"""return openid authenticate url for client to authenticate"""
+	"""return openid authenticate url for client to authenticate
+
+	:param provider: OAuth2 provider.
+	"""
 	oauth_kwargs = current_app.config[str.format('OAUTH_{0}', provider.upper())]
 	c = Client(**oauth_kwargs)
 
@@ -48,6 +54,11 @@ def openid_authenticate(provider):
 
 @bp.route('/openid/<provider>/login')
 def openid_login(provider):
+	"""Return OAuth2 login view for the given provider.
+
+	:param provider: OAuth2 provider.
+	"""
+
 	# get parser for provider
 	parser = eval(str.format('{0}_parser', provider.lower()))
 	code = request.args.get('code')
@@ -91,6 +102,7 @@ def openid_login(provider):
 @bp.route('/openid/bind', methods=['GET', 'POST'])
 def bind_user():
 	"""Bind user local account with openid account"""
+
 	form_class = _security.login_form
 	form = form_class()
 

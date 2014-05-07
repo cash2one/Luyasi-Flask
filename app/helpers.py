@@ -2,11 +2,15 @@
 import importlib
 import pkgutil
 import logging.handlers
+import inspect
 
 from flask import Blueprint
 from flask.json import JSONEncoder as BaseJSONEncoder
+from flask.ext.admin.contrib.sqla import ModelView
 
 from .core import db
+
+import os
 
 
 def register_blueprints(app, package_name, package_path):
@@ -32,6 +36,24 @@ def register_blueprints(app, package_name, package_path):
             print rule, rule.endpoint
 
     return rv
+
+def collect_admin_views(admin):
+    """Collect `Flask-Admin <http://flask-admin.readthedocs.org/en/latest/index.html>`_ views in each module"""
+    doc_pos = __name__.rfind(r'.')
+    parent = __name__[:doc_pos]
+    path = os.path.dirname(__file__)
+    for _, name, ispkg in pkgutil.walk_packages([path]):
+        if ispkg:
+            for _, module, ispkg in pkgutil.iter_modules([path + '/' + name]):
+                if not ispkg:
+                    module_name = '%s.%s.%s' % (parent, name, module)
+                    m = importlib.import_module(module_name)
+                    for item in dir(m):
+                        item = getattr(m, item)
+                        if inspect.isclass(item) and issubclass(item, ModelView):
+                            admin.add_view(item())
+   
+                
 
 def import_model(model_path):
     m = importlib.import_module(model_path)
