@@ -6,4 +6,4 @@ import unittest
 from tests.frontend.qingbank_tests import QingbankFrontendTestCase
 
 if __name__ == '__main__':
-	unittest.main()
+    unittest.main()

@@ -159,8 +159,8 @@ def import_qingbank_user(filepath=None):
             dept = api_department.create(name=dept_name)
 
         api_contact.create(name=name,  name_pinyin=name_pinyin, name_shot=name_shot, 
-                user_id=user.id, department_id=dept.id, duty=duty, mobile=mobile, telephone=tel, fax=fax, description=desc)
-        
+                           user_id=user.id, department_id=dept.id, duty=duty, mobile=mobile, telephone=tel, fax=fax, description=desc)
+
     print repeat_id
 
 @manager.command
@@ -200,7 +200,7 @@ def init_doc_tree(dirpath=None):
             link = os.path.normpath(link).replace('\\', '/')
             api_node.create(name=name,parent_id=parent.id,link=link, is_leaf=True)
             print fn
-    
+
     print 'end'
 
 if __name__ == '__main__':

@@ -8,11 +8,9 @@ from tests.factories import UserFactory, RoleFactory, ContactFactory
 
 class QingbankApiTestCase(LuyasiApiTestCase):
 
-	render_templates = False
+    render_templates = False
 
-	def setUp(self):
-		super(QingbankApiTestCase, self).setUp()
- 		self._login()
+    def setUp(self):
+        super(QingbankApiTestCase, self).setUp()
+        self._login()
 
-
-		

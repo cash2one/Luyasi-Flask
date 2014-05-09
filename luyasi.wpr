@@ -1,0 +1,42 @@
+#!wing
+#!version=5.0
+##################################################################
+# Wing IDE project file                                          #
+##################################################################
+[project attributes]
+debug.named-entry-points = (1,
+                            {'debug_test': ({},
+        {'auto-show': False,
+         'launch-id': ('project',
+                       (u'',
+                        '')),
+         'loc': loc('runtests.py')}),
+                             'manager_scripts': ({},
+        {'auto-show': True,
+         'launch-id': ('project',
+                       (u'',
+                        '')),
+         'loc': loc('manage.py')}),
+                             'runserver': ({},
+        {'auto-show': False,
+         'launch-id': ('project',
+                       (u'',
+                        '')),
+         'loc': loc('runserver.py')})})
+proj.directory-list = [{'dirloc': loc('.'),
+                        'excludes': (),
+                        'filter': u'*',
+                        'include_hidden': False,
+                        'recursive': True,
+                        'watch_for_changes': True},
+                       {'dirloc': loc('../flask/Lib/site-packages'),
+                        'excludes': (),
+                        'filter': u'*',
+                        'include_hidden': False,
+                        'recursive': True,
+                        'watch_for_changes': True}]
+proj.file-type = 'shared'
+proj.main-file = loc('runserver.py')
+testing.auto-test-file-specs = (('glob',
+                                 '*_tests.py'),)
+testing.test-framework = {None: 'nose'}

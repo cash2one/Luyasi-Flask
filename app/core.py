@@ -14,11 +14,12 @@ db = SQLAlchemy(session_options={'autocommit': False, 'autoflush': True})
 
 # 修改sqlalchemy生成约束时的命名规则。其中要注意ck，这是个check，这样以后在定义db.Boolean的时候要加个name:db.Boolean(name='sth')
 convention = {
-  "ix": 'ix__%(column_0_label)s',
-  "uq": "uq__%(table_name)s__%(column_0_name)s",
-  "ck": "ck__%(table_name)s__%(constraint_name)s",
-  "fk": "fk__%(table_name)s__%(column_0_name)s__%(referred_table_name)s",
-  "pk": "pk__%(table_name)s"
+    "ix": 'ix__%(column_0_label)s',
+    "uq": "uq__%(table_name)s__%(column_0_name)s",
+    # mysql 不支持check constraint
+    "ck": "ck__%(table_name)s__%(constraint_name)s",
+    "fk": "fk__%(table_name)s__%(column_0_name)s__%(referred_table_name)s",
+    "pk": "pk__%(table_name)s"
 }
 db.metadata.naming_convention=convention
 

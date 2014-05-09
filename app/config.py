@@ -16,11 +16,11 @@ from flask.ext.babel import gettext, ngettext
 
 #OAuth client配置信息
 OAUTH_QQ = {
-	"auth_endpoint": "https://graph.qq.com/oauth2.0/authorize",	
-	"token_endpoint": "https://graph.qq.com/oauth2.0/token",
-	"resource_endpoint": "https://graph.qq.com",
-	"client_id" :"101055610",
-	"client_secret": "15053e08bfb35e21e14a23186457ece6"			
+    "auth_endpoint": "https://graph.qq.com/oauth2.0/authorize",	
+    "token_endpoint": "https://graph.qq.com/oauth2.0/token",
+    "resource_endpoint": "https://graph.qq.com",
+    "client_id" :"101055610",
+    "client_secret": "15053e08bfb35e21e14a23186457ece6"			
 }
 
 #SERVER_NAME就flask的自有配置。。上次不小心用了SERVER_NAME，搞到所有请求都是not found
@@ -70,7 +70,10 @@ LOGGING_DIR = os.path.join(_basedir, '../logs')
 #openid dir
 # OPENID_FS_STORE_PATH = os.path.join(_basedir, 'openid_tmp')
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'luyasi_flask.db')
+#SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'luyasi_flask.db')
+
+# 用mysql的话，alembic的detected有点问题.喜欢重新删除约束，重建，或者修改boolean为tinyint等。。~看来要手动改改代码。我顶他个肺肺
+SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:qingbank@localhost/luyasi-flask?charset=utf8&use_unicode=0'
 
 # database migrate 
 SQLALCHEMY_MIGRATE_REPO = os.path.join(_basedir, 'db_repository')

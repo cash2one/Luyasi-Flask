@@ -23,7 +23,7 @@ def profile_contact():
     else:
         form = ContactForm(request.form)
     # form.populate_obj(current_user.contact)这是把值 放到model的方法
-    
+
     if form.validate_on_submit():
         if current_user.contact.count() >= 1:
             form.populate_obj(current_user.contact.first())

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-08 15:18+0800\n"
+"POT-Creation-Date: 2014-05-09 17:33+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: frontend/templates/security/login_user.html:7
-msgid "A simple string"
+#: frontend/templates/security/email/change_notice.html:1
+msgid "Your password has been changed."
 msgstr ""
 
-#: frontend/templates/security/login_user.html:8
-msgid "enghli"
+#: frontend/templates/security/email/change_notice.html:3
+msgid "If you did not change your password, "
 msgstr ""
 
-#: frontend/templates/security/login_user.html:9
-msgid "asdf"
+#: frontend/templates/security/email/change_notice.html:3
+msgid "click here to reset it"
+msgstr ""
+
+#: frontend/templates/security/email/confirmation_instructions.html:1
+msgid "Please confirm your email through the link below"
+msgstr ""
+
+#: frontend/templates/security/email/confirmation_instructions.html:3
+msgid "Confirm my account"
+msgstr ""
+
+#: frontend/templates/security/email/login_instructions.html:1
+#: frontend/templates/security/email/welcome.html:1
+msgid "Welcome"
+msgstr ""
+
+#: frontend/templates/security/email/login_instructions.html:3
+msgid "You can log into your through the link below"
+msgstr ""
+
+#: frontend/templates/security/email/login_instructions.html:5
+msgid "Login now"
+msgstr ""
+
+#: frontend/templates/security/email/reset_instructions.html:1
+msgid "Click here to reset your password"
+msgstr ""
+
+#: frontend/templates/security/email/reset_notice.html:1
+msgid "Your password has been reset"
+msgstr ""
+
+#: frontend/templates/security/email/welcome.html:4
+msgid "You can confirm your email through the link below"
+msgstr ""
+
+#: frontend/templates/security/email/welcome.html:6
+msgid "Confirm my accoun"
+msgstr ""
+
+#: qingbank/models.py:16 qingbank/models.py:43 qingbank/models.py:59
+#: security/models.py:19 security/models.py:50
+#, python-format
+msgid "%(value)s"
 msgstr ""
 

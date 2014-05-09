@@ -11,13 +11,13 @@ bp_department = Blueprint('qingbank_department', __name__, url_prefix='/qingbank
 
 @route(bp_contact, '/')
 def list_contacts():
-	return api_contact.all()
+    return api_contact.all()
 
 @route(bp_contact, '/<int:id>', methods=['GET'])
 def get_contact(id):
-	c = api_contact.get(id)
-	return dict(contact=c)
+    c = api_contact.get(id)
+    return dict(contact=c)
 
 @route(bp_contact, '/<int:id>', methods=['POST'])
 def update_contact(id):
-	return api_contact.get(id)
+    return api_contact.get(id)

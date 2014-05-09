@@ -5,8 +5,8 @@ from ..core import db
 
 # 用在Flask-Security里的
 roles_users = db.Table('security_roles_users',
-    db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id')),
-    db.Column('role_id', db.Integer(), db.ForeignKey('security_role.id')))
+                       db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id')),
+                       db.Column('role_id', db.Integer(), db.ForeignKey('security_role.id')))
 
 class Role(db.Model, RoleMixin):
     __tablename__ = 'security_role'

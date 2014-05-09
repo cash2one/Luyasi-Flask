@@ -52,8 +52,8 @@ def collect_admin_views(admin):
                         item = getattr(m, item)
                         if inspect.isclass(item) and issubclass(item, ModelView):
                             admin.add_view(item())
-   
-                
+
+
 
 def import_model(model_path):
     m = importlib.import_module(model_path)
@@ -96,7 +96,7 @@ class JsonSerializer(object):
 
     def to_json(self):
         field_names = self.get_field_names()
-    
+
         public = self.__json_public__ or field_names
         hidden = self.__json_hidden__ or []
         modifiers = self.__json_modifiers__ or dict()
@@ -135,10 +135,10 @@ class TlsSMTPHandler(logging.handlers.SMTPHandler):
             smtp = smtplib.SMTP(self.mailhost, port)
             msg = self.format(record)
             msg = "From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\n\r\n%s" % (
-                            self.fromaddr,
-                            string.join(self.toaddrs, ","),
-                            self.getSubject(record),
-                            formatdate(), msg)
+                self.fromaddr,
+                string.join(self.toaddrs, ","),
+                self.getSubject(record),
+                formatdate(), msg)
             if self.username:
                 smtp.ehlo()  # for tls add this line
                 smtp.starttls()  # for tls add this line
@@ -168,10 +168,10 @@ class SslSTMPHandler(logging.handlers.SMTPHandler):
             smtp = smtplib.SMTP_SSL(self.mailhost, port, timeout=self._timeout)
             msg = self.format(record)
             msg = "From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\n\r\n%s" % (
-                            self.fromaddr,
-                            ",".join(self.toaddrs),
-                            self.getSubject(record),
-                            formatdate(), msg)
+                self.fromaddr,
+                ",".join(self.toaddrs),
+                self.getSubject(record),
+                formatdate(), msg)
             if self.username:
                 if self.secure is not None:
                     smtp.ehlo()
