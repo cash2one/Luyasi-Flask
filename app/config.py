@@ -118,6 +118,7 @@ SECURITY_POST_LOGOUT_VIEW = '/qingbank/'
 SECURITY_POST_REGISTER_VIEW = '/qingbank/'
 SECURITY_POST_CONFIRM_VIEW = '/qingbank/'
 
+#这里似乎做不了本地化，会出现json错误。先不做。
 SECURITY_MSG_LOGIN = (u'请先登陆', 'info')
 
 # 邮件功能

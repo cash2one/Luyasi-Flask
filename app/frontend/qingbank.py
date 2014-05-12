@@ -18,8 +18,8 @@ def index():
     """Returns the qingbank index page."""
     return render_template('qingbank/index.html')
 
-@bp.route('/contacts/<int:page>', methods=['GET'])
-#@route(bp, '/contacts/<int:page>', methods=['GET'])
+#@bp.route('/contacts/<int:page>', methods=['GET'])
+@route(bp, '/contacts/<int:page>', methods=['GET'])
 def list_contact_page(page):
     """Return one page contacts.
 

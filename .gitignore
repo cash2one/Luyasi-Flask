@@ -1,7 +1,6 @@
 #################
 ## Eclipse
 #################
-
 *.pydevproject
 .project
 .metadata
@@ -220,4 +219,5 @@ pip-log.txt
 docs\
 3partylib
 test.db
+*.wpu
 

@@ -4,9 +4,9 @@
 8.logging: 使用file and email -- OK
 7.auth2:qq -- OK
 6.database mirigration 数据库版本控制 -- OK
-5.注册邮件内容要修改
+5.注册邮件内容要修改 -- OK
 4.注册成功后的跳转要修改
-3.在readthedocs里
+3.在readthedocs里 -- part OK
 2.转成mysql.sqlite在修改column时不好用。MySQL-python安装好像要编译，参考http://stackoverflow.com/questions/2272786/python-issueunable-to-find-vcvarsall-bat
 1.使用wingide -- OK
 
