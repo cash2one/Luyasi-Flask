@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from app import config
+from app import setting
 from app.security.models import Role, User
 from flask import Flask
 from flask.ext.security import SQLAlchemyUserDatastore
@@ -27,7 +27,7 @@ def create_app(package_name, package_path, settings_override=None, register_secu
     """
     app = Flask(package_name, instance_relative_config=True)
     # 基本配置
-    app.config.from_object(config)
+    app.config.from_object(setting)
     # 可以被覆盖的配置，如在测试情况里
     app.config.from_object(settings_override)
 

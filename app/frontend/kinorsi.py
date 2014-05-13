@@ -41,8 +41,6 @@ def qq_parser(res):
 @bp.route('/')
 def index():
     """Return index page"""
-    content = render_template('security/email/welcome.txt')
-    print content
     return render_template('kinorsi/index.html')
 
 #----------------------------------------------------------------------
@@ -97,7 +95,8 @@ def openid_login(provider):
 
         login_user(user)
 
-        next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) or ''
+        next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) \
+                    or current_app.extensions['security'].post_login_view or ''
 
         # 如果用户没有绑定，可以让用户尝试进行首次的帐号绑定。如果不绑也可以在以后再绑
         if user.bind_username is None and user.bind_email is None:
@@ -124,7 +123,9 @@ def bind_user():
         _datastore.put(current_user)
         _datastore.commit()
 
-        next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) or ''
+        next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) \
+                    or current_app.extensions['security'].post_login_view or ''
+
         return redirect(next_url)
 
     return render_template('security/bind_user.html', bind_form=form)

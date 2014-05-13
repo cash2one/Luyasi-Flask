@@ -10,9 +10,11 @@ import os
 DEBUG = True
 
 #是否需要显示所有的blueprint route
-DEBUG_ROUTE = False
+DEBUG_PRINT_ROUTE = False
+#: In some case, email will not used at all. e.g. When use qingbank module only.
+ENABLE_SECURITY_MAIL = False
 
-from flask.ext.babel import gettext, ngettext
+from flask.ext.babel import gettext, ngettext, lazy_gettext
 
 #OAuth client配置信息
 OAUTH_QQ = {
@@ -26,10 +28,7 @@ OAUTH_QQ = {
 #SERVER_NAME就flask的自有配置。。上次不小心用了SERVER_NAME，搞到所有请求都是not found
 KINORSI_SERVER_NAME = 'kinorsi.com'
 KINORSI_SERVER_PORT = '5000'
-KINORSI_SERVER_HOST = str.format('%s:%s', KINORSI_SERVER_NAME, KINORSI_SERVER_PORT)
-
-#: In some case, email will not used at all. e.g. When use qingbank module only.
-ENABLE_SECURITY_MAIL = True
+KINORSI_SERVER_HOST = str.format('{}:{}', KINORSI_SERVER_NAME, KINORSI_SERVER_PORT)
 
 #gmail.com-for logging.写log和正常发邮件有所不同。。
 # MAIL_DEFAULT_SENDER = "kinorsi@gmail.com"
@@ -117,9 +116,10 @@ SECURITY_POST_LOGIN_VIEW = '/qingbank/'
 SECURITY_POST_LOGOUT_VIEW = '/qingbank/'
 SECURITY_POST_REGISTER_VIEW = '/qingbank/'
 SECURITY_POST_CONFIRM_VIEW = '/qingbank/'
+SECURITY_POST_CHANGE_VIEW = '/security/change'
 
 #这里似乎做不了本地化，会出现json错误。先不做。
-SECURITY_MSG_LOGIN = (u'请先登陆', 'info')
+#SECURITY_MSG_LOGIN = (u'请先登陆', 'info')
 
 # 邮件功能
 SECURITY_SEND_REGISTER_EMAIL=ENABLE_SECURITY_MAIL #发送注册邮件
@@ -148,35 +148,35 @@ BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
 #Security 信息翻译用
-# SECURITY_MSG_UNAUTHORIZED= (gettext('You do not have permission to view this resource.'), 'error'),
-# SECURITY_MSG_CONFIRM_REGISTRATION= (gettext('Thank you. Confirmation instructions have been sent to %(email)s.'), 'success'),
-# SECURITY_MSG_EMAIL_CONFIRMED= (gettext('Thank you. Your email has been confirmed.'), 'success'),
-# SECURITY_MSG_ALREADY_CONFIRMED= (gettext('Your email has already been confirmed.'), 'info'),
-# SECURITY_MSG_INVALID_CONFIRMATION_TOKEN= (gettext('Invalid confirmation token.'), 'error'),
-# SECURITY_MSG_EMAIL_ALREADY_ASSOCIATED= (gettext('%(email)s is already associated with an account.'), 'error'),
-# SECURITY_MSG_PASSWORD_MISMATCH= (gettext('Password does not match'), 'error'),
-# SECURITY_MSG_RETYPE_PASSWORD_MISMATCH= (gettext('Passwords do not match'), 'error'),
-# SECURITY_MSG_INVALID_REDIRECT= (gettext('Redirections outside the domain are forbidden'), 'error'),
-# SECURITY_MSG_PASSWORD_RESET_REQUEST= (gettext('Instructions to reset your password have been sent to %(email)s.'), 'info'),
-# SECURITY_MSG_PASSWORD_RESET_EXPIRED= (gettext('You did not reset your password within %(within)s. New instructions have been sent to %(email)s.'), 'error'),
-# SECURITY_MSG_INVALID_RESET_PASSWORD_TOKEN= (gettext('Invalid reset password token.'), 'error'),
-# SECURITY_MSG_CONFIRMATION_REQUIRED= (gettext('Email requires confirmation.'), 'error'),
-# SECURITY_MSG_CONFIRMATION_REQUEST= (gettext('Confirmation instructions have been sent to %(email)s.'), 'info'),
-# SECURITY_MSG_CONFIRMATION_EXPIRED= (gettext('You did not confirm your email within %(within)s. New instructions to confirm your email have been sent to %(email)s.'), 'error'),
-# SECURITY_MSG_LOGIN_EXPIRED= (gettext('You did not login within %(within)s. New instructions to login have been sent to %(email)s.'), 'error'),
-# SECURITY_MSG_LOGIN_EMAIL_SENT= (gettext('Instructions to login have been sent to %(email)s.'), 'success'),
-# SECURITY_MSG_INVALID_LOGIN_TOKEN= (gettext('Invalid login token.'), 'error'),
-# SECURITY_MSG_DISABLED_ACCOUNT= (gettext('Account is disabled.'), 'error'),
-# SECURITY_MSG_EMAIL_NOT_PROVIDED= (gettext('Email not provided'), 'error'),
-# SECURITY_MSG_INVALID_EMAIL_ADDRESS= (gettext('Invalid email address'), 'error'),
-# SECURITY_MSG_PASSWORD_NOT_PROVIDED= (gettext('Password not provided'), 'error'),
-# SECURITY_MSG_PASSWORD_NOT_SET= (gettext('No password is set for this user'), 'error'),
-# SECURITY_MSG_PASSWORD_INVALID_LENGTH= (gettext('Password must be at least 6 characters'), 'error'),
-# SECURITY_MSG_USER_DOES_NOT_EXIST= (gettext('Specified user does not exist'), 'error'),
-# SECURITY_MSG_INVALID_PASSWORD= (gettext('Invalid password'), 'error'),
-# SECURITY_MSG_PASSWORDLESS_LOGIN_SUCCESSFUL= (gettext('You have successfuly logged in.'), 'success'),
-# SECURITY_MSG_PASSWORD_RESE= (gettext('You successfully reset your password and you have been logged in automatically.'), 'success'),
-# SECURITY_MSG_PASSWORD_IS_THE_SAME= (gettext('Your new password must be different than your previous password.'), 'error'),
-# SECURITY_MSG_PASSWORD_CHANGE= (gettext('You successfully changed your password.'), 'success'),
-# SECURITY_MSG_LOGIN= (gettext('Please log in to access this page.'), 'info'),
-# SECURITY_MSG_REFRESH= (gettext('Please reauthenticate to access this page.'), 'info'),
+SECURITY_MSG_UNAUTHORIZED= (lazy_gettext('You do not have permission to view this resource.'), 'error')
+SECURITY_MSG_CONFIRM_REGISTRATION= (lazy_gettext('Thank you. Confirmation instructions have been sent to %(email)s.'), 'success')
+SECURITY_MSG_EMAIL_CONFIRMED= (lazy_gettext('Thank you. Your email has been confirmed.'), 'success')
+SECURITY_MSG_ALREADY_CONFIRMED= (lazy_gettext('Your email has already been confirmed.'), 'info')
+SECURITY_MSG_INVALID_CONFIRMATION_TOKEN= (lazy_gettext('Invalid confirmation token.'), 'error')
+SECURITY_MSG_EMAIL_ALREADY_ASSOCIATED= (lazy_gettext('%(email)s is already associated with an account.'), 'error')
+SECURITY_MSG_PASSWORD_MISMATCH= (lazy_gettext('Password does not match'), 'error')
+SECURITY_MSG_RETYPE_PASSWORD_MISMATCH= (lazy_gettext('Passwords do not match'), 'error')
+SECURITY_MSG_INVALID_REDIRECT= (lazy_gettext('Redirections outside the domain are forbidden'), 'error')
+SECURITY_MSG_PASSWORD_RESET_REQUEST= (lazy_gettext('Instructions to reset your password have been sent to %(email)s.'), 'info')
+SECURITY_MSG_PASSWORD_RESET_EXPIRED= (lazy_gettext('You did not reset your password within %(within)s. New instructions have been sent to %(email)s.'), 'error')
+SECURITY_MSG_INVALID_RESET_PASSWORD_TOKEN= (lazy_gettext('Invalid reset password token.'), 'error')
+SECURITY_MSG_CONFIRMATION_REQUIRED= (lazy_gettext('Email requires confirmation.'), 'error')
+SECURITY_MSG_CONFIRMATION_REQUEST= (lazy_gettext('Confirmation instructions have been sent to %(email)s.'), 'info')
+SECURITY_MSG_CONFIRMATION_EXPIRED= (lazy_gettext('You did not confirm your email within %(within)s. New instructions to confirm your email have been sent to %(email)s.'), 'error')
+SECURITY_MSG_LOGIN_EXPIRED= (lazy_gettext('You did not login within %(within)s. New instructions to login have been sent to %(email)s.'), 'error')
+SECURITY_MSG_LOGIN_EMAIL_SENT= (lazy_gettext('Instructions to login have been sent to %(email)s.'), 'success')
+SECURITY_MSG_INVALID_LOGIN_TOKEN= (lazy_gettext('Invalid login token.'), 'error')
+SECURITY_MSG_DISABLED_ACCOUNT= (lazy_gettext('Account is disabled.'), 'error')
+SECURITY_MSG_EMAIL_NOT_PROVIDED= (lazy_gettext('Email not provided'), 'error')
+SECURITY_MSG_INVALID_EMAIL_ADDRESS= (lazy_gettext('Invalid email address'), 'error')
+SECURITY_MSG_PASSWORD_NOT_PROVIDED= (lazy_gettext('Password not provided'), 'error')
+SECURITY_MSG_PASSWORD_NOT_SET= (lazy_gettext('No password is set for this user'), 'error')
+SECURITY_MSG_PASSWORD_INVALID_LENGTH= (lazy_gettext('Password must be at least 6 characters'), 'error')
+SECURITY_MSG_USER_DOES_NOT_EXIST= (lazy_gettext('Specified user does not exist'), 'error')
+SECURITY_MSG_INVALID_PASSWORD= (lazy_gettext('Invalid password'), 'error')
+SECURITY_MSG_PASSWORDLESS_LOGIN_SUCCESSFUL= (lazy_gettext('You have successfuly logged in.'), 'success')
+SECURITY_MSG_PASSWORD_RESE= (lazy_gettext('You successfully reset your password and you have been logged in automatically.'), 'success')
+SECURITY_MSG_PASSWORD_IS_THE_SAME= (lazy_gettext('Your new password must be different than your previous password.'), 'error')
+SECURITY_MSG_PASSWORD_CHANGE = (lazy_gettext('successfully changed your password.'), 'success')
+SECURITY_MSG_LOGIN= (lazy_gettext('Please log in to access this page.'), 'info')
+SECURITY_MSG_REFRESH= (lazy_gettext('Please reauthenticate to access this page.'), 'info')

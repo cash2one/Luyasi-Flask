@@ -30,7 +30,7 @@ def register_blueprints(app, package_name, package_path):
             if isinstance(item, Blueprint):
                 app.register_blueprint(item)
             rv.append(item)
-    if app.config['DEBUG_ROUTE']:
+    if app.config['DEBUG_PRINT_ROUTE']:
         print 'route rules:'
         for rule in app.url_map.iter_rules():
             print rule, rule.endpoint

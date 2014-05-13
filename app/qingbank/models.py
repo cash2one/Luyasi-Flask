@@ -13,7 +13,8 @@ class Department(db.Model, JsonSerializer):
     address = db.Column(db.String(255))
 
     def __repr__(self):
-        return gettext(u'%(value)s', value=self.name)
+        return str.format('<Department {}>', self.name)
+    
 
 
 class Contact(db.Model, JsonSerializer):
@@ -40,7 +41,7 @@ class Contact(db.Model, JsonSerializer):
     user = db.relationship('User', backref=db.backref('contact', uselist=True, lazy='dynamic'))
 
     def __repr__(self):
-        return gettext(u'%(value)s', value=self.name)
+        return str.format('<Contact {}>', self.name)
 
 
 class DocNode(db.Model, JsonSerializer):
@@ -56,4 +57,4 @@ class DocNode(db.Model, JsonSerializer):
     parent = db.relationship('DocNode', remote_side=[id], backref='children')
 
     def __repr__(self):
-        return gettext(u'%(value)s', value=self.name)
+        return str.format('<DocNode {}>', self.name)

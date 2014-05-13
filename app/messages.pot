@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-05-12 16:45+0800\n"
+"POT-Creation-Date: 2014-05-13 16:50+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,164 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: config.py:121
-msgid "login first, please"
+#: setting.py:151
+msgid "You do not have permission to view this resource."
+msgstr ""
+
+#: setting.py:152
+#, python-format
+msgid "Thank you. Confirmation instructions have been sent to %(email)s."
+msgstr ""
+
+#: setting.py:153
+msgid "Thank you. Your email has been confirmed."
+msgstr ""
+
+#: setting.py:154
+msgid "Your email has already been confirmed."
+msgstr ""
+
+#: setting.py:155
+msgid "Invalid confirmation token."
+msgstr ""
+
+#: setting.py:156
+#, python-format
+msgid "%(email)s is already associated with an account."
+msgstr ""
+
+#: setting.py:157
+msgid "Password does not match"
+msgstr ""
+
+#: setting.py:158
+msgid "Passwords do not match"
+msgstr ""
+
+#: setting.py:159
+msgid "Redirections outside the domain are forbidden"
+msgstr ""
+
+#: setting.py:160
+#, python-format
+msgid "Instructions to reset your password have been sent to %(email)s."
+msgstr ""
+
+#: setting.py:161
+#, python-format
+msgid ""
+"You did not reset your password within %(within)s. New instructions have "
+"been sent to %(email)s."
+msgstr ""
+
+#: setting.py:162
+msgid "Invalid reset password token."
+msgstr ""
+
+#: setting.py:163
+msgid "Email requires confirmation."
+msgstr ""
+
+#: setting.py:164
+#, python-format
+msgid "Confirmation instructions have been sent to %(email)s."
+msgstr ""
+
+#: setting.py:165
+#, python-format
+msgid ""
+"You did not confirm your email within %(within)s. New instructions to "
+"confirm your email have been sent to %(email)s."
+msgstr ""
+
+#: setting.py:166
+#, python-format
+msgid ""
+"You did not login within %(within)s. New instructions to login have been "
+"sent to %(email)s."
+msgstr ""
+
+#: setting.py:167
+#, python-format
+msgid "Instructions to login have been sent to %(email)s."
+msgstr ""
+
+#: setting.py:168
+msgid "Invalid login token."
+msgstr ""
+
+#: setting.py:169
+msgid "Account is disabled."
+msgstr ""
+
+#: setting.py:170
+msgid "Email not provided"
+msgstr ""
+
+#: setting.py:171
+msgid "Invalid email address"
+msgstr ""
+
+#: setting.py:172
+msgid "Password not provided"
+msgstr ""
+
+#: setting.py:173
+msgid "No password is set for this user"
+msgstr ""
+
+#: setting.py:174
+msgid "Password must be at least 6 characters"
+msgstr ""
+
+#: setting.py:175
+msgid "Specified user does not exist"
+msgstr ""
+
+#: setting.py:176
+msgid "Invalid password"
+msgstr ""
+
+#: setting.py:177
+msgid "You have successfuly logged in."
+msgstr ""
+
+#: setting.py:178
+msgid ""
+"You successfully reset your password and you have been logged in "
+"automatically."
+msgstr ""
+
+#: setting.py:179
+msgid "Your new password must be different than your previous password."
+msgstr ""
+
+#: setting.py:180
+msgid "successfully changed your password."
+msgstr ""
+
+#: setting.py:181
+msgid "Please log in to access this page."
+msgstr ""
+
+#: setting.py:182
+msgid "Please reauthenticate to access this page."
+msgstr ""
+
+#: frontend/templates/security/forgot_password.html:12
+msgid "Send password reset instructions"
+msgstr ""
+
+#: frontend/templates/security/register_user.html:12
+msgid "Register info"
+msgstr ""
+
+#: frontend/templates/security/send_confirmation.html:12
+msgid "Resend confirmation instructions"
+msgstr ""
+
+#: frontend/templates/security/success.html:8
+msgid "Operation success!"
 msgstr ""
 
 #: frontend/templates/security/email/change_notice.html:1
@@ -65,11 +221,5 @@ msgstr ""
 
 #: frontend/templates/security/email/welcome.html:4
 msgid "You can confirm your email through the link below"
-msgstr ""
-
-#: qingbank/models.py:16 qingbank/models.py:43 qingbank/models.py:59
-#: security/models.py:19 security/models.py:50
-#, python-format
-msgid "%(value)s"
 msgstr ""
 

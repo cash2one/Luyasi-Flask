@@ -15,8 +15,7 @@ class Role(db.Model, RoleMixin):
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
     def __repr__(self):
-        # return str.format('<Role {0}>', self.name)
-        return gettext(u'%(value)s', value=self.name)
+        return str.format('<Role {}>', self.name)
 
 class User(db.Model, UserMixin):
     __tablename__ = 'security_user'
@@ -47,7 +46,7 @@ class User(db.Model, UserMixin):
     login_count = db.Column(db.Integer())
 
     def __repr__(self):
-        return gettext(u'%(value)s', value=self.username or self.email)
+        return str.format('<User {0}>',  self.username or self.email or self.nickname)
 
     def canAdmin(self):
         for role in self.roles:
