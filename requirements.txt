@@ -12,3 +12,4 @@ sqlalchemy-migrate == 0.9
 simplejson == 3.4.0
 factory-boy == 2.3.1
 alembic == 0.6.4
+sanction == 0.4.1
