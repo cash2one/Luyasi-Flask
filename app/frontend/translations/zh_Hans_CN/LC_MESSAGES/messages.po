@@ -1,13 +1,9 @@
-# Chinese (Simplified, China) translations for PROJECT.
-# Copyright (C) 2014 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
-#
+
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-05-13 16:50+0800\n"
+"POT-Creation-Date: 2014-05-14 15:40+0800\n"
 "PO-Revision-Date: 2014-05-12 16:17+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_Hans_CN <LL@li.org>\n"
@@ -16,150 +12,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-
-#: setting.py:151
-msgid "You do not have permission to view this resource."
-msgstr "抱歉，您没有权限查看"
-
-#: setting.py:152
-#, python-format
-msgid "Thank you. Confirmation instructions have been sent to %(email)s."
-msgstr "谢谢~验证信息已经发送至 %(email)s "
-
-#: setting.py:153
-msgid "Thank you. Your email has been confirmed."
-msgstr "谢谢~您的邮箱已经通过验证。"
-
-#: setting.py:154
-msgid "Your email has already been confirmed."
-msgstr "您的邮箱已经通过验证。"
-
-#: setting.py:155
-msgid "Invalid confirmation token."
-msgstr "验证链接失效。"
-
-#: setting.py:156
-#, python-format
-msgid "%(email)s is already associated with an account."
-msgstr "%(email)s 已经被使用了。"
-
-#: setting.py:157
-msgid "Password does not match"
-msgstr "密码不正确"
-
-#: setting.py:158
-msgid "Passwords do not match"
-msgstr "两次输入的密码不同"
-
-#: setting.py:159
-msgid "Redirections outside the domain are forbidden"
-msgstr "不允许重定向到其它域"
-
-#: setting.py:160
-#, python-format
-msgid "Instructions to reset your password have been sent to %(email)s."
-msgstr "密码重置链接已经发送到 %(email)s"
-
-#: setting.py:161
-#, python-format
-msgid ""
-"You did not reset your password within %(within)s. New instructions have "
-"been sent to %(email)s."
-msgstr "重置密码验证链接已经超时，有效时间为 %(within)s。新的验证链接已经发送到 %(email)s。"
-
-#: setting.py:162
-msgid "Invalid reset password token."
-msgstr "重置密码链接失效。"
-
-#: setting.py:163
-msgid "Email requires confirmation."
-msgstr "请先验证邮箱。"
-
-#: setting.py:164
-#, python-format
-msgid "Confirmation instructions have been sent to %(email)s."
-msgstr "验证信息已经发送到 %(email)s。"
-
-#: setting.py:165
-#, python-format
-msgid ""
-"You did not confirm your email within %(within)s. New instructions to "
-"confirm your email have been sent to %(email)s."
-msgstr "邮箱验证链接已经超时，有效时间为 %(within)s。新的验证链接已经发送到 %(email)s。"
-
-#: setting.py:166
-#, python-format
-msgid ""
-"You did not login within %(within)s. New instructions to login have been "
-"sent to %(email)s."
-msgstr "登陆已经超时，有效时间为 %(within)s。新的登陆链接已经发送到 %(email)s。"
-
-#: setting.py:167
-#, python-format
-msgid "Instructions to login have been sent to %(email)s."
-msgstr "登陆链接已经发送到 %(email)s。"
-
-#: setting.py:168
-msgid "Invalid login token."
-msgstr "登陆链接失效。"
-
-#: setting.py:169
-msgid "Account is disabled."
-msgstr "帐户失效。"
-
-#: setting.py:170
-msgid "Email not provided"
-msgstr "请填写邮箱"
-
-#: setting.py:171
-msgid "Invalid email address"
-msgstr "邮箱地址无效"
-
-#: setting.py:172
-msgid "Password not provided"
-msgstr "请填写密码"
-
-#: setting.py:173
-msgid "No password is set for this user"
-msgstr "这个用户没有设置密码"
-
-#: setting.py:174
-msgid "Password must be at least 6 characters"
-msgstr "密码最少6个字符"
-
-#: setting.py:175
-msgid "Specified user does not exist"
-msgstr "用户不存在"
-
-#: setting.py:176
-msgid "Invalid password"
-msgstr "密码不正确或用户无效"
-
-#: setting.py:177
-msgid "You have successfuly logged in."
-msgstr "成功登录"
-
-#: setting.py:178
-msgid ""
-"You successfully reset your password and you have been logged in "
-"automatically."
-msgstr "您已经成功重置密码并自动登录。"
-
-#: setting.py:179
-msgid "Your new password must be different than your previous password."
-msgstr "新旧密码必须不一样。"
-
-#: setting.py:180
-msgid "successfully changed your password."
-msgstr "密码更改成功。"
-
-#: setting.py:181
-msgid "Please log in to access this page."
-msgstr "请重新授权以访问这个页面。"
-
-#: setting.py:182
-msgid "Please reauthenticate to access this page."
-msgstr "请重新授权以访问这个页面。"
 
 #: frontend/templates/security/forgot_password.html:12
 msgid "Send password reset instructions"
@@ -222,4 +74,113 @@ msgstr "你的密码重置成功"
 #: frontend/templates/security/email/welcome.html:4
 msgid "You can confirm your email through the link below"
 msgstr "你可以点击下面的链接来验证你的邮箱"
+
+#~ msgid "Please log in to access this page."
+#~ msgstr "请重新授权以访问这个页面。"
+
+#~ msgid "You do not have permission to view this resource."
+#~ msgstr "抱歉，您没有权限查看"
+
+#~ msgid "Thank you. Confirmation instructions have been sent to %(email)s."
+#~ msgstr "谢谢~验证信息已经发送至 %(email)s "
+
+#~ msgid "Thank you. Your email has been confirmed."
+#~ msgstr "谢谢~您的邮箱已经通过验证。"
+
+#~ msgid "Your email has already been confirmed."
+#~ msgstr "您的邮箱已经通过验证。"
+
+#~ msgid "Invalid confirmation token."
+#~ msgstr "验证链接失效。"
+
+#~ msgid "%(email)s is already associated with an account."
+#~ msgstr "%(email)s 已经被使用了。"
+
+#~ msgid "Password does not match"
+#~ msgstr "密码不正确"
+
+#~ msgid "Passwords do not match"
+#~ msgstr "两次输入的密码不同"
+
+#~ msgid "Redirections outside the domain are forbidden"
+#~ msgstr "不允许重定向到其它域"
+
+#~ msgid "Instructions to reset your password have been sent to \\%(email)s."
+#~ msgstr "密码重置链接已经发送到 \\%(email)s"
+
+#~ msgid ""
+#~ "You did not reset your password "
+#~ "within %(within)s. New instructions have "
+#~ "been sent to %(email)s."
+#~ msgstr "验证信息已经发送到 %(email)s。"
+
+#~ msgid "Invalid reset password token."
+#~ msgstr "重置密码链接失效。"
+
+#~ msgid "Email requires confirmation."
+#~ msgstr "请先验证邮箱。"
+
+#~ msgid "Confirmation instructions have been sent to %(email)s."
+#~ msgstr "验证信息已经发送到 %(email)s。"
+
+#~ msgid ""
+#~ "You did not confirm your email "
+#~ "within %(within)s. New instructions to "
+#~ "confirm your email have been sent "
+#~ "to %(email)s."
+#~ msgstr "谢谢~验证信息已经发送至 %(email)s "
+
+#~ msgid ""
+#~ "You did not login within %(within)s. "
+#~ "New instructions to login have been "
+#~ "sent to %(email)s."
+#~ msgstr "登陆链接已经发送到 %(email)s。"
+
+#~ msgid "Instructions to login have been sent to %(email)s."
+#~ msgstr "登陆链接已经发送到 %(email)s。"
+
+#~ msgid "Invalid login token."
+#~ msgstr "登陆链接失效。"
+
+#~ msgid "Account is disabled."
+#~ msgstr "帐户失效。"
+
+#~ msgid "Email not provided"
+#~ msgstr "请填写邮箱"
+
+#~ msgid "Invalid email address"
+#~ msgstr "邮箱地址无效"
+
+#~ msgid "Password not provided"
+#~ msgstr "请填写密码"
+
+#~ msgid "No password is set for this user"
+#~ msgstr "这个用户没有设置密码"
+
+#~ msgid "Password must be at least 6 characters"
+#~ msgstr "密码最少6个字符"
+
+#~ msgid "Specified user does not exist"
+#~ msgstr "用户不存在"
+
+#~ msgid "Invalid password"
+#~ msgstr "密码不正确或用户无效"
+
+#~ msgid "You have successfuly logged in."
+#~ msgstr "成功登录"
+
+#~ msgid ""
+#~ "You successfully reset your password and"
+#~ " you have been logged in "
+#~ "automatically."
+#~ msgstr "密码重置链接已经发送到 %(email)s"
+
+#~ msgid "Your new password must be different than your previous password."
+#~ msgstr "新旧密码必须不一样。"
+
+#~ msgid "successfully changed your password."
+#~ msgstr "如果这不是您的更改密码操作，"
+
+#~ msgid "Please reauthenticate to access this page."
+#~ msgstr ""
 

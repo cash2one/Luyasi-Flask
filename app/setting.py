@@ -12,9 +12,9 @@ DEBUG = True
 #是否需要显示所有的blueprint route
 DEBUG_PRINT_ROUTE = False
 #: In some case, email will not used at all. e.g. When use qingbank module only.
-ENABLE_SECURITY_MAIL = False
+ENABLE_SECURITY_MAIL = True
 
-from flask.ext.babel import gettext, ngettext, lazy_gettext
+from flask.ext.babel import gettext, lazy_gettext
 
 #OAuth client配置信息
 OAUTH_QQ = {
@@ -114,7 +114,7 @@ SECURITY_URL_PREFIX = '/security'
 SECURITY_OPENID_LOGIN_URL = '/openid_login'
 SECURITY_POST_LOGIN_VIEW = '/qingbank/'
 SECURITY_POST_LOGOUT_VIEW = '/qingbank/'
-SECURITY_POST_REGISTER_VIEW = '/qingbank/'
+SECURITY_POST_REGISTER_VIEW = '/security/register'
 SECURITY_POST_CONFIRM_VIEW = '/qingbank/'
 SECURITY_POST_CHANGE_VIEW = '/security/change'
 
@@ -145,38 +145,6 @@ BABEL_DEFAULT_TIMEZONE = 'UTC'
 #related command-working dir: app
 # 抽取: pybabel extract -F babel.cfg -o messages.pot .
 # 生成：pybabel init -i messages.pot -d frontend/translations -l cs
-
-
-#Security 信息翻译用
-SECURITY_MSG_UNAUTHORIZED= (lazy_gettext('You do not have permission to view this resource.'), 'error')
-SECURITY_MSG_CONFIRM_REGISTRATION= (lazy_gettext('Thank you. Confirmation instructions have been sent to %(email)s.'), 'success')
-SECURITY_MSG_EMAIL_CONFIRMED= (lazy_gettext('Thank you. Your email has been confirmed.'), 'success')
-SECURITY_MSG_ALREADY_CONFIRMED= (lazy_gettext('Your email has already been confirmed.'), 'info')
-SECURITY_MSG_INVALID_CONFIRMATION_TOKEN= (lazy_gettext('Invalid confirmation token.'), 'error')
-SECURITY_MSG_EMAIL_ALREADY_ASSOCIATED= (lazy_gettext('%(email)s is already associated with an account.'), 'error')
-SECURITY_MSG_PASSWORD_MISMATCH= (lazy_gettext('Password does not match'), 'error')
-SECURITY_MSG_RETYPE_PASSWORD_MISMATCH= (lazy_gettext('Passwords do not match'), 'error')
-SECURITY_MSG_INVALID_REDIRECT= (lazy_gettext('Redirections outside the domain are forbidden'), 'error')
-SECURITY_MSG_PASSWORD_RESET_REQUEST= (lazy_gettext('Instructions to reset your password have been sent to %(email)s.'), 'info')
-SECURITY_MSG_PASSWORD_RESET_EXPIRED= (lazy_gettext('You did not reset your password within %(within)s. New instructions have been sent to %(email)s.'), 'error')
-SECURITY_MSG_INVALID_RESET_PASSWORD_TOKEN= (lazy_gettext('Invalid reset password token.'), 'error')
-SECURITY_MSG_CONFIRMATION_REQUIRED= (lazy_gettext('Email requires confirmation.'), 'error')
-SECURITY_MSG_CONFIRMATION_REQUEST= (lazy_gettext('Confirmation instructions have been sent to %(email)s.'), 'info')
-SECURITY_MSG_CONFIRMATION_EXPIRED= (lazy_gettext('You did not confirm your email within %(within)s. New instructions to confirm your email have been sent to %(email)s.'), 'error')
-SECURITY_MSG_LOGIN_EXPIRED= (lazy_gettext('You did not login within %(within)s. New instructions to login have been sent to %(email)s.'), 'error')
-SECURITY_MSG_LOGIN_EMAIL_SENT= (lazy_gettext('Instructions to login have been sent to %(email)s.'), 'success')
-SECURITY_MSG_INVALID_LOGIN_TOKEN= (lazy_gettext('Invalid login token.'), 'error')
-SECURITY_MSG_DISABLED_ACCOUNT= (lazy_gettext('Account is disabled.'), 'error')
-SECURITY_MSG_EMAIL_NOT_PROVIDED= (lazy_gettext('Email not provided'), 'error')
-SECURITY_MSG_INVALID_EMAIL_ADDRESS= (lazy_gettext('Invalid email address'), 'error')
-SECURITY_MSG_PASSWORD_NOT_PROVIDED= (lazy_gettext('Password not provided'), 'error')
-SECURITY_MSG_PASSWORD_NOT_SET= (lazy_gettext('No password is set for this user'), 'error')
-SECURITY_MSG_PASSWORD_INVALID_LENGTH= (lazy_gettext('Password must be at least 6 characters'), 'error')
-SECURITY_MSG_USER_DOES_NOT_EXIST= (lazy_gettext('Specified user does not exist'), 'error')
-SECURITY_MSG_INVALID_PASSWORD= (lazy_gettext('Invalid password'), 'error')
-SECURITY_MSG_PASSWORDLESS_LOGIN_SUCCESSFUL= (lazy_gettext('You have successfuly logged in.'), 'success')
-SECURITY_MSG_PASSWORD_RESE= (lazy_gettext('You successfully reset your password and you have been logged in automatically.'), 'success')
-SECURITY_MSG_PASSWORD_IS_THE_SAME= (lazy_gettext('Your new password must be different than your previous password.'), 'error')
-SECURITY_MSG_PASSWORD_CHANGE = (lazy_gettext('successfully changed your password.'), 'success')
-SECURITY_MSG_LOGIN= (lazy_gettext('Please log in to access this page.'), 'info')
-SECURITY_MSG_REFRESH= (lazy_gettext('Please reauthenticate to access this page.'), 'info')
+# 由于security的一些文本有特殊标签如%(value)s，所以需要自己导入。这个会在factory里导入。但是这个一旦启动就不会再理会别外一个语言。后续再处理吧。
+if BABEL_DEFAULT_LOCALE != 'en':
+	SECURITY_TRANSLATION_PATH='app.security.translations.' + BABEL_DEFAULT_LOCALE

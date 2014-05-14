@@ -30,6 +30,10 @@ def create_app(package_name, package_path, settings_override=None, register_secu
     app.config.from_object(setting)
     # 可以被覆盖的配置，如在测试情况里
     app.config.from_object(settings_override)
+    # 加载security翻译配置
+    import importlib
+    security_translate = importlib.import_module(app.config['SECURITY_TRANSLATION_PATH'])
+    app.config.from_object(security_translate)    
 
     # 使用这样的方式init，不能调用db.create_all()
     db.init_app(app)
