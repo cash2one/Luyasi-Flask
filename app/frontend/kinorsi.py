@@ -130,5 +130,17 @@ def bind_user():
 
     return render_template('security/bind_user.html', bind_form=form)
 
+#----------------------------------------------------------------------
+from flask.ext.wtf import Form
+from app.framework.ckeditor import CKEditorField
+ckeditor_config = {'filebrowserBrowseUrl': '/b.php', 'filebrowserUploadUrl': '/b.php'}
+class MyForm(Form):
+    editor = CKEditorField('baby', ckeditor_config=ckeditor_config)
 
+@bp.route('/testform')
+def test_form():
+    """Return form"""
+    form = MyForm()
+    
+    return render_template('testform.html', form = form)
     

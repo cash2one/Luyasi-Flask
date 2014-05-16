@@ -1,4 +1,3 @@
-from sqlalchemy import or_
 
 from ..core import Service
 from .models import User, Role

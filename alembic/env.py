@@ -19,6 +19,8 @@ import os, sys
 sys.path.append(os.getcwd())
 from app.api import create_app
 from app.core import db
+from app.models import *
+
 app = create_app()
 config.set_main_option("sqlalchemy.url", app.config['SQLALCHEMY_DATABASE_URI'])
 
