@@ -1,24 +1,24 @@
 # -*- coding:utf-8 -*-
-from flask import Blueprint, render_template, request, redirect, session, g, current_app, url_for
-from flask.ext.security import login_user, LoginForm, current_user
-from flask.ext.security.utils import get_url
-from werkzeug.local import LocalProxy
-
-from . import route
-
-from sanction import Client
 from urlparse import parse_qsl
 import re
 from json import loads
 import urllib
 
-bp = Blueprint('kinorsi-frontend', __name__, template_folder='templates', static_folder='static')
+from flask import Blueprint, render_template, request, redirect, session, g, current_app, url_for
+from flask_security import login_user, LoginForm, current_user, url_for_security
+from flask_security.utils import get_url
+from werkzeug.local import LocalProxy
+from sanction import Client
+
+from . import route
+
+bp = Blueprint('openid-qq-frontend', __name__, template_folder='templates', static_folder='static')
 _security = LocalProxy(lambda: current_app.extensions['security'])
 _datastore = LocalProxy(lambda: _security.datastore)
 
 #----------------------------------------------------------------------
 def qq_parser(res):
-    """OAuth2 response parser for QQ 
+    """OAuth2 response parser for QQ
 
     :param res: OAuth2 response.
     """
@@ -53,7 +53,10 @@ def openid_authenticate(provider):
     oauth_kwargs = current_app.config[str.format('OAUTH_{0}', provider.upper())]
     c = Client(**oauth_kwargs)
 
-    return redirect(c.auth_uri(redirect_uri=str.format('{0}/openid/{1}/login', current_app.config['KINORSI_SERVER_HOST'], provider)))
+    next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) or ''
+
+    return redirect(c.auth_uri(redirect_uri=str.format('{0}/openid/{1}/login?next={2}', current_app.config['KINORSI_SERVER_HOST'], provider, next_url),
+                                scope='get_user_info,add_t', scope_delim=','))
 
 #----------------------------------------------------------------------
 @bp.route('/openid/<provider>/login')
@@ -67,31 +70,32 @@ def openid_login(provider):
     parser = eval(str.format('{0}_parser', provider.lower()))
     code = request.args.get('code')
     oauth_kwargs = current_app.config[str.format('OAUTH_{0}', provider.upper())]
-    c = Client(**oauth_kwargs)	
+    c = Client(**oauth_kwargs)
     # get request token
-    c.request_token(parser=parser, redirect_uri="kinorsi.com", grant_type='authorization_code', code=code)
+    c.request_token(parser=parser, redirect_uri=current_app.config['KINORSI_SERVER_HOST'], grant_type='authorization_code', code=code)
 
     if hasattr(c, 'error') and c.error != 0:
-        print 'error:', c.error_description
+        current_app.logger.info(c.error_description)
+        return redirect(url_for_security('login'))
     else:
-        session['access_token'] = c.access_token
-        session['refresh_token'] = c.refresh_token
+        session[u'access_token'] = c.access_token
+        session[u'refresh_token'] = c.refresh_token
         session[u'expires_in'] = c.expires_in
         # get open id
         res = c.request("/oauth2.0/me", parser=parser)
         res['oauth_consumer_key'] = res['client_id']
-        # get nickname. 
+        # get nickname.
         user_info = c.request('/user/get_user_info?' + urllib.urlencode(res), method='GET', parser=parser)
-
         # 看看是不是已经在数据库中了，没有就写一个
         security = current_app.extensions['security']
         datastore = security.datastore
         user = datastore.find_user(openid=res['openid'], provider=provider.lower())
         if user is None:
-            user = datastore.create_user(openid=res['openid'], provider=provider.lower(), nickname=user_info['nickname'])
+            user = datastore.create_user(openid=res['openid'], provider=provider.lower(), nickname=user_info['nickname'], avatar=user_info['figureurl_qq_1'])
             datastore.commit()
         else:
-            print 'user :', user.username, 'is here'
+            pass
+            #print 'user :', user.username, 'is here'
 
         login_user(user)
 
@@ -99,8 +103,12 @@ def openid_login(provider):
                     or current_app.extensions['security'].post_login_view or ''
 
         # 如果用户没有绑定，可以让用户尝试进行首次的帐号绑定。如果不绑也可以在以后再绑
-        if user.bind_username is None and user.bind_email is None:
-            return redirect(url_for('.bind_user'))
+        if user.bind_username is None and user.bind_email is None and (user.bind_remind is None or user.bind_remind ):
+            form_class = _security.login_form
+            form = form_class()
+            form.next.data = next_url
+
+            return render_template('security/bind_user.html', bind_form=form)
 
         return redirect(next_url)
 
@@ -120,6 +128,8 @@ def bind_user():
         else:
             current_user.bind_email = form.email.data
 
+        current_user.bind_remind = False
+
         _datastore.put(current_user)
         _datastore.commit()
 
@@ -129,6 +139,19 @@ def bind_user():
         return redirect(next_url)
 
     return render_template('security/bind_user.html', bind_form=form)
+
+#----------------------------------------------------------------------
+@bp.route('/openid/notbind')
+def do_not_remind_bind():
+    """Not remind user to bind the account again."""
+    next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) \
+                or current_app.extensions['security'].post_login_view or ''
+
+    current_user.bind_remind = False
+    _datastore.put(current_user)
+    _datastore.commit()
+
+    return  redirect(next_url)
 
 #----------------------------------------------------------------------
 from flask.ext.wtf import Form
@@ -141,6 +164,5 @@ class MyForm(Form):
 def test_form():
     """Return form"""
     form = MyForm()
-    
+
     return render_template('testform.html', form = form)
-    

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-05-14 15:40+0800\n"
+"POT-Creation-Date: 2014-06-20 12:31+0800\n"
 "PO-Revision-Date: 2014-05-12 16:17+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_Hans_CN <LL@li.org>\n"
@@ -13,15 +13,276 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: frontend/templates/security/forgot_password.html:12
+#: blog/form.py:14 blog/form.py:20 frontend/templates/blog/detail.html:263
+msgid "The comment forgot you~"
+msgstr "还没有写评论哦~"
+
+#: framework/ckeditor.py:59
+msgid "Content can't be empty"
+msgstr "内容空空如也。。"
+
+#: framework/wtfext/validators.py:16
+msgid "Captcha is not valid"
+msgstr "暗号不正确"
+
+#: frontend/blog.py:69
+msgid "This is not your blog"
+msgstr "呃~这个博客不是你的~"
+
+#: frontend/templates/403.html:10
+msgid "You have no rights to continue this action"
+msgstr "抱歉，你没有足够的权限继续操作~"
+
+#: frontend/templates/403.html:13 frontend/templates/404.html:8
+#: frontend/templates/500.html:8
+msgid "Back"
+msgstr "返回"
+
+#: frontend/templates/404.html:5
+msgid "The page you are looking for has been gone."
+msgstr "你找的页面人去楼空~~不去去哪里了~~"
+
+#: frontend/templates/500.html:5
+msgid "Come on! I, I have some problems."
+msgstr "噢，我的神~我似乎出了点问题。。"
+
+#: frontend/templates/admin/admin_base.html:10
+#: frontend/templates/base/base.html:107
+msgid "Exit"
+msgstr "退出"
+
+#: frontend/templates/base/base.html:59
+msgid "Info"
+msgstr "信息"
+
+#: frontend/templates/base/base.html:65 frontend/templates/blog/base.html:20
+#: frontend/templates/security/change_password.html:27
+#: frontend/templates/security/forgot_password.html:20
+#: frontend/templates/security/send_confirmation.html:21
+msgid "OK"
+msgstr "确认"
+
+#: frontend/templates/base/base.html:105
+msgid "Admin"
+msgstr "管理"
+
+#: frontend/templates/base/base.html:109
+#: frontend/templates/security/login_user.html:6
+#: frontend/templates/security/login_user.html:18
+msgid "Login"
+msgstr "登录"
+
+#: frontend/templates/base/base.html:111
+#: frontend/templates/security/login_user.html:38
+#: frontend/templates/security/register_user.html:8
+msgid "Signup"
+msgstr "注册"
+
+#: frontend/templates/base/base.html:114
+msgid "Forget paswword"
+msgstr "忘记密码"
+
+#: frontend/templates/base/base.html:117
+#: frontend/templates/security/send_confirmation.html:8
+msgid "Activate account"
+msgstr "激活账号"
+
+#: frontend/templates/blog/base.html:13
+msgid "Warning"
+msgstr "警告~"
+
+#: frontend/templates/blog/base.html:16
+msgid "Are your sure delete this blog?"
+msgstr "你确定要搞掉这个博客么？"
+
+#: frontend/templates/blog/base.html:19 frontend/templates/blog/detail.html:53
+msgid "Cancle"
+msgstr "取消"
+
+#: frontend/templates/blog/create.html:6 frontend/templates/blog/detail.html:12
+#: frontend/templates/blog/list.html:14
+msgid "Write blog"
+msgstr "写博客"
+
+#: frontend/templates/blog/create.html:15
+#: frontend/templates/blog/detail.html:14
+msgid "View blogs"
+msgstr "博客列表"
+
+#: frontend/templates/blog/create.html:28
+msgid "title"
+msgstr "标题"
+
+#: frontend/templates/blog/create.html:36
+#: frontend/templates/blog/detail.html:48
+#, fuzzy
+msgid "repeat captcha"
+msgstr "重复暗号"
+
+#: frontend/templates/blog/create.html:40
+#: frontend/templates/blog/detail.html:54
+#: frontend/templates/security/register_user.html:24
+msgid "Submit"
+msgstr "提交"
+
+#: frontend/templates/blog/detail.html:16
+msgid "Edit"
+msgstr "修改"
+
+#: frontend/templates/blog/detail.html:19
+msgid "Delete"
+msgstr "删除"
+
+#: frontend/templates/blog/detail.html:35
+#: frontend/templates/blog/detail.html:73
+msgid "Comment"
+msgstr "说两句"
+
+#: frontend/templates/blog/detail.html:77
+msgid "Comment list"
+msgstr "评论列表"
+
+#: frontend/templates/blog/detail.html:115
+#: frontend/templates/blog/detail.html:132
+msgid "say:"
+msgstr "说："
+
+#: frontend/templates/blog/detail.html:268
+msgid "Captcha required."
+msgstr "请写上暗号。"
+
+#: frontend/templates/qingbank/contact_detail.html:4
+#: frontend/templates/qingbank/contact_list.html:5
+#: frontend/templates/qingbank/index.html:4
+#: frontend/templates/qingbank/index.html:13
+msgid "Contacts"
+msgstr "通讯录"
+
+#: frontend/templates/qingbank/contact_detail.html:17
+msgid "Contact info"
+msgstr "通讯信息"
+
+#: frontend/templates/qingbank/contact_detail.html:20
+#: frontend/templates/qingbank/contact_list.html:32
+msgid "Telephone:"
+msgstr "电话："
+
+#: frontend/templates/qingbank/contact_detail.html:21
+msgid "Inner phone:"
+msgstr "内线："
+
+#: frontend/templates/qingbank/contact_detail.html:22
+#: frontend/templates/qingbank/contact_list.html:33
+msgid "Mobile:"
+msgstr "移动电话："
+
+#: frontend/templates/qingbank/contact_detail.html:23
+msgid "Fax:"
+msgstr "传真："
+
+#: frontend/templates/qingbank/contact_list.html:13
+#, fuzzy
+msgid "Fullname | pinyin | first letter | phone | department"
+msgstr "可以输入拼音、拼音首字母、全名，电话号码，部门名称等"
+
+#: frontend/templates/qingbank/contact_list.html:15
+msgid "Search"
+msgstr "查找"
+
+#: frontend/templates/security/bind_user.html:6
+#: frontend/templates/security/bind_user.html:17
+#, fuzzy
+msgid "Bind account"
+msgstr "没错，这是我的邮箱"
+
+#: frontend/templates/security/bind_user.html:20
+#: frontend/templates/security/login_user.html:21
+msgid "username or email"
+msgstr "用户名 或者 邮箱"
+
+#: frontend/templates/security/bind_user.html:24
+#: frontend/templates/security/login_user.html:25
+msgid "password"
+msgstr "密码"
+
+#: frontend/templates/security/bind_user.html:28
+msgid "Bind"
+msgstr "绑定"
+
+#: frontend/templates/security/bind_user.html:29
+msgid "Next time"
+msgstr "下次"
+
+#: frontend/templates/security/bind_user.html:30
+msgid "Don't remind me again"
+msgstr "不要再提示我"
+
+#: frontend/templates/security/change_password.html:6
+#: frontend/templates/security/profile.html:8
+#: frontend/templates/security/profile_security.html:4
+msgid "Change password"
+msgstr "修改密码"
+
+#: frontend/templates/security/change_password.html:15
+msgid "old password"
+msgstr "旧密码"
+
+#: frontend/templates/security/change_password.html:19
+msgid "new password"
+msgstr "新密码"
+
+#: frontend/templates/security/change_password.html:23
+msgid "repeat password"
+msgstr "重复密码"
+
+#: frontend/templates/security/forgot_password.html:6
+#: frontend/templates/security/login_user.html:41
+msgid "Forget password"
+msgstr "忘记密码"
+
+#: frontend/templates/security/forgot_password.html:13
 msgid "Send password reset instructions"
 msgstr "密码重置"
 
-#: frontend/templates/security/register_user.html:12
+#: frontend/templates/security/forgot_password.html:16
+msgid "email"
+msgstr "邮箱"
+
+#: frontend/templates/security/login_user.html:30
+msgid "remember me"
+msgstr "保持登录"
+
+#: frontend/templates/security/login_user.html:34
+msgid "login"
+msgstr "登录"
+
+#: frontend/templates/security/login_user.html:38
+#, fuzzy
+msgid "No account?"
+msgstr "没错，这是我的邮箱"
+
+#: frontend/templates/security/profile.html:6
+msgid "Contact"
+msgstr "通讯录"
+
+#: frontend/templates/security/profile_contact.html:23
+msgid "Save"
+msgstr "保存"
+
+#: frontend/templates/security/register_user.html:14
 msgid "Register info"
 msgstr "注册信息"
 
-#: frontend/templates/security/send_confirmation.html:12
+#: frontend/templates/security/register_user.html:16
+#: frontend/templates/security/send_confirmation.html:17
+msgid "Email"
+msgstr "邮箱"
+
+#: frontend/templates/security/register_user.html:20
+msgid "Password"
+msgstr "密码"
+
+#: frontend/templates/security/send_confirmation.html:14
 msgid "Resend confirmation instructions"
 msgstr "重新发送验证信息"
 
@@ -75,6 +336,38 @@ msgstr "你的密码重置成功"
 msgid "You can confirm your email through the link below"
 msgstr "你可以点击下面的链接来验证你的邮箱"
 
+#: qingbank/forms.py:14 qingbank/forms.py:31
+msgid "Name"
+msgstr "名字"
+
+#: qingbank/forms.py:15 qingbank/forms.py:35
+msgid "Duty"
+msgstr "职务"
+
+#: qingbank/forms.py:17 qingbank/forms.py:37
+msgid "Mobile"
+msgstr "移动电话"
+
+#: qingbank/forms.py:18 qingbank/forms.py:39
+msgid "Telephone"
+msgstr "电话"
+
+#: qingbank/forms.py:19 qingbank/forms.py:41
+msgid "Innerphone"
+msgstr "内线"
+
+#: qingbank/forms.py:20 qingbank/forms.py:29
+msgid "Fax"
+msgstr "传真"
+
+#: qingbank/forms.py:33
+msgid "Dept"
+msgstr "部门"
+
+#: qingbank/forms.py:43
+msgid "Description"
+msgstr "描述"
+
 #~ msgid "Please log in to access this page."
 #~ msgstr "请重新授权以访问这个页面。"
 
@@ -109,10 +402,7 @@ msgstr "你可以点击下面的链接来验证你的邮箱"
 #~ msgstr "密码重置链接已经发送到 \\%(email)s"
 
 #~ msgid ""
-#~ "You did not reset your password "
-#~ "within %(within)s. New instructions have "
-#~ "been sent to %(email)s."
-#~ msgstr "验证信息已经发送到 %(email)s。"
+#~ msgstr "密码重置链接已经发送到 %(email)s"
 
 #~ msgid "Invalid reset password token."
 #~ msgstr "重置密码链接失效。"
@@ -122,19 +412,6 @@ msgstr "你可以点击下面的链接来验证你的邮箱"
 
 #~ msgid "Confirmation instructions have been sent to %(email)s."
 #~ msgstr "验证信息已经发送到 %(email)s。"
-
-#~ msgid ""
-#~ "You did not confirm your email "
-#~ "within %(within)s. New instructions to "
-#~ "confirm your email have been sent "
-#~ "to %(email)s."
-#~ msgstr "谢谢~验证信息已经发送至 %(email)s "
-
-#~ msgid ""
-#~ "You did not login within %(within)s. "
-#~ "New instructions to login have been "
-#~ "sent to %(email)s."
-#~ msgstr "登陆链接已经发送到 %(email)s。"
 
 #~ msgid "Instructions to login have been sent to %(email)s."
 #~ msgstr "登陆链接已经发送到 %(email)s。"
@@ -169,12 +446,6 @@ msgstr "你可以点击下面的链接来验证你的邮箱"
 #~ msgid "You have successfuly logged in."
 #~ msgstr "成功登录"
 
-#~ msgid ""
-#~ "You successfully reset your password and"
-#~ " you have been logged in "
-#~ "automatically."
-#~ msgstr "密码重置链接已经发送到 %(email)s"
-
 #~ msgid "Your new password must be different than your previous password."
 #~ msgstr "新旧密码必须不一样。"
 
@@ -183,4 +454,16 @@ msgstr "你可以点击下面的链接来验证你的邮箱"
 
 #~ msgid "Please reauthenticate to access this page."
 #~ msgstr ""
+
+#~ msgid "可以输入拼音、拼音首字母、全名，电话号码，部门名称等"
+#~ msgstr "可以输入拼音、拼音首字母、全名，电话号码，部门名称等"
+
+#~ msgid "aaabbb"
+#~ msgstr "AAABBB"
+
+#~ msgid "aaa bbb"
+#~ msgstr "AAA BBB"
+
+#~ msgid "Fullname,pinyin,first letter,phone,department"
+#~ msgstr "可以输入拼音、拼音首字母、全名，电话号码，部门名称等"
 

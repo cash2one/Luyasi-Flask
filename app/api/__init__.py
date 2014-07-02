@@ -6,7 +6,7 @@
 from functools import wraps
 
 from flask import jsonify
-from flask.ext.security import (auth_token_required, login_required, SQLAlchemyUserDatastore)
+from flask_security import (auth_token_required, login_required, SQLAlchemyUserDatastore)
 
 from .. import appfactory
 from ..core import db, security
@@ -28,12 +28,12 @@ def route(bp, *args, **kwargs):
         @auth_token_required
         @wraps(f)
         def wrapper(*args, **kwargs):
-            sc = 200
+            code = 200
             rv = f(*args, **kwargs)
             if isinstance(rv, tuple):
-                sc = rv[1]
+                code = rv[1]
                 rv = rv[0]
-            return jsonify(dict(response=rv, meta=dict(code=sc))), sc
+            return jsonify(dict(response=rv, meta=dict(code=code))), code
         return f
 
     return decorator

@@ -4,25 +4,25 @@
 
 {% block container %}
 
-<div class="col-md-6 col-md-offset-3">
-	<div class="tab-content row">
-		{% include "security/_messages.html" %}		
-		<form class="form-horizontal" method="post" action="{{ url_for_security('register') }}" name="register_user_form">
-			{{ register_user_form.hidden_tag() }}
-			<h2 class="form-signin-heading">{{_('Register info')}}</h2>
-			<div class="form-group">
-				{{register_user_form.email(class="form-control", placeholder="邮箱")}} 
-			</div>
-			{{render_error(register_user_form.email)}}
-			<div class="form-group">
-				{{register_user_form.password(class="form-control", placeholder="密码")}} 
-			</div>
-			{{render_error(register_user_form.password)}}
-			<div class="form-group">
-				<button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
-			</div>
-		</form>
-	</div>	
-</div>
+{% block title %}
+{{_('Signup')}}
+{% endblock title%}
+
+{% include "macros/_messages.html" %}
+<form class="form-horizontal" method="post" action="{{ url_for_security('register') }}" name="register_user_form">
+	{{ register_user_form.hidden_tag() }}
+	<h2>{{_('Register info')}}</h2>
+	<div class="form-group">
+		{{register_user_form.email(class="form-control", placeholder=_("Email"))}}
+		{{render_error(register_user_form.email)}}
+	</div>
+	<div class="form-group">
+		{{register_user_form.password(class="form-control", placeholder=_("Password"))}}
+		{{render_error(register_user_form.password)}}
+	</div>
+	<div class="form-group">
+		<button class="btn btn-lg btn-primary btn-block" type="submit">{{_('Submit')}}</button>
+	</div>
+</form>
 
 {% endblock %}

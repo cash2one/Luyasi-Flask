@@ -3,9 +3,9 @@
 {% block sidebar %}
 <div data-spy="affix">
 	<ul class="list-group">
-		<li class="list-group-item"><a href="{{ url_for('security-frontend.profile_contact') }}">联系信息</a></li>
+		<li class="list-group-item"><a href="{{ url_for('security-frontend.profile_contact') }}">{{_('Contact')}}</a></li>
 		{% if not current_user.openid %}
-		<li class="list-group-item"><a href="{{ url_for_security('change_password') }}">修改密码</a></li>
+		<li class="list-group-item"><a href="{{ url_for_security('change_password') }}">{{_('Change password')}}</a></li>
 		{% endif %}
 	</ul>
 </div>

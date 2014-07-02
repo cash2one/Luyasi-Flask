@@ -65,6 +65,7 @@
 <li class="toctree-l2"><a class="reference internal" href="app.frontend.html#module-app.frontend.kinorsi">app.frontend.kinorsi module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.frontend.html#module-app.frontend.qingbank">app.frontend.qingbank module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.frontend.html#module-app.frontend.security">app.frontend.security module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.frontend.html#module-app.frontend.blog">app.frontend.blog module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.frontend.html#module-app.frontend">Module contents</a></li>
 </ul>
 </li>
@@ -87,6 +88,13 @@
 <li class="toctree-l2"><a class="reference internal" href="app.security.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.security.html#module-app.security.models">app.security.models module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.security.html#module-app.security">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="app.blog.html">app.blog package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.blog.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.blog.html#app-blog-forms-module">app.blog.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.blog.html#module-app.blog.models">app.blog.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.blog.html#module-app.blog">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -126,15 +134,8 @@ Currently used modules that need to init includes:</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-app.config">
-<span id="app-config-module"></span><h2>app.config module<a class="headerlink" href="#module-app.config" title="Permalink to this headline">¶</a></h2>
-<p>Flask app setting.</p>
-<dl class="data">
-<dt id="app.config.ENABLE_SECURITY_MAIL">
-<tt class="descclassname">app.config.</tt><tt class="descname">ENABLE_SECURITY_MAIL</tt><em class="property"> = True</em><a class="headerlink" href="#app.config.ENABLE_SECURITY_MAIL" title="Permalink to this definition">¶</a></dt>
-<dd><p>In some case, email will not used at all. e.g. When use qingbank module only.</p>
-</dd></dl>
-
+<div class="section" id="app-config-module">
+<h2>app.config module<a class="headerlink" href="#app-config-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-app.core">
 <span id="app-core-module"></span><h2>app.core module<a class="headerlink" href="#module-app.core" title="Permalink to this headline">¶</a></h2>
@@ -190,6 +191,33 @@ Currently used modules that need to init includes:</p>
 <dt id="app.core.LuyasiFormError">
 <em class="property">exception </em><tt class="descclassname">app.core.</tt><tt class="descname">LuyasiFormError</tt><big>(</big><em>errors=None</em><big>)</big><a class="headerlink" href="#app.core.LuyasiFormError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raise when an error processing a form occurs.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="app.core.ModelVersion">
+<em class="property">class </em><tt class="descclassname">app.core.</tt><tt class="descname">ModelVersion</tt><a class="headerlink" href="#app.core.ModelVersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predefine some columns.
+<a class="reference internal" href="#app.core.ModelVersion.update_at" title="app.core.ModelVersion.update_at"><tt class="xref py py-attr docutils literal"><span class="pre">update_at</span></tt></a>, for recording update time.
+<a class="reference internal" href="#app.core.ModelVersion.create_at" title="app.core.ModelVersion.create_at"><tt class="xref py py-attr docutils literal"><span class="pre">create_at</span></tt></a>, for recording create time.
+<a class="reference internal" href="#app.core.ModelVersion.version" title="app.core.ModelVersion.version"><tt class="xref py py-attr docutils literal"><span class="pre">version</span></tt></a>, for optimistic locking.</p>
+<dl class="attribute">
+<dt id="app.core.ModelVersion.create_at">
+<tt class="descname">create_at</tt><em class="property"> = Column(None, DateTime(), table=None, default=ColumnDefault(datetime.datetime(2014, 6, 5, 5, 2, 17, 864000)))</em><a class="headerlink" href="#app.core.ModelVersion.create_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Datetime for creation of this record.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.core.ModelVersion.update_at">
+<tt class="descname">update_at</tt><em class="property"> = Column(None, DateTime(), table=None)</em><a class="headerlink" href="#app.core.ModelVersion.update_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Datetime for updation of this record.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.core.ModelVersion.version">
+<tt class="descname">version</tt><em class="property"> = Column(None, DateTime(), table=None)</em><a class="headerlink" href="#app.core.ModelVersion.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimistic locking</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -292,6 +320,11 @@ ids.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="app.core.Service.get_latest_page_filterby">
+<tt class="descname">get_latest_page_filterby</tt><big>(</big><em>page=1</em>, <em>per_page=20</em>, <em>error_out=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.core.Service.get_latest_page_filterby" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="app.core.Service.get_or_404">
 <tt class="descname">get_or_404</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#app.core.Service.get_or_404" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an instance of the service&#8217;s model with the specified id or
@@ -304,6 +337,12 @@ raises an 404 error if an instance with the specified id does not exist.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.core.Service.get_page_filterby">
+<tt class="descname">get_page_filterby</tt><big>(</big><em>page=1</em>, <em>per_page=20</em>, <em>error_out=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.core.Service.get_page_filterby" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a page that has been filtered.</p>
 </dd></dl>
 
 <dl class="method">
@@ -355,6 +394,465 @@ raises an 404 error if an instance with the specified id does not exist.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="app.core.asc">
+<tt class="descclassname">app.core.</tt><tt class="descname">asc</tt><big>(</big><em>column</em><big>)</big><a class="headerlink" href="#app.core.asc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce an ascending <tt class="docutils literal"><span class="pre">ORDER</span> <span class="pre">BY</span></tt> clause element.</p>
+<p>e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">asc</span>
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">asc</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>will produce SQL as:</p>
+<div class="highlight-python"><div class="highlight"><pre>SELECT id, name FROM user ORDER BY name ASC
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#app.core.asc" title="app.core.asc"><tt class="xref py py-func docutils literal"><span class="pre">asc()</span></tt></a> function is a standalone version of the
+<tt class="xref py py-meth docutils literal"><span class="pre">ColumnElement.asc()</span></tt> method available on all SQL expressions,
+e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">asc</span><span class="p">())</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>column</strong> &#8211; A <tt class="xref py py-class docutils literal"><span class="pre">ColumnElement</span></tt> (e.g. scalar SQL expression)
+with which to apply the <a class="reference internal" href="#app.core.asc" title="app.core.asc"><tt class="xref py py-func docutils literal"><span class="pre">asc()</span></tt></a> operation.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a class="reference internal" href="#app.core.desc" title="app.core.desc"><tt class="xref py py-func docutils literal"><span class="pre">desc()</span></tt></a></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">nullsfirst()</span></tt></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">nullslast()</span></tt></p>
+<p class="last"><tt class="xref py py-meth docutils literal"><span class="pre">Select.order_by()</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.core.desc">
+<tt class="descclassname">app.core.</tt><tt class="descname">desc</tt><big>(</big><em>column</em><big>)</big><a class="headerlink" href="#app.core.desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce a descending <tt class="docutils literal"><span class="pre">ORDER</span> <span class="pre">BY</span></tt> clause element.</p>
+<p>e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">desc</span>
+
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">desc</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>will produce SQL as:</p>
+<div class="highlight-python"><div class="highlight"><pre>SELECT id, name FROM user ORDER BY name DESC
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#app.core.desc" title="app.core.desc"><tt class="xref py py-func docutils literal"><span class="pre">desc()</span></tt></a> function is a standalone version of the
+<tt class="xref py py-meth docutils literal"><span class="pre">ColumnElement.desc()</span></tt> method available on all SQL expressions,
+e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">desc</span><span class="p">())</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>column</strong> &#8211; A <tt class="xref py py-class docutils literal"><span class="pre">ColumnElement</span></tt> (e.g. scalar SQL expression)
+with which to apply the <a class="reference internal" href="#app.core.desc" title="app.core.desc"><tt class="xref py py-func docutils literal"><span class="pre">desc()</span></tt></a> operation.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a class="reference internal" href="#app.core.asc" title="app.core.asc"><tt class="xref py py-func docutils literal"><span class="pre">asc()</span></tt></a></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">nullsfirst()</span></tt></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">nullslast()</span></tt></p>
+<p class="last"><tt class="xref py py-meth docutils literal"><span class="pre">Select.order_by()</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.core.mapper">
+<tt class="descclassname">app.core.</tt><tt class="descname">mapper</tt><big>(</big><em>class_</em>, <em>local_table=None</em>, <em>properties=None</em>, <em>primary_key=None</em>, <em>non_primary=False</em>, <em>inherits=None</em>, <em>inherit_condition=None</em>, <em>inherit_foreign_keys=None</em>, <em>extension=None</em>, <em>order_by=False</em>, <em>always_refresh=False</em>, <em>version_id_col=None</em>, <em>version_id_generator=None</em>, <em>polymorphic_on=None</em>, <em>_polymorphic_map=None</em>, <em>polymorphic_identity=None</em>, <em>concrete=False</em>, <em>with_polymorphic=None</em>, <em>allow_partial_pks=True</em>, <em>batch=True</em>, <em>column_prefix=None</em>, <em>include_properties=None</em>, <em>exclude_properties=None</em>, <em>passive_updates=True</em>, <em>confirm_deleted_rows=True</em>, <em>eager_defaults=False</em>, <em>legacy_is_orphan=False</em>, <em>_compiled_cache_size=100</em><big>)</big><a class="headerlink" href="#app.core.mapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new <tt class="xref py py-class docutils literal"><span class="pre">Mapper</span></tt> object.</p>
+<p>This function is typically used behind the scenes
+via the Declarative extension.   When using Declarative,
+many of the usual <a class="reference internal" href="#app.core.mapper" title="app.core.mapper"><tt class="xref py py-func docutils literal"><span class="pre">mapper()</span></tt></a> arguments are handled
+by the Declarative extension itself, including <tt class="docutils literal"><span class="pre">class_</span></tt>,
+<tt class="docutils literal"><span class="pre">local_table</span></tt>, <tt class="docutils literal"><span class="pre">properties</span></tt>, and  <tt class="docutils literal"><span class="pre">inherits</span></tt>.
+Other options are passed to <a class="reference internal" href="#app.core.mapper" title="app.core.mapper"><tt class="xref py py-func docutils literal"><span class="pre">mapper()</span></tt></a> using
+the <tt class="docutils literal"><span class="pre">__mapper_args__</span></tt> class variable:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;my_table&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+    <span class="n">alt</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="s">&quot;some_alt&quot;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">)</span>
+
+    <span class="n">__mapper_args__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;polymorphic_on&#39;</span> <span class="p">:</span> <span class="nb">type</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>Explicit use of <a class="reference internal" href="#app.core.mapper" title="app.core.mapper"><tt class="xref py py-func docutils literal"><span class="pre">mapper()</span></tt></a>
+is often referred to as <em>classical mapping</em>.  The above
+declarative example is equivalent in classical form to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">my_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s">&quot;my_table&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;type&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s">&quot;some_alt&quot;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">mapper</span><span class="p">(</span><span class="n">MyClass</span><span class="p">,</span> <span class="n">my_table</span><span class="p">,</span>
+    <span class="n">polymorphic_on</span><span class="o">=</span><span class="n">my_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
+    <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+        <span class="s">&#39;alt&#39;</span><span class="p">:</span><span class="n">my_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">some_alt</span>
+    <span class="p">})</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">classical_mapping</em> - discussion of direct usage of
+<a class="reference internal" href="#app.core.mapper" title="app.core.mapper"><tt class="xref py py-func docutils literal"><span class="pre">mapper()</span></tt></a></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>class_</strong> &#8211; The class to be mapped.  When using Declarative,
+this argument is automatically passed as the declared class
+itself.</li>
+<li><strong>local_table</strong> &#8211; The <tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt> or other selectable
+to which the class is mapped.  May be <tt class="docutils literal"><span class="pre">None</span></tt> if
+this mapper inherits from another mapper using single-table
+inheritance.   When using Declarative, this argument is
+automatically passed by the extension, based on what
+is configured via the <tt class="docutils literal"><span class="pre">__table__</span></tt> argument or via the
+<tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt> produced as a result of the <tt class="docutils literal"><span class="pre">__tablename__</span></tt>
+and <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt> arguments present.</li>
+<li><strong>always_refresh</strong> &#8211; If True, all query operations for this mapped
+class will overwrite all data within object instances that already
+exist within the session, erasing any in-memory changes with
+whatever information was loaded from the database. Usage of this
+flag is highly discouraged; as an alternative, see the method
+<tt class="xref py py-meth docutils literal"><span class="pre">Query.populate_existing()</span></tt>.</li>
+<li><strong>allow_partial_pks</strong> &#8211; Defaults to True.  Indicates that a
+composite primary key with some NULL values should be considered as
+possibly existing within the database. This affects whether a
+mapper will assign an incoming row to an existing identity, as well
+as if <tt class="xref py py-meth docutils literal"><span class="pre">Session.merge()</span></tt> will check the database first for a
+particular primary key value. A &#8220;partial primary key&#8221; can occur if
+one has mapped to an OUTER JOIN, for example.</li>
+<li><strong>batch</strong> &#8211; Defaults to <tt class="docutils literal"><span class="pre">True</span></tt>, indicating that save operations
+of multiple entities can be batched together for efficiency.
+Setting to False indicates
+that an instance will be fully saved before saving the next
+instance.  This is used in the extremely rare case that a
+<tt class="xref py py-class docutils literal"><span class="pre">MapperEvents</span></tt> listener requires being called
+in between individual row persistence operations.</li>
+<li><strong>column_prefix</strong> &#8211; <p>A string which will be prepended
+to the mapped attribute name when <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt>
+objects are automatically assigned as attributes to the
+mapped class.  Does not affect explicitly specified
+column-based properties.</p>
+<p>See the section <em class="xref std std-ref">column_prefix</em> for an example.</p>
+</li>
+<li><strong>concrete</strong> &#8211; <p>If True, indicates this mapper should use concrete
+table inheritance with its parent mapper.</p>
+<p>See the section <em class="xref std std-ref">concrete_inheritance</em> for an example.</p>
+</li>
+<li><strong>confirm_deleted_rows</strong> &#8211; <p>defaults to True; when a DELETE occurs
+of one more more rows based on specific primary keys, a warning is
+emitted when the number of rows matched does not equal the number
+of rows expected.  This parameter may be set to False to handle the case
+where database ON DELETE CASCADE rules may be deleting some of those
+rows automatically.  The warning may be changed to an exception
+in a future release.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.4: </span>- added <a href="#id1"><span class="problematic" id="id2">:paramref:`.mapper.confirm_deleted_rows`</span></a>
+as well as conditional matched row checking on delete.</p>
+</div>
+</li>
+<li><strong>eager_defaults</strong> &#8211; <p>if True, the ORM will immediately fetch the
+value of server-generated default values after an INSERT or UPDATE,
+rather than leaving them as expired to be fetched on next access.
+This can be used for event schemes where the server-generated values
+are needed immediately before the flush completes.   By default,
+this scheme will emit an individual <tt class="docutils literal"><span class="pre">SELECT</span></tt> statement per row
+inserted or updated, which note can add significant performance
+overhead.  However, if the
+target database supports <em class="xref std std-term">RETURNING</em>, the default values will be
+returned inline with the INSERT or UPDATE statement, which can
+greatly enhance performance for an application that needs frequent
+access to just-generated server defaults.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.9.0: </span>The <tt class="docutils literal"><span class="pre">eager_defaults</span></tt> option can now
+make use of <em class="xref std std-term">RETURNING</em> for backends which support it.</p>
+</div>
+</li>
+<li><strong>exclude_properties</strong> &#8211; <p>A list or set of string column names to
+be excluded from mapping.</p>
+<p>See <em class="xref std std-ref">include_exclude_cols</em> for an example.</p>
+</li>
+<li><strong>extension</strong> &#8211; A <tt class="xref py py-class docutils literal"><span class="pre">MapperExtension</span></tt> instance or
+list of <tt class="xref py py-class docutils literal"><span class="pre">MapperExtension</span></tt> instances which will be applied
+to all operations by this <tt class="xref py py-class docutils literal"><span class="pre">Mapper</span></tt>.  <strong>Deprecated.</strong>
+Please see <tt class="xref py py-class docutils literal"><span class="pre">MapperEvents</span></tt>.</li>
+<li><strong>include_properties</strong> &#8211; <p>An inclusive list or set of string column
+names to map.</p>
+<p>See <em class="xref std std-ref">include_exclude_cols</em> for an example.</p>
+</li>
+<li><strong>inherits</strong> &#8211; <p>A mapped class or the corresponding <tt class="xref py py-class docutils literal"><span class="pre">Mapper</span></tt>
+of one indicating a superclass to which this <tt class="xref py py-class docutils literal"><span class="pre">Mapper</span></tt>
+should <em>inherit</em> from.   The mapped class here must be a subclass
+of the other mapper&#8217;s class.   When using Declarative, this argument
+is passed automatically as a result of the natural class
+hierarchy of the declared classes.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">inheritance_toplevel</em></p>
+</div>
+</li>
+<li><strong>inherit_condition</strong> &#8211; For joined table inheritance, a SQL
+expression which will
+define how the two tables are joined; defaults to a natural join
+between the two tables.</li>
+<li><strong>inherit_foreign_keys</strong> &#8211; When <tt class="docutils literal"><span class="pre">inherit_condition</span></tt> is used and the
+columns present are missing a <tt class="xref py py-class docutils literal"><span class="pre">ForeignKey</span></tt> configuration,
+this parameter can be used to specify which columns are &#8220;foreign&#8221;.
+In most cases can be left as <tt class="docutils literal"><span class="pre">None</span></tt>.</li>
+<li><strong>legacy_is_orphan</strong> &#8211; <p>Boolean, defaults to <tt class="docutils literal"><span class="pre">False</span></tt>.
+When <tt class="docutils literal"><span class="pre">True</span></tt>, specifies that &#8220;legacy&#8221; orphan consideration
+is to be applied to objects mapped by this mapper, which means
+that a pending (that is, not persistent) object is auto-expunged
+from an owning <tt class="xref py py-class docutils literal"><span class="pre">Session</span></tt> only when it is de-associated
+from <em>all</em> parents that specify a <tt class="docutils literal"><span class="pre">delete-orphan</span></tt> cascade towards
+this mapper.  The new default behavior is that the object is auto-expunged
+when it is de-associated with <em>any</em> of its parents that specify
+<tt class="docutils literal"><span class="pre">delete-orphan</span></tt> cascade.  This behavior is more consistent with
+that of a persistent object, and allows behavior to be consistent
+in more scenarios independently of whether or not an orphanable
+object has been flushed yet or not.</p>
+<p>See the change note and example at <em class="xref std std-ref">legacy_is_orphan_addition</em>
+for more detail on this change.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.8: </span>- the consideration of a pending object as
+an &#8220;orphan&#8221; has been modified to more closely match the
+behavior as that of persistent objects, which is that the object
+is expunged from the <tt class="xref py py-class docutils literal"><span class="pre">Session</span></tt> as soon as it is
+de-associated from any of its orphan-enabled parents.  Previously,
+the pending object would be expunged only if de-associated
+from all of its orphan-enabled parents. The new flag <tt class="docutils literal"><span class="pre">legacy_is_orphan</span></tt>
+is added to <tt class="xref py py-func docutils literal"><span class="pre">orm.mapper()</span></tt> which re-establishes the
+legacy behavior.</p>
+</div>
+</li>
+<li><strong>non_primary</strong> &#8211; <p>Specify that this <tt class="xref py py-class docutils literal"><span class="pre">Mapper</span></tt> is in addition
+to the &#8220;primary&#8221; mapper, that is, the one used for persistence.
+The <tt class="xref py py-class docutils literal"><span class="pre">Mapper</span></tt> created here may be used for ad-hoc
+mapping of the class to an alternate selectable, for loading
+only.</p>
+<p><a href="#id3"><span class="problematic" id="id4">:paramref:`.Mapper.non_primary`</span></a> is not an often used option, but
+is useful in some specific <tt class="xref py py-func docutils literal"><span class="pre">relationship()</span></tt> cases.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">relationship_non_primary_mapper</em></p>
+</div>
+</li>
+<li><strong>order_by</strong> &#8211; A single <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt> or list of <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt>
+objects for which selection operations should use as the default
+ordering for entities.  By default mappers have no pre-defined
+ordering.</li>
+<li><strong>passive_updates</strong> &#8211; <p>Indicates UPDATE behavior of foreign key
+columns when a primary key column changes on a joined-table
+inheritance mapping.   Defaults to <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+<p>When True, it is assumed that ON UPDATE CASCADE is configured on
+the foreign key in the database, and that the database will handle
+propagation of an UPDATE from a source column to dependent columns
+on joined-table rows.</p>
+<p>When False, it is assumed that the database does not enforce
+referential integrity and will not be issuing its own CASCADE
+operation for an update.  The unit of work process will
+emit an UPDATE statement for the dependent columns during a
+primary key change.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">passive_updates</em> - description of a similar feature as
+used with <tt class="xref py py-func docutils literal"><span class="pre">relationship()</span></tt></p>
+</div>
+</li>
+<li><strong>polymorphic_on</strong> &#8211; <p>Specifies the column, attribute, or
+SQL expression used to determine the target class for an
+incoming row, when inheriting classes are present.</p>
+<p>This value is commonly a <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt> object that&#8217;s
+present in the mapped <tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Employee</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;employee&#39;</span>
+
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">discriminator</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+
+    <span class="n">__mapper_args__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&quot;polymorphic_on&quot;</span><span class="p">:</span><span class="n">discriminator</span><span class="p">,</span>
+        <span class="s">&quot;polymorphic_identity&quot;</span><span class="p">:</span><span class="s">&quot;employee&quot;</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>It may also be specified
+as a SQL expression, as in this example where we
+use the <tt class="xref py py-func docutils literal"><span class="pre">case()</span></tt> construct to provide a conditional
+approach:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Employee</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;employee&#39;</span>
+
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">discriminator</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+
+    <span class="n">__mapper_args__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&quot;polymorphic_on&quot;</span><span class="p">:</span><span class="n">case</span><span class="p">([</span>
+            <span class="p">(</span><span class="n">discriminator</span> <span class="o">==</span> <span class="s">&quot;EN&quot;</span><span class="p">,</span> <span class="s">&quot;engineer&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">discriminator</span> <span class="o">==</span> <span class="s">&quot;MA&quot;</span><span class="p">,</span> <span class="s">&quot;manager&quot;</span><span class="p">),</span>
+        <span class="p">],</span> <span class="n">else_</span><span class="o">=</span><span class="s">&quot;employee&quot;</span><span class="p">),</span>
+        <span class="s">&quot;polymorphic_identity&quot;</span><span class="p">:</span><span class="s">&quot;employee&quot;</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>It may also refer to any attribute
+configured with <tt class="xref py py-func docutils literal"><span class="pre">column_property()</span></tt>, or to the
+string name of one:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Employee</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;employee&#39;</span>
+
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">discriminator</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+    <span class="n">employee_type</span> <span class="o">=</span> <span class="n">column_property</span><span class="p">(</span>
+        <span class="n">case</span><span class="p">([</span>
+            <span class="p">(</span><span class="n">discriminator</span> <span class="o">==</span> <span class="s">&quot;EN&quot;</span><span class="p">,</span> <span class="s">&quot;engineer&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">discriminator</span> <span class="o">==</span> <span class="s">&quot;MA&quot;</span><span class="p">,</span> <span class="s">&quot;manager&quot;</span><span class="p">),</span>
+        <span class="p">],</span> <span class="n">else_</span><span class="o">=</span><span class="s">&quot;employee&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">__mapper_args__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&quot;polymorphic_on&quot;</span><span class="p">:</span><span class="n">employee_type</span><span class="p">,</span>
+        <span class="s">&quot;polymorphic_identity&quot;</span><span class="p">:</span><span class="s">&quot;employee&quot;</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.7.4: </span><tt class="docutils literal"><span class="pre">polymorphic_on</span></tt> may be specified as a SQL expression,
+or refer to any attribute configured with
+<tt class="xref py py-func docutils literal"><span class="pre">column_property()</span></tt>, or to the string name of one.</p>
+</div>
+<p>When setting <tt class="docutils literal"><span class="pre">polymorphic_on</span></tt> to reference an
+attribute or expression that&#8217;s not present in the
+locally mapped <tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt>, yet the value
+of the discriminator should be persisted to the database,
+the value of the
+discriminator is not automatically set on new
+instances; this must be handled by the user,
+either through manual means or via event listeners.
+A typical approach to establishing such a listener
+looks like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">event</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">object_mapper</span>
+
+<span class="nd">@event.listens_for</span><span class="p">(</span><span class="n">Employee</span><span class="p">,</span> <span class="s">&quot;init&quot;</span><span class="p">,</span> <span class="n">propagate</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">set_identity</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="n">mapper</span> <span class="o">=</span> <span class="n">object_mapper</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+    <span class="n">instance</span><span class="o">.</span><span class="n">discriminator</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">polymorphic_identity</span>
+</pre></div>
+</div>
+<p>Where above, we assign the value of <tt class="docutils literal"><span class="pre">polymorphic_identity</span></tt>
+for the mapped class to the <tt class="docutils literal"><span class="pre">discriminator</span></tt> attribute,
+thus persisting the value to the <tt class="docutils literal"><span class="pre">discriminator</span></tt> column
+in the database.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">inheritance_toplevel</em></p>
+</div>
+</li>
+<li><strong>polymorphic_identity</strong> &#8211; Specifies the value which
+identifies this particular class as returned by the
+column expression referred to by the <tt class="docutils literal"><span class="pre">polymorphic_on</span></tt>
+setting.  As rows are received, the value corresponding
+to the <tt class="docutils literal"><span class="pre">polymorphic_on</span></tt> column expression is compared
+to this value, indicating which subclass should
+be used for the newly reconstructed object.</li>
+<li><strong>properties</strong> &#8211; A dictionary mapping the string names of object
+attributes to <tt class="xref py py-class docutils literal"><span class="pre">MapperProperty</span></tt> instances, which define the
+persistence behavior of that attribute.  Note that <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt>
+objects present in
+the mapped <tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt> are automatically placed into
+<tt class="docutils literal"><span class="pre">ColumnProperty</span></tt> instances upon mapping, unless overridden.
+When using Declarative, this argument is passed automatically,
+based on all those <tt class="xref py py-class docutils literal"><span class="pre">MapperProperty</span></tt> instances declared
+in the declared class body.</li>
+<li><strong>primary_key</strong> &#8211; A list of <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt> objects which define the
+primary key to be used against this mapper&#8217;s selectable unit.
+This is normally simply the primary key of the <tt class="docutils literal"><span class="pre">local_table</span></tt>, but
+can be overridden here.</li>
+<li><strong>version_id_col</strong> &#8211; <p>A <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt>
+that will be used to keep a running version id of rows
+in the table.  This is used to detect concurrent updates or
+the presence of stale data in a flush.  The methodology is to
+detect if an UPDATE statement does not match the last known
+version id, a
+<tt class="xref py py-class docutils literal"><span class="pre">StaleDataError</span></tt> exception is
+thrown.
+By default, the column must be of <tt class="xref py py-class docutils literal"><span class="pre">Integer</span></tt> type,
+unless <tt class="docutils literal"><span class="pre">version_id_generator</span></tt> specifies an alternative version
+generator.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">mapper_version_counter</em> - discussion of version counting
+and rationale.</p>
+</div>
+</li>
+<li><strong>version_id_generator</strong> &#8211; <p>Define how new version ids should
+be generated.  Defaults to <tt class="docutils literal"><span class="pre">None</span></tt>, which indicates that
+a simple integer counting scheme be employed.  To provide a custom
+versioning scheme, provide a callable function of the form:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">generate_version</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">next_version</span>
+</pre></div>
+</div>
+<p>Alternatively, server-side versioning functions such as triggers,
+or programmatic versioning schemes outside of the version id generator
+may be used, by specifying the value <tt class="docutils literal"><span class="pre">False</span></tt>.
+Please see <em class="xref std std-ref">server_side_version_counter</em> for a discussion
+of important points when using this option.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.0: </span><tt class="docutils literal"><span class="pre">version_id_generator</span></tt> supports server-side
+version number generation.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><em class="xref std std-ref">custom_version_counter</em></p>
+<p class="last"><em class="xref std std-ref">server_side_version_counter</em></p>
+</div>
+</li>
+<li><strong>with_polymorphic</strong> &#8211; <p>A tuple in the form <tt class="docutils literal"><span class="pre">(&lt;classes&gt;,</span>
+<span class="pre">&lt;selectable&gt;)</span></tt> indicating the default style of &#8220;polymorphic&#8221;
+loading, that is, which tables are queried at once. &lt;classes&gt; is
+any single or list of mappers and/or classes indicating the
+inherited classes that should be loaded at once. The special value
+<tt class="docutils literal"><span class="pre">'*'</span></tt> may be used to indicate all descending classes should be
+loaded immediately. The second tuple argument &lt;selectable&gt;
+indicates a selectable that will be used to query for multiple
+classes.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">with_polymorphic</em> - discussion of polymorphic querying techniques.</p>
+</div>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="app.core.or_">
 <tt class="descclassname">app.core.</tt><tt class="descname">or_</tt><big>(</big><em>*clauses</em><big>)</big><a class="headerlink" href="#app.core.or_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produce a conjunction of expressions joined by <tt class="docutils literal"><span class="pre">OR</span></tt>.</p>
@@ -399,11 +897,17 @@ operator precedence behavior):</p>
 <dt id="app.helpers.JsonSerializer">
 <em class="property">class </em><tt class="descclassname">app.helpers.</tt><tt class="descname">JsonSerializer</tt><a class="headerlink" href="#app.helpers.JsonSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>A mixin that can be used to mark a SQLAlchemy model class which
-implements a <tt class="xref py py-func docutils literal"><span class="pre">to_json()</span></tt> method. The <tt class="xref py py-func docutils literal"><span class="pre">to_json()</span></tt> method is used
+implements a <a class="reference internal" href="#app.helpers.JsonSerializer.to_json" title="app.helpers.JsonSerializer.to_json"><tt class="xref py py-func docutils literal"><span class="pre">to_json()</span></tt></a> method. The <a class="reference internal" href="#app.helpers.JsonSerializer.to_json" title="app.helpers.JsonSerializer.to_json"><tt class="xref py py-func docutils literal"><span class="pre">to_json()</span></tt></a> method is used
 in conjuction with the custom <a class="reference internal" href="#app.helpers.JSONEncoder" title="app.helpers.JSONEncoder"><tt class="xref py py-class docutils literal"><span class="pre">JSONEncoder</span></tt></a> class. By default this
 mixin will assume all properties of the SQLAlchemy model are to be visible
 in the JSON output. Extend this class to customize which properties are
 public, hidden or modified before being being passed to the JSON serializer.</p>
+<dl class="method">
+<dt id="app.helpers.JsonSerializer.to_json">
+<tt class="descname">to_json</tt><big>(</big><em>max_depth</em><big>)</big><a class="headerlink" href="#app.helpers.JsonSerializer.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just filter the fields which will be left for json to encode.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -479,7 +983,7 @@ in all modules for the specified package.</p>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-app.appfactory">app.appfactory module</a></li>
-<li><a class="reference internal" href="#module-app.config">app.config module</a></li>
+<li><a class="reference internal" href="#app-config-module">app.config module</a></li>
 <li><a class="reference internal" href="#module-app.core">app.core module</a></li>
 <li><a class="reference internal" href="#module-app.helpers">app.helpers module</a></li>
 <li><a class="reference internal" href="#module-app.services">app.services module</a></li>

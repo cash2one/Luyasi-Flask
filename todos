@@ -1,10 +1,13 @@
+13.把id的hiddenfield改成了integer的wigdet. -OK
+12.BLOG界面的时间没有加上utc
+11.集成ckeditor, 还要处理内容为空的问题 -- OK
 10.Security的i18n还有问题，不完美。
 9.unitest  -- OK
     1) 要更改setting
     2) 要更改factory
 8.logging: 使用file and email -- OK
 7.auth2:qq -- OK
-6.database mirigration 数据库版本控制 -- OK
+6.database mirigration 数据库版本控制. 改成alembic了 -- OK
 5.注册邮件内容要修改 -- OK
 4.注册成功后的跳转要修改 --OK
 3.在readthedocs里 -- part OK

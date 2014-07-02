@@ -1,0 +1,95 @@
+{% extends "blog/base.html" %}
+
+{% from "macros/_pager.html" import render_pager %}
+
+{% block title %}
+Miss Lu
+{% endblock title%}
+
+{% block actionbar %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="btn-group pull-right" style="margin-bottom: 12px">
+			{% if has_right('create', 'blog', 'blog') %}
+			<a href="{{url_for('.create_blog')}}" type="button" class="btn btn-success">{{_('Write blog')}}</a>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock actionbar %}
+
+{% block rightmain %}
+<div class="row">
+	{% for blog in blogs.items %}
+	<div class="col-md-12 item">
+		<div class="row">
+			<div class="col-md-10">
+				<a href="{{url_for('.detail_blog', id=blog.id)}}">
+					<h4 class="list-group-item-heading" >{{blog.title}}</h4>
+					<!--<p class="list-group-item-text">...</p>-->
+				</a>
+			</div>
+			<div class="col-md-2">
+				{# 有权限才可以编辑 #}
+				<div class="edit-btns hidden">
+					{% if blog.user == current_user and has_right('delete', 'blog', 'blog') %}
+					<button type="button" data-del-id="{{blog.id}}" class="btn btn-danger btn-xs btn-delete">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+					{% endif %}
+					{% if blog.user == current_user and has_right('change', 'blog', 'blog') %}
+					<a href="{{url_for('.change_blog', id=blog.id)}}" type="button" class="btn btn-primary btn-xs">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 pull-right">
+				<h5>[{{blog.user.nikename or blog.user.email or blog.user.username}}] post [{{blog.update_at or blog.create_at or ''}}]</h5>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<hr/>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<!--pager-->
+<div class="row">
+	<div class="col-md-12">
+	{{render_pager(blogs,'.list_blog') }}
+	</div>
+</div>
+{% endblock %}
+
+{% block pagescript %}
+<script type="text/javascript">
+$(function(){
+	var blogId = 0;
+	$('.btn-delete').click(function(){
+		blogId = $(this).attr('data-del-id');
+		$('#infoModal').modal();
+	});
+
+	$('.btn-ok').click(function(){
+		url = "{{url_for('.delete_blog', id=0)}}";
+		pos = url.lastIndexOf('/');
+		url_delete = url.substr(0,pos+1) + blogId;
+		location.pathname = url_delete;
+	});
+
+	$('.item').mouseover(function(){
+		$(this).find('.edit-btns').removeClass('hidden');
+	});
+
+	$('.item').mouseout(function(){
+		$(this).find('.edit-btns').addClass('hidden');
+	});
+});
+</script>
+{% endblock pagescript%}

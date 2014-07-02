@@ -5,30 +5,50 @@ Flask app setting.
 """
 
 import os
+from flask.ext.babel import gettext, lazy_gettext
 
-#Flask的debug开关。有利于看出错信息。
+#Flask的debug开关。有利于看出错信息。正式启用时要关掉
 DEBUG = True
+TESTING = False
 
 #是否需要显示所有的blueprint route
 DEBUG_PRINT_ROUTE = False
 #: In some case, email will not used at all. e.g. When use qingbank module only.
 ENABLE_SECURITY_MAIL = True
 
-from flask.ext.babel import gettext, lazy_gettext
+# 最大的楼层深度，超过了则会隐藏
+BLOG_VISIBLE_MAX_FLOOR = 5
+
+# 验证码设置
+RECAPTCHA_PUBLIC_KEY = "6Lex_PQSAAAAAM43C35O-SMHkI6R97koCagyxbNO"
+RECAPTCHA_PRIVATE_KEY = "6Lex_PQSAAAAANICoSeoV0BWR_IN3FlBFAawQXHN"
+
+#------基本路径-----------------
+_basedir = os.path.abspath(os.path.dirname(__file__))
+
+#---------------------上传配置-----------------------------------------
+UPLOAD_FOLDER = os.path.join(_basedir, 'frontend/static/upload')
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+# 16M upload
+MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
 #OAuth client配置信息
 OAUTH_QQ = {
-    "auth_endpoint": "https://graph.qq.com/oauth2.0/authorize",	
+    "auth_endpoint": "https://graph.qq.com/oauth2.0/authorize",
     "token_endpoint": "https://graph.qq.com/oauth2.0/token",
     "resource_endpoint": "https://graph.qq.com",
     "client_id" :"101055610",
-    "client_secret": "15053e08bfb35e21e14a23186457ece6"			
+    "client_secret": "15053e08bfb35e21e14a23186457ece6"
 }
 
 #SERVER_NAME就flask的自有配置。。上次不小心用了SERVER_NAME，搞到所有请求都是not found
 KINORSI_SERVER_NAME = 'kinorsi.com'
 KINORSI_SERVER_PORT = '5000'
-KINORSI_SERVER_HOST = str.format('{}:{}', KINORSI_SERVER_NAME, KINORSI_SERVER_PORT)
+KINORSI_SERVER_HOST = ''
+if KINORSI_SERVER_PORT and len(KINORSI_SERVER_PORT)>0:
+	KINORSI_SERVER_HOST = str.format('{}:{}', KINORSI_SERVER_NAME, KINORSI_SERVER_PORT)
+else:
+	KINORSI_SERVER_HOST = KINORSI_SERVER_NAME
 
 #gmail.com-for logging.写log和正常发邮件有所不同。。
 # MAIL_DEFAULT_SENDER = "kinorsi@gmail.com"
@@ -57,24 +77,19 @@ MAIL_PASSWORD = 'chouchou2TOUTOU'
 #收邮件用的管理员
 ADMINS=['172440249@qq.com']
 
-
 # SecretKeyForSessionSigning
-SECRET_KEY = 'luyasikinorsi'
-
-_basedir = os.path.abspath(os.path.dirname(__file__))
+SECRET_KEY = '\xe2\x95\x96\xd8\xba\xda\xb6\x1e\xf9Ev\n\xfd\x0c\xb6\xca\xf1a9l-S\xe3\xd9'
 
 #和app同一级路径存储log
 LOGGING_DIR = os.path.join(_basedir, '../logs')
-
-#openid dir
-# OPENID_FS_STORE_PATH = os.path.join(_basedir, 'openid_tmp')
 
 #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'luyasi_flask.db')
 
 # 用mysql的话，alembic的detected有点问题.喜欢重新删除约束，重建，或者修改boolean为tinyint等。。~看来要手动改改代码。我顶他个肺肺
 SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:qingbank@localhost/luyasi-flask?charset=utf8&use_unicode=0'
-
-# database migrate 
+# 模型返回json时最大的解析层次。
+SQLALCHMY_MAX_DEPTH = 3
+# database migrate
 SQLALCHEMY_MIGRATE_REPO = os.path.join(_basedir, 'db_repository')
 DATABASE_CONNECT_OPTIONS = {}
 
@@ -82,11 +97,6 @@ THREADS_PER_PAGE = 8
 
 CSRF_ENABLED = True
 CSRF_SESSION_KEY = "kinorsiluyasi"
-
-RECAPTCHA_USE_SSL = False
-RECAPTCHA_PUBLIC_KEY = '6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J'
-RECAPTCHA_PRIVATE_KEY = '6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu'
-RECAPTCHA_OPTIONS = {'theme': 'white'}
 
 # Flask-Security 配置
 SECURITY_EMAIL_SENDER=MAIL_DEFAULT_SENDER
@@ -96,18 +106,11 @@ SECURITY_RECOVERABLE = True
 SECURITY_CHANGEABLE = True
 SECURITY_REGISTERABLE = True
 #加密算法
-# SECURITY_PASSWORD_HASH = 'sha512_crypt'
-# SECURITY_PASSWORD_SALT = '567HNtH731dfASd45hhHIJHIH'
+SECURITY_PASSWORD_HASH = 'sha512_crypt'
+SECURITY_PASSWORD_SALT = 'ihvgh08t8h4nbg0a0h'
 
 # 登陆时可以使用的字段
 SECURITY_USER_IDENTITY_ATTRIBUTES = ['email','username']
-#OpenID的提供方
-# OPENID_PROVIDERS = [
-#     { 'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id' },
-#     { 'name': 'Yahoo', 'url': 'https://me.yahoo.com' },
-#     { 'name': 'AOL', 'url': 'http://openid.aol.com/<username>' },
-#     { 'name': 'Flickr', 'url': 'http://www.flickr.com/<username>' },
-#     { 'name': 'MyOpenID', 'url': 'https://www.myopenid.com' }]
 
 SECURITY_URL_PREFIX = '/security'
 # 自己增加的用于openid
@@ -140,7 +143,8 @@ SECURITY_EMAIL_SUBJECT_CONFIRM='请验证kinorsi.com注册'
 
 
 # babel config
-BABEL_DEFAULT_LOCALE = 'zh_Hans_CN'
+BABEL_DEFAULT_LOCALE = 'en'
+#BABEL_DEFAULT_LOCALE = 'zh_Hans_CN'
 BABEL_DEFAULT_TIMEZONE = 'UTC'
 #related command-working dir: app
 # 抽取: pybabel extract -F babel.cfg -o messages.pot .

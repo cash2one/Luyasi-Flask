@@ -17,4 +17,4 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'test.db')
 
 #测试的时候就不用了, 要用的话算法有点奇怪。
-WTF_CSRF_ENABLED = False
+WTF_CSRF_ENABLED = True

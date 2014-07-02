@@ -4,9 +4,10 @@ import pkgutil
 import logging.handlers
 import inspect
 
-from flask import Blueprint
+from flask import Blueprint, current_app
 from flask.json import JSONEncoder as BaseJSONEncoder
 from flask.ext.admin.contrib.sqla import ModelView
+from sqlalchemy.orm.dynamic import AppenderQuery
 
 from .core import db
 
@@ -70,7 +71,8 @@ class JSONEncoder(BaseJSONEncoder):
     """
     def default(self, obj):
         if isinstance(obj, JsonSerializer):
-            return obj.to_json()
+            self.max_depth = current_app.config['SQLALCHMY_MAX_DEPTH']
+            return obj.to_json(self.max_depth)
         return super(JSONEncoder, self).default(obj)
 
 
@@ -86,7 +88,10 @@ class JsonSerializer(object):
     __json_public__ = None
     __json_hidden__ = None
     __json_modifiers__ = None
+    #: Field in this collect is not limited by the depth.
+    __json_depth_no_limit__ = None
 
+    #--------------------------------------------------------------
     def get_field_names(self):
         for p in self.__mapper__.iterate_properties:
             yield p.key
@@ -94,27 +99,65 @@ class JsonSerializer(object):
     # def is_valid_json(self, val):
     #     return isinstance(val, (dict,list,int,long,float,True,False,None,str,unicode, db.Model))
 
-    def to_json(self):
+    #--------------------------------------------------------------
+    def to_json(self, max_depth):
+        """Just filter the fields which will be left for json to encode.
+        """
+        # 用来控制json的返回深度
+        max_depth -= 1
+
         field_names = self.get_field_names()
 
         public = self.__json_public__ or field_names
         hidden = self.__json_hidden__ or []
         modifiers = self.__json_modifiers__ or dict()
 
+        depth_no_limit = self.__json_depth_no_limit__ or []
+
         rv = dict()
         for key in public:
             rv[key] = getattr(self, key)
-            # 把单独的关联对象，显示为对应的名字
-            if isinstance(rv[key], db.Model):
-                rv[key] = rv[key].__repr__()
         for key, modifier in modifiers.items():
             value = getattr(self, key)
             rv[key] = modifier(value, self)
         for key in hidden:
             rv.pop(key, None)
+        # 可能出现多层次的递归。
+        rvfinal = dict()
+        for key in rv:
+            # 注意：移除不能被tojson的属性~即如果是类的属性，但是却没有继承JsonSerializer的话就移除。
+            #AppenderBaseQuery似乎是生成的类，在文件里找不到。所以只能用名字。
 
-        return rv
+            # 处理集合的情况，要取一个元素出来比较其类型是否为JsonSerialzer。
+            test = rv[key]
+            is_collect = False
+            if isinstance(rv[key], (list, dict)) and len(rv[key]) > 0:
+                is_collect = True
+                test = rv[key][0]
 
+            # 如果是可以serializer的类型。如果已经达到最大深度了，则返回__repr__()的表示。如果没有的话则继续向下。
+            # 对于集体的处理则要对间个元素进行深度测试。
+            if isinstance(test, JsonSerializer):
+                if max_depth == 0 and key not in depth_no_limit:
+                    rvfinal[key] = rv[key].__repr__()
+                else:
+                    if not is_collect:
+                        rvfinal[key] = rv[key].to_json(max_depth)
+                    else: # is_collect = True
+                        json_list = list()
+                        for item in rv[key]:
+                            json_list.append(item.to_json(max_depth))
+                        rvfinal[key] = json_list
+                continue
+            elif rv[key] and type(rv[key]).__name__ == 'AppenderBaseQuery':
+                continue
+
+            rvfinal[key]=rv[key]
+
+        return rvfinal
+
+
+##############################################################
 class TlsSMTPHandler(logging.handlers.SMTPHandler):
     """Gmail should use this to do email logging. But it seems not work!"""
     def emit(self, record):
@@ -151,6 +194,7 @@ class TlsSMTPHandler(logging.handlers.SMTPHandler):
         except:
             self.handleError(record)
 
+##############################################################
 class SslSTMPHandler(logging.handlers.SMTPHandler):
     """When use SSL, need to use this. Currently used with QQEmail"""
     def emit(self, record):
@@ -165,7 +209,7 @@ class SslSTMPHandler(logging.handlers.SMTPHandler):
             port = self.mailport
             if not port:
                 port = smtplib.SMTP_PORT
-            smtp = smtplib.SMTP_SSL(self.mailhost, port, timeout=self._timeout)
+            smtp = smtplib.SMTP_SSL(self.mailhost, port)#, timeout=self._timeout)
             msg = self.format(record)
             msg = "From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\n\r\n%s" % (
                 self.fromaddr,
@@ -183,4 +227,4 @@ class SslSTMPHandler(logging.handlers.SMTPHandler):
         except (KeyboardInterrupt, SystemExit):
             raise
         except:
-            self.handleError(record)    
+            self.handleError(record)

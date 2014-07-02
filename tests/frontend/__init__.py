@@ -10,10 +10,11 @@ class LuyasiFrontendTestCase(LuyasiTestCase):
         try:
             app = frontend.create_app(settings_override=test_setting)
             app.config['TESTING'] = True
-            return app	
+            return app
         except Exception as e:
             print e
 
     def setUp(self):
         super(LuyasiFrontendTestCase, self).setUp()
-        self._login()
+        #self._login()
+        self._login_ajax()

@@ -9,7 +9,7 @@ from . import LuyasiFrontendTestCase
 
 class QingbankFrontendTestCase(LuyasiFrontendTestCase):
 
-    render_templates  = False
+    render_templates  = True
 
     def _create_fixtures(self):
         super(QingbankFrontendTestCase, self)._create_fixtures()

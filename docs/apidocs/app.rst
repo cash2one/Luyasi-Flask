@@ -11,6 +11,7 @@ Subpackages
     app.home
     app.qingbank
     app.security
+    app.blog
 
 Submodules
 ----------
@@ -32,6 +33,11 @@ app.core module
 
 .. automodule:: app.core
     :members:
+
+.. autofunction::
+.. autodata::
+.. automethod::
+.. autoattribute::
 
 app.helpers module
 ------------------

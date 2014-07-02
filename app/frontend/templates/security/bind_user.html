@@ -2,33 +2,37 @@
 
 {% from "macros/fieldmacros.html" import render_error %}
 
-{% block container %}
+{% block title %}
+{{_('Bind account')}}
+{% endblock title%}
 
+{% block container %}
 <div class='row'>
 	<div class="col-md-8">
-		{% include "security/_messages.html" %}		
+		{% include "macros/_messages.html" %}
 	</div>
 	<div class="col-md-4">
-		<form class="form-signin" action="{{ url_for('.bind_user') }}" method="post" name="bind_form">
+		<form class="form-horizontal" action="{{ url_for('.bind_user') }}" method="post" name="bind_form">
 			{{ bind_form.hidden_tag() }}
-			<h2 class="form-signin-heading">绑定帐号</h2>
+			<h2>{{_('Bind account')}}</h2>
 
 			<div class="form-group">
-				{{bind_form.email(class="form-control", placeholder="用户名/邮箱", autofocus="")}} 
+				{{bind_form.email(class="form-control", placeholder=_("username or email"), autofocus="")}}
+				{{render_error(bind_form.email)}}
 			</div>
-			{{render_error(bind_form.email)}}
 			<div class="form-group">
-				{{bind_form.password(class="form-control", placeholder="密码")}} 
+				{{bind_form.password(class="form-control", placeholder=_("password"))}}
+				{{render_error(bind_form.password)}}
 			</div>
-			{{render_error(bind_form.password)}}
 			<div class="form-group">
-				<button class="btn btn-lg btn-primary btn-block" type="submit">绑定</button>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">跳过此步</button>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">{{_('Bind')}}</button>
+				<a href="{{bind_form.next.data}}" class="btn btn-lg btn-primary btn-block" type="submit">{{_('Next time')}}</a>
+				<a href="{{url_for('.do_not_remind_bind', next=bind_form.next.data)}}" class="btn btn-lg btn-primary btn-block" type="submit">{{_("Don't remind me again")}}</a>
+				</div>
 			</div>
-			<input type="hidden" name="next" value="{{ next }}" />
-			<input type="hidden" name="next" value="http://localhost:5000/qingbank">
+			<input type="hidden" name="next" value="{{next}}" />
 		</form>
 	</div>
-	
+
 </div>
 {% endblock %}

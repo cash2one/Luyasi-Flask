@@ -1,3 +1,37 @@
+2014-06-20
+1.fix:翻译会被空格截断的问题：原来是缺少了引用号~在大括号上再加一次引用就好了。
+
+2014-06-19
+1.增加一个字段用来记录头像图片地址。目前只用在qq登陆时。
+
+2014-06-18
+1.增加功能：使用QQ登陆后返回原地址。
+2.增加功能：绑定是否提醒
+
+2014-06-13
+1.增加验证码：在core中自动去除验证码，方便使用**form.data。使用时间来加入验证请求，以使得请求重发。
+
+2014-06-10
+1.增加了jinja2模板控制能力，包括has_role, has_right。
+2.blog的功能进行了权限的控制。
+
+2014-06-09
+1.增加了权限控制RightNeed,和相应的decorator,同时对方法的命名有了一定的约束。
+2.增加了App, Right Model对应的管理view。
+
+2014-05-30
+1.增加blog
+2.为json的返回提供了depth参数，用来指定返回的深度层次。
+3.另外提供__json_no_depth_limit__来让一些想不受深度影响的字段提供解决方法。
+4.重新对route的定义作处理，使可以接受多个url。
+5.增加在frontend返回json的处理。
+6.统一了alert为bootstrap的modal。
+7.增加了对jquery.ajax的postJSONEx,getJSONEx的封装。
+8.引入了ckeditor。
+9.在service里增加了get_page_filterby和get_latest_page_filtertby。
+10.为model增加update_at, create_at, version等基本字段用来记录字段的变动。其中create_at有default值处理，update_at有事件处理，version由sqlalchemy的version_id处理。
+11.navbar只有在中间有内容了，变窄了。
+
 2014-04-24
 1.把flask-sqlalchemy的init方法设置autoflush为true，不然factoryboy里得不到数据。后续等到flask-sqlalchemy 2.0发布了就是默认值了，再进行更新。
 2.引入factoryboy

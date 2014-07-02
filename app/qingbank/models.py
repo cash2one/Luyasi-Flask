@@ -1,10 +1,10 @@
 #-*- coding:utf-8 -*-
-from ..core import db
+from ..core import db, ModelVersion
 from ..helpers import JsonSerializer
 from flask.ext.babel import gettext
 
 
-class Department(db.Model, JsonSerializer):
+class Department(db.Model, ModelVersion, JsonSerializer):
     """docstring for QBDepartment"""
     __tablename__ = 'qingbank_department'
 
@@ -14,10 +14,10 @@ class Department(db.Model, JsonSerializer):
 
     def __repr__(self):
         return str.format('<Department {}>', self.name)
-    
 
 
-class Contact(db.Model, JsonSerializer):
+
+class Contact(db.Model, ModelVersion, JsonSerializer):
     """docstring for QBContactInfo"""
     # __json_hidden__ = ['department']
     __tablename__ = 'qingbank_contact'
@@ -44,7 +44,7 @@ class Contact(db.Model, JsonSerializer):
         return str.format('<Contact {}>', self.name)
 
 
-class DocNode(db.Model, JsonSerializer):
+class DocNode(db.Model, ModelVersion, JsonSerializer):
     """Node for document"""
     __tablename__ = 'qingbank_doc'
 

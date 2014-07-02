@@ -26,7 +26,7 @@
     <link rel="top" title="Luyasi 1 documentation" href="../index.html" />
     <link rel="up" title="app" href="modules.html" />
     <link rel="next" title="app.home package" href="app.home.html" />
-    <link rel="prev" title="app.security package" href="app.security.html" /> 
+    <link rel="prev" title="app.blog package" href="app.blog.html" /> 
   </head>
   <body>
     <div class="related">
@@ -42,7 +42,7 @@
           <a href="app.home.html" title="app.home package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="app.security.html" title="app.security package"
+          <a href="app.blog.html" title="app.blog package"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Luyasi 1 documentation</a> &raquo;</li>
           <li><a href="modules.html" accesskey="U">app</a> &raquo;</li> 
@@ -115,6 +115,12 @@
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="app.frontend.kinorsi.test_form">
+<tt class="descclassname">app.frontend.kinorsi.</tt><tt class="descname">test_form</tt><big>(</big><big>)</big><a class="headerlink" href="#app.frontend.kinorsi.test_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return form</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-app.frontend.qingbank">
 <span id="app-frontend-qingbank-module"></span><h2>app.frontend.qingbank module<a class="headerlink" href="#module-app.frontend.qingbank" title="Permalink to this headline">¶</a></h2>
@@ -140,7 +146,7 @@
 
 <dl class="function">
 <dt id="app.frontend.qingbank.list_contact_page">
-<tt class="descclassname">app.frontend.qingbank.</tt><tt class="descname">list_contact_page</tt><big>(</big><em>page</em><big>)</big><a class="headerlink" href="#app.frontend.qingbank.list_contact_page" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">app.frontend.qingbank.</tt><tt class="descname">list_contact_page</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.frontend.qingbank.list_contact_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return one page contacts.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -157,21 +163,64 @@
 <span id="app-frontend-security-module"></span><h2>app.frontend.security module<a class="headerlink" href="#module-app.frontend.security" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="app.frontend.security.index">
-<tt class="descclassname">app.frontend.security.</tt><tt class="descname">index</tt><big>(</big><big>)</big><a class="headerlink" href="#app.frontend.security.index" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">app.frontend.security.</tt><tt class="descname">index</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.frontend.security.index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rerturn personal profile page.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="app.frontend.security.profile_contact">
-<tt class="descclassname">app.frontend.security.</tt><tt class="descname">profile_contact</tt><big>(</big><big>)</big><a class="headerlink" href="#app.frontend.security.profile_contact" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">app.frontend.security.</tt><tt class="descname">profile_contact</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.frontend.security.profile_contact" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contact of personal profile.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="app.frontend.security.profile_security">
-<tt class="descclassname">app.frontend.security.</tt><tt class="descname">profile_security</tt><big>(</big><big>)</big><a class="headerlink" href="#app.frontend.security.profile_security" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">app.frontend.security.</tt><tt class="descname">profile_security</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.frontend.security.profile_security" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change personal profile password.</p>
 </dd></dl>
+
+</div>
+<div class="section" id="module-app.frontend.blog">
+<span id="app-frontend-blog-module"></span><h2>app.frontend.blog module<a class="headerlink" href="#module-app.frontend.blog" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="app.frontend.blog.comment">
+<tt class="descclassname">app.frontend.blog.</tt><tt class="descname">comment</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.frontend.blog.comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Comment the blog.
+:param blog_id: The blog id to be commented.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.blog.d">
+<tt class="descclassname">app.frontend.blog.</tt><tt class="descname">d</tt><big>(</big><em>Comment</em><big>)</big><a class="headerlink" href="#app.frontend.blog.d" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="xref py py-class docutils literal"><span class="pre">Comment</span></tt></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.blog.delete">
+<tt class="descclassname">app.frontend.blog.</tt><tt class="descname">delete</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.frontend.blog.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete blog.
+:param id: blog id.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.blog.edit">
+<tt class="descclassname">app.frontend.blog.</tt><tt class="descname">edit</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.frontend.blog.edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit the blog.
+:param id: blog id.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.blog.list_comment">
+<tt class="descclassname">app.frontend.blog.</tt><tt class="descname">list_comment</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.frontend.blog.list_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the comments belonge to the blog that have <cite>:field: Comment.ref_comment</cite> is null.
+:param blog_id: Blog id.
+:param page: Page of the comments.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.frontend.blog.show_more_comment">
+<tt class="descclassname">app.frontend.blog.</tt><tt class="descname">show_more_comment</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.frontend.blog.show_more_comment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-app.frontend">
@@ -206,14 +255,15 @@
 <li><a class="reference internal" href="#module-app.frontend.kinorsi">app.frontend.kinorsi module</a></li>
 <li><a class="reference internal" href="#module-app.frontend.qingbank">app.frontend.qingbank module</a></li>
 <li><a class="reference internal" href="#module-app.frontend.security">app.frontend.security module</a></li>
+<li><a class="reference internal" href="#module-app.frontend.blog">app.frontend.blog module</a></li>
 <li><a class="reference internal" href="#module-app.frontend">Module contents</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="app.security.html"
-                        title="previous chapter">app.security package</a></p>
+  <p class="topless"><a href="app.blog.html"
+                        title="previous chapter">app.blog package</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="app.home.html"
                         title="next chapter">app.home package</a></p>
@@ -252,7 +302,7 @@
           <a href="app.home.html" title="app.home package"
              >next</a> |</li>
         <li class="right" >
-          <a href="app.security.html" title="app.security package"
+          <a href="app.blog.html" title="app.blog package"
              >previous</a> |</li>
         <li><a href="../index.html">Luyasi 1 documentation</a> &raquo;</li>
           <li><a href="modules.html" >app</a> &raquo;</li> 

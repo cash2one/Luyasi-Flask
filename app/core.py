@@ -1,16 +1,47 @@
 #-*- coding:utf-8 -*-
 # from flask_mail import Mail
-from flask.ext.admin import Admin
-from flask.ext.security import Security
-from flask.ext.sqlalchemy import SQLAlchemy
-from sqlalchemy import or_
-from flask.ext.babel import Babel
-from flask.ext.mail import Mail
-from flask.ext.admin.contrib.sqla import ModelView
-from flask.ext.security import current_user
+from collections import namedtuple
+
+from flask_admin import Admin
+from flask_security import Security
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import or_, event, asc, desc
+from sqlalchemy.orm import mapper
+from flask_babel import Babel
+from flask_mail import Mail
+from flask_admin.contrib.sqla import ModelView
+from flask_security import current_user
+
+import datetime
 # Flask-SQLAlchemy extension instance
 # Version 1.0 Flask-SQLalchemy autoflush default value is False. Here let it be True.
 db = SQLAlchemy(session_options={'autocommit': False, 'autoflush': True})
+
+def before_update(mapper, connection, target):
+    target.update_at = datetime.datetime.utcnow()
+
+def before_insert(mapper, connection, target):
+    now = datetime.datetime.utcnow()
+    target.create_at = now
+    target.update_at = now
+
+
+# 使用mapper用来使全局有效
+event.listen(mapper, 'before_update', before_update)
+event.listen(mapper, 'before_insert', before_insert)
+
+
+class ModelVersion(object):
+    """Predefine some columns.
+    :attr:`update_at`, for recording update time.
+    :attr:`create_at`, for recording create time.
+    :attr:`version`, for optimistic locking.
+    """
+    #: Datetime for updation of this record. :method:`before_update` to update this.
+    update_at = db.Column(db.DateTime())
+
+    #: Datetime for creation of this record.
+    create_at = db.Column(db.DateTime())
 
 # 修改sqlalchemy生成约束时的命名规则。其中要注意ck，这是个check，这样以后在定义db.Boolean的时候要加个name:db.Boolean(name='sth')
 convention = {
@@ -35,6 +66,8 @@ security = Security()
 # Flask-Babel
 babel = Babel()
 
+# pricipal need for right
+RightNeed = namedtuple('RightNeed', ['action', 'app', 'entity'])
 # 控制管理面板FLask-Admin的权限
 class AuthModelView(ModelView):
     """Subclass of :class:`flask.ext.admin.contrib.sqla.ModelView`. This view need spedific roles to access.
@@ -91,6 +124,7 @@ class Service(object):
         :param kwargs: a dictionary of parameters
         """
         kwargs.pop('csrf_token', None)
+        kwargs.pop('captcha', None)
         return kwargs
 
     def save(self, model):
@@ -185,3 +219,25 @@ class Service(object):
         self._isinstance(model)
         db.session.delete(model)
         db.session.commit()
+
+    #----------------------------------------------------------------------
+    def get_page_filterby(self, page=1, per_page=20, error_out=True, **kwargs):
+        """Get a page that has been filtered.
+        """
+        return self.__model__.query.filter_by(**kwargs).paginate(page, per_page, error_out)
+
+    #----------------------------------------------------------------------
+    def get_latest_page_filterby(self, page=1, per_page=20, error_out=True, **kwargs):
+        """
+        """
+        return self.__model__.query \
+                .filter_by(**kwargs) \
+                .order_by(self.__model__.update_at.desc(), self.__model__.create_at.desc()) \
+                .paginate(page, per_page, error_out)
+
+    #----------------------------------------------------------------------
+    def get_lastest_page(self, page, per_page=20, error_out=True):
+        """"""
+        return self.__model__.query \
+                .order_by(self.__model__.update_at.desc(), self.__model__.create_at.desc()) \
+                .paginate(page, per_page, error_out)

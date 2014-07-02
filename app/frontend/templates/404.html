@@ -1,1 +1,10 @@
-<h1>没有找到</h1>
+{% extends "base/base.html" %}
+
+{% block container %}
+<div class="row">
+	<h1 class="bg-warning text-center">{{_('The page you are looking for has been gone.')}}</h1>
+</div>
+<div class="row">
+	<a class="btn btn-primary btn-block" href="{{request.environ['HTTP_REFERER']}}">{{_('Back')}}</a>
+</div>
+{% endblock container %}

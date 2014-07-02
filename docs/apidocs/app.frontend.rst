@@ -20,8 +20,13 @@ app.frontend.security module
 ----------------------------
 
 .. automodule:: app.frontend.security
-    :members: 
+    :members:
 
+app.frontend.blog module
+----------------------------
+
+.. automodule:: app.frontend.blog
+    :members:
 
 Module contents
 ---------------

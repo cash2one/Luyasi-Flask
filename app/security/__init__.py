@@ -1,6 +1,6 @@
 
 from ..core import Service
-from .models import User, Role
+from .models import User, Role, App
 
 
 class UserService(Service):

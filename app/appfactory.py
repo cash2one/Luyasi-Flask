@@ -1,24 +1,25 @@
 # -*- coding:utf-8 -*-
 
+from flask import Flask
+from flask_security import SQLAlchemyUserDatastore, current_user
+from flask_principal import identity_loaded, ItemNeed
+
 from app import setting
 from app.security.models import Role, User
-from flask import Flask
-from flask.ext.security import SQLAlchemyUserDatastore
-
-from .core import db, security, babel, mail
+from .core import db, security, babel, mail, RightNeed
 from .helpers import register_blueprints, SslSTMPHandler
 
 
 def create_app(package_name, package_path, settings_override=None, register_security_blueprint=True):
     """
-    Create Flask application. 
+    Create Flask application.
     Currently used modules that need to init includes:
 
     * `Flask-SQLAlchemy <https://pythonhosted.org/Flask-SQLAlchemy>`_
     * `Flask-Mail <http://pythonhosted.org/Flask-Mail/>`_
     * `Flask-Babel <http://pythonhosted.org/Flask-Babel/>`_
     * `Flask-Security <http://pythonhosted.org/Flask-Security/>`_
-    * `Flask-Amdin(only init from the frontend) <http://flask-admin.readthedocs.org/en/latest/index.html>`_ 
+    * `Flask-Amdin(only init from the frontend) <http://flask-admin.readthedocs.org/en/latest/index.html>`_
 
     :param package_name: package name of the app.
     :param package_path: package path of the app.
@@ -26,14 +27,18 @@ def create_app(package_name, package_path, settings_override=None, register_secu
     :param register_security_blueprint: flag to specify if the Flask-Security to register blueprint or not.
     """
     app = Flask(package_name, instance_relative_config=True)
+
+    # principal
+    identity_loaded.connect_via(app)(_app_on_identity_loaded)
     # 基本配置
     app.config.from_object(setting)
     # 可以被覆盖的配置，如在测试情况里
     app.config.from_object(settings_override)
     # 加载security翻译配置
-    import importlib
-    security_translate = importlib.import_module(app.config['SECURITY_TRANSLATION_PATH'])
-    app.config.from_object(security_translate)    
+    if app.config.has_key('SECURITY_TRANSLATION_PATH'):
+        import importlib
+        security_translate = importlib.import_module(app.config['SECURITY_TRANSLATION_PATH'])
+        app.config.from_object(security_translate)
 
     # 使用这样的方式init，不能调用db.create_all()
     db.init_app(app)
@@ -74,3 +79,18 @@ def create_app(package_name, package_path, settings_override=None, register_secu
         app.logger.info(str.format('{0} startup.', app.name))
 
     return app
+
+#----------------------------------------------------------------------
+def _app_on_identity_loaded(sender, identity):
+    """Define app needed flask_pricipal identity loaded handler.
+    :param sender: Signle sender.
+    "param identity: Identity.
+    """
+    #identity.provides.add(ItemNeed('delete', 13, 'blog'))
+
+    for right in current_user.rights:
+        identity.provides.add(RightNeed(right.action, right.app, right.entity))
+
+    for role in current_user.roles:
+        for r in role.rights:
+            identity.provides.add(RightNeed(r.action, r.app, r.entity))

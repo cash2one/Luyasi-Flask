@@ -2,17 +2,17 @@
 {% from "macros/_pager.html" import render_pager %}
 
 {% block title %}
-通讯录
+{{_('Contacts')}}
 {% endblock title%}
 
 
 {% block main %}
 	<form method="get" action="{{ url_for('.list_contact_page', page=1) }}">
 		<div class="input-group">
-		  <input type="text" class="form-control" id="searchContact" name="searchContact" 
-		  placeholder="可以输入拼音、拼音首字母、全名，电话号码，部门名称等" value="{{searchContact}}">
+		  <input type="text" class="form-control" id="searchContact" name="searchContact"
+		  placeholder="{{_('Fullname | pinyin | first letter | phone | department')}}" value="{{searchContact}}">
 		  <div class="input-group-btn">
-		  	<button class="btn btn-primary" id="search">查找</button>
+		  	<button class="btn btn-primary" id="search">{{_('Search')}}</button>
 		  </div>
 		</div>
 	</form>
@@ -27,11 +27,11 @@
                     <h4 class="list-group-item-heading"><a target="blank" href="{{url_for('.contact_detail', id=contact.id)}}">{{contact.name}}</a></h4>
                     <p class="list-group-item-text"> {{contact.department.name}}</p>
                 </div>
-                <div class="col-md-7 text-left"> 
+                <div class="col-md-7 text-left">
                 	<dl class="dl-horizontal">
-		  <dt>办公电话：</dt><dd>{{contact.telephone or '无'}} </dd>
-		  <dt>移动电话：</dt><dd>{{contact.mobile or '无'}}</dd>
-		</dl>  
+		  <dt>{{_('Telephone:')}}</dt><dd>{{contact.telephone or ''}} </dd>
+		  <dt>{{_('Mobile:')}}</dt><dd>{{contact.mobile or ''}}</dd>
+		</dl>
                 </div>
              </div>
         </li>
