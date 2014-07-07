@@ -3,6 +3,11 @@
 <head>
 <title>{% block title %}{% endblock title%}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--moment-->
+<script src="{{ url_for('static', filename='base/3partylib/moment/moment-with-langs.js') }}"></script>
+<script>
+moment.lang('zh-cn');
+</script>
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap/css/bootstrap.min.css') }}" media="screen">
 <style type="text/css">
@@ -138,8 +143,13 @@ body { padding-bottom: 71px; }
 		</div>
 		{% endblock actionbar %}
 
+		{% block flashmessage %}
+			{% include "macros/_messages.html" %}
+		{% endblock %}
+
 		<!-- Row for content -->
 		<div class="row">
+			<div class="col-md-12">
 			{% block container %}
 			<!--#### side bar ####-->
 			<div class="col-md-3">
@@ -160,6 +170,7 @@ body { padding-bottom: 71px; }
 					{% endblock rightmain %}
 			</div>
 			{% endblock container %}
+			</div>
         </div>
 	</div>
 
@@ -169,7 +180,6 @@ body { padding-bottom: 71px; }
 		  <!--copyright 2014 <a href='http://www.miibeian.gov.cn/'><span>粤ICP备14019158号-1</span></a>-->
 		<!--</div>-->
 	<!--</nav>-->
-
 	<script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script	src="{{ url_for('static', filename='base/3partylib/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -190,6 +200,22 @@ body { padding-bottom: 71px; }
 			$('#globalAlertModal .modal-body').text(msg);
 			$('#globalAlertModal').modal();
 		}
+
+		<!--没有ckeditor的时候，需要在这里重新请求captcha-->
+		$(function(){
+			try{
+				CKEDITOR;
+			}catch(e){
+				var __captcha = $('form').find('.captcha');
+				if(__captcha.length != 0){
+					__captcha.prepend('<img src="/common/captcha/?nothing=' + (new Date().getTime()) + '">');
+					__captcha.click(function(){
+						var __anytime = new Date().getTime();
+						__captcha.find("img").attr("src", "/common/captcha/?nothing=" + __anytime);
+					});
+				}
+			}
+		});
 	</script>
 
 	<!-- 本页js -->

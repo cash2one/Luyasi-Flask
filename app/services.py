@@ -3,7 +3,7 @@
 from .qingbank import ContactService, DepartmentService, NodeService
 from .security import UserService, RoleService
 from .blog	import CommentService, BlogService
-from .job import JobService
+from .job import JobService, ReportService
 
 api_contact = ContactService()
 api_department = DepartmentService()
@@ -19,3 +19,4 @@ api_comment = CommentService()
 
 #job
 api_job = JobService()
+api_report = ReportService()

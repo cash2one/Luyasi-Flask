@@ -6,7 +6,15 @@
 {{_('Publish job')}}
 {% endblock title%}
 
-
+{% block actionbar %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="btn-group pull-right" style="margin-bottom: 12px">
+			<a href="{{url_for('.list_job')}}" type="button" class="btn btn-default">{{_('Job list')}}</a>
+		</div>
+	</div>
+</div>
+{% endblock actionbar %}
 
 {% block container %}
 <div class="col-md-12">
@@ -22,6 +30,7 @@
 			{{render_error(form.job_type)}}
 		</div>
 		<div class="form-group">
+			{{form.content.label}}
 			{{form.content}}
 			{{render_error(form.content)}}
 		</div>

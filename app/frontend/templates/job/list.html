@@ -1,0 +1,50 @@
+{% extends "Job/base.html" %}
+
+{% from "macros/_pager.html" import render_pager %}
+
+{% block title %}
+{{_('Job list')}}
+{% endblock title%}
+
+{% block actionbar %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="btn-group pull-right" style="margin-bottom: 12px">
+			<a href="{{url_for('.create_job')}}" type="button" class="btn btn-success">{{_('Publish job')}}</a>
+		</div>
+	</div>
+</div>
+{% endblock actionbar %}
+
+{% block rightmain %}
+<div class="row">
+	{% for job in jobs.items %}
+	<div class="col-md-12 item">
+		<div class="row">
+			<div class="col-md-10">
+				<a href="{{url_for('.detail_job', job_id=job.id)}}">
+					<h4 class="list-group-item-heading" >
+					{{job.title}}
+					{% if job.reports and job.reports.count() > 0 %}
+					<small><a class="text-danger" href="{{url_for('.list_report', job_id=job.id)}}">{{_('Caution! This job has been reported, see reports')}}</a></small>
+					{% endif %}
+					</h4>
+				</a>
+				<h5>{{momentjs(job.create_at).format('LLLL')}}</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<hr/>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<!--pager-->
+<div class="row">
+	<div class="col-md-12">
+	{{render_pager(jobs,'.list_job') }}
+	</div>
+</div>
+{% endblock %}

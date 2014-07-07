@@ -8,9 +8,6 @@
 
 {% block container %}
 <div class='row'>
-	<div class="col-md-8">
-		{% include "macros/_messages.html" %}
-	</div>
 	<div class="col-md-4">
 		<form class="form-horizontal" action="{{ url_for('.bind_user') }}" method="post" name="bind_form">
 			{{ bind_form.hidden_tag() }}

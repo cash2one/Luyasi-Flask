@@ -190,6 +190,9 @@ class Service(object):
 
         :param kwargs: instance parameters
         """
+        # in case of the id is provided and the value is zero or None.
+        if kwargs.has_key('id') and (kwargs['id'] == 0 or kwargs['id']==None):
+            del kwargs['id']
         return self.__model__(**self._preprocess_params(kwargs))
 
     def create(self, **kwargs):

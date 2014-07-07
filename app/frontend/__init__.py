@@ -87,5 +87,8 @@ def right_require(app):
 #----------------------------------------------------------------------
 def init_context_processor(app):
     from ..security.jinjahelpers import has_role_processor, has_right_processor
+    from ..momentjs import momentjs
     app.context_processor(has_role_processor)
     app.context_processor(has_right_processor)
+    #app.context_processor(momentjs)
+    app.jinja_env.globals['momentjs'] = momentjs

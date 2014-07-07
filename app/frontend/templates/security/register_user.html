@@ -2,13 +2,13 @@
 
 {% from "macros/fieldmacros.html" import render_error %}
 
-{% block container %}
-
 {% block title %}
 {{_('Signup')}}
 {% endblock title%}
 
-{% include "macros/_messages.html" %}
+{% block container %}
+
+<div class="col-md-12">
 <form class="form-horizontal" method="post" action="{{ url_for_security('register') }}" name="register_user_form">
 	{{ register_user_form.hidden_tag() }}
 	<h2>{{_('Register info')}}</h2>
@@ -24,5 +24,5 @@
 		<button class="btn btn-lg btn-primary btn-block" type="submit">{{_('Submit')}}</button>
 	</div>
 </form>
-
+</div>
 {% endblock %}

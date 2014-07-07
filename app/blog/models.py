@@ -9,7 +9,7 @@ class Blog(db.Model, ModelVersion, JsonSerializer):
     __tablename__ = 'blog_blog'
 
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.String(100), unique=True)
+    title = db.Column(db.String(100))
     content = db.Column(db.Text())
 
     # author

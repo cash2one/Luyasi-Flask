@@ -2,13 +2,13 @@
 
 {% from "macros/fieldmacros.html" import render_error %}
 
-{% block container %}
-
 {% block title %}
 {{_('Activate account')}}
 {% endblock title%}
 
-{% include "macros/_messages.html" %}
+{% block container %}
+
+<div class="col-md-12">
 <form class="form-horizontal" action="{{ url_for_security('send_confirmation') }}" method="post" name="send_confirmation_form">
 	{{ send_confirmation_form.hidden_tag() }}
 	<h2>{{_('Resend confirmation instructions')}}</h2>
@@ -22,5 +22,5 @@
 	</div>
 	<input type="hidden" name="next" value="{{ next }}" />
 </form>
-
+</div>
 {% endblock %}
