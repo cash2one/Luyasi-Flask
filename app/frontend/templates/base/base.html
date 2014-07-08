@@ -6,7 +6,7 @@
 <!--moment-->
 <script src="{{ url_for('static', filename='base/3partylib/moment/moment-with-langs.js') }}"></script>
 <script>
-moment.lang('zh-cn');
+moment.lang('{{session['moment-lang']}}');
 </script>
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap/css/bootstrap.min.css') }}" media="screen">
@@ -125,8 +125,8 @@ body { padding-bottom: 71px; }
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">语言/Language <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">中文</a></li>
-							<li><a href="#">English</a></li>
+							<li><a href="/common/lang/zh">中文</a></li>
+							<li><a href="/common/lang/en">English</a></li>
 						</ul>
 					</li>
 				</ul>

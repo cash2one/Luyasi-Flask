@@ -1,23 +1,43 @@
-
+# Chinese translations for PROJECT.
+# Copyright (C) 2014 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-06-20 12:31+0800\n"
-"PO-Revision-Date: 2014-05-12 16:17+0800\n"
+"POT-Creation-Date: 2014-07-08 12:45+0800\n"
+"PO-Revision-Date: 2014-07-08 11:17+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: zh_Hans_CN <LL@li.org>\n"
+"Language-Team: zh <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: blog/form.py:14 blog/form.py:20 frontend/templates/blog/detail.html:263
+#: blog/forms.py:14 job/forms.py:23
+#, fuzzy
+msgid "Title"
+msgstr "标题"
+
+#: blog/forms.py:15
+#, fuzzy
+msgid "Content"
+msgstr "举报内容"
+
+#: blog/forms.py:15 blog/forms.py:21 frontend/templates/blog/detail.html:263
+#: job/forms.py:25
 msgid "The comment forgot you~"
 msgstr "还没有写评论哦~"
 
-#: framework/ckeditor.py:59
+#: blog/forms.py:21 frontend/templates/blog/detail.html:35
+#: frontend/templates/blog/detail.html:73
+msgid "Comment"
+msgstr "说两句"
+
+#: framework/ckeditor.py:65
 msgid "Content can't be empty"
 msgstr "内容空空如也。。"
 
@@ -25,16 +45,20 @@ msgstr "内容空空如也。。"
 msgid "Captcha is not valid"
 msgstr "暗号不正确"
 
-#: frontend/blog.py:69
+#: frontend/blog.py:68
 msgid "This is not your blog"
 msgstr "呃~这个博客不是你的~"
+
+#: frontend/job.py:58
+msgid "Thanks for your report. We will check it soon."
+msgstr "感谢你的举报。我们会尽快进行审核。"
 
 #: frontend/templates/403.html:10
 msgid "You have no rights to continue this action"
 msgstr "抱歉，你没有足够的权限继续操作~"
 
 #: frontend/templates/403.html:13 frontend/templates/404.html:8
-#: frontend/templates/500.html:8
+#: frontend/templates/500.html:8 frontend/templates/job/report_list.html:13
 msgid "Back"
 msgstr "返回"
 
@@ -47,43 +71,43 @@ msgid "Come on! I, I have some problems."
 msgstr "噢，我的神~我似乎出了点问题。。"
 
 #: frontend/templates/admin/admin_base.html:10
-#: frontend/templates/base/base.html:107
+#: frontend/templates/base/base.html:112
 msgid "Exit"
 msgstr "退出"
 
-#: frontend/templates/base/base.html:59
+#: frontend/templates/base/base.html:64
 msgid "Info"
 msgstr "信息"
 
-#: frontend/templates/base/base.html:65 frontend/templates/blog/base.html:20
-#: frontend/templates/security/change_password.html:27
+#: frontend/templates/base/base.html:70 frontend/templates/blog/base.html:20
+#: frontend/templates/security/change_password.html:26
 #: frontend/templates/security/forgot_password.html:20
 #: frontend/templates/security/send_confirmation.html:21
 msgid "OK"
 msgstr "确认"
 
-#: frontend/templates/base/base.html:105
+#: frontend/templates/base/base.html:110
 msgid "Admin"
 msgstr "管理"
 
-#: frontend/templates/base/base.html:109
+#: frontend/templates/base/base.html:114
 #: frontend/templates/security/login_user.html:6
-#: frontend/templates/security/login_user.html:18
+#: frontend/templates/security/login_user.html:13
 msgid "Login"
 msgstr "登录"
 
-#: frontend/templates/base/base.html:111
-#: frontend/templates/security/login_user.html:38
-#: frontend/templates/security/register_user.html:8
+#: frontend/templates/base/base.html:116
+#: frontend/templates/security/login_user.html:33
+#: frontend/templates/security/register_user.html:6
 msgid "Signup"
 msgstr "注册"
 
-#: frontend/templates/base/base.html:114
+#: frontend/templates/base/base.html:119
 msgid "Forget paswword"
 msgstr "忘记密码"
 
-#: frontend/templates/base/base.html:117
-#: frontend/templates/security/send_confirmation.html:8
+#: frontend/templates/base/base.html:122
+#: frontend/templates/security/send_confirmation.html:6
 msgid "Activate account"
 msgstr "激活账号"
 
@@ -109,18 +133,19 @@ msgstr "写博客"
 msgid "View blogs"
 msgstr "博客列表"
 
-#: frontend/templates/blog/create.html:28
+#: frontend/templates/blog/create.html:28 frontend/templates/job/create.html:25
 msgid "title"
 msgstr "标题"
 
 #: frontend/templates/blog/create.html:36
-#: frontend/templates/blog/detail.html:48
-#, fuzzy
+#: frontend/templates/blog/detail.html:48 frontend/templates/job/create.html:38
+#: frontend/templates/job/report.html:30
 msgid "repeat captcha"
 msgstr "重复暗号"
 
 #: frontend/templates/blog/create.html:40
-#: frontend/templates/blog/detail.html:54
+#: frontend/templates/blog/detail.html:54 frontend/templates/job/create.html:42
+#: frontend/templates/job/report.html:34
 #: frontend/templates/security/register_user.html:24
 msgid "Submit"
 msgstr "提交"
@@ -132,11 +157,6 @@ msgstr "修改"
 #: frontend/templates/blog/detail.html:19
 msgid "Delete"
 msgstr "删除"
-
-#: frontend/templates/blog/detail.html:35
-#: frontend/templates/blog/detail.html:73
-msgid "Comment"
-msgstr "说两句"
 
 #: frontend/templates/blog/detail.html:77
 msgid "Comment list"
@@ -150,6 +170,50 @@ msgstr "说："
 #: frontend/templates/blog/detail.html:268
 msgid "Captcha required."
 msgstr "请写上暗号。"
+
+#: frontend/templates/blog/list.html:50
+msgid "post"
+msgstr "发表"
+
+#: frontend/templates/job/base.html:10 frontend/templates/job/create.html:13
+#: frontend/templates/job/detail.html:13 frontend/templates/job/list.html:6
+#: frontend/templates/job/report.html:13
+#: frontend/templates/job/report_list.html:14
+msgid "Job list"
+msgstr "工作列表"
+
+#: frontend/templates/job/create.html:6 frontend/templates/job/list.html:13
+msgid "Publish job"
+msgstr "发布职位"
+
+#: frontend/templates/job/detail.html:14
+msgid "Report this job"
+msgstr "我要举报"
+
+#: frontend/templates/job/detail.html:25 frontend/templates/job/list.html:29
+msgid "Caution! This job has been reported, see reports"
+msgstr "请打醒十二分注意！已经有人举报了这个职位~"
+
+#: frontend/templates/job/detail.html:30
+msgid "Fulltime job"
+msgstr "全职"
+
+#: frontend/templates/job/detail.html:32
+msgid "Parttime job"
+msgstr "兼职"
+
+#: frontend/templates/job/detail.html:35
+msgid "Publish time:"
+msgstr "发布时间："
+
+#: frontend/templates/job/report.html:6
+msgid "Report job"
+msgstr "我要举报"
+
+#: frontend/templates/job/report_list.html:6
+#, fuzzy
+msgid "Report list"
+msgstr "评论列表"
 
 #: frontend/templates/qingbank/contact_detail.html:4
 #: frontend/templates/qingbank/contact_list.html:5
@@ -181,7 +245,6 @@ msgid "Fax:"
 msgstr "传真："
 
 #: frontend/templates/qingbank/contact_list.html:13
-#, fuzzy
 msgid "Fullname | pinyin | first letter | phone | department"
 msgstr "可以输入拼音、拼音首字母、全名，电话号码，部门名称等"
 
@@ -190,30 +253,30 @@ msgid "Search"
 msgstr "查找"
 
 #: frontend/templates/security/bind_user.html:6
-#: frontend/templates/security/bind_user.html:17
+#: frontend/templates/security/bind_user.html:14
 #, fuzzy
 msgid "Bind account"
 msgstr "没错，这是我的邮箱"
 
-#: frontend/templates/security/bind_user.html:20
-#: frontend/templates/security/login_user.html:21
+#: frontend/templates/security/bind_user.html:17
+#: frontend/templates/security/login_user.html:16
 msgid "username or email"
 msgstr "用户名 或者 邮箱"
 
-#: frontend/templates/security/bind_user.html:24
-#: frontend/templates/security/login_user.html:25
+#: frontend/templates/security/bind_user.html:21
+#: frontend/templates/security/login_user.html:20
 msgid "password"
 msgstr "密码"
 
-#: frontend/templates/security/bind_user.html:28
+#: frontend/templates/security/bind_user.html:25
 msgid "Bind"
 msgstr "绑定"
 
-#: frontend/templates/security/bind_user.html:29
+#: frontend/templates/security/bind_user.html:26
 msgid "Next time"
 msgstr "下次"
 
-#: frontend/templates/security/bind_user.html:30
+#: frontend/templates/security/bind_user.html:27
 msgid "Don't remind me again"
 msgstr "不要再提示我"
 
@@ -223,20 +286,20 @@ msgstr "不要再提示我"
 msgid "Change password"
 msgstr "修改密码"
 
-#: frontend/templates/security/change_password.html:15
+#: frontend/templates/security/change_password.html:14
 msgid "old password"
 msgstr "旧密码"
 
-#: frontend/templates/security/change_password.html:19
+#: frontend/templates/security/change_password.html:18
 msgid "new password"
 msgstr "新密码"
 
-#: frontend/templates/security/change_password.html:23
+#: frontend/templates/security/change_password.html:22
 msgid "repeat password"
 msgstr "重复密码"
 
 #: frontend/templates/security/forgot_password.html:6
-#: frontend/templates/security/login_user.html:41
+#: frontend/templates/security/login_user.html:36
 msgid "Forget password"
 msgstr "忘记密码"
 
@@ -248,15 +311,15 @@ msgstr "密码重置"
 msgid "email"
 msgstr "邮箱"
 
-#: frontend/templates/security/login_user.html:30
+#: frontend/templates/security/login_user.html:25
 msgid "remember me"
 msgstr "保持登录"
 
-#: frontend/templates/security/login_user.html:34
+#: frontend/templates/security/login_user.html:29
 msgid "login"
 msgstr "登录"
 
-#: frontend/templates/security/login_user.html:38
+#: frontend/templates/security/login_user.html:33
 #, fuzzy
 msgid "No account?"
 msgstr "没错，这是我的邮箱"
@@ -335,6 +398,26 @@ msgstr "你的密码重置成功"
 #: frontend/templates/security/email/welcome.html:4
 msgid "You can confirm your email through the link below"
 msgstr "你可以点击下面的链接来验证你的邮箱"
+
+#: job/forms.py:24
+msgid "Job type"
+msgstr "类型"
+
+#: job/forms.py:24
+msgid "Part time job"
+msgstr "兼职"
+
+#: job/forms.py:24
+msgid "Full time job"
+msgstr "全职"
+
+#: job/forms.py:25
+msgid "Job detail"
+msgstr "工作描述"
+
+#: job/forms.py:35
+msgid "Report content"
+msgstr "举报内容"
 
 #: qingbank/forms.py:14 qingbank/forms.py:31
 msgid "Name"

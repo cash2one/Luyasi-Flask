@@ -1,8 +1,16 @@
-#-*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
+"""
+	Jinja template helper. see `http://flask.pocoo.org/docs/templating/#context-processors`_
+	~~~~~~~~~~~
+
+    :copyright: (c) 2014 by Kinorsi -- <kinorsi@gmail.com>
+    :license: BSD, see LICENSE for more details.
+"""
 
 from flask_principal import RoleNeed, Permission
 
 from ..core import RightNeed
+from ..momentjs import momentjs
 
 def has_role_processor():
 	"""Jinja context processor for role test."""
@@ -16,3 +24,7 @@ def has_right_processor():
 	def has_right(action, app, entity):
 		return Permission(RightNeed(action, app, entity)).can()
 	return dict(has_right=has_right)
+
+def use_momentjs():
+	"""Jinja context processor for use moment js."""
+	return dict(momentjs=momentjs)

@@ -143,8 +143,10 @@ SECURITY_EMAIL_SUBJECT_CONFIRM='请验证kinorsi.com注册'
 
 
 # babel config
+#MOMENTJS_LOCAL = 'zh-cn'
+MOMENTJS_LOCAL = 'en'
 BABEL_DEFAULT_LOCALE = 'en'
-#BABEL_DEFAULT_LOCALE = 'zh_Hans_CN'
+#BABEL_DEFAULT_LOCALE = 'zh'
 BABEL_DEFAULT_TIMEZONE = 'UTC'
 #related command-working dir: app
 # 抽取: pybabel extract -F babel.cfg -o messages.pot .

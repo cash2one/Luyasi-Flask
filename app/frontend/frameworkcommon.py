@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 from StringIO import StringIO
 
-from flask import Blueprint, send_file, session
+from flask import Blueprint, send_file, session, request, redirect
 
 from . import route
 from ..framework.captcha import make_simple_captcha
@@ -18,5 +18,16 @@ def captcha():
 	im.save(img_io, 'JPEG', quality=70)
 	img_io.seek(0)
 	return send_file(img_io, mimetype='image/jpeg')
+
+@bp.route('/lang/<lang>')
+def lang(lang):
+	if lang == 'zh':
+		session['lang']=lang
+		session['moment-lang']='zh-cn'
+	else:
+		session['lang']=lang
+		session['moment-lang']=lang
+	url = request.headers.get('Referer')
+	return redirect(url)
 
 

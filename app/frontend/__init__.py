@@ -3,14 +3,14 @@
 from functools import wraps
 from collections import namedtuple
 
-from flask import render_template, abort
+from flask import render_template, abort, g, request, session
 from flask_admin.contrib.sqla import ModelView
 from flask_security import current_user, login_required
 from flask_admin import Admin
 from flask_principal import Permission
 
 from .. import appfactory
-from ..core import db, AuthModelView, RightNeed
+from ..core import db, AuthModelView, RightNeed, babel
 from ..qingbank.models import Contact, Department, DocNode
 from ..security.models import Role, User
 from ..helpers import collect_admin_views, JSONEncoder
@@ -86,9 +86,24 @@ def right_require(app):
 
 #----------------------------------------------------------------------
 def init_context_processor(app):
-    from ..security.jinjahelpers import has_role_processor, has_right_processor
+    from ..security.jinjahelpers import has_role_processor, has_right_processor, use_momentjs
     from ..momentjs import momentjs
+    # context_processor 是个decorator
     app.context_processor(has_role_processor)
     app.context_processor(has_right_processor)
-    #app.context_processor(momentjs)
-    app.jinja_env.globals['momentjs'] = momentjs
+    app.context_processor(use_momentjs)
+
+@babel.localeselector
+def get_locale():
+    lang = session['lang']
+    if lang is not None:
+        return lang
+    m = request.accept_languages.best_match(['zh_cn', 'en'])
+    print m
+    return m
+
+#@babel.timezoneselector
+#def get_timezone():
+    #user = getattr(g, 'user', None)
+    #if user is not None:
+        #return user.timezone

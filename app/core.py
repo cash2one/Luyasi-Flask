@@ -7,7 +7,7 @@ from flask_security import Security
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import or_, event, asc, desc
 from sqlalchemy.orm import mapper
-from flask_babel import Babel
+from flask_babelex import Babel
 from flask_mail import Mail
 from flask_admin.contrib.sqla import ModelView
 from flask_security import current_user

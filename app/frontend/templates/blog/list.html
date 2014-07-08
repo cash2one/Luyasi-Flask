@@ -46,8 +46,8 @@ Miss Lu
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 pull-right">
-				<h5>[{{blog.user.nikename or blog.user.email or blog.user.username}}] post [{{blog.update_at or blog.create_at or ''}}]</h5>
+			<div class="col-md-12">
+				<h5>[{{blog.user.nikename or blog.user.email or blog.user.username}}] {{_('post')}} [{{momentjs(blog.update_at or blog.create_at).format('LLLL')}}]</h5>
 			</div>
 		</div>
 

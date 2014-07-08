@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-06-20 12:31+0800\n"
+"POT-Creation-Date: 2014-07-08 12:45+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: blog/form.py:14 blog/form.py:20 frontend/templates/blog/detail.html:263
+#: blog/forms.py:14 job/forms.py:23
+msgid "Title"
+msgstr ""
+
+#: blog/forms.py:15
+msgid "Content"
+msgstr ""
+
+#: blog/forms.py:15 blog/forms.py:21 frontend/templates/blog/detail.html:263
+#: job/forms.py:25
 msgid "The comment forgot you~"
 msgstr ""
 
-#: framework/ckeditor.py:59
+#: blog/forms.py:21 frontend/templates/blog/detail.html:35
+#: frontend/templates/blog/detail.html:73
+msgid "Comment"
+msgstr ""
+
+#: framework/ckeditor.py:65
 msgid "Content can't be empty"
 msgstr ""
 
@@ -29,8 +43,12 @@ msgstr ""
 msgid "Captcha is not valid"
 msgstr ""
 
-#: frontend/blog.py:69
+#: frontend/blog.py:68
 msgid "This is not your blog"
+msgstr ""
+
+#: frontend/job.py:58
+msgid "Thanks for your report. We will check it soon."
 msgstr ""
 
 #: frontend/templates/403.html:10
@@ -38,7 +56,7 @@ msgid "You have no rights to continue this action"
 msgstr ""
 
 #: frontend/templates/403.html:13 frontend/templates/404.html:8
-#: frontend/templates/500.html:8
+#: frontend/templates/500.html:8 frontend/templates/job/report_list.html:13
 msgid "Back"
 msgstr ""
 
@@ -51,43 +69,43 @@ msgid "Come on! I, I have some problems."
 msgstr ""
 
 #: frontend/templates/admin/admin_base.html:10
-#: frontend/templates/base/base.html:107
+#: frontend/templates/base/base.html:112
 msgid "Exit"
 msgstr ""
 
-#: frontend/templates/base/base.html:59
+#: frontend/templates/base/base.html:64
 msgid "Info"
 msgstr ""
 
-#: frontend/templates/base/base.html:65 frontend/templates/blog/base.html:20
-#: frontend/templates/security/change_password.html:27
+#: frontend/templates/base/base.html:70 frontend/templates/blog/base.html:20
+#: frontend/templates/security/change_password.html:26
 #: frontend/templates/security/forgot_password.html:20
 #: frontend/templates/security/send_confirmation.html:21
 msgid "OK"
 msgstr ""
 
-#: frontend/templates/base/base.html:105
+#: frontend/templates/base/base.html:110
 msgid "Admin"
 msgstr ""
 
-#: frontend/templates/base/base.html:109
+#: frontend/templates/base/base.html:114
 #: frontend/templates/security/login_user.html:6
-#: frontend/templates/security/login_user.html:18
+#: frontend/templates/security/login_user.html:13
 msgid "Login"
 msgstr ""
 
-#: frontend/templates/base/base.html:111
-#: frontend/templates/security/login_user.html:38
-#: frontend/templates/security/register_user.html:8
+#: frontend/templates/base/base.html:116
+#: frontend/templates/security/login_user.html:33
+#: frontend/templates/security/register_user.html:6
 msgid "Signup"
 msgstr ""
 
-#: frontend/templates/base/base.html:114
+#: frontend/templates/base/base.html:119
 msgid "Forget paswword"
 msgstr ""
 
-#: frontend/templates/base/base.html:117
-#: frontend/templates/security/send_confirmation.html:8
+#: frontend/templates/base/base.html:122
+#: frontend/templates/security/send_confirmation.html:6
 msgid "Activate account"
 msgstr ""
 
@@ -113,17 +131,19 @@ msgstr ""
 msgid "View blogs"
 msgstr ""
 
-#: frontend/templates/blog/create.html:28
+#: frontend/templates/blog/create.html:28 frontend/templates/job/create.html:25
 msgid "title"
 msgstr ""
 
 #: frontend/templates/blog/create.html:36
-#: frontend/templates/blog/detail.html:48
+#: frontend/templates/blog/detail.html:48 frontend/templates/job/create.html:38
+#: frontend/templates/job/report.html:30
 msgid "repeat captcha"
 msgstr ""
 
 #: frontend/templates/blog/create.html:40
-#: frontend/templates/blog/detail.html:54
+#: frontend/templates/blog/detail.html:54 frontend/templates/job/create.html:42
+#: frontend/templates/job/report.html:34
 #: frontend/templates/security/register_user.html:24
 msgid "Submit"
 msgstr ""
@@ -134,11 +154,6 @@ msgstr ""
 
 #: frontend/templates/blog/detail.html:19
 msgid "Delete"
-msgstr ""
-
-#: frontend/templates/blog/detail.html:35
-#: frontend/templates/blog/detail.html:73
-msgid "Comment"
 msgstr ""
 
 #: frontend/templates/blog/detail.html:77
@@ -152,6 +167,49 @@ msgstr ""
 
 #: frontend/templates/blog/detail.html:268
 msgid "Captcha required."
+msgstr ""
+
+#: frontend/templates/blog/list.html:50
+msgid "post"
+msgstr ""
+
+#: frontend/templates/job/base.html:10 frontend/templates/job/create.html:13
+#: frontend/templates/job/detail.html:13 frontend/templates/job/list.html:6
+#: frontend/templates/job/report.html:13
+#: frontend/templates/job/report_list.html:14
+msgid "Job list"
+msgstr ""
+
+#: frontend/templates/job/create.html:6 frontend/templates/job/list.html:13
+msgid "Publish job"
+msgstr ""
+
+#: frontend/templates/job/detail.html:14
+msgid "Report this job"
+msgstr ""
+
+#: frontend/templates/job/detail.html:25 frontend/templates/job/list.html:29
+msgid "Caution! This job has been reported, see reports"
+msgstr ""
+
+#: frontend/templates/job/detail.html:30
+msgid "Fulltime job"
+msgstr ""
+
+#: frontend/templates/job/detail.html:32
+msgid "Parttime job"
+msgstr ""
+
+#: frontend/templates/job/detail.html:35
+msgid "Publish time:"
+msgstr ""
+
+#: frontend/templates/job/report.html:6
+msgid "Report job"
+msgstr ""
+
+#: frontend/templates/job/report_list.html:6
+msgid "Report list"
 msgstr ""
 
 #: frontend/templates/qingbank/contact_detail.html:4
@@ -192,29 +250,29 @@ msgid "Search"
 msgstr ""
 
 #: frontend/templates/security/bind_user.html:6
-#: frontend/templates/security/bind_user.html:17
+#: frontend/templates/security/bind_user.html:14
 msgid "Bind account"
 msgstr ""
 
-#: frontend/templates/security/bind_user.html:20
-#: frontend/templates/security/login_user.html:21
+#: frontend/templates/security/bind_user.html:17
+#: frontend/templates/security/login_user.html:16
 msgid "username or email"
 msgstr ""
 
-#: frontend/templates/security/bind_user.html:24
-#: frontend/templates/security/login_user.html:25
+#: frontend/templates/security/bind_user.html:21
+#: frontend/templates/security/login_user.html:20
 msgid "password"
 msgstr ""
 
-#: frontend/templates/security/bind_user.html:28
+#: frontend/templates/security/bind_user.html:25
 msgid "Bind"
 msgstr ""
 
-#: frontend/templates/security/bind_user.html:29
+#: frontend/templates/security/bind_user.html:26
 msgid "Next time"
 msgstr ""
 
-#: frontend/templates/security/bind_user.html:30
+#: frontend/templates/security/bind_user.html:27
 msgid "Don't remind me again"
 msgstr ""
 
@@ -224,20 +282,20 @@ msgstr ""
 msgid "Change password"
 msgstr ""
 
-#: frontend/templates/security/change_password.html:15
+#: frontend/templates/security/change_password.html:14
 msgid "old password"
 msgstr ""
 
-#: frontend/templates/security/change_password.html:19
+#: frontend/templates/security/change_password.html:18
 msgid "new password"
 msgstr ""
 
-#: frontend/templates/security/change_password.html:23
+#: frontend/templates/security/change_password.html:22
 msgid "repeat password"
 msgstr ""
 
 #: frontend/templates/security/forgot_password.html:6
-#: frontend/templates/security/login_user.html:41
+#: frontend/templates/security/login_user.html:36
 msgid "Forget password"
 msgstr ""
 
@@ -249,15 +307,15 @@ msgstr ""
 msgid "email"
 msgstr ""
 
-#: frontend/templates/security/login_user.html:30
+#: frontend/templates/security/login_user.html:25
 msgid "remember me"
 msgstr ""
 
-#: frontend/templates/security/login_user.html:34
+#: frontend/templates/security/login_user.html:29
 msgid "login"
 msgstr ""
 
-#: frontend/templates/security/login_user.html:38
+#: frontend/templates/security/login_user.html:33
 msgid "No account?"
 msgstr ""
 
@@ -334,6 +392,26 @@ msgstr ""
 
 #: frontend/templates/security/email/welcome.html:4
 msgid "You can confirm your email through the link below"
+msgstr ""
+
+#: job/forms.py:24
+msgid "Job type"
+msgstr ""
+
+#: job/forms.py:24
+msgid "Part time job"
+msgstr ""
+
+#: job/forms.py:24
+msgid "Full time job"
+msgstr ""
+
+#: job/forms.py:25
+msgid "Job detail"
+msgstr ""
+
+#: job/forms.py:35
+msgid "Report content"
 msgstr ""
 
 #: qingbank/forms.py:14 qingbank/forms.py:31
