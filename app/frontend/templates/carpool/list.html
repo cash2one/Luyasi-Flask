@@ -1,0 +1,45 @@
+{% extends "carpool/base.html" %}
+
+{% from "macros/_pager.html" import render_pager %}
+
+{% block actionbar %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="btn-group pull-right" style="margin-bottom: 12px">
+			<a href="{{url_for('.create_carinfo')}}" type="button" class="btn btn-success">{{_('Publish carinfos')}}</a>
+		</div>
+	</div>
+</div>
+{% endblock actionbar %}
+
+{% block rightmain %}
+	{% for carinfo in carinfos.items %}
+	<a href="{{url_for('.detail_carinfo', carinfo_id=carinfo.id)}}">
+	<div class="row">
+		<div class="col-md-4">
+		<strong>{{_('Start point')}}{{_(': ')}}{{carinfo.start}}</strong>
+		</div>
+		<div class="col-md-4">
+		<strong>{{_('Target point')}}{{_(': ')}}{{carinfo.target}}</strong>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+		{{_('Route')}}{{_(': ')}}{{carinfo.route}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+		{{_('Send out time')}}{{_(': ')}}{{carinfo.start_time}}
+		</div>
+	</div>
+	</a>
+	<hr/>
+	{% endfor %}
+<!--pager-->
+<div class="row">
+	<div class="col-md-12">
+	{{render_pager(carinfos,'.list_blog') }}
+	</div>
+</div>
+{% endblock %}

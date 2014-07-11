@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-07-08 12:45+0800\n"
+"POT-Creation-Date: 2014-07-09 11:12+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,8 +35,40 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: framework/ckeditor.py:65
+#: carpool/forms.py:23
+msgid "Start point"
+msgstr ""
+
+#: carpool/forms.py:24
+msgid "Target point"
+msgstr ""
+
+#: carpool/forms.py:25
+msgid "Route"
+msgstr ""
+
+#: carpool/forms.py:26
+msgid "Price"
+msgstr ""
+
+#: carpool/forms.py:27
+msgid "Send out time"
+msgstr ""
+
+#: carpool/forms.py:28 frontend/templates/qingbank/contact_detail.html:17
+msgid "Contact info"
+msgstr ""
+
+#: framework/ckeditor.py:66
 msgid "Content can't be empty"
+msgstr ""
+
+#: framework/wtfext/fields.py:21 frontend/templates/blog/detail.html:48
+msgid "repeat captcha"
+msgstr ""
+
+#: framework/wtfext/fields.py:22
+msgid "captcha"
 msgstr ""
 
 #: framework/wtfext/validators.py:16
@@ -78,7 +110,7 @@ msgid "Info"
 msgstr ""
 
 #: frontend/templates/base/base.html:70 frontend/templates/blog/base.html:20
-#: frontend/templates/security/change_password.html:26
+#: frontend/templates/security/change_password.html:27
 #: frontend/templates/security/forgot_password.html:20
 #: frontend/templates/security/send_confirmation.html:21
 msgid "OK"
@@ -131,29 +163,18 @@ msgstr ""
 msgid "View blogs"
 msgstr ""
 
-#: frontend/templates/blog/create.html:28 frontend/templates/job/create.html:25
-msgid "title"
-msgstr ""
-
-#: frontend/templates/blog/create.html:36
-#: frontend/templates/blog/detail.html:48 frontend/templates/job/create.html:38
-#: frontend/templates/job/report.html:30
-msgid "repeat captcha"
-msgstr ""
-
-#: frontend/templates/blog/create.html:40
-#: frontend/templates/blog/detail.html:54 frontend/templates/job/create.html:42
-#: frontend/templates/job/report.html:34
-#: frontend/templates/security/register_user.html:24
-msgid "Submit"
-msgstr ""
-
 #: frontend/templates/blog/detail.html:16
 msgid "Edit"
 msgstr ""
 
 #: frontend/templates/blog/detail.html:19
 msgid "Delete"
+msgstr ""
+
+#: frontend/templates/blog/detail.html:54
+#: frontend/templates/macros/fieldmacros.html:38
+#: frontend/templates/security/register_user.html:24
+msgid "Submit"
 msgstr ""
 
 #: frontend/templates/blog/detail.html:77
@@ -219,10 +240,6 @@ msgstr ""
 msgid "Contacts"
 msgstr ""
 
-#: frontend/templates/qingbank/contact_detail.html:17
-msgid "Contact info"
-msgstr ""
-
 #: frontend/templates/qingbank/contact_detail.html:20
 #: frontend/templates/qingbank/contact_list.html:32
 msgid "Telephone:"
@@ -282,15 +299,15 @@ msgstr ""
 msgid "Change password"
 msgstr ""
 
-#: frontend/templates/security/change_password.html:14
+#: frontend/templates/security/change_password.html:15
 msgid "old password"
 msgstr ""
 
-#: frontend/templates/security/change_password.html:18
+#: frontend/templates/security/change_password.html:19
 msgid "new password"
 msgstr ""
 
-#: frontend/templates/security/change_password.html:22
+#: frontend/templates/security/change_password.html:23
 msgid "repeat password"
 msgstr ""
 

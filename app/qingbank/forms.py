@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 
 from flask_wtf import Form
-from flask_babel import gettext
+from flask_babel import lazy_gettext
 from wtforms.fields import TextField
 from wtforms.validators import Length
 from wtforms.ext.sqlalchemy.orm import model_form
@@ -11,13 +11,13 @@ from ..core import db
 
 
 class ContactForm(Form):
-    name = TextField(gettext(u'Name'))
-    duty = TextField(gettext(u'Duty'))
+    name = TextField(lazy_gettext(u'Name'))
+    duty = TextField(lazy_gettext(u'Duty'))
     #department = TextField('部门')
-    mobile = TextField(gettext(u'Mobile'))
-    telephone =TextField(gettext(u'Telephone'))
-    innerphone = TextField(gettext(u'Innerphone'))
-    fax = TextField(gettext(u'Fax'))
+    mobile = TextField(lazy_gettext(u'Mobile'))
+    telephone =TextField(lazy_gettext(u'Telephone'))
+    innerphone = TextField(lazy_gettext(u'Innerphone'))
+    fax = TextField(lazy_gettext(u'Fax'))
 
 
 CF = model_form(Contact,
@@ -26,20 +26,20 @@ CF = model_form(Contact,
                 exclude=['user', 'qq', 'name_shot', 'name_pinyin'],
                 field_args ={
                     'fax':{
-                        'label': gettext(u'Fax')
+                        'label': lazy_gettext(u'Fax')
                     }, 'name': {
-                        'label': gettext(u'Name')
+                        'label': lazy_gettext(u'Name')
                     }, 'department':{
-                        'label': gettext(u'Dept')
+                        'label': lazy_gettext(u'Dept')
                     }, 'duty': {
-                        'label': gettext(u'Duty')
+                        'label': lazy_gettext(u'Duty')
                     }, 'mobile': {
-                        'label': gettext(u'Mobile')
+                        'label': lazy_gettext(u'Mobile')
                     }, 'telephone': {
-                        'label': gettext(u'Telephone')
+                        'label': lazy_gettext(u'Telephone')
                     }, 'innerphone': {
-                        'label': gettext(u'Innerphone')
+                        'label': lazy_gettext(u'Innerphone')
                     }, 'description': {
-                        'label': gettext(u'Description')
+                        'label': lazy_gettext(u'Description')
                     }
                 })

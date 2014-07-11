@@ -38,12 +38,6 @@ def qq_parser(res):
     return jsonRes
 
 #----------------------------------------------------------------------
-@bp.route('/')
-def index():
-    """Return index page"""
-    return render_template('kinorsi/index.html')
-
-#----------------------------------------------------------------------
 @bp.route('/openid/<provider>')
 def openid_authenticate(provider):
     """return openid authenticate url for client to authenticate
@@ -153,16 +147,3 @@ def do_not_remind_bind():
 
     return  redirect(next_url)
 
-#----------------------------------------------------------------------
-from flask.ext.wtf import Form
-from app.framework.ckeditor import CKEditorField
-ckeditor_config = {'filebrowserBrowseUrl': '/b.php', 'filebrowserUploadUrl': '/b.php'}
-class MyForm(Form):
-    editor = CKEditorField('baby', ckeditor_config=ckeditor_config)
-
-@bp.route('/testform')
-def test_form():
-    """Return form"""
-    form = MyForm()
-
-    return render_template('testform.html', form = form)

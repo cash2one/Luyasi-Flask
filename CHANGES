@@ -1,3 +1,9 @@
+2014-07-09
+1.在macros里增加了render_form。这样就可以直接渲染表单了。
+2.增加日期控件，请参考http://www.bootcss.com/p/bootstrap-datetimepicker/demo.htm
+3.另外momentjs,datetimepicker,babel的zh都有不一样的表示。。比较讨厌。所以我改了datetimepicker的zh-CN为zh-cn，以和momentjs一样。
+4.把datetimepicker的js代码单独放在macros里了
+
 2014-07-08
 1.增加了语言切换功能，主要是切换en/zh，momentjs和bybabel的分开存放在session中。
 2.更新了翻译。

@@ -41,29 +41,29 @@ def list_blog(page=None):
 	return render_template('blog/list.html', blogs = blogs, test="<p>test</p>")
 
 #----------------------------------------------------------------------
-@bp.route('/blog/<int:id>', methods=['GET'])
-def detail_blog(id):
-	blog = api_blog.get(id)
+@bp.route('/blog/<int:blog_id>', methods=['GET'])
+def detail_blog(blog_id):
+	blog = api_blog.get(blog_id)
 	return render_template('blog/detail.html', blog=blog)
 
 #----------------------------------------------------------------------
-@route(bp, '/blog/delete/<int:id>')
+@route(bp, '/blog/delete/<int:blog_id>')
 @right_require('blog')
-def delete_blog(id):
+def delete_blog(blog_id):
 	"""Delete blog.
 	:param id: blog id.
 	"""
-	api_blog.delete(api_blog.get_or_404(id))
+	api_blog.delete(api_blog.get_or_404(blog_id))
 	return redirect(url_for('.list'))
 
 #----------------------------------------------------------------------
-@route(bp, '/blog/change/<int:id>')
+@route(bp, '/blog/change/<int:blog_id>')
 @right_require('blog')
-def change_blog(id):
+def change_blog(blog_id):
 	"""Edit the blog.
 	:param id: blog id.
 	"""
-	blog = api_blog.get(id)
+	blog = api_blog.get(blog_id)
 	if blog.user != current_user:
 		flash(gettext('This is not your blog'), category='error')
 		abort(403)

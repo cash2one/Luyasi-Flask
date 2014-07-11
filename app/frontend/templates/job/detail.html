@@ -6,6 +6,11 @@
 {{ job.title }}
 {% endblock title%}
 
+{% block breadpiece %}
+{{super()}}
+<li><a href="{{url_for('job.detail_job', job_id=job.id)}}">Detail</a></li>
+{% endblock breadpiece %}
+
 {% block actionbar %}
 <div class="row">
 	<div class="col-md-12">

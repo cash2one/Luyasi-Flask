@@ -136,7 +136,14 @@ body { padding-bottom: 71px; }
     </nav>
 
     <!-- container 所有的row直接起在父层，block里的内容直接起col就行了，不再需要使用row -->
-    <div class="container ">
+	<div class="container ">
+		{% block breadcrumb %}
+		<ol class="breadcrumb">
+			{% block breadpiece %}
+			<li><a href="{{url_for('frontend-index.index')}}">Home</a></li>
+			{% endblock breadpiece %}
+		</ol>
+		{% endblock %}
 		<!-- Row for actionbar -->
 		{% block actionbar %}
 		<div class="row">

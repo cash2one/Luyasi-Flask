@@ -1,0 +1,31 @@
+{% extends "carpool/base.html" %}
+
+{% block actionbar %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="btn-group pull-right" style="margin-bottom: 12px">
+			<a href="{{url_for('.list_carinfo')}}" type="button" class="btn btn-default">{{_('View carinfos')}}</a>
+		</div>
+	</div>
+</div>
+{% endblock actionbar %}
+
+{% block breadpiece %}
+{{super()}}
+<li><a href="{{url_for('carpool.detail_carinfo', carinfo_id=carinfo.id)}}">Detail</a></li>
+{% endblock breadpiece %}
+
+{% block rightmain %}
+	<div class="page-header">
+		<h1>{{carinfo.start}} - {{carinfo.target}}</h1>
+	</div>
+	<div>
+		<dl>
+			<dd><h3>{{_('Start point')}}{{_(': ')}}{{carinfo.start}}</h3></dd>
+			<dd><h3>{{_('Target point')}}{{_(': ')}}{{carinfo.target }}</h3></dd>
+			<dd><h3>{{_('Route')}}{{_(': ')}}{{carinfo.route }}</h3></dd>
+			<dd><h3>{{_('Send out time')}}{{_(': ')}}{{carinfo.start_time }}</h3></dd>
+			<dd><h3>{{_('Contact info')}}{{_(': ')}}{{carinfo.contact }}</h3></dd>
+		</dl>
+	</div>
+{% endblock %}

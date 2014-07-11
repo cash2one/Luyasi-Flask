@@ -95,11 +95,10 @@ def init_context_processor(app):
 
 @babel.localeselector
 def get_locale():
-    lang = session['lang']
+    lang = session.get('lang', None)
     if lang is not None:
         return lang
     m = request.accept_languages.best_match(['zh_cn', 'en'])
-    print m
     return m
 
 #@babel.timezoneselector

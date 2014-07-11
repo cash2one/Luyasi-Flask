@@ -16,7 +16,7 @@ from ..services import api_job, api_report
 
 bp = Blueprint('job', __name__, template_folder='templates', static_folder='static', url_prefix='/job')
 
-@bp.route('/create', methods=['GET', 'POST'])
+@bp.route('/new', methods=['GET', 'POST'])
 def create_job():
 	form = JobForm()
 	if form.validate_on_submit():

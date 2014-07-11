@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-07-08 12:45+0800\n"
+"POT-Creation-Date: 2014-07-09 11:12+0800\n"
 "PO-Revision-Date: 2014-07-08 11:17+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh <LL@li.org>\n"
@@ -18,14 +18,12 @@ msgstr ""
 "Generated-By: Babel 1.3\n"
 
 #: blog/forms.py:14 job/forms.py:23
-#, fuzzy
 msgid "Title"
 msgstr "标题"
 
 #: blog/forms.py:15
-#, fuzzy
 msgid "Content"
-msgstr "举报内容"
+msgstr "内容"
 
 #: blog/forms.py:15 blog/forms.py:21 frontend/templates/blog/detail.html:263
 #: job/forms.py:25
@@ -37,9 +35,41 @@ msgstr "还没有写评论哦~"
 msgid "Comment"
 msgstr "说两句"
 
-#: framework/ckeditor.py:65
+#: carpool/forms.py:23
+msgid "Start point"
+msgstr "出发地"
+
+#: carpool/forms.py:24
+msgid "Target point"
+msgstr "目的地"
+
+#: carpool/forms.py:25
+msgid "Route"
+msgstr "经过点"
+
+#: carpool/forms.py:26
+msgid "Price"
+msgstr "价格"
+
+#: carpool/forms.py:27
+msgid "Send out time"
+msgstr "出发时间"
+
+#: carpool/forms.py:28 frontend/templates/qingbank/contact_detail.html:17
+msgid "Contact info"
+msgstr "通讯信息"
+
+#: framework/ckeditor.py:66
 msgid "Content can't be empty"
 msgstr "内容空空如也。。"
+
+#: framework/wtfext/fields.py:21 frontend/templates/blog/detail.html:48
+msgid "repeat captcha"
+msgstr "重复暗号"
+
+#: framework/wtfext/fields.py:22
+msgid "captcha"
+msgstr "重复暗号"
 
 #: framework/wtfext/validators.py:16
 msgid "Captcha is not valid"
@@ -80,7 +110,7 @@ msgid "Info"
 msgstr "信息"
 
 #: frontend/templates/base/base.html:70 frontend/templates/blog/base.html:20
-#: frontend/templates/security/change_password.html:26
+#: frontend/templates/security/change_password.html:27
 #: frontend/templates/security/forgot_password.html:20
 #: frontend/templates/security/send_confirmation.html:21
 msgid "OK"
@@ -133,23 +163,6 @@ msgstr "写博客"
 msgid "View blogs"
 msgstr "博客列表"
 
-#: frontend/templates/blog/create.html:28 frontend/templates/job/create.html:25
-msgid "title"
-msgstr "标题"
-
-#: frontend/templates/blog/create.html:36
-#: frontend/templates/blog/detail.html:48 frontend/templates/job/create.html:38
-#: frontend/templates/job/report.html:30
-msgid "repeat captcha"
-msgstr "重复暗号"
-
-#: frontend/templates/blog/create.html:40
-#: frontend/templates/blog/detail.html:54 frontend/templates/job/create.html:42
-#: frontend/templates/job/report.html:34
-#: frontend/templates/security/register_user.html:24
-msgid "Submit"
-msgstr "提交"
-
 #: frontend/templates/blog/detail.html:16
 msgid "Edit"
 msgstr "修改"
@@ -157,6 +170,12 @@ msgstr "修改"
 #: frontend/templates/blog/detail.html:19
 msgid "Delete"
 msgstr "删除"
+
+#: frontend/templates/blog/detail.html:54
+#: frontend/templates/macros/fieldmacros.html:38
+#: frontend/templates/security/register_user.html:24
+msgid "Submit"
+msgstr "提交"
 
 #: frontend/templates/blog/detail.html:77
 msgid "Comment list"
@@ -222,10 +241,6 @@ msgstr "评论列表"
 msgid "Contacts"
 msgstr "通讯录"
 
-#: frontend/templates/qingbank/contact_detail.html:17
-msgid "Contact info"
-msgstr "通讯信息"
-
 #: frontend/templates/qingbank/contact_detail.html:20
 #: frontend/templates/qingbank/contact_list.html:32
 msgid "Telephone:"
@@ -286,15 +301,15 @@ msgstr "不要再提示我"
 msgid "Change password"
 msgstr "修改密码"
 
-#: frontend/templates/security/change_password.html:14
+#: frontend/templates/security/change_password.html:15
 msgid "old password"
 msgstr "旧密码"
 
-#: frontend/templates/security/change_password.html:18
+#: frontend/templates/security/change_password.html:19
 msgid "new password"
 msgstr "新密码"
 
-#: frontend/templates/security/change_password.html:22
+#: frontend/templates/security/change_password.html:23
 msgid "repeat password"
 msgstr "重复密码"
 
@@ -549,4 +564,7 @@ msgstr "描述"
 
 #~ msgid "Fullname,pinyin,first letter,phone,department"
 #~ msgstr "可以输入拼音、拼音首字母、全名，电话号码，部门名称等"
+
+#~ msgid "title"
+#~ msgstr "标题"
 

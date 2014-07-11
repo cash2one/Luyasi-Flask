@@ -2,10 +2,11 @@
 
 import re
 
-from flask_wtf import Form
 from wtforms import ValidationError
-from flask import url_for
 from wtforms import TextField, Field
+from wtforms.widgets import HTMLString
+from flask_wtf import Form
+from flask import url_for
 from flask_babel import gettext
 import simplejson as json
 
@@ -17,7 +18,7 @@ class CKEditorWidget(object):
         self.ckeditor_cfg = ckeditor_config
         self.import_js = import_js
     #----------------------------------------------------------------------
-    def __call__(self, field):
+    def __call__(self, field, **kwargs):
         import time
         current_milli_time = lambda: int(round(time.time() * 1000))
         html_no_script = '\
@@ -56,7 +57,7 @@ class CKEditorWidget(object):
             html = str.format(html_no_script, field.name, field.id, field.data or '', field.id, field.id, config_str,
                               field.id, field.id, field.id, field.id)
 
-        return html
+        return HTMLString(html)
 
 class CKEditorRequired(object):
     """Validate the empty content fo the ckeditor"""

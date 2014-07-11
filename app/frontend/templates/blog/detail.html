@@ -13,7 +13,7 @@
 			{% endif %}
 			<a href="{{url_for('.list_blog')}}" type="button" class="btn btn-default">{{_('View blogs')}}</a>
 			{% if has_right('change', 'blog', 'blog') and blog.user == current_user %}
-			<a href="{{url_for('.change_blog', id=blog.id)}}" type="button" class="btn btn-default">{{_('Edit')}}</a>
+			<a href="{{url_for('.change_blog', blog_id=blog.id)}}" type="button" class="btn btn-default">{{_('Edit')}}</a>
 			{% endif %}
 			{% if has_right('delete', 'blog', 'blog') and blog.user == current_user %}
 			<button type="button" class="btn btn-danger btn-delete">{{_('Delete')}}</button>
@@ -22,6 +22,11 @@
 	</div>
 </div>
 {% endblock actionbar %}
+
+{% block breadpiece %}
+{{super()}}
+<li><a href="{{url_for('blog.detail_blog', blog_id=blog.id)}}">Detail</a></li>
+{% endblock breadpiece %}
 
 {% block modal %}
 {{super()}}
@@ -224,7 +229,7 @@ $('.btn-delete').click(function(){
 
 // Delete
 $('.btn-ok').click(function(){
-	url = "{{url_for('.delete_blog', id=0)}}";
+	url = "{{url_for('.delete_blog', blog_id=0)}}";
 	pos = url.lastIndexOf('/');
 	url_delete = url.substr(0,pos+1) + blogId;
 	location.pathname = url_delete;

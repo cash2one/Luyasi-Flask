@@ -1,6 +1,6 @@
 {% extends "job/base.html" %}
 
-{% from "macros/fieldmacros.html" import render_error %}
+{% from "macros/fieldmacros.html" import render_form %}
 
 {% block title %}
 {{_('Report job')}}
@@ -16,23 +16,13 @@
 </div>
 {% endblock actionbar %}
 
+{% block breadpiece %}
+{{super()}}
+<li><a href="{{url_for('job.report_job', job_id=job_id)}}">Report</a></li>
+{% endblock breadpiece %}
+
 {% block container %}
 <div class="col-md-12">
-	{% include "macros/_messages.html" %}
-	<form class="form-horizontal" method="post" action="{{url_for('.report_job',job_id=job_id)}}" name="report_form">
-		{{ report_form.hidden_tag() }}
-		<div class="form-group">
-			{{report_form.content.label}}
-			{{report_form.content(class="form-control", rows=10)}}
-			{{render_error(report_form.content)}}
-		</div>
-		<div class="form-group">
-			{{report_form.captcha(class="form-control", placeholder=_("repeat captcha"))}}
-			{{render_error(report_form.captcha)}}
-		</div>
-		<div class="form-group">
-			<button class="btn btn-lg btn-primary btn-block" type="submit">{{_('Submit')}}</button>
-		</div>
-	</form>
+	{{render_form(report_form, url_for('.report_job', job_id=job_id), 'report_form')}}
 </div>
 {% endblock container %}

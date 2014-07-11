@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap/css/bootstrap.min.css') }}" media="screen">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}"></link>
 <style type="text/css">
 .border-r {
     border:solid 1px red;
@@ -44,10 +45,10 @@ body { padding-bottom: 71px; }
 </head>
 <body>
 <div class="container">
-<div class="row">
-  <div class="col-md-1 border-r">.col-md-1 如果这是中文的话怎么办</div>
-  <div class="col-md-1 border-g">.col-md-1</div>
-</div>
+	<div class="input-group ">
+		<input type="text" class="form_datetime form-control" placeholder="Username">
+		<span class="add-on input-group-addon">@</span>
+	</div>
 </div>
 
 	<script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>
@@ -56,7 +57,16 @@ body { padding-bottom: 71px; }
 
 	<!-- 本页js -->
 	{% block pagescript %}
-	<script type="text/javascript"></script>
+
+	<script src="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
+	<script type="text/javascript">
+		 $(function() {
+			$(".form_datetime").datetimepicker({
+				format: "dd MM yyyy - hh:ii"
+			});
+		  });
+	</script>
 	{% endblock pagescript%}
 </body>
 </html>

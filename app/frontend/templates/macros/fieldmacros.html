@@ -5,7 +5,7 @@
     <div class="col-sm-8">
       <!--{{ gettext(field.label)}}-->
       {{ field(class="form-control") }}
-    </div>  
+    </div>
 </div>
 {% endmacro %}
 
@@ -16,31 +16,26 @@
     {% for error in field.errors %}
       <li>{{error}}</li>
     {% endfor %}
-    </ul>    
+    </ul>
   </div>
   {% endif %}
 {% endmacro%}
 
-{% macro render_form(form) %}
-    {%- for field in form -%}
-      {%- if field.name == 'csrf_token' -%}
-        {{field}}
-      {%- elif field.name == 'submit' -%}
-      <div class="form-group">
-        {{field(class="btn btn-lg btn-primary btn-block")}}
-      </div>
-      {%- else -%}
-        {{ render_field(field) }}
-        {% if field.errors %}
-        <div class="alert alert-danger">
-          <ul class="list-unstyled">
-          {% for error in field.errors %}
-            <li>{{error}}</li>
-          {% endfor %}
-          </ul>
-        </div>
-        {% endif %}
-      {%- endif -%}
-    {%- endfor -%}
+{% macro render_form(form, action, form_name) %}
+<form class="form-horizontal" method="post" action="{{action}}" name="{{form_name}}">
+	{{ form.hidden_tag() }}
+	{% for field in form %}
+		{%- if field.name not in ('id', 'csrf_token')%}
+		<div class="form-group">
+			{{ field.label }}
+			{{field(class="form-control", placeholder=field.description or field.label.text)}}
+			{{- render_error(field) }}
+		</div>
+		{% endif -%}
+	{% endfor %}
+	<div class="form-group">
+		<button class="btn btn-lg btn-primary btn-block" type="submit">{{_('Submit')}}</button>
+	</div>
+</form>
 {% endmacro %}
 

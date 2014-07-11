@@ -1,0 +1,9 @@
+{% extends "index/base.html" %}
+{% block sublogo %}
+<a class="navbar-brand" href="{{ url_for('carpool.list_carinfo') }}">Carpool</a>
+{% endblock sublogo %}
+
+{% block breadpiece %}
+{{super()}}
+<li><a href="{{url_for('carpool.list_carinfo')}}">Carpool</a></li>
+{% endblock breadpiece %}
