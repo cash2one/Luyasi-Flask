@@ -1,5 +1,5 @@
 #-*- coding:utf-8 -*-
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from flask.ext.security import current_user
 from wtforms.ext.sqlalchemy.orm import model_form
 
@@ -40,3 +40,23 @@ def profile_contact():
 def profile_security():
     """Change personal profile password."""
     return render_template('security/profile_security.html')    
+
+@route(bp, '/search_user')
+def search_user():
+    per_page = request.args.get('per_page', None, type=int)
+    term = request.args.get('term', None)
+    page = request.args.get('page', 1, type=int)
+    # users = api_user.get_page_filterby(page=page, per_page=per_page or 20, email=term)
+    users = api_user.all()
+    return jsonify(dict(total=20, results=[{'id': u.id, 'text': u.email} for u in users]))
+
+@route(bp, '/list_user', methods=['GET'])
+def list_user():
+    page = request.args.get('page', 1, type=int)
+    users = api_user.get_page(page)
+    #需要把users<pagenate对象>的相关属性提出来
+    userdict = [{'id': u.id, 'text': u.email} for u in users.items]
+    return jsonify(dict(data=userdict, 
+                        pageinfo=dict(has_next=users.has_next, has_prev=users.has_prev, 
+                                      next_num=users.next_num, pages=users.pages, per_page=users.per_page, prev_num=users.prev_num,
+                                      total=users.total)))

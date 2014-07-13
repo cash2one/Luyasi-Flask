@@ -16,7 +16,7 @@ def index():
 	return render_template('index/index.html', jobs=jobs, carinfos=carinfos, blogs=blogs)
 
 #----------------------------------------------------------------------
-@bp.route('/testform')
+@bp.route('/test')
 def test_form():
 	"""Return form"""
-	return render_template('testform.html', form = form)
+	return render_template('testform.html')

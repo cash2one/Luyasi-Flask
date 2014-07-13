@@ -1,0 +1,67 @@
+{% extends "xiaoyuan/base.html" %}
+
+{% from "macros/fieldmacros.html" import render_form %}
+
+{% block container %}
+<div class="col-md-10">
+	{{render_form(form, url_for('xiaoyuan.send_msg'), 'msg_form')}}
+</div>
+<div class="col-md-2">
+	{% include 'security/macro-search-users.html'%}
+</div>
+{% endblock container %}
+
+<!-- 头部js或者和css -->
+{% block headscript %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/select2/select2.css') }}" >
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/select2/select2-bootstrap.css') }}" >
+{% endblock headscript%}
+
+<!-- 本页js -->
+{% block pagescript %}
+<script src="{{url_for('static', filename="base/3partylib/select2/select2.min.js")}}"></script>
+<script>
+function select(userid){
+    var olddata = $('#receivers').select2('data');
+    olddata.push({id:100, text: 'test'});
+    $('#receivers').select2('data', olddata);
+}
+$(function(){
+    //初始化select2
+	$('#receivers').select2({
+		multiple: true,
+		ajax:{
+			url: "/security/search_user",
+			dataType: 'json',
+			data: function(term, page){
+				return {
+					term: term,
+					page: page,
+					per_page: 20
+				}
+			},
+			results: function(data, page){
+				var more = (page * 20) < data.total;
+				return {
+					results: data.results,
+					more: more
+				}
+			}
+		}
+	});
+    
+    
+    $.getJSONEx('/security/list_user',{page: 1})
+		.done(function(data, textStatus, jqXHR){
+		    var html = '';
+		    for(var i in data.data){
+			  var user = data.data[i]
+			  html += "<li onclick='javascript:select("+ user.id +")' data-id='" + user.id + "'>" + user.text + "</li>"
+		    }
+		    $('._users').append(html);
+    });
+    
+
+});
+</script>
+{% endblock pagescript%}

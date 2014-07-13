@@ -8,7 +8,7 @@
     :copyright: (c) 2014 by Kinorsi -- <kinorsi@gmail.com>
     :license: BSD, see LICENSE for more details.
 """
-from wtforms.widgets import HTMLString, html_params, Input
+from wtforms.widgets import HTMLString, html_params, Input, Select
 
 class CaptchaWidget(object):
     #----------------------------------------------------------------------
@@ -45,3 +45,15 @@ class DatetimeWidget(Input):
 
         html = super(DatetimeWidget, self).__call__(field, **kwargs)
         return html
+    
+########################################################################
+class Select2Widget(Select):
+    """"""
+
+    #----------------------------------------------------------------------
+    def __init__(self):
+        """Constructor"""
+        
+        
+    
+    

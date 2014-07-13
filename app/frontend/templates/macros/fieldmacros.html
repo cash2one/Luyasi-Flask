@@ -26,11 +26,22 @@
 	{{ form.hidden_tag() }}
 	{% for field in form %}
 		{%- if field.name not in ('id', 'csrf_token')%}
-		<div class="form-group">
-			{{ field.label }}
-			{{field(class="form-control", placeholder=field.description or field.label.text)}}
-			{{- render_error(field) }}
-		</div>
+		    {#
+		    {% if field is None %}
+		    <div class="form-group">
+			  {{field.label}}
+			  {% for subfield in field %}
+				{{subfield(class="form-control", placeholder=subfield.description or subfield.label.text)}}
+			  {% endfor %}
+		    </div>
+		    {% else %}
+		    #}
+		    <div class="form-group">
+			  {{ field.label }}
+			  {{field(class="form-control", placeholder=field.description or field.label.text)}}
+			  {{- render_error(field) }}
+		    </div>
+		    {#{% endif %}#}
 		{% endif -%}
 	{% endfor %}
 	<div class="form-group">

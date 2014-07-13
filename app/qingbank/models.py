@@ -1,7 +1,6 @@
 #-*- coding:utf-8 -*-
 from ..core import db, ModelVersion
 from ..helpers import JsonSerializer
-from flask.ext.babel import gettext
 
 
 class Department(db.Model, ModelVersion, JsonSerializer):

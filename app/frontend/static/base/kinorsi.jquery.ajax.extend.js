@@ -10,6 +10,10 @@ $.postJSONEx = function(url, data, args){
 	return $.ajax(args);
 };
 
+/**
+ * param url: target url.
+ * param data: plain object.
+**/
 $.getJSONEx = function(url, data, args){
 	args = $.extend({
 		url: url,

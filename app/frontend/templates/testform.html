@@ -6,6 +6,8 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap/css/bootstrap.min.css') }}" media="screen">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}"></link>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/select2/select2.css') }}" >
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/select2/select2-bootstrap.css') }}" >
 <style type="text/css">
 .border-r {
     border:solid 1px red;
@@ -49,24 +51,79 @@ body { padding-bottom: 71px; }
 		<input type="text" class="form_datetime form-control" placeholder="Username">
 		<span class="add-on input-group-addon">@</span>
 	</div>
+	  <hr/>	  
+	  <form role="form">
+	    <div class="form-group">
+		<label for="exampleInputEmail1">Email address</label>
+		<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+	    </div>
+	    <div class="form-group">
+		<input type="hidden" id='hidden' class="form-control">
+		<select id='e2' class="form-control">
+		    <option>kk</option>  
+		    <option>df</option>  
+		</select>
+	    </div>
+	    <div class="form-group">
+		<label for="exampleInputPassword1">Password</label>
+		<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+	    </div>
+	    <div class="form-group">
+		<label for="exampleInputFile">File input</label>
+		<input type="file" id="exampleInputFile">
+		<p class="help-block">Example block-level help text here.</p>
+	    </div>
+	    <div class="checkbox">
+		<label>
+		  <input type="checkbox"> Check me out
+		</label>
+	    </div>
+	    <button type="submit" class="btn btn-default">Submit</button>
+	  </form>    
 </div>
 
 	<script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script	src="{{ url_for('static', filename='base/3partylib/bootstrap/js/bootstrap.min.js') }}"></script>
 
-	<!-- 本页js -->
-	{% block pagescript %}
+	  <!-- 本页js -->
+	  {% block pagescript %}
 
-	<script src="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
-	<script type="text/javascript">
-		 $(function() {
-			$(".form_datetime").datetimepicker({
-				format: "dd MM yyyy - hh:ii"
-			});
-		  });
-	</script>
-	{% endblock pagescript%}
+	  <script src="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+	  <script src="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
+	  <script src="{{url_for('static', filename="base/3partylib/select2/select2.min.js")}}"></script>	
+	  <script type="text/javascript">
+		$(function() {
+		    $(".form_datetime").datetimepicker({
+			  format: "dd MM yyyy - hh:ii"
+		    });
+		    
+		    $('#e1').select2();
+		    $('#e3').select2({
+		    });
+		    $('#hidden').select2({
+			  multiple: true,
+			  ajax:{
+						  url: "/security/search_user",
+						  dataType: 'json',
+						  data: function(term, page){
+							  return {
+								  term: term,
+								  page: page,
+								  per_page: 20
+							  }
+						  },
+						  results: function(data, page){
+							  var more = (page * 20) < data.total;
+							  return {
+								  results: data.results,
+								  more: more
+							  }
+						  }
+					  }
+		    });		    
+		});
+	  </script>
+	  {% endblock pagescript%}
 </body>
 </html>

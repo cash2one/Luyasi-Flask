@@ -6,7 +6,7 @@
   Created: 2014/6/11
 """
 
-from wtforms import TextField, Field
+from wtforms import TextField, Field, TextField
 from flask_babelex import lazy_gettext
 
 from .widgets import CaptchaWidget
@@ -23,5 +23,20 @@ class CaptchaField(Field):
 		self.widget = CaptchaWidget()
 
 
+########################################################################
+class Select2Field(TextField):
+	""""""
+
+	def process_formdata(self, valuelist):
+		if valuelist:
+			try:
+				strvalues = valuelist[0].split(',')
+				values = [int(v) for v in strvalues]
+				self.data = values
+			except (ValueError):
+				self.data = None
+				raise ValueError(self.gettext('Not a valid int array value'))		
+    
+	
 
 
