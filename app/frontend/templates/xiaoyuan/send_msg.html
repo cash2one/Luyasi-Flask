@@ -21,9 +21,14 @@
 {% block pagescript %}
 <script src="{{url_for('static', filename="base/3partylib/select2/select2.min.js")}}"></script>
 <script>
-function select(userid){
+function select(user){
     var olddata = $('#receivers').select2('data');
-    olddata.push({id:100, text: 'test'});
+	for(var i in olddata){
+		if(olddata[i].id == $(user).attr('data-id')){
+			return;
+		}
+	}
+    olddata.push({id:$(user).attr('data-id'), text: $(user).text()});
     $('#receivers').select2('data', olddata);
 }
 $(function(){
@@ -49,18 +54,18 @@ $(function(){
 			}
 		}
 	});
-    
-    
+
+
     $.getJSONEx('/security/list_user',{page: 1})
 		.done(function(data, textStatus, jqXHR){
 		    var html = '';
 		    for(var i in data.data){
 			  var user = data.data[i]
-			  html += "<li onclick='javascript:select("+ user.id +")' data-id='" + user.id + "'>" + user.text + "</li>"
+			  html += "<h5 onclick='javascript:select(this)' style='cursor:pointer' data-id='" + user.id + "'>" + user.text + "</h5>"
 		    }
 		    $('._users').append(html);
     });
-    
+
 
 });
 </script>

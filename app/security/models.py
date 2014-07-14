@@ -72,6 +72,9 @@ class User(db.Model, ModelVersion, UserMixin, JsonSerializer):
     def __repr__(self):
         return str.format('<User: {0}>',  self.username or self.email or self.nickname)
 
+    def __str__(self):
+        return str.format('{0}',  self.username or self.email or self.nickname)
+
     def canAdmin(self):
         for role in self.roles:
             if u'管理员' in role.name:
