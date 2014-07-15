@@ -3,12 +3,12 @@
 {% from "macros/fieldmacros.html" import render_form %}
 
 {% block container %}
-<div class="col-md-10">
-	{{render_form(form, url_for('xiaoyuan.send_msg'), 'msg_form')}}
-</div>
-<div class="col-md-2">
-	{% include 'security/macro-search-users.html'%}
-</div>
+    <div class="col-md-9">
+	    {{render_form(form, url_for('xiaoyuan.send_msg'), 'msg_form')}}
+    </div>
+    <div class="col-md-2 col-md-offset-1">
+	    {% include 'security/macro-search-users.html'%}
+    </div>    
 {% endblock container %}
 
 <!-- 头部js或者和css -->
@@ -32,10 +32,12 @@ function select(user){
     $('#receivers').select2('data', olddata);
 }
 
+// 联系人的当前页
 var cur_page = 1;
+// 联系人的每页显示数目
 var per_page = 10;
 function get_user(page){
-    $.getJSONEx('/security/list_user',{page: page, per_page: per_page})
+    $.getJSONEx('/xiaoyuan/list_receivers',{page: page, per_page: per_page})
 		.done(function(data, textStatus, jqXHR){
 		    var html = '';
 		    for(var i in data.data){
