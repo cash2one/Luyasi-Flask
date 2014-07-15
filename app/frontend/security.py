@@ -53,7 +53,8 @@ def search_user():
 @route(bp, '/list_user', methods=['GET'])
 def list_user():
     page = request.args.get('page', 1, type=int)
-    users = api_user.get_page(page, per_page=3)
+    per_page = request.args.get('per_page', 3, type=int)
+    users = api_user.get_page(page, per_page=per_page)
     #需要把users<pagenate对象>的相关属性提出来
     userdict = [{'id': u.id, 'text': str(u)} for u in users.items]
     return jsonify(dict(data=userdict,

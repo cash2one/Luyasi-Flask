@@ -31,6 +31,34 @@ function select(user){
     olddata.push({id:$(user).attr('data-id'), text: $(user).text()});
     $('#receivers').select2('data', olddata);
 }
+
+var cur_page = 1;
+var per_page = 10;
+function get_user(page){
+    $.getJSONEx('/security/list_user',{page: page, per_page: per_page})
+		.done(function(data, textStatus, jqXHR){
+		    var html = '';
+		    for(var i in data.data){
+			  var user = data.data[i]
+			  html += "<li class='list-group-item' onclick='javascript:select(this)' style='cursor:pointer' data-id='" + user.id + "'>" + user.text + "</li>"
+		    }
+			$('._users').empty();
+		    $('._users').append(html);
+
+			if(data.pageinfo.has_prev){
+				$('.pager .previous').removeClass('disabled');
+			}else{
+				$('.pager .previous').addClass('disabled');
+			}
+
+			if(data.pageinfo.has_next){
+				$('.pager .next').removeClass('disabled');
+			}else{
+				$('.pager .next').addClass('disabled');
+			}
+    });
+}
+
 $(function(){
     //初始化select2
 	$('#receivers').select2({
@@ -55,17 +83,19 @@ $(function(){
 		}
 	});
 
+	get_user(cur_page)
 
-    $.getJSONEx('/security/list_user',{page: 1})
-		.done(function(data, textStatus, jqXHR){
-		    var html = '';
-		    for(var i in data.data){
-			  var user = data.data[i]
-			  html += "<h5 onclick='javascript:select(this)' style='cursor:pointer' data-id='" + user.id + "'>" + user.text + "</h5>"
-		    }
-		    $('._users').append(html);
-    });
+	$('.pager .next').on('click', function(){
+		if($(this).hasClass('disabled')){return;}
+		cur_page ++;
+		get_user(cur_page);
+	});
 
+	$('.pager .previous').on('click', function(){
+		if($(this).hasClass('disabled')){return;}
+		cur_page --
+		get_user(cur_page);
+	});
 
 });
 </script>
