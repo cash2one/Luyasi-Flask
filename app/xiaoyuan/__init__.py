@@ -9,6 +9,5 @@ class AcademyService(Service):
 class ClassService(Service):
     __model__ = Class
 
-
 class MessageService(Service):
     __model__ = Message

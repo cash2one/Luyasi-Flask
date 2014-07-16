@@ -15,7 +15,7 @@ bp = Blueprint('xiaoyuan', __name__, template_folder='templates', static_folder=
 def index():
     """根据不同的角色会看到不同的主页内容"""
     return render_template('xiaoyuan/index.html')
-    
+
 #----------------------------------------------------------------------
 @route(bp, '/send_msg', methods=['GET', 'POST'])
 def send_msg():
@@ -27,16 +27,17 @@ def send_msg():
 
 @route(bp, '/list_receivers', methods=['GET'])
 def list_receivers():
+    """List receivers that only have rights to see."""
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 3, type=int)
-    
+
     classes = current_user.classes
-    
-    users = api_user.get_page(page, per_page=per_page)
+
+    users = api_user.get_user_from_classes(class_ids=(1,2))
     #需要把users<pagenate对象>的相关属性提出来
     userdict = [{'id': u.id, 'text': str(u)} for u in users.items]
     return jsonify(dict(data=userdict,
                         pageinfo=dict(has_next=users.has_next, has_prev=users.has_prev,
-                                      next_num=users.next_num, pages=users.pages, 
+                                      next_num=users.next_num, pages=users.pages,
                                       per_page=users.per_page, prev_num=users.prev_num,
                                       total=users.total)))

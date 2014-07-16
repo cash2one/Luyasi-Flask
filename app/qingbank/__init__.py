@@ -16,7 +16,7 @@ class ContactService(Service):
             self.__model__.telephone.contains(keyword),
             self.__model__.fax.contains(keyword),
             self.__model__.innerphone.contains(keyword),
-            self.__model__.name_pinyin.startswith(keyword), 
+            self.__model__.name_pinyin.startswith(keyword),
             self.__model__.name_shot.startswith(keyword),
             self.__model__.name.startswith(keyword)))
         return query
