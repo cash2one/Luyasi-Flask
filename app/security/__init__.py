@@ -8,11 +8,13 @@ class UserService(Service):
     __model__ = User
 
     #----------------------------------------------------------------------
-    def get_user_from_classes(self, class_ids=None):
+    def get_user_from_classes(self, class_ids=None, page=1, per_page=20, error_out=True):
         if class_ids is None:
             return None
 
-        query = self.__model__.query.join(self.__model__.classes).filter(Class.id.in_(class_ids))
+        query = self.__model__.query.join(self.__model__.classes)\
+                        .filter(Class.id.in_(class_ids))\
+                        .paginate(page, per_page, error_out)
         return query
 
 class RoleService(Service):

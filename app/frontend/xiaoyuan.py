@@ -32,8 +32,8 @@ def list_receivers():
     per_page = request.args.get('per_page', 3, type=int)
 
     classes = current_user.classes
-
-    users = api_user.get_user_from_classes(class_ids=(1,2))
+    
+    users = api_user.get_user_from_classes(class_ids=[cls.id for cls in classes])
     #需要把users<pagenate对象>的相关属性提出来
     userdict = [{'id': u.id, 'text': str(u)} for u in users.items]
     return jsonify(dict(data=userdict,

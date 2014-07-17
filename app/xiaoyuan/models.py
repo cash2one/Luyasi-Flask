@@ -27,6 +27,14 @@ class Academy(db.Model, ModelVersion, JsonSerializer):
     
     #这个学院的人。主要是用来在领导的
     users = db.relationship(User, secondary=academies_users, backref=db.backref('academies', lazy='dynamic'))
+    
+    #----------------------------------------------------------------------
+    def __repr__(self):
+        return "<Academy: %s>" % self.name
+    
+    def __str__(self):
+        return self.name
+        
 
 ########################################################################
 class Class(db.Model, ModelVersion, JsonSerializer):
@@ -42,6 +50,13 @@ class Class(db.Model, ModelVersion, JsonSerializer):
     # 这个班所在的学院
     academy_id = db.Column(db.Integer(), db.ForeignKey('xiaoyuan_academy.id'))
     academy = db.relationship('Academy', backref=db.backref('classes', uselist=True, lazy='dynamic'))    
+    
+    #----------------------------------------------------------------------
+    def __repr__(self):
+        return "<Class: %s>" % self.name
+    
+    def __str__(self):
+        return self.name    
         
 class Message(db.Model, ModelVersion, JsonSerializer):
     
@@ -57,3 +72,10 @@ class Message(db.Model, ModelVersion, JsonSerializer):
     receiver_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
     receiver = db.relationship('User', backref=db.backref('receive_msgs', uselist=True, lazy='dynamic'),
                                foreign_keys=[receiver_id])    
+    
+    #----------------------------------------------------------------------
+    def __repr__(self):
+        return "<Message: %s>" % self.content
+    
+    def __str__(self):
+        return self.content     
