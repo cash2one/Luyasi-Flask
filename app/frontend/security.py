@@ -46,6 +46,8 @@ def search_user():
     per_page = request.args.get('per_page', None, type=int)
     term = request.args.get('term', None)
     page = request.args.get('page', 1, type=int)
-    # users = api_user.get_page_filterby(page=page, per_page=per_page or 20, email=term)
-    users = api_user.all()
-    return jsonify(dict(total=20, results=[{'id': u.id, 'text': u.email} for u in users]))
+
+    paginate = api_user.search_user(term).paginate(page, per_page)
+    users = paginate.items
+    total = paginate.total
+    return jsonify(dict(total=total, results=[{'id': u.id, 'text': u.contact.name} for u in users]))

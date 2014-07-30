@@ -8,7 +8,7 @@
     </div>
     <div class="col-md-2 col-md-offset-1">
 	    {% include 'security/macro-search-users.html'%}
-    </div>    
+    </div>
 {% endblock container %}
 
 <!-- 头部js或者和css -->
@@ -65,6 +65,7 @@ $(function(){
     //初始化select2
 	$('#receivers').select2({
 		multiple: true,
+		minimumInputLength: 2,
 		ajax:{
 			url: "/security/search_user",
 			dataType: 'json',
