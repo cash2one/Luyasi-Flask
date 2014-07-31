@@ -38,7 +38,7 @@ def list_blog(page=None):
 	if page == None or page <= 0:
 		page = 1
 	blogs = api_blog.get_lastest_page(page)
-	return render_template('blog/list.html', blogs = blogs, test="<p>test</p>")
+	return render_template('blog/list.html', blogs = blogs)
 
 #----------------------------------------------------------------------
 @bp.route('/blog/<int:blog_id>', methods=['GET'])

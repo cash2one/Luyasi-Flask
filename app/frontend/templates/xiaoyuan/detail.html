@@ -1,0 +1,8 @@
+{% extends "xiaoyuan/base.html" %}
+
+{% block rightmain %}
+{% for msg in msgs %}
+	{{msg.content}}
+	<hr/>
+{% endfor %}
+{% endblock rightmain %}

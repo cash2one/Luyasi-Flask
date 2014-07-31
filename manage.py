@@ -15,7 +15,7 @@ from flask import Flask
 from flask.ext.script import Manager, prompt_bool
 from flask.ext.security import Security, SQLAlchemyUserDatastore
 from flask.ext.sqlalchemy import SQLAlchemy
-#database migrate 
+#database migrate
 from migrate.versioning import api
 
 import os
@@ -63,7 +63,7 @@ def create_db():
     #open(migration, "wt").write(script)
     #api.upgrade(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO)
     #print 'New migration saved as ' + migration
-    #print 'Current database version: ' + str(api.db_version(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO))    
+    #print 'Current database version: ' + str(api.db_version(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO))
 
 #@manager.command
 #def db_upgrade():
@@ -76,7 +76,7 @@ def create_db():
     #"""Downgrade database one version."""
     #v = api.db_version(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO)
     #api.downgrade(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO, v - 1)
-    #print 'Current database version: ' + str(api.db_version(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO))    
+    #print 'Current database version: ' + str(api.db_version(config.SQLALCHEMY_DATABASE_URI, config.SQLALCHEMY_MIGRATE_REPO))
 
 @manager.command
 def drop_db():
@@ -158,7 +158,7 @@ def import_qingbank_user(filepath=None):
         if dept is None:
             dept = api_department.create(name=dept_name)
 
-        api_contact.create(name=name,  name_pinyin=name_pinyin, name_shot=name_shot, 
+        api_contact.create(name=name,  name_pinyin=name_pinyin, name_shot=name_shot,
                            user_id=user.id, department_id=dept.id, duty=duty, mobile=mobile, telephone=tel, fax=fax, description=desc)
 
     print repeat_id
