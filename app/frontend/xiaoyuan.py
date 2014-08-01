@@ -7,7 +7,7 @@ from flask_babelex import gettext
 from . import route
 
 from ..services import api_academy, api_class, api_msg, api_user
-from ..xiaoyuan.forms import MsgForm
+from ..xiaoyuan.forms import MsgForm, ReplayForm
 from ..xiaoyuan.models import MessageUserAssociation, Message
 
 bp = Blueprint('xiaoyuan', __name__, template_folder='templates', static_folder='static', url_prefix='/xiaoyuan')
@@ -74,6 +74,24 @@ def send_msg():
         return redirect(url_for('.index'))
 
     return render_template('xiaoyuan/send_msg.html', form=form)
+
+#----------------------------------------------------------------------
+@route(bp, '/<int:msg_id>/reply', methods=['GET','POST'])
+def reply_msg(msg_id=None):
+    """"""
+    reply_msg = api_msg.get(msg_id)
+
+    form = ReplayForm()
+    if form.validate_on_submit():
+        msg = api_msg.new(content=form.content.data, sender=current_user, reply_message_id=msg_id)
+        association = MessageUserAssociation()
+        association.user = reply_msg.sender
+        association.message = msg
+        reply_msg.sender.message_assocs.append(association)
+        flash(gettext(u'Message is sent'))
+        return redirect(url_for('.index'))
+    return render_template('xiaoyuan/reply_msg.html', form=form, msg_id=msg_id)
+
 
 
 @route(bp, '/list_receivers', methods=['GET'])
