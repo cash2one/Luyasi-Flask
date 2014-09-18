@@ -17,6 +17,10 @@ classes_users = db.Table('xiaoyuan_classes_users',
                        db.Column('class_id', db.Integer(), db.ForeignKey('xiaoyuan_class.id')),
                        db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id'))) 
 
+messages_users = db.Table('xiaoyuan_msges_users',
+                       db.Column('messsage_id', db.Integer(), db.ForeignKey('xiaoyuan_message.id')),
+                       db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id'))) 
+
 
 ########################################################################
 class Academy(db.Model, ModelVersion, JsonSerializer):
@@ -69,9 +73,11 @@ class Message(db.Model, ModelVersion, JsonSerializer):
     sender = db.relationship('User', backref=db.backref('send_msgs', uselist=True, lazy='dynamic'),
                              foreign_keys=[sender_id])
     
-    receiver_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
-    receiver = db.relationship('User', backref=db.backref('receive_msgs', uselist=True, lazy='dynamic'),
-                               foreign_keys=[receiver_id])    
+    #receiver_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
+    #receiver = db.relationship('User', backref=db.backref('receive_msgs', uselist=True, lazy='dynamic'),
+                               #foreign_keys=[receiver_id])    
+    # 在这个班的人
+    receivers = db.relationship(User, secondary=messages_users, backref=db.backref('messages', lazy='dynamic'))
     
     #----------------------------------------------------------------------
     def __repr__(self):

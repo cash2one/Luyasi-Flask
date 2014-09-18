@@ -22,6 +22,7 @@ roles_rights = db.Table('security_roles_rights',
                        db.Column('role_id', db.Integer(), db.ForeignKey('security_role.id')),
                        db.Column('right_id', db.Integer(), db.ForeignKey('security_right.id')))
 
+########################################################################
 class Role(db.Model, ModelVersion, RoleMixin, JsonSerializer):
     __tablename__ = 'security_role'
 
@@ -31,8 +32,12 @@ class Role(db.Model, ModelVersion, RoleMixin, JsonSerializer):
     rights = db.relationship('Right', secondary=roles_rights, lazy='dynamic')
 
     def __repr__(self):
-        return str.format('<Role {}>', self.name)
-
+        return u'<Role: %s>' % self.name
+    
+    def __str__(self):
+        return self.name
+    
+########################################################################
 class User(db.Model, ModelVersion, UserMixin, JsonSerializer):
     __tablename__ = 'security_user'
     __json_hidden__ = ['blogs',  'contact']
@@ -70,10 +75,10 @@ class User(db.Model, ModelVersion, UserMixin, JsonSerializer):
     login_count = db.Column(db.Integer())
 
     def __repr__(self):
-        return str.format('<User: {0}>',  self.username or self.email or self.nickname)
+        return '<User: %s>' % (self.username or self.email or self.nickname)
 
     def __str__(self):
-        return str.format('{0}',  self.username or self.email or self.nickname)
+        return self.username or self.email or self.nickname
 
     def canAdmin(self):
         for role in self.roles:
@@ -89,9 +94,12 @@ class App(db.Model, ModelVersion, JsonSerializer):
     name = db.Column(db.String(80), unique=True)
 
     def __repr__(self):
-        return str.format('<App: {}>', self.name)
+        return u'<App: %s>', self.name
+    
+    def __str__(self):
+        return self.name
 
-
+########################################################################
 class Right(db.Model, ModelVersion, JsonSerializer):
     __tablename__ = 'security_right'
 
@@ -102,6 +110,9 @@ class Right(db.Model, ModelVersion, JsonSerializer):
     description = db.column_property(action + ' ' + app + ' ' + entity)
 
     def __repr__(self):
-        return str.format('<Right: {}>', self.description)
+        return u'<Right: %s>', self.description
 
+    def __str__(self):
+        return self.description
+        
 
