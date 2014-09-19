@@ -216,7 +216,7 @@ pip-log.txt
 #############
 ## Python-Flask
 #############
-docs\
+docs/
 test.db
 *.wpu
-upload\
+upload/

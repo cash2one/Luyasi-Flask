@@ -1,3 +1,6 @@
+2014-07-30
+1.flask-admin 1.0.8 之后似乎可以one-to-one了，两边都显示了下拉，而不是之前的一边下列一边多选。
+
 2014-07-09
 1.在macros里增加了render_form。这样就可以直接渲染表单了。
 2.增加日期控件，请参考http://www.bootcss.com/p/bootstrap-datetimepicker/demo.htm

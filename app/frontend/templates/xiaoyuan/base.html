@@ -18,3 +18,7 @@
 	</div>
 </div>
 {% endblock actionbar %}
+
+{% block sidebar %}
+<a href="{{url_for('.list_msg')}}">{{_('Inbox')}} <span class="badge">{{ unread_cnt }}/{{msg_cnt}}</span></a>
+{% endblock sidebar %}

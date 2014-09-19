@@ -6,6 +6,10 @@ from . import route
 import os
 import datetime
 
+import oss
+from oss.oss_api import *
+oss=OssAPI('oss.aliyuncs.com','SB92Xozt8KamUnCw','N5ytDUqkSMKrPcDLmypaVElXBwKI3k')
+
 bp = Blueprint('upload-frontend', __name__, template_folder='templates', static_folder='static', url_prefix='/uploader')
 
 #----------------------------------------------------------------------
@@ -18,15 +22,15 @@ def allowed_files(filename):
 @route(bp, '/upload', methods=['GET', 'POST'])
 def upload_file():
 	if request.method == 'POST':
-		file = request.files['upload']
-		if file and allowed_files(file.filename):
-			filename = secure_filename(file.filename)
+		upload_file = request.files['upload']
+		if upload_file and allowed_files(upload_file.filename):
+			filename = secure_filename(upload_file.filename)
 			filenames = os.path.splitext(filename)
 			filename = filenames[0] + '_' + str(datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S_%f')) + filenames[1]
-			file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-			file_url = url_for('.uploaded_file', filename=filename)
-			#return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction(" + "CKEditorFuncNum, '$url', '$message');</script>"
-			#return redirect(file_url)
+			upload_file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+			res = oss.put_object_from_fp('hz-kinorsi-bucket', filename, upload_file)
+			#file_url = url_for('.uploaded_file', filename=filename)
+			file_url = 'http://hz-kinorsi-bucket.oss-cn-hangzhou.aliyuncs.com/' + filename
 			return str.format("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction({}, '{}');</script>",
 			                  request.args['CKEditorFuncNum'], file_url)
 

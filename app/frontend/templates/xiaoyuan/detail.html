@@ -1,0 +1,18 @@
+{% extends "xiaoyuan/base.html" %}
+
+{% block actionbar %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="btn-group pull-right" style="margin-bottom: 12px">
+			<a href="{{url_for('xiaoyuan.reply_msg', msg_id=msgs[0].id)}}" type="button" class="btn btn-success">{{_('Reply')}}</a>
+		</div>
+	</div>
+</div>
+{% endblock actionbar %}
+
+{% block rightmain %}
+{% for msg in msgs %}
+	{{msg.content}}
+	<hr/>
+{% endfor %}
+{% endblock rightmain %}
