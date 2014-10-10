@@ -23,7 +23,7 @@ class CarpoolInfo(db.Model, ModelVersion, JsonSerializer):
 	start_time = db.Column(db.DateTime(), nullable=False)
 	contact_info = db.Column(db.String(128))
 
-	delete = db.Column(db.Boolean(name='deleted'), default=False, nullable=False)
+	deleted = db.Column(db.Boolean(name='deleted'), default=False, nullable=False)
 
 	# commentor
 	user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))

@@ -38,10 +38,16 @@ class ModelVersion(object):
     :attr:`version`, for optimistic locking.
     """
     #: Datetime for updation of this record. :method:`before_update` to update this.
-    update_at = db.Column(db.DateTime())
+    update_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow())
 
     #: Datetime for creation of this record.
-    create_at = db.Column(db.DateTime())
+    create_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow())
+    
+    #: Optimistic locking    
+    version = db.Column(db.Integer(), nullable=False, default=1)
+    __mapper_args__ = {
+        "version_id_col": version
+    }    
 
 # 修改sqlalchemy生成约束时的命名规则。其中要注意ck，这是个check，这样以后在定义db.Boolean的时候要加个name:db.Boolean(name='sth')
 convention = {

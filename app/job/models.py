@@ -17,7 +17,7 @@ class Job(db.Model, ModelVersion, JsonSerializer):
 	title = db.Column(db.String(80))
 	content = db.Column(db.String(5120))
 	job_type = db.Column(db.Integer())
-	delete = db.Column(db.Boolean(name='deleted'), default=False, nullable=False)
+	deleted = db.Column(db.Boolean(name='deleted'), default=False, nullable=False)
 
 	# commentor
 	user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))

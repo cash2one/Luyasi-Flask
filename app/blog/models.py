@@ -18,12 +18,6 @@ class Blog(db.Model, ModelVersion, JsonSerializer):
     # comments
     comments = db.relationship('Comment', lazy='dynamic', backref='blog')
 
-    #: Optimistic locking
-    version = db.Column(db.Integer(), nullable=False)
-    __mapper_args__ = {
-        "version_id_col": version
-    }
-
     def __repr__(self):
         return str.format('<Blog: {}>', self.title)
 
@@ -52,12 +46,6 @@ class Comment(db.Model, ModelVersion, JsonSerializer):
     # ref comment
     ref_comment_id = db.Column(db.Integer(), db.ForeignKey('blog_comment.id'))
     ref_comment = db.relationship('Comment', foreign_keys=[ref_comment_id])
-
-    #: Optimistic locking
-    version = db.Column(db.Integer(), nullable=False)
-    __mapper_args__ = {
-        "version_id_col": version
-    }
 
     def __repr__(self):
         return str.format('<Comment: {}>', self.id)
