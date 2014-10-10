@@ -24,16 +24,25 @@ def route(bp, *args, **kwargs):
 
     def decorator(f):
         @bp.route(*args, **kwargs)
-        # @login_required
         @auth_token_required
         @wraps(f)
         def wrapper(*args, **kwargs):
-            code = 200
             rv = f(*args, **kwargs)
-            if isinstance(rv, tuple):
-                code = rv[1]
-                rv = rv[0]
-            return jsonify(dict(response=rv, meta=dict(code=code))), code
+            return jsonres(rv)
         return f
 
     return decorator
+
+
+def jsonres(*res):
+    '''这样api可以返回一致的结构。主要是
+    '''
+    code = 200
+    msg = None
+    if isinstance(res, tuple):
+        rv = res[0]
+        code = res[1]
+        if len(res)==3:
+            msg = res[2]
+    return jsonify(dict(response=rv, meta=dict(code=code, msg=msg))), code
+

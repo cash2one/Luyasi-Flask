@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 from flask import Blueprint, request,jsonify
 
-from . import route
+from . import route, jsonres
 from ..core import LuyasiError, LuyasiFormError
 from ..services import api_job
 from flask.ext.babel import gettext
@@ -23,4 +23,5 @@ def list_job(page=None):
 	if page == None or page <= 0:
 		page = 1
 	jobs = api_job.get_lastest_page(page)
-	return render_template('job/list.html', jobs = jobs)
+	jobs = [job for job in jobs.items]
+	return jsonres(jobs, 200, 'ok')
