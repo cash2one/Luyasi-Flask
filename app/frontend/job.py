@@ -16,7 +16,7 @@ from ..services import api_job, api_report
 
 bp = Blueprint('job', __name__, template_folder='templates', static_folder='static', url_prefix='/job')
 
-@bp.route('/new', methods=['GET', 'POST'])
+@route(bp, '/new', methods=['GET', 'POST'])
 def create_job():
 	form = JobForm()
 	if form.validate_on_submit():
@@ -24,8 +24,9 @@ def create_job():
 		if current_user.get_id() is not None:
 			user = current_user
 		job = api_job.create(user=user, **form.data)
-		print job.id
-		return redirect('/job/' + str(job.id))
+		#return redirect('/job/' + str(job.id))
+		return redirect(url_for('.detail_job', job_id=job.id))
+	
 
 	return render_template('job/create.html', form=form)
 

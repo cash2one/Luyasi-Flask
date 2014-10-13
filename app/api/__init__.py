@@ -38,7 +38,7 @@ def jsonres(*res):
     '''这样api可以返回一致的结构。主要是
     '''
     code = 200
-    msg = None
+    msg = ''
     if isinstance(res, tuple):
         rv = res[0]
         code = res[1]

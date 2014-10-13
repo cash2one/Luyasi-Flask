@@ -115,10 +115,10 @@ SECURITY_USER_IDENTITY_ATTRIBUTES = ['email','username']
 SECURITY_URL_PREFIX = '/security'
 # 自己增加的用于openid
 SECURITY_OPENID_LOGIN_URL = '/openid_login'
-SECURITY_POST_LOGIN_VIEW = '/qingbank/'
-SECURITY_POST_LOGOUT_VIEW = '/qingbank/'
+SECURITY_POST_LOGIN_VIEW = '/'
+SECURITY_POST_LOGOUT_VIEW = '/'
 SECURITY_POST_REGISTER_VIEW = '/security/register'
-SECURITY_POST_CONFIRM_VIEW = '/qingbank/'
+SECURITY_POST_CONFIRM_VIEW = '/'
 SECURITY_POST_CHANGE_VIEW = '/security/change'
 
 #这里似乎做不了本地化，会出现json错误。先不做。

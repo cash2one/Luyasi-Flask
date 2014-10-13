@@ -40,7 +40,7 @@ class Role(db.Model, ModelVersion, RoleMixin, JsonSerializer):
 ########################################################################
 class User(db.Model, ModelVersion, UserMixin, JsonSerializer):
     __tablename__ = 'security_user'
-    __json_hidden__ = ['blogs',  'contact']
+    __json_hidden__ = ['blogs',  'contact', 'password']
 
     id = db.Column(db.Integer(), primary_key=True)
     email = db.Column(db.String(255), unique=True)

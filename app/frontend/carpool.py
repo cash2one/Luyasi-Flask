@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import redirect, url_for, request, render_template, Blueprint
+from flask_security import current_user
 
 from . import route
 
@@ -15,8 +16,11 @@ def create_carinfo():
 	""""""
 	form = CarpoolForm()
 	if form.validate_on_submit():
-		carinfo = api_carpool.create(user=None, **form.data)
-		return url_for('.detail_carinfo', carinfo_id=carinfo.id)
+		user = None
+		if current_user.get_id is not None:
+			user = current_user
+		carinfo = api_carpool.create(user=user, **form.data)
+		return redirect(url_for('.detail_carinfo', carinfo_id=carinfo.id))
 	return render_template('carpool/create.html', form=form)
 
 #----------------------------------------------------------------------

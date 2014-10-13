@@ -12,8 +12,8 @@ bp = Blueprint('job', __name__, url_prefix='/job')
 @bp.route('/<int:job_id>', methods=['GET'])
 def detail_job(job_id):
 	""""""
-	job = api_job.get_or_404(job_id)
-	return render_template('job/detail.html', job=job)
+	job = api_job.get(job_id)
+	return jsonres(job, 200)
 
 #----------------------------------------------------------------------
 @bp.route('/jobs/<int:page>', methods=['GET'])
@@ -24,4 +24,4 @@ def list_job(page=None):
 		page = 1
 	jobs = api_job.get_lastest_page(page)
 	jobs = [job for job in jobs.items]
-	return jsonres(jobs, 200, 'ok')
+	return jsonres(jobs, 200)
