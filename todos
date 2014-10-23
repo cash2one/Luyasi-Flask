@@ -1,3 +1,5 @@
+14.没有contact记录的时候维护个人信息那里会挂
+
 13.把id的hiddenfield改成了integer的wigdet. -OK
 12.BLOG界面的时间没有加上utc
 11.集成ckeditor, 还要处理内容为空的问题 -- OK
