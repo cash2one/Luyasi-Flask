@@ -8,7 +8,7 @@
 
 {% block breadpiece %}
 {{super()}}
-<li><a href="{{url_for('job.detail_job', job_id=job.id)}}">Detail</a></li>
+<li><a href="{{url_for('job.detail_job', job_id=job.id)}}">{{_('Detail')}}</a></li>
 {% endblock breadpiece %}
 
 {% block actionbar %}

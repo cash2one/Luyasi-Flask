@@ -26,6 +26,6 @@ def index(html=None):
 
 	jobs = api_job.get_lastest_page(1, per_page=5)
 	carinfos = api_carpool.get_lastest_page(1, per_page=5)
-	blogs = api_blog.get_lastest_page(1, per_page=5)
-	return render_template('index/index.html', jobs=jobs, carinfos=carinfos, blogs=blogs)
+	#blogs = api_blog.get_lastest_page(1, per_page=5)
+	return render_template('index/index.html', jobs=jobs, carinfos=carinfos)#, blogs=blogs)
 

@@ -12,7 +12,7 @@
 
 {% block breadpiece %}
 {{super()}}
-<li><a href="{{url_for('carpool.detail_carinfo', carinfo_id=carinfo.id)}}">Detail</a></li>
+<li><a href="{{url_for('carpool.detail_carinfo', carinfo_id=carinfo.id)}}">{{_('Detail')}}</a></li>
 {% endblock breadpiece %}
 
 {% block rightmain %}
@@ -25,6 +25,7 @@
 			<dd><h3>{{_('Target point')}}{{_(': ')}}{{carinfo.target }}</h3></dd>
 			<dd><h3>{{_('Route')}}{{_(': ')}}{{carinfo.route }}</h3></dd>
 			<dd><h3>{{_('Send out time')}}{{_(': ')}}{{carinfo.start_time }}</h3></dd>
+			<dd><h3>{{_('Price')}}{{_(': ')}}{{carinfo.price }}</h3></dd>
 			<dd><h3>{{_('Contact info')}}{{_(': ')}}{{carinfo.contact }}</h3></dd>
 		</dl>
 	</div>

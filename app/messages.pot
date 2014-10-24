@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-07-09 11:12+0800\n"
+"POT-Creation-Date: 2014-10-24 17:23+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,41 +21,47 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: blog/forms.py:15
+#: blog/forms.py:15 xiaoyuan/forms.py:13 xiaoyuan/forms.py:18
 msgid "Content"
 msgstr ""
 
-#: blog/forms.py:15 blog/forms.py:21 frontend/templates/blog/detail.html:263
+#: blog/forms.py:15 blog/forms.py:21 frontend/templates/blog/detail.html:268
 #: job/forms.py:25
 msgid "The comment forgot you~"
 msgstr ""
 
-#: blog/forms.py:21 frontend/templates/blog/detail.html:35
-#: frontend/templates/blog/detail.html:73
+#: blog/forms.py:21 frontend/templates/blog/detail.html:40
+#: frontend/templates/blog/detail.html:78
 msgid "Comment"
 msgstr ""
 
-#: carpool/forms.py:23
+#: carpool/forms.py:25 frontend/templates/carpool/detail.html:24
+#: frontend/templates/carpool/list.html:20
 msgid "Start point"
 msgstr ""
 
-#: carpool/forms.py:24
+#: carpool/forms.py:26 frontend/templates/carpool/detail.html:25
+#: frontend/templates/carpool/list.html:23
 msgid "Target point"
 msgstr ""
 
-#: carpool/forms.py:25
+#: carpool/forms.py:27 frontend/templates/carpool/detail.html:26
+#: frontend/templates/carpool/list.html:28
 msgid "Route"
 msgstr ""
 
-#: carpool/forms.py:26
+#: carpool/forms.py:28 frontend/templates/carpool/detail.html:28
+#: frontend/templates/carpool/list.html:33
 msgid "Price"
 msgstr ""
 
-#: carpool/forms.py:27
+#: carpool/forms.py:29 frontend/templates/carpool/detail.html:27
+#: frontend/templates/carpool/list.html:38
 msgid "Send out time"
 msgstr ""
 
-#: carpool/forms.py:28 frontend/templates/qingbank/contact_detail.html:17
+#: carpool/forms.py:30 frontend/templates/carpool/detail.html:29
+#: frontend/templates/qingbank/contact_detail.html:17
 msgid "Contact info"
 msgstr ""
 
@@ -63,12 +69,16 @@ msgstr ""
 msgid "Content can't be empty"
 msgstr ""
 
-#: framework/wtfext/fields.py:21 frontend/templates/blog/detail.html:48
+#: framework/wtfext/fields.py:21 frontend/templates/blog/detail.html:53
 msgid "repeat captcha"
 msgstr ""
 
 #: framework/wtfext/fields.py:22
 msgid "captcha"
+msgstr ""
+
+#: framework/wtfext/fields.py:38
+msgid "Not a valid int array value"
 msgstr ""
 
 #: framework/wtfext/validators.py:16
@@ -79,8 +89,12 @@ msgstr ""
 msgid "This is not your blog"
 msgstr ""
 
-#: frontend/job.py:58
+#: frontend/job.py:59
 msgid "Thanks for your report. We will check it soon."
+msgstr ""
+
+#: frontend/xiaoyuan.py:77 frontend/xiaoyuan.py:90
+msgid "Message is sent"
 msgstr ""
 
 #: frontend/templates/403.html:10
@@ -101,44 +115,48 @@ msgid "Come on! I, I have some problems."
 msgstr ""
 
 #: frontend/templates/admin/admin_base.html:10
-#: frontend/templates/base/base.html:112
+#: frontend/templates/base/base.html:114
 msgid "Exit"
 msgstr ""
 
-#: frontend/templates/base/base.html:64
+#: frontend/templates/base/base.html:66
 msgid "Info"
 msgstr ""
 
-#: frontend/templates/base/base.html:70 frontend/templates/blog/base.html:20
+#: frontend/templates/base/base.html:72 frontend/templates/blog/base.html:20
 #: frontend/templates/security/change_password.html:27
 #: frontend/templates/security/forgot_password.html:20
 #: frontend/templates/security/send_confirmation.html:21
 msgid "OK"
 msgstr ""
 
-#: frontend/templates/base/base.html:110
+#: frontend/templates/base/base.html:112
 msgid "Admin"
 msgstr ""
 
-#: frontend/templates/base/base.html:114
+#: frontend/templates/base/base.html:116
 #: frontend/templates/security/login_user.html:6
 #: frontend/templates/security/login_user.html:13
 msgid "Login"
 msgstr ""
 
-#: frontend/templates/base/base.html:116
+#: frontend/templates/base/base.html:118
 #: frontend/templates/security/login_user.html:33
 #: frontend/templates/security/register_user.html:6
 msgid "Signup"
 msgstr ""
 
-#: frontend/templates/base/base.html:119
+#: frontend/templates/base/base.html:121
 msgid "Forget paswword"
 msgstr ""
 
-#: frontend/templates/base/base.html:122
+#: frontend/templates/base/base.html:124
 #: frontend/templates/security/send_confirmation.html:6
 msgid "Activate account"
+msgstr ""
+
+#: frontend/templates/base/base.html:145
+msgid "Index"
 msgstr ""
 
 #: frontend/templates/blog/base.html:13
@@ -149,7 +167,7 @@ msgstr ""
 msgid "Are your sure delete this blog?"
 msgstr ""
 
-#: frontend/templates/blog/base.html:19 frontend/templates/blog/detail.html:53
+#: frontend/templates/blog/base.html:19 frontend/templates/blog/detail.html:58
 msgid "Cancle"
 msgstr ""
 
@@ -158,7 +176,7 @@ msgstr ""
 msgid "Write blog"
 msgstr ""
 
-#: frontend/templates/blog/create.html:15
+#: frontend/templates/blog/create.html:13
 #: frontend/templates/blog/detail.html:14
 msgid "View blogs"
 msgstr ""
@@ -171,22 +189,22 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: frontend/templates/blog/detail.html:54
-#: frontend/templates/macros/fieldmacros.html:38
+#: frontend/templates/blog/detail.html:59
+#: frontend/templates/macros/fieldmacros.html:48
 #: frontend/templates/security/register_user.html:24
 msgid "Submit"
 msgstr ""
 
-#: frontend/templates/blog/detail.html:77
+#: frontend/templates/blog/detail.html:82
 msgid "Comment list"
 msgstr ""
 
-#: frontend/templates/blog/detail.html:115
-#: frontend/templates/blog/detail.html:132
+#: frontend/templates/blog/detail.html:120
+#: frontend/templates/blog/detail.html:137
 msgid "say:"
 msgstr ""
 
-#: frontend/templates/blog/detail.html:268
+#: frontend/templates/blog/detail.html:273
 msgid "Captcha required."
 msgstr ""
 
@@ -194,8 +212,52 @@ msgstr ""
 msgid "post"
 msgstr ""
 
-#: frontend/templates/job/base.html:10 frontend/templates/job/create.html:13
-#: frontend/templates/job/detail.html:13 frontend/templates/job/list.html:6
+#: frontend/templates/carpool/base.html:3
+#: frontend/templates/carpool/base.html:8
+msgid "Carpool"
+msgstr ""
+
+#: frontend/templates/carpool/create.html:9
+#: frontend/templates/carpool/detail.html:7
+msgid "View carinfos"
+msgstr ""
+
+#: frontend/templates/carpool/detail.html:15
+msgid "Detail"
+msgstr ""
+
+#: frontend/templates/carpool/detail.html:24
+#: frontend/templates/carpool/detail.html:25
+#: frontend/templates/carpool/detail.html:26
+#: frontend/templates/carpool/detail.html:27
+#: frontend/templates/carpool/detail.html:28
+#: frontend/templates/carpool/detail.html:29
+#: frontend/templates/carpool/list.html:20
+#: frontend/templates/carpool/list.html:23
+#: frontend/templates/carpool/list.html:28
+#: frontend/templates/carpool/list.html:33
+#: frontend/templates/carpool/list.html:38
+msgid ": "
+msgstr ""
+
+#: frontend/templates/carpool/list.html:9
+msgid "Publish carinfos"
+msgstr ""
+
+#: frontend/templates/index/index.html:31
+msgid "Jobs"
+msgstr ""
+
+#: frontend/templates/index/index.html:38
+msgid "Carinfos"
+msgstr ""
+
+#: frontend/templates/job/base.html:4 frontend/templates/job/base.html:9
+msgid "Job"
+msgstr ""
+
+#: frontend/templates/job/base.html:16 frontend/templates/job/create.html:18
+#: frontend/templates/job/detail.html:18 frontend/templates/job/list.html:6
 #: frontend/templates/job/report.html:13
 #: frontend/templates/job/report_list.html:14
 msgid "Job list"
@@ -205,23 +267,23 @@ msgstr ""
 msgid "Publish job"
 msgstr ""
 
-#: frontend/templates/job/detail.html:14
+#: frontend/templates/job/detail.html:19
 msgid "Report this job"
 msgstr ""
 
-#: frontend/templates/job/detail.html:25 frontend/templates/job/list.html:29
+#: frontend/templates/job/detail.html:30 frontend/templates/job/list.html:29
 msgid "Caution! This job has been reported, see reports"
 msgstr ""
 
-#: frontend/templates/job/detail.html:30
+#: frontend/templates/job/detail.html:35
 msgid "Fulltime job"
 msgstr ""
 
-#: frontend/templates/job/detail.html:32
+#: frontend/templates/job/detail.html:37
 msgid "Parttime job"
 msgstr ""
 
-#: frontend/templates/job/detail.html:35
+#: frontend/templates/job/detail.html:40
 msgid "Publish time:"
 msgstr ""
 
@@ -411,6 +473,26 @@ msgstr ""
 msgid "You can confirm your email through the link below"
 msgstr ""
 
+#: frontend/templates/xiaoyuan/base.html:4
+msgid "Xiaoyuan"
+msgstr ""
+
+#: frontend/templates/xiaoyuan/base.html:16
+msgid "Send message"
+msgstr ""
+
+#: frontend/templates/xiaoyuan/base.html:23
+msgid "Inbox"
+msgstr ""
+
+#: frontend/templates/xiaoyuan/detail.html:7
+msgid "Reply"
+msgstr ""
+
+#: frontend/templates/xiaoyuan/list.html:19
+msgid "send"
+msgstr ""
+
 #: job/forms.py:24
 msgid "Job type"
 msgstr ""
@@ -461,5 +543,13 @@ msgstr ""
 
 #: qingbank/forms.py:43
 msgid "Description"
+msgstr ""
+
+#: xiaoyuan/forms.py:12
+msgid "Receivers"
+msgstr ""
+
+#: xiaoyuan/forms.py:15 xiaoyuan/forms.py:19
+msgid "Attach"
 msgstr ""
 

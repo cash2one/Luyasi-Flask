@@ -142,7 +142,7 @@ body { padding-bottom: 71px; }
 		{% block breadcrumb %}
 		<ol class="breadcrumb">
 			{% block breadpiece %}
-			<li><a href="{{url_for('frontend-index.index')}}">Home</a></li>
+			<li><a href="{{url_for('frontend-index.index')}}">{{_('Index')}}</a></li>
 			{% endblock breadpiece %}
 		</ol>
 		{% endblock %}

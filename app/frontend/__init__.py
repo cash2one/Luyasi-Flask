@@ -98,8 +98,9 @@ def get_locale():
     lang = session.get('lang', None)
     if lang is not None:
         return lang
-    m = request.accept_languages.best_match(['zh_cn', 'en'])
-    return m
+    #m = request.accept_languages.best_match(['zh', 'en'])
+    #return m
+    return 'zh'
 
 #@babel.timezoneselector
 #def get_timezone():

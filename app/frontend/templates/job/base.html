@@ -1,12 +1,12 @@
 {% extends "index/base.html" %}
 
 {% block sublogo %}
-<a class="navbar-brand" href="{{ url_for('job.list_job') }}">Job</a>
+<a class="navbar-brand" href="{{ url_for('job.list_job') }}">{{_('Job')}}</a>
 {% endblock sublogo %}
 
 {% block breadpiece %}
 {{super()}}
-<li><a href="{{url_for('job.list_job')}}">Job</a></li>
+<li><a href="{{url_for('job.list_job')}}">{{_('Job')}}</a></li>
 {% endblock breadpiece %}
 
 {% block actionbar %}

@@ -1,3 +1,7 @@
+2014-10-24
+1.把默认语言改成了zh，在local_selector里改的。
+2.把index简化为只有job和carinfo
+
 2014-10-10
 1.把version字段放在基类里了。这样就全部都可以直接使用了。并且给updateat,createat,version加了默认值，主要是在admin时自动有值。
 
