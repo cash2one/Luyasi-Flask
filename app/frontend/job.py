@@ -44,7 +44,7 @@ def list_job(page=None):
 	""""""
 	if page == None or page <= 0:
 		page = 1
-	jobs = api_job.get_lastest_page(page)
+	jobs = api_job.get_latest_page_filterby(page, status=1)
 	return render_template('job/list.html', jobs = jobs)
 
 

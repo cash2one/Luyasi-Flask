@@ -37,7 +37,7 @@
 			{{_('Parttime job')}}
 		{% endif %}
 		——
-		{{_('Publish time:')}}{{job.create_at}}</h5>
+		{{_('Publish time:')}}{{momentjs(job.create_at).format('LLLL')}}</h5>
 	</div>
 	<div>{{job.content}}</div>
 	{% endautoescape %}

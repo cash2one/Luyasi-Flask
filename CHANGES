@@ -1,3 +1,6 @@
+2014-10-27
+1.更新了momentjs的版本到2.8.1，另外session['momentjs-lang']在base中默认为空的情况下修复为zh-cn
+
 2014-10-24
 1.把默认语言改成了zh，在local_selector里改的。
 2.把index简化为只有job和carinfo

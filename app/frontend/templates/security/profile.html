@@ -7,6 +7,9 @@
 		{% if not current_user.openid %}
 		<li class="list-group-item"><a href="{{ url_for_security('change_password') }}">{{_('Change password')}}</a></li>
 		{% endif %}
+		{% if current_user.pub_jobs %}
+		<li class="list-group-item"><a href="{{ url_for('security-frontend.list_publisedjobs') }}">{{_('Published jobs')}}</a></li>
+		{% endif %}		
 	</ul>
 </div>
 {% endblock sidebar %}

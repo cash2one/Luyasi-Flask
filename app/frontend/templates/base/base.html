@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>{% block title %}{% endblock title%}</title>
+<title>{%block subtitle%}0763DXC{%endblock subtitle%}-{% block title %}****{% endblock title%}</title>
 <!--icon-->
 <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--moment-->
-<script src="{{ url_for('static', filename='base/3partylib/moment/moment-with-langs.js') }}"></script>
+<script src="{{ url_for('static', filename='base/3partylib/moment/moment-with-locales.js') }}"></script>
 <script>
-moment.lang('{{session['moment-lang']}}');
+moment.locale("{{session['moment-lang'] or 'zh-cn'}}");
 </script>
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap/css/bootstrap.min.css') }}" media="screen">
@@ -91,7 +91,9 @@ body { padding-bottom: 71px; }
 					<span class="icon-bar"></span>
 				</button>
 				{% block logo %}
-				<a class="navbar-brand" href="">QingBank</a>
+				<a class="navbar-brand" href="/"><img src="{{url_for('static', filename='images/logo.png')}}" /></a>
+				{% block sublogo %}
+				{% endblock sublogo %}
 				{% endblock logo %}
 			</div>
 
@@ -124,6 +126,7 @@ body { padding-bottom: 71px; }
 					<li><a href="{{ url_for_security('send_confirmation') }}">{{_('Activate account')}}</a></li>
 					{% endif %}
 					{% endif %}
+					{##
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">语言/Language <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -131,6 +134,7 @@ body { padding-bottom: 71px; }
 							<li><a href="/common/lang/en">English</a></li>
 						</ul>
 					</li>
+					#}
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->

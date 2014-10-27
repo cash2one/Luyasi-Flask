@@ -403,7 +403,7 @@ msgstr "没错，这是我的邮箱"
 
 #: frontend/templates/security/profile.html:6
 msgid "Contact"
-msgstr "通讯录"
+msgstr "联系方式"
 
 #: frontend/templates/security/profile_contact.html:23
 msgid "Save"

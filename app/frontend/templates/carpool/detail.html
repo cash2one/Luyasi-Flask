@@ -24,7 +24,7 @@
 			<dd><h3>{{_('Start point')}}{{_(': ')}}{{carinfo.start}}</h3></dd>
 			<dd><h3>{{_('Target point')}}{{_(': ')}}{{carinfo.target }}</h3></dd>
 			<dd><h3>{{_('Route')}}{{_(': ')}}{{carinfo.route }}</h3></dd>
-			<dd><h3>{{_('Send out time')}}{{_(': ')}}{{carinfo.start_time }}</h3></dd>
+			<dd><h3>{{_('Send out time')}}{{_(': ')}}{{momentjs(carinfo.start_time).format('LLLL')}}</h3></dd>
 			<dd><h3>{{_('Price')}}{{_(': ')}}{{carinfo.price }}</h3></dd>
 			<dd><h3>{{_('Contact info')}}{{_(': ')}}{{carinfo.contact }}</h3></dd>
 		</dl>

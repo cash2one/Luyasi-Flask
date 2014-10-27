@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 from ..core import Service
 from .models import Contact, Department, DocNode
+from sqlalchemy import or_
 
 
 class ContactService(Service):
