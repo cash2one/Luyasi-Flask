@@ -46,11 +46,11 @@ def profile_security():
     """Change personal profile password."""
     return render_template('security/profile_security.html')
 
-@route(bp, '/profile/published_jobs/<int:status>/<int:page>', methods=['GET'])
+@route(bp, '/profile/published_jobs/','/profile/published_jobs/<int:status>/','/profile/published_jobs/<int:status>/<int:page>', methods=['GET'])
 def list_publisedjobs(status=1, page=1):
     """List jobs published by me."""
-    jobs = api_job.get_latest_page_filterby(page=page, status=status)
-    return render_template('security/profile_publishedjobs.html', jobs=jobs)
+    jobs = api_job.get_latest_page_filterby(page=page, per_page=2, status=status)
+    return render_template('security/profile_publishedjobs.html', jobs=jobs, status=status)
 
 @route(bp, '/search_user')
 def search_user():
