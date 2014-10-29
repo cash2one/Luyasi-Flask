@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-10-24 17:23+0800\n"
+"POT-Creation-Date: 2014-10-29 17:28+0800\n"
 "PO-Revision-Date: 2014-07-08 11:17+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh <LL@li.org>\n"
@@ -36,27 +36,27 @@ msgid "Comment"
 msgstr "说两句"
 
 #: carpool/forms.py:25 frontend/templates/carpool/detail.html:24
-#: frontend/templates/carpool/list.html:20
+#: frontend/templates/carpool/list.html:28
 msgid "Start point"
 msgstr "出发地"
 
 #: carpool/forms.py:26 frontend/templates/carpool/detail.html:25
-#: frontend/templates/carpool/list.html:23
+#: frontend/templates/carpool/list.html:31
 msgid "Target point"
 msgstr "目的地"
 
 #: carpool/forms.py:27 frontend/templates/carpool/detail.html:26
-#: frontend/templates/carpool/list.html:28
+#: frontend/templates/carpool/list.html:36
 msgid "Route"
 msgstr "经过点"
 
 #: carpool/forms.py:28 frontend/templates/carpool/detail.html:28
-#: frontend/templates/carpool/list.html:33
+#: frontend/templates/carpool/list.html:41
 msgid "Price"
 msgstr "价格"
 
 #: carpool/forms.py:29 frontend/templates/carpool/detail.html:27
-#: frontend/templates/carpool/list.html:38
+#: frontend/templates/carpool/list.html:46
 msgid "Send out time"
 msgstr "出发时间"
 
@@ -93,6 +93,18 @@ msgstr "呃~这个博客不是你的~"
 msgid "Thanks for your report. We will check it soon."
 msgstr "感谢你的举报。我们会尽快进行审核。"
 
+#: frontend/security.py:26
+msgid "Maybe you can show more of yourself"
+msgstr "亲~要不要补充点资料啊"
+
+#: frontend/security.py:34
+msgid "Update personal info success"
+msgstr "补充弹药成功"
+
+#: frontend/security.py:40
+msgid "Add personal info success"
+msgstr "操作成功！"
+
 #: frontend/xiaoyuan.py:77 frontend/xiaoyuan.py:90
 msgid "Message is sent"
 msgstr "消息发送成功"
@@ -115,47 +127,47 @@ msgid "Come on! I, I have some problems."
 msgstr "噢，我的神~我似乎出了点问题。。"
 
 #: frontend/templates/admin/admin_base.html:10
-#: frontend/templates/base/base.html:114
+#: frontend/templates/base/base.html:121
 msgid "Exit"
 msgstr "退出"
 
-#: frontend/templates/base/base.html:66
+#: frontend/templates/base/base.html:71
 msgid "Info"
 msgstr "信息"
 
-#: frontend/templates/base/base.html:72 frontend/templates/blog/base.html:20
+#: frontend/templates/base/base.html:77 frontend/templates/blog/base.html:20
 #: frontend/templates/security/change_password.html:27
 #: frontend/templates/security/forgot_password.html:20
 #: frontend/templates/security/send_confirmation.html:21
 msgid "OK"
 msgstr "确认"
 
-#: frontend/templates/base/base.html:112
+#: frontend/templates/base/base.html:119
 msgid "Admin"
 msgstr "管理"
 
-#: frontend/templates/base/base.html:116
+#: frontend/templates/base/base.html:123
 #: frontend/templates/security/login_user.html:6
 #: frontend/templates/security/login_user.html:13
 msgid "Login"
 msgstr "登录"
 
-#: frontend/templates/base/base.html:118
+#: frontend/templates/base/base.html:125
 #: frontend/templates/security/login_user.html:33
 #: frontend/templates/security/register_user.html:6
 msgid "Signup"
 msgstr "注册"
 
-#: frontend/templates/base/base.html:121
+#: frontend/templates/base/base.html:128
 msgid "Forget paswword"
 msgstr "忘记密码"
 
-#: frontend/templates/base/base.html:124
+#: frontend/templates/base/base.html:131
 #: frontend/templates/security/send_confirmation.html:6
 msgid "Activate account"
 msgstr "激活账号"
 
-#: frontend/templates/base/base.html:145
+#: frontend/templates/base/base.html:154
 msgid "Index"
 msgstr "主页"
 
@@ -214,6 +226,7 @@ msgstr "发表"
 
 #: frontend/templates/carpool/base.html:3
 #: frontend/templates/carpool/base.html:8
+#: frontend/templates/carpool/list.html:6
 msgid "Carpool"
 msgstr "包车"
 
@@ -223,6 +236,7 @@ msgid "View carinfos"
 msgstr "查看包车信息"
 
 #: frontend/templates/carpool/detail.html:15
+#: frontend/templates/job/detail.html:11
 msgid "Detail"
 msgstr "详情"
 
@@ -232,15 +246,15 @@ msgstr "详情"
 #: frontend/templates/carpool/detail.html:27
 #: frontend/templates/carpool/detail.html:28
 #: frontend/templates/carpool/detail.html:29
-#: frontend/templates/carpool/list.html:20
-#: frontend/templates/carpool/list.html:23
 #: frontend/templates/carpool/list.html:28
-#: frontend/templates/carpool/list.html:33
-#: frontend/templates/carpool/list.html:38
+#: frontend/templates/carpool/list.html:31
+#: frontend/templates/carpool/list.html:36
+#: frontend/templates/carpool/list.html:41
+#: frontend/templates/carpool/list.html:46
 msgid ": "
 msgstr "："
 
-#: frontend/templates/carpool/list.html:9
+#: frontend/templates/carpool/list.html:13
 msgid "Publish carinfos"
 msgstr "发布包车信息"
 
@@ -253,12 +267,12 @@ msgid "Carinfos"
 msgstr "包车信息"
 
 #: frontend/templates/job/base.html:4 frontend/templates/job/base.html:9
+#: frontend/templates/job/list.html:6
 msgid "Job"
 msgstr "工作兼职"
 
 #: frontend/templates/job/base.html:16 frontend/templates/job/create.html:18
-#: frontend/templates/job/detail.html:18 frontend/templates/job/list.html:6
-#: frontend/templates/job/report.html:13
+#: frontend/templates/job/detail.html:18 frontend/templates/job/report.html:13
 #: frontend/templates/job/report_list.html:14
 msgid "Job list"
 msgstr "工作列表"
@@ -272,6 +286,7 @@ msgid "Report this job"
 msgstr "我要举报"
 
 #: frontend/templates/job/detail.html:30 frontend/templates/job/list.html:29
+#: frontend/templates/security/profile_publishedjobs.html:26
 msgid "Caution! This job has been reported, see reports"
 msgstr "请打醒十二分注意！已经有人举报了这个职位~"
 
@@ -292,9 +307,12 @@ msgid "Report job"
 msgstr "我要举报"
 
 #: frontend/templates/job/report_list.html:6
-#, fuzzy
 msgid "Report list"
 msgstr "评论列表"
+
+#: frontend/templates/qingbank/base.html:3
+msgid "Profile"
+msgstr "个人中心"
 
 #: frontend/templates/qingbank/contact_detail.html:4
 #: frontend/templates/qingbank/contact_list.html:5
@@ -331,7 +349,6 @@ msgstr "查找"
 
 #: frontend/templates/security/bind_user.html:6
 #: frontend/templates/security/bind_user.html:14
-#, fuzzy
 msgid "Bind account"
 msgstr "没错，这是我的邮箱"
 
@@ -397,13 +414,16 @@ msgid "login"
 msgstr "登录"
 
 #: frontend/templates/security/login_user.html:33
-#, fuzzy
 msgid "No account?"
-msgstr "没错，这是我的邮箱"
+msgstr "没有账号？"
 
 #: frontend/templates/security/profile.html:6
 msgid "Contact"
 msgstr "联系方式"
+
+#: frontend/templates/security/profile.html:11
+msgid "Published jobs"
+msgstr "发布职位"
 
 #: frontend/templates/security/profile_contact.html:23
 msgid "Save"
@@ -553,7 +573,6 @@ msgid "Receivers"
 msgstr "收件人"
 
 #: xiaoyuan/forms.py:15 xiaoyuan/forms.py:19
-#, fuzzy
 msgid "Attach"
 msgstr "重复暗号"
 

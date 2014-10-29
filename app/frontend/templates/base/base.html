@@ -23,12 +23,17 @@ moment.locale("{{session['moment-lang'] or 'zh-cn'}}");
     border:solid 1px lightblue;
 }
 
+<!--变小的情况-->
 @media (max-width: 990px) {
     .affix {
         position: static;
     }
+	.footer{
+		display:none;
+	}
 }
 
+<!--正常大小的情况-->
 @media (min-width: 992px) {
     .affix{
         width: 263px;
@@ -185,6 +190,7 @@ body { padding-bottom: 71px; }
 			{% endblock container %}
 			</div>
         </div>
+		
 	</div>
 
 	<!-- footer -->
@@ -193,6 +199,14 @@ body { padding-bottom: 71px; }
 		  <!--copyright 2014 <a href='http://www.miibeian.gov.cn/'><span>粤ICP备14019158号-1</span></a>-->
 		<!--</div>-->
 	<!--</nav>-->
+		<!--footer-->
+	<div style="bottom:0; position:fixed; width:100%" class="footer">
+		<div class="container">
+			<div class="text-center">
+				 Copyright© 2014 <a href='http://www.miibeian.gov.cn/'><span>粤ICP备14019158号-1</span></a>
+			</div>
+		</div>
+	</div>
 	<script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script	src="{{ url_for('static', filename='base/3partylib/bootstrap/js/bootstrap.min.js') }}"></script>
