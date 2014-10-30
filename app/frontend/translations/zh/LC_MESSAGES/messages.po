@@ -360,7 +360,7 @@ msgstr "个人中心"
 #: frontend/templates/security/bind_user.html:6
 #: frontend/templates/security/bind_user.html:14
 msgid "Bind account"
-msgstr "没错，这是我的邮箱"
+msgstr "绑定帐号"
 
 #: frontend/templates/security/bind_user.html:17
 #: frontend/templates/security/login_user.html:16
