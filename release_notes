@@ -1,0 +1,2 @@
+1.发布的时候要路径的owner为 www-data
+2.uwsgi 里配置的商品是否和nginx一样

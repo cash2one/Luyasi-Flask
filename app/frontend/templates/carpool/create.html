@@ -14,7 +14,7 @@
 
 {% block breadpiece %}
 {{super()}}
-<li><a href="{{url_for('carpool.create_carinfo')}}">Publish</a></li>
+<li><a href="{{url_for('carpool.create_carinfo')}}">{{_('Publish carinfos')}}</a></li>
 {% endblock breadpiece %}
 
 {% block container %}

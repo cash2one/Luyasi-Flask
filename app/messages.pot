@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-10-29 17:28+0800\n"
+"POT-Creation-Date: 2014-10-30 12:51+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -235,6 +235,11 @@ msgstr ""
 msgid "View carinfos"
 msgstr ""
 
+#: frontend/templates/carpool/create.html:17
+#: frontend/templates/carpool/list.html:13
+msgid "Publish carinfos"
+msgstr ""
+
 #: frontend/templates/carpool/detail.html:15
 #: frontend/templates/job/detail.html:11
 msgid "Detail"
@@ -252,10 +257,6 @@ msgstr ""
 #: frontend/templates/carpool/list.html:41
 #: frontend/templates/carpool/list.html:46
 msgid ": "
-msgstr ""
-
-#: frontend/templates/carpool/list.html:13
-msgid "Publish carinfos"
 msgstr ""
 
 #: frontend/templates/index/index.html:31
@@ -277,7 +278,8 @@ msgstr ""
 msgid "Job list"
 msgstr ""
 
-#: frontend/templates/job/create.html:6 frontend/templates/job/list.html:13
+#: frontend/templates/job/create.html:6 frontend/templates/job/create.html:11
+#: frontend/templates/job/list.html:13
 msgid "Publish job"
 msgstr ""
 
@@ -311,7 +313,7 @@ msgid "Report list"
 msgstr ""
 
 #: frontend/templates/qingbank/base.html:3
-msgid "Profile"
+msgid "Qingbank"
 msgstr ""
 
 #: frontend/templates/qingbank/contact_detail.html:4
@@ -345,6 +347,10 @@ msgstr ""
 
 #: frontend/templates/qingbank/contact_list.html:15
 msgid "Search"
+msgstr ""
+
+#: frontend/templates/security/base.html:3
+msgid "Profile"
 msgstr ""
 
 #: frontend/templates/security/bind_user.html:6
@@ -422,7 +428,7 @@ msgid "Contact"
 msgstr ""
 
 #: frontend/templates/security/profile.html:11
-msgid "Published jobs"
+msgid "My published jobs"
 msgstr ""
 
 #: frontend/templates/security/profile_contact.html:23

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>{%block subtitle%}0763DXC{%endblock subtitle%}-{% block title %}****{% endblock title%}</title>
+<title>{%block subtitle%}0763DXC{%endblock subtitle%}-{% block title %}清远大学城{% endblock title%}</title>
 <!--icon-->
 <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,23 +23,23 @@ moment.locale("{{session['moment-lang'] or 'zh-cn'}}");
     border:solid 1px lightblue;
 }
 
-<!--变小的情况-->
+/*小于990时*/
 @media (max-width: 990px) {
-    .affix {
+	.affix {
         position: static;
-    }
+	}
 	.footer{
 		display:none;
 	}
 }
 
-<!--正常大小的情况-->
+/*大于992时*/
 @media (min-width: 992px) {
     .affix{
         width: 263px;
     }
     .affix-bottom{
-        width:263px;
+        width: 263px;
     }
 }
 
@@ -147,7 +147,7 @@ body { padding-bottom: 71px; }
     </nav>
 
     <!-- container 所有的row直接起在父层，block里的内容直接起col就行了，不再需要使用row -->
-	<div class="container ">
+	<div class="container">
 		{% block breadcrumb %}
 		<ol class="breadcrumb">
 			{% block breadpiece %}
@@ -155,6 +155,7 @@ body { padding-bottom: 71px; }
 			{% endblock breadpiece %}
 		</ol>
 		{% endblock %}
+		
 		<!-- Row for actionbar -->
 		{% block actionbar %}
 		<div class="row">
@@ -167,7 +168,6 @@ body { padding-bottom: 71px; }
 
 		<!-- Row for content -->
 		<div class="row">
-			<div class="col-md-12">
 			{% block container %}
 			<!--#### side bar ####-->
 			<div class="col-md-3">
@@ -188,8 +188,7 @@ body { padding-bottom: 71px; }
 					{% endblock rightmain %}
 			</div>
 			{% endblock container %}
-			</div>
-        </div>
+       	 </div>
 		
 	</div>
 

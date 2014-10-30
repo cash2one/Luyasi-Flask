@@ -8,7 +8,7 @@ import os
 from flask.ext.babel import gettext, lazy_gettext
 
 #Flask的debug开关。有利于看出错信息。正式启用时要关掉
-DEBUG = True
+DEBUG = False
 TESTING = False
 
 #是否需要显示所有的blueprint route

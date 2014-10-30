@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-10-29 17:28+0800\n"
+"POT-Creation-Date: 2014-10-30 12:50+0800\n"
 "PO-Revision-Date: 2014-07-08 11:17+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh <LL@li.org>\n"
@@ -235,6 +235,11 @@ msgstr "包车"
 msgid "View carinfos"
 msgstr "查看包车信息"
 
+#: frontend/templates/carpool/create.html:17
+#, fuzzy
+msgid "Publish carinfo"
+msgstr "发布包车信息"
+
 #: frontend/templates/carpool/detail.html:15
 #: frontend/templates/job/detail.html:11
 msgid "Detail"
@@ -275,9 +280,10 @@ msgstr "工作兼职"
 #: frontend/templates/job/detail.html:18 frontend/templates/job/report.html:13
 #: frontend/templates/job/report_list.html:14
 msgid "Job list"
-msgstr "工作列表"
+msgstr "职位列表"
 
-#: frontend/templates/job/create.html:6 frontend/templates/job/list.html:13
+#: frontend/templates/job/create.html:6 frontend/templates/job/create.html:11
+#: frontend/templates/job/list.html:13
 msgid "Publish job"
 msgstr "发布职位"
 
@@ -311,8 +317,8 @@ msgid "Report list"
 msgstr "评论列表"
 
 #: frontend/templates/qingbank/base.html:3
-msgid "Profile"
-msgstr "个人中心"
+msgid "Qingbank"
+msgstr ""
 
 #: frontend/templates/qingbank/contact_detail.html:4
 #: frontend/templates/qingbank/contact_list.html:5
@@ -346,6 +352,10 @@ msgstr "可以输入拼音、拼音首字母、全名，电话号码，部门名
 #: frontend/templates/qingbank/contact_list.html:15
 msgid "Search"
 msgstr "查找"
+
+#: frontend/templates/security/base.html:3
+msgid "Profile"
+msgstr "个人中心"
 
 #: frontend/templates/security/bind_user.html:6
 #: frontend/templates/security/bind_user.html:14
@@ -422,8 +432,8 @@ msgid "Contact"
 msgstr "联系方式"
 
 #: frontend/templates/security/profile.html:11
-msgid "Published jobs"
-msgstr "发布职位"
+msgid "My published jobs"
+msgstr "我发布的职位"
 
 #: frontend/templates/security/profile_contact.html:23
 msgid "Save"
