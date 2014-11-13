@@ -4,6 +4,10 @@
 <a class="navbar-brand" href="{{ url_for('job.list_job') }}">{{_('Job')}}</a>
 {% endblock sublogo %}
 
+{% block search -%}
+kkk
+{%- endblock %}
+
 {% block breadpiece %}
 {{super()}}
 <li><a href="{{url_for('job.list_job')}}">{{_('Job')}}</a></li>
