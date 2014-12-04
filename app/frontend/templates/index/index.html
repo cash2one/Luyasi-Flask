@@ -1,36 +1,65 @@
-{% extends "index/base.html" %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico">
 
-{% block title %}
-	我的家
-{%endblock%}
+    <title>清远大学城</title>
 
-{% block container %}
-<!--<img src='http://pic1.ooopic.cn/uploadfilepic/ziku/2008-08-09/OOOPIC_vipvip_2008080915135169411c08d6390410201.jpg'>-->
-<div class="col-md-12">
-	<div class="row">
-		<div class="col-md-12">
-			<img src="http://pic1.ooopic.com/uploadfilepic/ziku/2008-08-09/OOOPIC_vipvip_20080809151228d3fdaa3fc26bbb74154.jpg">
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<p><h3>巴金《家》在线阅读
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap/css/bootstrap.min.css') }}" media="screen">
 
-长篇小说《家》，是文学大师巴金的代表作，也是中国现代文学史上一部优秀的现实主义长篇巨制。
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/cover.css') }}" media="screen">
 
-家是最受读者欢迎的《激流三部曲》（《家》、《春》、《秋》）中最受欢迎的一本。
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
 
-在小说中作者以娴熟的艺术手段，塑造了众多的富有典型意义的文学形象。
+  <body>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
 
-《家》也许不是巴金最好的作品，但绝对是最有人缘的一本，可是它的问世并非一帆风顺。最初，小说在《时报》上连载，每天一千字左右，后来因为战争中断过一段时间，《时报》又换了编辑。巴金突然接到一封信抱怨小说太长，报社不想继续登下去。收到信后巴金将剩下的稿子全寄了过去，并声明如果报纸愿意登完，他可以不要稿费。用他的话说，“为读者写作”的他“总算尽了作家的责任”。这样，《家》才得以完整面世。
+          <div class="inner cover">
+            <h1 class="cover-heading">清远大学城</h1>
+            <p class="lead">这里的生活，有你，有我</p>
+            <p class="lead">
+              <ul class="nav nav-pills nav-justified">
+				<li role="presentation"><a href="{{url_for('carpool.list_carinfo')}}">{{_('Jobs')}}</a></li>
+				<li role="presentation"><a href="{{url_for('job.list_job')}}">{{_('Carinfos')}}</a></li>
+			  </ul>
+            </p>
+          </div>
 
-《家》描写的是“五四”之后，成都地区一个封建大家庭走向崩溃的故事。故事集中在1920年冬到1921年秋的八九个月时间里，揭露了封建专制制度封建专制制度的罪恶，撕开了在温情关系掩盖下的大家庭的勾心斗角，暴露了所谓“诗礼传家”的封建大家庭的荒淫无耻，也描写了新思潮听唤醒的一代青年的觉醒和反抗，从而宣告了这个封建大家庭必然崩溃的命运。觉新，屈服于封建专制制度没有反抗意识。觉民；与琴结婚，敢于反抗封建专制制度。梅，喜欢觉新，但屈服封建专制制度，最后因伤心而病故。鸣凤，内心渴望爱情却又不敢表达出来，很无奈。</p>
-		</h3></div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<img src="http://sh.jiaju.sina.com.cn/images/2012/0704/U5483P949DT20120704143909.jpg">
-		</div>
-	</div>
-</div>
-{% endblock %}
+          <div class="mastfoot">
+            <div class="inner">
+				<div class="text-center">
+				 Copyright© 2014 <a href='http://www.miibeian.gov.cn/'><span>粤ICP备14019158号-2</span></a>
+				 	<!--百度统计-->
+				<script type="text/javascript">
+				var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+				document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F84f192aec0d5e251363a2be90ef26b26' type='text/javascript'%3E%3C/script%3E"));
+				</script>
+			</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+	<script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>
+	<script	src="{{ url_for('static', filename='base/3partylib/bootstrap/js/bootstrap.min.js') }}"></script>
+  
+
+  </body>
+</html>

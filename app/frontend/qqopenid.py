@@ -97,6 +97,7 @@ def openid_login(provider):
                     or current_app.extensions['security'].post_login_view or ''
 
         # 如果用户没有绑定，可以让用户尝试进行首次的帐号绑定。如果不绑也可以在以后再绑
+        # 2014-12-5 先去掉绑定功能。不然似乎有点复杂过头了。
         if user.bind_username is None and user.bind_email is None and (user.bind_remind is None or user.bind_remind ):
             form_class = _security.login_form
             form = form_class()

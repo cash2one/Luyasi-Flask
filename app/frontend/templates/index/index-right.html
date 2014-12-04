@@ -28,19 +28,30 @@
 
 	<div class="row">
 		<div class="col-md-6">
-			<h1><a href="{{url_for('job.list_job')}}">{{_('Jobs')}}</a></h1>
-			<hr/>
-			{% for job in jobs.items %}
-				<p><a href="{{url_for('job.detail_job', job_id=job.id)}}">{{job.title}}</a></p>
-			{% endfor %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="panel-title"><a href="{{url_for('job.list_job')}}">{{_('Jobs')}}</a></h1>
+				</div>
+				<div class="panel-body">
+					{% for job in jobs.items %}
+						<p><a href="{{url_for('job.detail_job', job_id=job.id)}}">{{job.title}}</a></p>
+					{% endfor %}
+				</div>
+			</div>
 		</div>
 		<div class="col-md-6">
-			<h1><a href="{{url_for('carpool.list_carinfo')}}">{{_('Carinfos')}}</a></h1>
-			<hr/>
-			{% for carinfo in carinfos.items %}
-				<p><a href="{{url_for('carpool.detail_carinfo', carinfo_id=carinfo.id)}}">{{carinfo.start}}-{{carinfo.target}}</a></p>
-			{% endfor %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="panel-title"><a href="{{url_for('carpool.list_carinfo')}}">{{_('Carinfos')}}</a></h1>
+				</div>
+				<div class="panel-body">
+					{% for carinfo in carinfos.items %}
+						<p><a href="{{url_for('carpool.detail_carinfo', carinfo_id=carinfo.id)}}">{{carinfo.start}}-{{carinfo.target}}</a></p>
+					{% endfor %}
+				</div>
+			</div>
 		</div>
+		
 		{##
 		<div class="col-md-4">
 			<h1><a href="{{url_for('blog.list_blog')}}">Blogs</a></h1>
