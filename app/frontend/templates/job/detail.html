@@ -25,19 +25,18 @@
 {% block rightmain %}
 	{% autoescape false %}
 	<div class="page-header">
-		<h1>{{job.title}}
+		<h1 class="text-right">{{job.title}}
 			{% if job.reports and job.reports.count() > 0 %}
 			<small><a class="text-danger" href="{{url_for('.list_report', job_id=job.id)}}">{{_('Caution! This job has been reported, see reports')}}</a></small>
 			{% endif %}
 		</h1>
-		<h5>
-		{% if job.job_type == 1 %}
-			{{_('Fulltime job')}}
-		{% else %}
-			{{_('Parttime job')}}
-		{% endif %}
-		——
-		{{_('Publish time:')}}{{momentjs(job.create_at).format('LLLL')}}</h5>
+		<h5 class="text-right">职业类型：	
+			  {% if job.job_type == 1 %}
+				{{_('Fulltime job')}}
+			  {% else %}
+				{{_('Parttime job')}}
+			  {% endif %} |
+			  发布时间：{{momentjs(job.create_at).format('LL')}}</h5>
 	</div>
 	<div>{{job.content}}</div>
 	{% endautoescape %}

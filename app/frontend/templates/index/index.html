@@ -28,12 +28,25 @@
         <div class="cover-container">
 
           <div class="inner cover">
-            <h1 class="cover-heading">清远大学城</h1>
-            <p class="lead">这里的生活，有你，有我</p>
+		<img src="{{url_for('static', filename='images/logo-only.png')}}" alt="0763dxc" class="img-circle">
+		</br>
+		<img src="{{url_for('static', filename='images/logo.png')}}" alt="0763dxc" class="">
+		</br></br>
+            <p class="lead">这里的生活，Have You，With Me</p>
+		<div class="container-fluid">
+		    <div class="row" style="border-bottom:solid red 1px">
+		    <div class="col-md-12 text-right">
+		    <a href="{{ url_for('security.login', next=request.path) }}">{{_('Login')}}</a> | <a href="{{ url_for_security('register') }}">{{_('Signup')}}</a>
+		    </div>
+		    </div>
+		</div>
             <p class="lead">
               <ul class="nav nav-pills nav-justified">
-				<li role="presentation"><a href="{{url_for('carpool.list_carinfo')}}">{{_('Jobs')}}</a></li>
-				<li role="presentation"><a href="{{url_for('job.list_job')}}">{{_('Carinfos')}}</a></li>
+				<li role="presentation"><h2><a href="{{url_for('job.list_job')}}">我要Job</a></h2></li>
+				<li role="presentation"><h2><a href="{{url_for('carpool.list_carinfo')}}">出行Easy</a></h2></li>
+				<li role="presentation"><h2><a href="#">校园News</a></h2></li>
+				<li role="presentation"><h2><a href="#">我的Class</a></h2></li>
+				<li role="presentation"><h2><a href="#">点滴Life</a></h2></li>
 			  </ul>
             </p>
           </div>

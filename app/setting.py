@@ -8,8 +8,9 @@ import os
 from flask.ext.babel import gettext, lazy_gettext
 
 #Flask的debug开关。有利于看出错信息。正式启用时要关掉
-DEBUG = True
-TESTING = True
+DEBUG = False
+#我靠。。原来testing为true的时候是不用登陆的！login_required会无效。
+TESTING = False
 
 #是否需要显示所有的blueprint route
 DEBUG_PRINT_ROUTE = False
@@ -37,12 +38,12 @@ OAUTH_QQ = {
     "auth_endpoint": "https://graph.qq.com/oauth2.0/authorize",
     "token_endpoint": "https://graph.qq.com/oauth2.0/token",
     "resource_endpoint": "https://graph.qq.com",
-    "client_id" :"101055610",
-    "client_secret": "15053e08bfb35e21e14a23186457ece6"
+    "client_id" :"101176056",
+    "client_secret": "4be2b7d2999ec0376bc5378d7af7429b"
 }
 
 #SERVER_NAME就flask的自有配置。。上次不小心用了SERVER_NAME，搞到所有请求都是not found
-KINORSI_SERVER_NAME = 'kinorsi.com'
+KINORSI_SERVER_NAME = '0763dxc.com'
 KINORSI_SERVER_PORT = '5000'
 if not DEBUG:
 	KINORSI_SERVER_PORT = ''

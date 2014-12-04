@@ -24,7 +24,6 @@ def create_job():
 		if current_user.get_id() is not None:
 			user = current_user
 		job = api_job.create(user=user, **form.data)
-		#return redirect('/job/' + str(job.id))
 		return redirect(url_for('.detail_job', job_id=job.id))
 	
 

@@ -29,7 +29,13 @@
 					<small><a class="text-danger" href="{{url_for('.list_report', job_id=job.id)}}">{{_('Caution! This job has been reported, see reports')}}</a></small>
 					{% endif %}
 					</h4>
-					<h5>{{momentjs(job.create_at).format('LLLL')}}</h5>
+					<h5>职业类型：	
+					  {% if job.job_type == 1 %}
+						{{_('Fulltime job')}}
+					  {% else %}
+						{{_('Parttime job')}}
+					  {% endif %} |
+					  发布时间：{{momentjs(job.create_at).format('LL')}}</h5>
 				</a>
 				<hr/>
 			</div>
