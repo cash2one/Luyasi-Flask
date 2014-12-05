@@ -20,6 +20,8 @@ class Job(db.Model, ModelVersion, JsonSerializer):
 	#状态：0-待审核(可以编辑/删除)，1-审核通过(不能编辑)，2-审核不通过(可以编辑/删除，保存后为状态0)
 	status = db.Column(db.Integer(), default=0, nullable=False)
 	deleted = db.Column(db.Boolean(name='deleted'), default=False, nullable=False)
+	#阅读次数
+	read_count = db.Column(db.Integer(), default=0, nullable=False)
 
 	# commentor
 	user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))

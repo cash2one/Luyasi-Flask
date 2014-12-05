@@ -112,8 +112,10 @@ body { padding-bottom: 71px; }
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav ">
-					<li><a href="{{url_for('job.list_job')}}">{{_('Jobs')}}</a></li>
-					<li><a href="{{url_for('carpool.list_carinfo')}}">{{_('Carpool')}}</a></li>
+					<li><a href="{{url_for('job.list_job')}}">我要Job</a></li>
+					<li><a href="{{url_for('carpool.list_carinfo')}}">出行Easy</a></li>
+					<li><a href="{{url_for('carpool.list_carinfo')}}">校园News</a></li>
+					<li><a href="{{url_for('carpool.list_carinfo')}}">点滴Life</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					{% if current_user and current_user.is_authenticated() %}

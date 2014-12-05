@@ -11,6 +11,10 @@ class Blog(db.Model, ModelVersion, JsonSerializer):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(100))
     content = db.Column(db.Text())
+    #类别，blog这个模块可以放在不同的模块，由于其它功能差不多。就用一个type进行区分
+    category = db.Column(db.Integer(), default=0, nullable=False)
+    #阅读次数
+    read_count = db.Column(db.Integer(), default=0, nullable=False)
 
     # author
     user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
