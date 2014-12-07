@@ -42,9 +42,8 @@
               <ul class="nav nav-pills nav-justified">
 				<li role="presentation"><h2><a href="{{url_for('job.list_job')}}">我要Job</a></h2></li>
 				<li role="presentation"><h2><a href="{{url_for('carpool.list_carinfo')}}">出行Easy</a></h2></li>
-				<li role="presentation"><h2><a href="#">校园News</a></h2></li>
-				<li role="presentation"><h2><a href="#">我的Class</a></h2></li>
-				<li role="presentation"><h2><a href="#">点滴Life</a></h2></li>
+				<li role="presentation"><h2><a href="{{url_for('blog.list_blog', category=1)}}">校园News</a></h2></li>
+				<li role="presentation"><h2><a href="{{url_for('blog.list_blog', category=1)}}">点滴Life</a></h2></li>
 			  </ul>
             </p>
           </div>

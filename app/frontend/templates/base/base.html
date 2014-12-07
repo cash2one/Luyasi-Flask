@@ -114,8 +114,8 @@ body { padding-bottom: 71px; }
 				<ul class="nav navbar-nav ">
 					<li><a href="{{url_for('job.list_job')}}">我要Job</a></li>
 					<li><a href="{{url_for('carpool.list_carinfo')}}">出行Easy</a></li>
-					<li><a href="{{url_for('carpool.list_carinfo')}}">校园News</a></li>
-					<li><a href="{{url_for('carpool.list_carinfo')}}">点滴Life</a></li>
+					<li><a href="{{url_for('blog.list_blog', category=1)}}">校园News</a></li>
+					<li><a href="{{url_for('blog.list_blog', category=2)}}">点滴Life</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					{% if current_user and current_user.is_authenticated() %}

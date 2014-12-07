@@ -17,9 +17,10 @@ from ..framework.captcha import make_simple_captcha
 bp = Blueprint('blog', __name__, template_folder='templates', static_folder='static', url_prefix='/blog')
 
 #--------------------------------------------------------
-@route(bp, '/new', methods=['GET', 'POST'])
+@route(bp, '/new/<int:category>', methods=['GET', 'POST'])
 @right_require('blog')
-def create_blog():
+def create_blog(category):
+	#此处category并没有使用，只是传递一下。用在界面上
 	blog_form = BlogForm()
 	if blog_form.validate_on_submit():
 		blog_id = blog_form.id.data
@@ -27,24 +28,23 @@ def create_blog():
 			blog = api_blog.create(user=current_user, **blog_form.data)
 		else:
 			api_blog.update(api_blog.get(blog_id), **blog_form.data)
-		return redirect(url_for('.list_blog'))
-	return render_template('blog/create.html', blog_form=blog_form)
+		return redirect(url_for('.list_blog', category=category))
+	return render_template('blog/create.html', blog_form=blog_form, category=category)
 
 #--------------------------------------------------------
-#@route(bp, '/blogs/<int:page>', '/blogs/')
-@bp.route('/blogs/<int:page>', methods=['GET'])
-@bp.route('/blogs/', methods=['GET'])
-def list_blog(page=None):
+@bp.route('/blogs/<int:category>/<int:page>', methods=['GET'])
+@bp.route('/blogs/<int:category>/', methods=['GET'])
+def list_blog(category=0, page=1):
 	if page == None or page <= 0:
 		page = 1
-	blogs = api_blog.get_lastest_page(page)
-	return render_template('blog/list.html', blogs = blogs)
+	blogs = api_blog.get_latest_page_filterby(page=page, category=category)
+	return render_template('blog/list.html', blogs = blogs, category=category)
 
 #----------------------------------------------------------------------
-@bp.route('/blog/<int:blog_id>', methods=['GET'])
-def detail_blog(blog_id):
+@bp.route('/blog/<int:category>/<int:blog_id>', methods=['GET'])
+def detail_blog(blog_id, category):
 	blog = api_blog.get(blog_id)
-	return render_template('blog/detail.html', blog=blog)
+	return render_template('blog/detail.html', blog=blog, category=category)
 
 #----------------------------------------------------------------------
 @route(bp, '/blog/delete/<int:blog_id>')
@@ -57,9 +57,9 @@ def delete_blog(blog_id):
 	return redirect(url_for('.list'))
 
 #----------------------------------------------------------------------
-@route(bp, '/blog/change/<int:blog_id>')
+@route(bp, '/blog/change/<int:category>/<int:blog_id>')
 @right_require('blog')
-def change_blog(blog_id):
+def change_blog(blog_id, category):
 	"""Edit the blog.
 	:param id: blog id.
 	"""
@@ -68,7 +68,7 @@ def change_blog(blog_id):
 		flash(gettext('This is not your blog'), category='error')
 		abort(403)
 	blog_form = BlogForm(obj=blog)
-	return render_template('blog/create.html', blog_form=blog_form)
+	return render_template('blog/create.html', blog_form=blog_form, category=category)
 
 #----------------------------------------------------------------------
 @route(bp, '/blog/comment/<int:blog_id>', methods=['POST'])

@@ -9,11 +9,11 @@
 	<div class="col-md-12">
 		<div class="btn-group pull-right" style="margin-bottom: 12px">
 			{% if has_right('create', 'blog', 'blog') %}
-			<a href="{{url_for('.create_blog')}}" type="button" class="btn btn-success">{{_('Write blog')}}</a>
+			<a href="{{url_for('.create_blog', category=category)}}" type="button" class="btn btn-success">写文章</a>
 			{% endif %}
-			<a href="{{url_for('.list_blog')}}" type="button" class="btn btn-default">{{_('View blogs')}}</a>
+			<a href="{{url_for('.list_blog', category=category)}}" type="button" class="btn btn-default">看文章</a>
 			{% if has_right('change', 'blog', 'blog') and blog.user == current_user %}
-			<a href="{{url_for('.change_blog', blog_id=blog.id)}}" type="button" class="btn btn-default">{{_('Edit')}}</a>
+			<a href="{{url_for('.change_blog',  category=category, blog_id=blog.id)}}" type="button" class="btn btn-default">{{_('Edit')}}</a>
 			{% endif %}
 			{% if has_right('delete', 'blog', 'blog') and blog.user == current_user %}
 			<button type="button" class="btn btn-danger btn-delete">{{_('Delete')}}</button>
@@ -25,7 +25,7 @@
 
 {% block breadpiece %}
 {{super()}}
-<li><a href="{{url_for('blog.detail_blog', blog_id=blog.id)}}">Detail</a></li>
+<li><a href="{{url_for('blog.detail_blog', category=category, blog_id=blog.id)}}">{{_('Detail')}}</a></li>
 {% endblock breadpiece %}
 
 {% block modal %}

@@ -1,6 +1,6 @@
 {% extends "index/base.html" %}
 {% block sublogo %}
-<a class="navbar-brand" href="{{ url_for('blog.list_blog') }}">Miss Lu</a>
+<a class="navbar-brand" href="#">Miss Lu</a>
 {% endblock sublogo %}
 
 {% block modal %}
@@ -26,5 +26,13 @@
 
 {% block breadpiece %}
 {{super()}}
-<li><a href="{{url_for('blog.list_blog')}}">Miss Lu</a></li>
+<li><a href="{{url_for('blog.list_blog', page=1, category=category)}}">
+	{% if category==0 %}
+	Miss Lu
+	{% elif category==1 %}
+	校园News
+	{% elif category==2 %}
+	点滴Life
+	{% endif %}
+</a></li>
 {% endblock breadpiece %}

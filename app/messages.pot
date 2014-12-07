@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-10-30 12:51+0800\n"
+"POT-Creation-Date: 2014-12-07 22:57+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,16 +21,28 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: blog/forms.py:15 xiaoyuan/forms.py:13 xiaoyuan/forms.py:18
+#: blog/forms.py:15
+msgid "Blog type"
+msgstr ""
+
+#: blog/forms.py:16
+msgid "Xiaoyuan News"
+msgstr ""
+
+#: blog/forms.py:17
+msgid "Life points"
+msgstr ""
+
+#: blog/forms.py:18 xiaoyuan/forms.py:13 xiaoyuan/forms.py:18
 msgid "Content"
 msgstr ""
 
-#: blog/forms.py:15 blog/forms.py:21 frontend/templates/blog/detail.html:268
+#: blog/forms.py:18 blog/forms.py:24 frontend/templates/blog/detail.html:268
 #: job/forms.py:25
 msgid "The comment forgot you~"
 msgstr ""
 
-#: blog/forms.py:21 frontend/templates/blog/detail.html:40
+#: blog/forms.py:24 frontend/templates/blog/detail.html:40
 #: frontend/templates/blog/detail.html:78
 msgid "Comment"
 msgstr ""
@@ -89,7 +101,7 @@ msgstr ""
 msgid "This is not your blog"
 msgstr ""
 
-#: frontend/job.py:59
+#: frontend/job.py:58
 msgid "Thanks for your report. We will check it soon."
 msgstr ""
 
@@ -127,47 +139,57 @@ msgid "Come on! I, I have some problems."
 msgstr ""
 
 #: frontend/templates/admin/admin_base.html:10
-#: frontend/templates/base/base.html:121
+#: frontend/templates/base/base.html:134
 msgid "Exit"
 msgstr ""
 
-#: frontend/templates/base/base.html:71
+#: frontend/templates/base/base.html:76
 msgid "Info"
 msgstr ""
 
-#: frontend/templates/base/base.html:77 frontend/templates/blog/base.html:20
+#: frontend/templates/base/base.html:82 frontend/templates/blog/base.html:20
 #: frontend/templates/security/change_password.html:27
-#: frontend/templates/security/forgot_password.html:20
-#: frontend/templates/security/send_confirmation.html:21
+#: frontend/templates/security/forgot_password.html:21
+#: frontend/templates/security/send_confirmation.html:22
 msgid "OK"
 msgstr ""
 
-#: frontend/templates/base/base.html:119
+#: frontend/templates/base/base.html:132
 msgid "Admin"
 msgstr ""
 
-#: frontend/templates/base/base.html:123
+#: frontend/templates/base/base.html:136 frontend/templates/index/index.html:37
 #: frontend/templates/security/login_user.html:6
-#: frontend/templates/security/login_user.html:13
+#: frontend/templates/security/login_user.html:23
 msgid "Login"
 msgstr ""
 
-#: frontend/templates/base/base.html:125
-#: frontend/templates/security/login_user.html:33
+#: frontend/templates/base/base.html:138 frontend/templates/index/index.html:37
+#: frontend/templates/security/login_user.html:43
 #: frontend/templates/security/register_user.html:6
 msgid "Signup"
 msgstr ""
 
-#: frontend/templates/base/base.html:128
+#: frontend/templates/base/base.html:145
 msgid "Forget paswword"
 msgstr ""
 
-#: frontend/templates/base/base.html:131
+#: frontend/templates/base/base.html:148
 #: frontend/templates/security/send_confirmation.html:6
 msgid "Activate account"
 msgstr ""
 
-#: frontend/templates/base/base.html:154
+#: frontend/templates/base/base.html:188
+#: frontend/templates/index/index-right.html:33
+msgid "Jobs"
+msgstr ""
+
+#: frontend/templates/base/base.html:189
+#: frontend/templates/index/index-right.html:45
+msgid "Carinfos"
+msgstr ""
+
+#: frontend/templates/base/base.html:215
 msgid "Index"
 msgstr ""
 
@@ -183,13 +205,11 @@ msgstr ""
 msgid "Cancle"
 msgstr ""
 
-#: frontend/templates/blog/create.html:6 frontend/templates/blog/detail.html:12
-#: frontend/templates/blog/list.html:14
+#: frontend/templates/blog/create.html:6
 msgid "Write blog"
 msgstr ""
 
 #: frontend/templates/blog/create.html:13
-#: frontend/templates/blog/detail.html:14
 msgid "View blogs"
 msgstr ""
 
@@ -201,9 +221,15 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+#: frontend/templates/blog/detail.html:28
+#: frontend/templates/carpool/detail.html:15
+#: frontend/templates/job/detail.html:11
+msgid "Detail"
+msgstr ""
+
 #: frontend/templates/blog/detail.html:59
 #: frontend/templates/macros/fieldmacros.html:48
-#: frontend/templates/security/register_user.html:24
+#: frontend/templates/security/register_user.html:26
 msgid "Submit"
 msgstr ""
 
@@ -240,11 +266,6 @@ msgstr ""
 msgid "Publish carinfos"
 msgstr ""
 
-#: frontend/templates/carpool/detail.html:15
-#: frontend/templates/job/detail.html:11
-msgid "Detail"
-msgstr ""
-
 #: frontend/templates/carpool/detail.html:24
 #: frontend/templates/carpool/detail.html:25
 #: frontend/templates/carpool/detail.html:26
@@ -259,20 +280,12 @@ msgstr ""
 msgid ": "
 msgstr ""
 
-#: frontend/templates/index/index.html:31
-msgid "Jobs"
-msgstr ""
-
-#: frontend/templates/index/index.html:38
-msgid "Carinfos"
-msgstr ""
-
-#: frontend/templates/job/base.html:4 frontend/templates/job/base.html:9
+#: frontend/templates/job/base.html:4 frontend/templates/job/base.html:13
 #: frontend/templates/job/list.html:6
 msgid "Job"
 msgstr ""
 
-#: frontend/templates/job/base.html:16 frontend/templates/job/create.html:18
+#: frontend/templates/job/base.html:20 frontend/templates/job/create.html:18
 #: frontend/templates/job/detail.html:18 frontend/templates/job/report.html:13
 #: frontend/templates/job/report_list.html:14
 msgid "Job list"
@@ -292,16 +305,12 @@ msgstr ""
 msgid "Caution! This job has been reported, see reports"
 msgstr ""
 
-#: frontend/templates/job/detail.html:35
+#: frontend/templates/job/detail.html:35 frontend/templates/job/list.html:34
 msgid "Fulltime job"
 msgstr ""
 
-#: frontend/templates/job/detail.html:37
+#: frontend/templates/job/detail.html:37 frontend/templates/job/list.html:36
 msgid "Parttime job"
-msgstr ""
-
-#: frontend/templates/job/detail.html:40
-msgid "Publish time:"
 msgstr ""
 
 #: frontend/templates/job/report.html:6
@@ -359,12 +368,11 @@ msgid "Bind account"
 msgstr ""
 
 #: frontend/templates/security/bind_user.html:17
-#: frontend/templates/security/login_user.html:16
 msgid "username or email"
 msgstr ""
 
 #: frontend/templates/security/bind_user.html:21
-#: frontend/templates/security/login_user.html:20
+#: frontend/templates/security/login_user.html:30
 msgid "password"
 msgstr ""
 
@@ -399,32 +407,29 @@ msgid "repeat password"
 msgstr ""
 
 #: frontend/templates/security/forgot_password.html:6
-#: frontend/templates/security/login_user.html:36
+#: frontend/templates/security/login_user.html:46
 msgid "Forget password"
 msgstr ""
 
-#: frontend/templates/security/forgot_password.html:13
+#: frontend/templates/security/forgot_password.html:14
 msgid "Send password reset instructions"
 msgstr ""
 
-#: frontend/templates/security/forgot_password.html:16
+#: frontend/templates/security/forgot_password.html:17
+#: frontend/templates/security/login_user.html:26
 msgid "email"
 msgstr ""
 
-#: frontend/templates/security/login_user.html:25
+#: frontend/templates/security/login_user.html:35
 msgid "remember me"
 msgstr ""
 
-#: frontend/templates/security/login_user.html:29
+#: frontend/templates/security/login_user.html:39
 msgid "login"
 msgstr ""
 
-#: frontend/templates/security/login_user.html:33
+#: frontend/templates/security/login_user.html:43
 msgid "No account?"
-msgstr ""
-
-#: frontend/templates/security/profile.html:6
-msgid "Contact"
 msgstr ""
 
 #: frontend/templates/security/profile.html:11
@@ -435,20 +440,20 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: frontend/templates/security/register_user.html:14
+#: frontend/templates/security/register_user.html:16
 msgid "Register info"
 msgstr ""
 
-#: frontend/templates/security/register_user.html:16
-#: frontend/templates/security/send_confirmation.html:17
+#: frontend/templates/security/register_user.html:18
+#: frontend/templates/security/send_confirmation.html:18
 msgid "Email"
 msgstr ""
 
-#: frontend/templates/security/register_user.html:20
+#: frontend/templates/security/register_user.html:22
 msgid "Password"
 msgstr ""
 
-#: frontend/templates/security/send_confirmation.html:14
+#: frontend/templates/security/send_confirmation.html:15
 msgid "Resend confirmation instructions"
 msgstr ""
 

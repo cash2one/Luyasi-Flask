@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-10-30 12:50+0800\n"
+"POT-Creation-Date: 2014-12-07 22:57+0800\n"
 "PO-Revision-Date: 2014-07-08 11:17+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh <LL@li.org>\n"
@@ -21,19 +21,32 @@ msgstr ""
 msgid "Title"
 msgstr "标题"
 
-#: blog/forms.py:15 xiaoyuan/forms.py:13 xiaoyuan/forms.py:18
+#: blog/forms.py:15
+#, fuzzy
+msgid "Blog type"
+msgstr "类型"
+
+#: blog/forms.py:16
+msgid "Xiaoyuan News"
+msgstr "校园News"
+
+#: blog/forms.py:17
+msgid "Life points"
+msgstr "点滴Life"
+
+#: blog/forms.py:18 xiaoyuan/forms.py:13 xiaoyuan/forms.py:18
 msgid "Content"
 msgstr "内容"
 
-#: blog/forms.py:15 blog/forms.py:21 frontend/templates/blog/detail.html:268
+#: blog/forms.py:18 blog/forms.py:24 frontend/templates/blog/detail.html:268
 #: job/forms.py:25
 msgid "The comment forgot you~"
 msgstr "还没有写评论哦~"
 
-#: blog/forms.py:21 frontend/templates/blog/detail.html:40
+#: blog/forms.py:24 frontend/templates/blog/detail.html:40
 #: frontend/templates/blog/detail.html:78
 msgid "Comment"
-msgstr "说两句"
+msgstr "盖楼"
 
 #: carpool/forms.py:25 frontend/templates/carpool/detail.html:24
 #: frontend/templates/carpool/list.html:28
@@ -89,7 +102,7 @@ msgstr "暗号不正确"
 msgid "This is not your blog"
 msgstr "呃~这个博客不是你的~"
 
-#: frontend/job.py:59
+#: frontend/job.py:58
 msgid "Thanks for your report. We will check it soon."
 msgstr "感谢你的举报。我们会尽快进行审核。"
 
@@ -127,47 +140,57 @@ msgid "Come on! I, I have some problems."
 msgstr "噢，我的神~我似乎出了点问题。。"
 
 #: frontend/templates/admin/admin_base.html:10
-#: frontend/templates/base/base.html:121
+#: frontend/templates/base/base.html:134
 msgid "Exit"
 msgstr "退出"
 
-#: frontend/templates/base/base.html:71
+#: frontend/templates/base/base.html:76
 msgid "Info"
 msgstr "信息"
 
-#: frontend/templates/base/base.html:77 frontend/templates/blog/base.html:20
+#: frontend/templates/base/base.html:82 frontend/templates/blog/base.html:20
 #: frontend/templates/security/change_password.html:27
-#: frontend/templates/security/forgot_password.html:20
-#: frontend/templates/security/send_confirmation.html:21
+#: frontend/templates/security/forgot_password.html:21
+#: frontend/templates/security/send_confirmation.html:22
 msgid "OK"
 msgstr "确认"
 
-#: frontend/templates/base/base.html:119
+#: frontend/templates/base/base.html:132
 msgid "Admin"
 msgstr "管理"
 
-#: frontend/templates/base/base.html:123
+#: frontend/templates/base/base.html:136 frontend/templates/index/index.html:37
 #: frontend/templates/security/login_user.html:6
-#: frontend/templates/security/login_user.html:13
+#: frontend/templates/security/login_user.html:23
 msgid "Login"
 msgstr "登录"
 
-#: frontend/templates/base/base.html:125
-#: frontend/templates/security/login_user.html:33
+#: frontend/templates/base/base.html:138 frontend/templates/index/index.html:37
+#: frontend/templates/security/login_user.html:43
 #: frontend/templates/security/register_user.html:6
 msgid "Signup"
 msgstr "注册"
 
-#: frontend/templates/base/base.html:128
+#: frontend/templates/base/base.html:145
 msgid "Forget paswword"
 msgstr "忘记密码"
 
-#: frontend/templates/base/base.html:131
+#: frontend/templates/base/base.html:148
 #: frontend/templates/security/send_confirmation.html:6
 msgid "Activate account"
 msgstr "激活账号"
 
-#: frontend/templates/base/base.html:154
+#: frontend/templates/base/base.html:188
+#: frontend/templates/index/index-right.html:33
+msgid "Jobs"
+msgstr "工作兼职"
+
+#: frontend/templates/base/base.html:189
+#: frontend/templates/index/index-right.html:45
+msgid "Carinfos"
+msgstr "包车信息"
+
+#: frontend/templates/base/base.html:215
 msgid "Index"
 msgstr "主页"
 
@@ -183,13 +206,11 @@ msgstr "你确定要搞掉这个博客么？"
 msgid "Cancle"
 msgstr "取消"
 
-#: frontend/templates/blog/create.html:6 frontend/templates/blog/detail.html:12
-#: frontend/templates/blog/list.html:14
+#: frontend/templates/blog/create.html:6
 msgid "Write blog"
 msgstr "写博客"
 
 #: frontend/templates/blog/create.html:13
-#: frontend/templates/blog/detail.html:14
 msgid "View blogs"
 msgstr "博客列表"
 
@@ -201,9 +222,15 @@ msgstr "修改"
 msgid "Delete"
 msgstr "删除"
 
+#: frontend/templates/blog/detail.html:28
+#: frontend/templates/carpool/detail.html:15
+#: frontend/templates/job/detail.html:11
+msgid "Detail"
+msgstr "详情"
+
 #: frontend/templates/blog/detail.html:59
 #: frontend/templates/macros/fieldmacros.html:48
-#: frontend/templates/security/register_user.html:24
+#: frontend/templates/security/register_user.html:26
 msgid "Submit"
 msgstr "提交"
 
@@ -236,14 +263,9 @@ msgid "View carinfos"
 msgstr "查看包车信息"
 
 #: frontend/templates/carpool/create.html:17
-#, fuzzy
-msgid "Publish carinfo"
+#: frontend/templates/carpool/list.html:13
+msgid "Publish carinfos"
 msgstr "发布包车信息"
-
-#: frontend/templates/carpool/detail.html:15
-#: frontend/templates/job/detail.html:11
-msgid "Detail"
-msgstr "详情"
 
 #: frontend/templates/carpool/detail.html:24
 #: frontend/templates/carpool/detail.html:25
@@ -259,24 +281,12 @@ msgstr "详情"
 msgid ": "
 msgstr "："
 
-#: frontend/templates/carpool/list.html:13
-msgid "Publish carinfos"
-msgstr "发布包车信息"
-
-#: frontend/templates/index/index.html:31
-msgid "Jobs"
-msgstr "工作兼职"
-
-#: frontend/templates/index/index.html:38
-msgid "Carinfos"
-msgstr "包车信息"
-
-#: frontend/templates/job/base.html:4 frontend/templates/job/base.html:9
+#: frontend/templates/job/base.html:4 frontend/templates/job/base.html:13
 #: frontend/templates/job/list.html:6
 msgid "Job"
 msgstr "工作兼职"
 
-#: frontend/templates/job/base.html:16 frontend/templates/job/create.html:18
+#: frontend/templates/job/base.html:20 frontend/templates/job/create.html:18
 #: frontend/templates/job/detail.html:18 frontend/templates/job/report.html:13
 #: frontend/templates/job/report_list.html:14
 msgid "Job list"
@@ -296,17 +306,13 @@ msgstr "我要举报"
 msgid "Caution! This job has been reported, see reports"
 msgstr "请打醒十二分注意！已经有人举报了这个职位~"
 
-#: frontend/templates/job/detail.html:35
+#: frontend/templates/job/detail.html:35 frontend/templates/job/list.html:34
 msgid "Fulltime job"
 msgstr "全职"
 
-#: frontend/templates/job/detail.html:37
+#: frontend/templates/job/detail.html:37 frontend/templates/job/list.html:36
 msgid "Parttime job"
 msgstr "兼职"
-
-#: frontend/templates/job/detail.html:40
-msgid "Publish time:"
-msgstr "发布时间："
 
 #: frontend/templates/job/report.html:6
 msgid "Report job"
@@ -363,12 +369,11 @@ msgid "Bind account"
 msgstr "绑定帐号"
 
 #: frontend/templates/security/bind_user.html:17
-#: frontend/templates/security/login_user.html:16
 msgid "username or email"
 msgstr "用户名 或者 邮箱"
 
 #: frontend/templates/security/bind_user.html:21
-#: frontend/templates/security/login_user.html:20
+#: frontend/templates/security/login_user.html:30
 msgid "password"
 msgstr "密码"
 
@@ -403,33 +408,30 @@ msgid "repeat password"
 msgstr "重复密码"
 
 #: frontend/templates/security/forgot_password.html:6
-#: frontend/templates/security/login_user.html:36
+#: frontend/templates/security/login_user.html:46
 msgid "Forget password"
 msgstr "忘记密码"
 
-#: frontend/templates/security/forgot_password.html:13
+#: frontend/templates/security/forgot_password.html:14
 msgid "Send password reset instructions"
 msgstr "密码重置"
 
-#: frontend/templates/security/forgot_password.html:16
+#: frontend/templates/security/forgot_password.html:17
+#: frontend/templates/security/login_user.html:26
 msgid "email"
 msgstr "邮箱"
 
-#: frontend/templates/security/login_user.html:25
+#: frontend/templates/security/login_user.html:35
 msgid "remember me"
 msgstr "保持登录"
 
-#: frontend/templates/security/login_user.html:29
+#: frontend/templates/security/login_user.html:39
 msgid "login"
 msgstr "登录"
 
-#: frontend/templates/security/login_user.html:33
+#: frontend/templates/security/login_user.html:43
 msgid "No account?"
 msgstr "没有账号？"
-
-#: frontend/templates/security/profile.html:6
-msgid "Contact"
-msgstr "联系方式"
 
 #: frontend/templates/security/profile.html:11
 msgid "My published jobs"
@@ -439,20 +441,20 @@ msgstr "我发布的职位"
 msgid "Save"
 msgstr "保存"
 
-#: frontend/templates/security/register_user.html:14
+#: frontend/templates/security/register_user.html:16
 msgid "Register info"
 msgstr "注册信息"
 
-#: frontend/templates/security/register_user.html:16
-#: frontend/templates/security/send_confirmation.html:17
+#: frontend/templates/security/register_user.html:18
+#: frontend/templates/security/send_confirmation.html:18
 msgid "Email"
 msgstr "邮箱"
 
-#: frontend/templates/security/register_user.html:20
+#: frontend/templates/security/register_user.html:22
 msgid "Password"
 msgstr "密码"
 
-#: frontend/templates/security/send_confirmation.html:14
+#: frontend/templates/security/send_confirmation.html:15
 msgid "Resend confirmation instructions"
 msgstr "重新发送验证信息"
 
@@ -687,4 +689,13 @@ msgstr "重复暗号"
 
 #~ msgid "title"
 #~ msgstr "标题"
+
+#~ msgid "Publish carinfo"
+#~ msgstr "发布包车信息"
+
+#~ msgid "Publish time:"
+#~ msgstr "发布时间："
+
+#~ msgid "Contact"
+#~ msgstr "联系方式"
 
