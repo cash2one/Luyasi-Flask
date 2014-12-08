@@ -7,7 +7,7 @@ from flask_babelex import gettext
 from . import route
 from ..core import db
 
-from ..services import api_academy, api_class, api_msg, api_user, api_apply
+from ..services import api_academy, api_class, api_msg, api_user, api_apply, api_meminfo
 from ..xiaoyuan.forms import MsgForm, ReplayForm, MemberInfoForm
 from ..xiaoyuan.models import MessageUserAssociation, Message
 
@@ -134,6 +134,11 @@ def list_myclass():
 @route(bp, '/join_class/<int:class_id>', methods=['GET'])
 def apply_joinclass(class_id):
     """申请加入"""
+    #如果没有填写班级的个人信息。则先提示要填写。不然不能加入。
+    if current_user.class_meminfo is None:
+        flash(u'你还没有填写班级个人信息，补充后才能申请加入班级')
+        form = MemberInfoForm()
+        return render_template('profile_class_memberinfo.html', form=form)
     #action =1 表示加入
     apply = api_apply.create(action=1, class_id=class_id, user_id=current_user.get_id())
     return redirect(url_for('.list_myclass'))
@@ -148,27 +153,19 @@ def list_class_apply(page=1):
     return render_template('profile_class_apply.html', applies=applies)
     
     
-@route(bp, '/profile_memberinfo', methods=['GET', 'POST'])
-def profile_memberinfo():
-    """Contact of personal profile."""
-    if current_user.class_meminfo:
-        form = ContactForm(request.form,  obj=current_user.contact)
-    else:
-        if request.method == 'GET':
-            flash(gettext('Maybe you can show more of yourself'))
-        form = ContactForm(request.form)
-
+#----------------------------------------------------------------------
+@route(bp, '/newmemberinfo', methods=['GET', 'POST'])
+def create_classmemberinfo():
+    """"""
+    form = MemberInfoForm()
     if form.validate_on_submit():
-        if current_user.contact:
-            # form.populate_obj(current_user.contact)这是把值 放到model的方法
-            form.populate_obj(current_user.contact)
-            api_contact.update(current_user.contact)
-            flash(gettext('Update personal info success'))
-        else:
-            contact = api_contact.new()
-            form.populate_obj(contact)
-            contact.user = current_user
-            contact = api_contact.save(contact)
-            flash(gettext('Add personal info success'))
-    #    return redirect(url_for('.profile_contact'))
-    return render_template('security/profile_contact.html', form=form)
+        api_meminfo.create(user=current_user, **form.data)
+        return redirect(url_for('.detail_classmemberinfo', form=form))
+    return render_template('profile_class_memberinfo.html', form=form)
+    
+#----------------------------------------------------------------------
+@route(bp, '/detailmemberinfo', methods=['GET','POST'])
+def detail_classmemberinfo():
+    """"""
+    return render_template('profile_class_memberinfo.html', meminfo=current_user.class_meminfo)
+    

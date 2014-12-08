@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 from ..core import Service, db
-from .models import Academy, Class, Message, MessageUserAssociation, ClassApply
+from .models import Academy, Class, Message, MessageUserAssociation, ClassApply, MemberInfo
 
 class AcademyService(Service):
     __model__ = Academy
@@ -44,4 +44,5 @@ class ClassApplyService(Service):
                         .paginate(page, per_page, error_out)
         return query        
         
-        
+class MemberInfoService(Service):
+    __model__ = MemberInfo
