@@ -12,7 +12,8 @@
 		{% endif %}		
 		<li class="list-group-item"><a href="{{ url_for('security-frontend.list_publisedjobs', status=1, page=1) }}">我的博客</a></li>
 		<li class="list-group-item"><a href="{{ url_for('security-frontend.list_publisedjobs', status=1, page=1) }}">我的收藏</a></li>
-		<li class="list-group-item"><a href="{{ url_for('security-frontend.list_publisedjobs', status=1, page=1) }}">我的班级</a></li>
+		<li class="list-group-item"><a href="{{ url_for('xiaoyuan.list_myclass') }}">我的班级</a></li>
+		<li class="list-group-item"><a href="{{ url_for('xiaoyuan.list_class_apply', page=1) }}">班级申请</a></li>
 	</ul>
 </div>
 {% endblock sidebar %}

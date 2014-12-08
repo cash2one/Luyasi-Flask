@@ -1,0 +1,52 @@
+{% extends "security/profile.html" %}
+
+{% block title %}
+我的班级
+{% endblock title%}
+
+
+{% block rightmain %}
+<div class="row">
+	<div class="col-md-12">
+		{% if myclasses|length==0 %}
+		<div class="alert alert-warning" role="alert">
+			你还没有加入任何班级
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+			<h3>你可能感兴趣的班级</h3>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12 item">
+	{% for clazz in allclasses %}
+		<div class="row">
+			<div class="col-md-9">
+				<a href="#">
+					<h4 class="list-group-item-heading" >
+					{{clazz.name}}
+					</h4>
+				</a>
+			</div>
+			<div class="col-md-3">
+				{%if clazz.id in apply_ids %}
+					已经申请，等待审核
+				{%else%}
+				<a href="{{url_for('.apply_joinclass', class_id=clazz.id)}}" class="btn btn-primary btn-xs">
+					申请加入
+				</a>
+				{%endif%}
+			</div>
+		</div>
+		<hr/>
+	{% endfor %}
+	</div>
+</div>
+{% endblock rightmain %}

@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 from ..core import Service, db
-from .models import Academy, Class, Message, MessageUserAssociation
+from .models import Academy, Class, Message, MessageUserAssociation, ClassApply
 
 class AcademyService(Service):
     __model__ = Academy
@@ -29,3 +29,19 @@ class MessageService(Service):
         reply_msg.sender.message_assocs.append(association)
         db.session.commit()
         return msg
+
+class ClassApplyService(Service):
+    __model__ = ClassApply
+    
+    #----------------------------------------------------------------------
+    def get_applies(self, class_ids, page=1, per_page=20, error_out=True):
+        """取自己班的的加入申请"""
+        if len(class_ids)==0:
+            return None
+
+        query = self.__model__.query\
+                        .filter(Class.id.in_(class_ids))\
+                        .paginate(page, per_page, error_out)
+        return query        
+        
+        

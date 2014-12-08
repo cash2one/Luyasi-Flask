@@ -105,3 +105,44 @@ class Message(db.Model, ModelVersion, JsonSerializer):
 
     def __str__(self):
         return self.content
+
+########################################################################
+class ClassApply(db.Model, ModelVersion, JsonSerializer):
+    """"""
+
+    __tablename__ = "xiaoyuan_joinapply"
+    
+    id = db.Column(db.Integer(), primary_key=True)
+    
+    #0-表示创建，1-表示加入，2-表示删除。。。
+    action = db.Column(db.Integer(), nullable=False, default=0)
+    
+    user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
+    user = db.relationship(User, backref=db.backref('join_applies'))    
+    
+    class_id = db.Column(db.Integer(), db.ForeignKey('xiaoyuan_class.id'))
+    clazz = db.relationship(Class)
+    
+    #可以用来发起申请的时候写原因，失败时候的原因等。
+    desc = db.Column(db.String(255))
+    
+    #0表示申请中，1表示成功，2表示失败
+    status = db.Column(db.Integer(), default=0, nullable=False)
+        
+    
+########################################################################
+class MemberInfo(db.Model, ModelVersion, JsonSerializer):
+    """作为班级成员需要提供的信息"""
+
+    __tablename__ = "xiaoyuan_memberinfo"
+    id = db.Column(db.Integer(), primary_key=True)
+    
+    name = db.Column(db.String(10))
+    student_no = db.Column(db.String(15))
+    idcard = db.Column(db.String(18))
+    
+    user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
+    user = db.relationship(User, backref=db.backref('class_meminfo', uselist=False))   
+        
+    
+    
