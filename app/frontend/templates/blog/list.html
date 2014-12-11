@@ -20,6 +20,7 @@ Miss Lu
 
 {% block rightmain %}
 <div class="row">
+<<<<<<< HEAD
     {% for blog in blogs.items %}
     <div class="col-md-12 item">
         <div class="row">
@@ -50,6 +51,38 @@ Miss Lu
                 <h5>[{{blog.user.nikename or blog.user.email or blog.user.username}}] {{_('post')}} [{{momentjs(blog.update_at or blog.create_at).format('LLLL')}}]</h5>
             </div>
         </div>
+=======
+	{% for blog in blogs.items %}
+	<div class="col-md-12 item">
+		<div class="row">
+			<div class="col-md-10">
+				<a href="{{url_for('.detail_blog', blog_id=blog.id, category=category)}}">
+					<h4 class="list-group-item-heading" >{{blog.title}}</h4>
+					<!--<p class="list-group-item-text">...</p>-->
+				</a>
+			</div>
+			<div class="col-md-2">
+				{# 有权限才可以编辑 #}
+				<div class="edit-btns hidden">
+					{% if blog.user == current_user and has_right('delete', 'blog', 'blog') %}
+					<button type="button" data-del-id="{{blog.id}}" class="btn btn-danger btn-xs btn-delete">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+					{% endif %}
+					{% if blog.user == current_user and has_right('change', 'blog', 'blog') %}
+					<a href="{{url_for('.change_blog', blog_id=blog.id)}}" type="button" class="btn btn-primary btn-xs">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-6">
+				<h5>[{{blog.user.nikename or blog.user.email or blog.user.username}}] {{_('post')}} [{{momentjs(blog.update_at or blog.create_at).format('LLLL')}}]</h5>
+			</div>
+		</div>
+>>>>>>> origin/master
 
     <div class="row">
         <div class="col-md-12">

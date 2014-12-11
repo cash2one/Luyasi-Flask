@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta property="qc:admins" content="136467546634036375" />
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico">
 
     <title>清远大学城</title>
@@ -28,13 +29,13 @@
         <div class="cover-container">
 
 		<div class="inner cover">
-		<img src="{{url_for('static', filename='images/BigLogo.png')}}" alt="0763dxc" class="">
+		<img src="{{url_for('static', filename='images/full-logo.png')}}" alt="0763dxc" class="">
 		</br></br>
             <p class="lead">这里的生活，Have You，With Me</p>
 		<div class="container-fluid">
 		    <div class="row" style="border-bottom:solid red 1px">
 		    <div class="col-md-12 text-right">
-		    <a href="{{ url_for('security.login', next=request.path) }}">{{_('Login')}}</a> | <a href="{{ url_for_security('register') }}">{{_('Signup')}}</a>
+		    <a href="{{ url_for('security.login', next=request.path) }}">{{_('Login')}}</a> <!--| <a href="{{ url_for_security('register') }}">{{_('Signup')}}</a>-->
 		    </div>
 		    </div>
 		</div>
