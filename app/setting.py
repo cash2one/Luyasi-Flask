@@ -46,13 +46,13 @@ OAUTH_QQ = {
 KINORSI_SERVER_NAME = '0763dxc.com'
 KINORSI_SERVER_PORT = '5000'
 if not DEBUG:
-	KINORSI_SERVER_PORT = ''
-	
+    KINORSI_SERVER_PORT = ''
+
 KINORSI_SERVER_HOST = ''
 if KINORSI_SERVER_PORT and len(KINORSI_SERVER_PORT)>0:
-	KINORSI_SERVER_HOST = str.format('{}:{}', KINORSI_SERVER_NAME, KINORSI_SERVER_PORT)
+    KINORSI_SERVER_HOST = str.format('{}:{}', KINORSI_SERVER_NAME, KINORSI_SERVER_PORT)
 else:
-	KINORSI_SERVER_HOST = KINORSI_SERVER_NAME
+    KINORSI_SERVER_HOST = KINORSI_SERVER_NAME
 
 #gmail.com-for logging.写log和正常发邮件有所不同。。
 # MAIL_DEFAULT_SENDER = "kinorsi@gmail.com"
@@ -157,4 +157,4 @@ BABEL_DEFAULT_TIMEZONE = 'UTC'
 # 生成：pybabel init -i messages.pot -d frontend/translations -l cs
 # 由于security的一些文本有特殊标签如%(value)s，所以需要自己导入。这个会在factory里导入。但是这个一旦启动就不会再理会别外一个语言。后续再处理吧。
 if BABEL_DEFAULT_LOCALE != 'en':
-	SECURITY_TRANSLATION_PATH='app.security.translations.' + BABEL_DEFAULT_LOCALE
+    SECURITY_TRANSLATION_PATH='app.security.translations.' + BABEL_DEFAULT_LOCALE

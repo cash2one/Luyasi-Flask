@@ -40,7 +40,7 @@ class Comment(db.Model, ModelVersion, JsonSerializer):
     floor = db.Column(db.Integer())
     # 用来记住第一楼用的
     first_comment_id = db.Column(db.Integer(), db.ForeignKey('blog_comment.id'))
-    first_comment = db.relationship('Comment', foreign_keys=[first_comment_id])
+    first_comment = db.relationship('Comment', foreign_keys=[first_comment_id], uselist=False)
 
     blog_id = db.Column(db.Integer, db.ForeignKey('blog_blog.id'))
 
@@ -49,7 +49,7 @@ class Comment(db.Model, ModelVersion, JsonSerializer):
     user = db.relationship('User', backref=db.backref('comments', uselist=True, lazy='dynamic'))
     # ref comment
     ref_comment_id = db.Column(db.Integer(), db.ForeignKey('blog_comment.id'))
-    ref_comment = db.relationship('Comment', foreign_keys=[ref_comment_id])
+    ref_comment = db.relationship('Comment', foreign_keys=[ref_comment_id], uselist=False)
 
     def __repr__(self):
         return str.format('<Comment: {}>', self.id)

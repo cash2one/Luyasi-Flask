@@ -189,7 +189,8 @@ def make_simple_captcha():
             noise(color='#5C87B2'),
             smooth()
         ])
-    validate_code = random.sample(string.uppercase + string.digits, 4)
+    #validate_code = random.sample(string.uppercase + string.digits, 4)
+    validate_code = random.sample('ABCDEFGHJKLMNPQRSTUVWXYZ' + '2345689', 4)
     image = captcha_image(validate_code)
     validate_string = ''.join(validate_code)
     return image, validate_string
