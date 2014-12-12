@@ -83,18 +83,14 @@ def create_comment(blog_id):
         ref_comment_id = int(request.json.get('comment_id', 0))
         ref_comment = api_comment.get(ref_comment_id)
         floor = 1;
-        first_com = None
+        first_comment = None
         if ref_comment:
             floor = ref_comment.floor + 1
-            first_com = ref_comment.first_comment or ref_comment
+            first_comment = ref_comment.first_comment or ref_comment
         
-        fir_com_id = None
-        if first_com:
-            fir_com_id = first_com.id
-
         com = api_comment.create(user=current_user, blog_id=blog_id, floor = floor,
-                                 first_comment_id = fir_com_id,
-                                 ref_comment_id=ref_comment_id or None, content=comment_form.content.data)
+                                 first_comment = first_comment,
+                                 ref_comment=ref_comment, content=comment_form.content.data)
         build = []
         __build_comment(com, build)
         build.reverse()
