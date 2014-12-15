@@ -8,11 +8,11 @@
 
 {% block actionbar %}
 <div class="row">
-	<div class="col-md-12">
-		<div class="btn-group pull-right" style="margin-bottom: 12px">
-			<a href="{{url_for('.list_blog', page=0, category=category)}}" type="button" class="btn btn-default">看文章</a>
-		</div>
-	</div>
+    <div class="col-md-12">
+        <div class="btn-group pull-right" style="margin-bottom: 12px">
+            <a href="{{url_for('.list_blog', page=0, category=category)}}" type="button" class="btn btn-default">看文章</a>
+        </div>
+    </div>
 </div>
 {% endblock actionbar %}
 
@@ -23,7 +23,7 @@
 
 {% block container %}
 <div class="col-md-12">
-	{{render_form(blog_form, url_for('.create_blog', category=category), 'blog_form')}}
+    {{render_form(blog_form, url_for('.create_blog', category=category), 'blog_form')}}
 </div>
 {% endblock container %}
 

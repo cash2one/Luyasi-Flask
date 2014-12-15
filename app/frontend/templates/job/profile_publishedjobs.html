@@ -7,9 +7,9 @@
     <div class="col-md-12">
 
     <ul class="nav nav-tabs" id="job_tab" role="tablist"  style="margin-bottom:15px">
-        <li class="{% if status==1 %}active{%endif%}"><a href="{{url_for('security-frontend.list_publisedjobs', status=1)}}">审核通过</a></li>
-        <li class="{% if status==0 %}active{%endif%}"><a href="{{url_for('security-frontend.list_publisedjobs', status=0)}}">审核不通过</a></li>
-        <li  class="{% if status==2 %}active{%endif%}"><a href="{{url_for('security-frontend.list_publisedjobs', status=2)}}">审核中</a></li>
+        <li class="{% if status==1 %}active{%endif%}"><a href="{{url_for('job.list_publisedjobs', status=1)}}">审核通过</a></li>
+        <li class="{% if status==0 %}active{%endif%}"><a href="{{url_for('job.list_publisedjobs', status=0)}}">审核中</a></li>
+        <li class="{% if status==2 %}active{%endif%}"><a href="{{url_for('job.list_publisedjobs', status=2)}}">审核不通过</a></li>
     </ul>
 
     <div class="tab-content">
@@ -37,7 +37,7 @@
             <!--pager-->
             <div class="row">
                 <div class="col-md-12">
-                {{render_pager(jobs,'security-frontend.list_publisedjobs', status=status) }}
+                {{render_pager(jobs,'job.list_publisedjobs', status=status) }}
                 </div>
             </div>
         </div>

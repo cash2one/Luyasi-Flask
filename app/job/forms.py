@@ -19,19 +19,18 @@ from ..framework.wtfext.fields import CaptchaField
 
 ########################################################################
 class JobForm(Form):
-	id = IntegerField(u'id', default=0, widget=HiddenInput())
-	title = TextField(lazy_gettext(u'Title'), validators=[Required()])
-	job_type = SelectField(lazy_gettext(u'Job type'), choices=[(0, lazy_gettext(u'Part time job')), (1, lazy_gettext(u'Full time job'))], coerce=int)
-	content = CKEditorField(lazy_gettext(u'Job detail'), import_js=True, validators=[CKEditorRequired(message=gettext('The comment forgot you~'))],
-	                        ckeditor_config_file_path='base/ckeditor-job-config.js')
-	captcha = CaptchaField()
+    id = IntegerField(u'id', default=0, widget=HiddenInput())
+    title = TextField(lazy_gettext(u'Title'), validators=[Required()])
+    job_type = SelectField(lazy_gettext(u'Job type'), choices=[(0, lazy_gettext(u'Part time job')), (1, lazy_gettext(u'Full time job'))], coerce=int)
+    content = CKEditorField(lazy_gettext(u'Job detail'), import_js=True, validators=[CKEditorRequired(message=gettext('The comment forgot you~'))],
+                            ckeditor_config_file_path='base/ckeditor-job-config.js')
+    captcha = CaptchaField()
 
 
 ########################################################################
 class JobReportForm(Form):
-	"""Form for reporting a job"""
+    """Form for reporting a job"""
 
-	id = IntegerField(u'id', default=0, widget=HiddenInput())
-	content = TextAreaField(lazy_gettext(u'Report content'), validators=[Required(), Length(min=30)])
-	captcha = CaptchaField()
-
+    id = IntegerField(u'id', default=0, widget=HiddenInput())
+    content = TextAreaField(lazy_gettext(u'Report content'), validators=[Required(), Length(min=30)])
+    captcha = CaptchaField()

@@ -3,24 +3,24 @@
 
 {% block rightmain %}
 <div class="col-md-6">
-	<form class="form-horizontal" method="POST" action="{{ url_for('.profile_contact') }}">
-		{% for field in form %}
-			{% if field.name == 'csrf_token' %}
-				{{field}}
-			{% else %}
-			<div class="form-group">
-				{{field.label(class="control-label col-sm-4")}}
-				<div class="col-sm-8">
-					{% if field.name in ()%}
-						{{field(class="form-control", readonly="true")}}
-					{% else %}
-						{{field(class="form-control")}}
-					{% endif %}
-				</div>
-			</div>
-			{% endif %}
-		{% endfor %}
-		<button class="btn btn-lg btn-primary btn-block">{{_('Save')}}</button>
-	</form>
+    <form class="form-horizontal" method="POST" action="{{ url_for('.profile_contact') }}">
+        {% for field in form %}
+            {% if field.name == 'csrf_token' %}
+                {{field}}
+            {% else %}
+            <div class="form-group">
+                {{field.label(class="control-label col-sm-4")}}
+                <div class="col-sm-8">
+                    {% if field.name in ()%}
+                        {{field(class="form-control", readonly="true")}}
+                    {% else %}
+                        {{field(class="form-control")}}
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+        <button class="btn btn-lg btn-primary btn-block">{{_('Save')}}</button>
+    </form>
 </div>
 {% endblock rightmain %}

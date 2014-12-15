@@ -4,11 +4,11 @@
 
 {% block actionbar %}
 <div class="row">
-	<div class="col-md-12">
-		<div class="btn-group pull-right" style="margin-bottom: 12px">
-			<a href="{{url_for('.list_carinfo')}}" type="button" class="btn btn-default">{{_('View carinfos')}}</a>
-		</div>
-	</div>
+    <div class="col-md-12">
+        <div class="btn-group pull-right" style="margin-bottom: 12px">
+            <a href="{{url_for('.list_carinfo')}}" type="button" class="btn btn-default">{{_('View carinfos')}}</a>
+        </div>
+    </div>
 </div>
 {% endblock actionbar %}
 
@@ -19,13 +19,13 @@
 
 {% block container %}
 <div class="col-md-12">
-	<div class="well">
-	{{render_form(form, url_for('.create_carinfo'), 'carinfo_form')}}
-	</div>
+    <div class="well">
+    {{render_form(form, url_for('.create_carinfo'), 'carinfo_form')}}
+    </div>
 </div>
 {% endblock container %}
 
 <!-- 本页js -->
 {% block pagescript %}
-	{%- include "macros/datetimepicker.html" -%}
+    {%- include "macros/datetimepicker.html" -%}
 {% endblock pagescript%}

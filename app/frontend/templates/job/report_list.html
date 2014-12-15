@@ -8,12 +8,12 @@
 
 {% block actionbar %}
 <div class="row">
-	<div class="col-md-12">
-		<div class="btn-group pull-right" style="margin-bottom: 12px">
-			<a href="{{url_for('.detail_job', job_id=job.id)}}" type="button" class="btn btn-default">{{_('Back')}}</a>
-			<a href="{{url_for('.list_job')}}" type="button" class="btn btn-success">{{_('Job list')}}</a>
-		</div>
-	</div>
+    <div class="col-md-12">
+        <div class="btn-group pull-right" style="margin-bottom: 12px">
+            <a href="{{url_for('.detail_job', job_id=job.id)}}" type="button" class="btn btn-default">{{_('Back')}}</a>
+            <a href="{{url_for('.list_job')}}" type="button" class="btn btn-success">{{_('Job list')}}</a>
+        </div>
+    </div>
 </div>
 {% endblock actionbar %}
 
@@ -23,15 +23,15 @@
 {% endblock breadpiece %}
 
 {% block rightmain %}
-	{% for report in reports %}
-	<div class="row">
-		<div class="col-md-12 item">
-			<dl>
-				<dt>{{report.create_at}}</dt>
-				<dl>{{report.content}}</dl>
-			</dl>
-			<hr/>
-		</div>
-	</div>
-	{% endfor %}
+    {% for report in reports %}
+    <div class="row">
+        <div class="col-md-12 item">
+            <dl>
+                <dt>{{report.create_at}}</dt>
+                <dl>{{report.content}}</dl>
+            </dl>
+            <hr/>
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}

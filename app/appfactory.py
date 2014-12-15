@@ -90,7 +90,7 @@ def _app_on_identity_loaded(sender, identity):
     if current_user.get_id() is not None:
         for right in current_user.rights:
             identity.provides.add(RightNeed(right.action, right.app, right.entity))
-    
+
         for role in current_user.roles:
             for r in role.rights:
                 identity.provides.add(RightNeed(r.action, r.app, r.entity))

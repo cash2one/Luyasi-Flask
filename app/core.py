@@ -42,7 +42,7 @@ class ModelVersion(object):
 
     #: Datetime for creation of this record.
     create_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow())
-    
+
     #: Optimistic locking    
     version = db.Column(db.Integer(), nullable=False, default=1)
     __mapper_args__ = {
@@ -240,13 +240,13 @@ class Service(object):
         """
         """
         return self.__model__.query \
-                .filter_by(**kwargs) \
-                .order_by(self.__model__.update_at.desc(), self.__model__.create_at.desc()) \
-                .paginate(page, per_page, error_out)
+               .filter_by(**kwargs) \
+               .order_by(self.__model__.update_at.desc(), self.__model__.create_at.desc()) \
+               .paginate(page, per_page, error_out)
 
     #----------------------------------------------------------------------
     def get_lastest_page(self, page, per_page=20, error_out=True):
         """"""
         return self.__model__.query \
-                .order_by(self.__model__.update_at.desc(), self.__model__.create_at.desc()) \
-                .paginate(page, per_page, error_out)
+               .order_by(self.__model__.update_at.desc(), self.__model__.create_at.desc()) \
+               .paginate(page, per_page, error_out)
