@@ -41,6 +41,15 @@ def list_blog(category=0, page=1):
     return render_template('blog/list.html', blogs = blogs, category=category)
 
 #----------------------------------------------------------------------
+@route(bp, '/profile_blogs/<int:category>/<int:page>', '/profile_blogs/<int:category>/', methods=['GET'])
+def list_profileblogs(category=0, page=1):
+    """在个人中心显示自己发的blog"""
+    if page == None or page <= 0:
+        page = 1
+    blogs = api_blog.get_latest_page_filterby(page=page, category=category, user=current_user)
+    return render_template('blog/profile_blogs.html', blogs = blogs, category=category)    
+
+#----------------------------------------------------------------------
 @bp.route('/blog/<int:category>/<int:blog_id>', methods=['GET'])
 def detail_blog(blog_id, category):
     blog = api_blog.get(blog_id)
