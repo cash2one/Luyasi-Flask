@@ -1,76 +1,149 @@
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta property="qc:admins" content="136467546634036375" />
-    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico">
+{% extends "index/base.html" %}
 
-    <title>清远大学城</title>
+{% block breadcrumb %}
+{% endblock%}
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap/css/bootstrap.min.css') }}" media="screen">
-
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/cover.css') }}" media="screen">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-    <div class="site-wrapper">
-      <div class="site-wrapper-inner">
-        <div class="cover-container">
-
-		<div class="inner cover">
-		<img src="{{url_for('static', filename='images/full-logo.png')}}" alt="0763dxc" class="">
-		</br></br>
-            <p class="lead">这里的生活，Have You，With Me</p>
-		<div class="container-fluid">
-		    <div class="row" style="border-bottom:solid red 1px">
-		    <div class="col-md-12 text-right">
-		    <a href="{{ url_for('security.login', next=request.path) }}">{{_('Login')}}</a> <!--| <a href="{{ url_for_security('register') }}">{{_('Signup')}}</a>-->
-		    </div>
-		    </div>
-		</div>
-            <p class="lead">
-              <ul class="nav nav-pills nav-justified">
-				<li role="presentation"><h2><a href="{{url_for('job.list_job')}}">我要Job</a></h2></li>
-				<li role="presentation"><h2><a href="{{url_for('carpool.list_carinfo')}}">出行Easy</a></h2></li>
-				<li role="presentation"><h2><a href="{{url_for('blog.list_blog', category=1)}}">校园News</a></h2></li>
-				<li role="presentation"><h2><a href="{{url_for('blog.list_blog', category=1)}}">点滴Life</a></h2></li>
-			  </ul>
-            </p>
-          </div>
-
-          <div class="mastfoot">
-            <div class="inner">
-				<div class="text-center">
-				 Copyright© 2014 <a href='http://www.miibeian.gov.cn/'><span>粤ICP备14019158号-2</span></a>
-				 	<!--百度统计-->
-				<script type="text/javascript">
-				var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-				document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F84f192aec0d5e251363a2be90ef26b26' type='text/javascript'%3E%3C/script%3E"));
-				</script>
-			</div>
-            </div>
-          </div>
-
+{% block navbar %}
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {% block logo %}
+            <a class="navbar-brand" href="/"><img src="{{url_for('static', filename='images/logo.png')}}" /></a>
+            <!--
+            {% block sublogo %}
+            {% endblock sublogo %}
+            -->
+            {% endblock logo %}
         </div>
 
-      </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            {% if current_user and current_user.is_authenticated() %}
+            <li><a href="{{ url_for('security-frontend.index') }}">
+                {% if current_user.avatar %}
+                <span><img width="20" height="20" src="{{current_user.avatar}}" class="img-rounded"></span>
+                {% else %}
+                <span class="glyphicon glyphicon-user"></span>
+                {% endif %}
+                    {{current_user.nickname or current_user.username or current_user.email}}
+            </a>
+            </li>
+            {% if current_user.canAdmin() %}
+            <li><a href="/admin"><span class="glyphicon glyphicon-cog"></span> {{_('Admin')}}</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('security.logout', next=request.path) }}"><span class="glyphicon glyphicon-log-out"></span> {{_('Exit')}}</a></li>
+            {% else %}
+            <li><a href="{{ url_for('security.login', next=request.path) }}"><span class="glyphicon glyphicon-log-in"></span> {{_('Login')}}</a></li>
+            {% if security.registerable %}
+            <li><a href="{{ url_for_security('register') }}">{{_('Signup')}}</a></li>
+            {% endif %}
 
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">更多<span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+            {% if security.recoverable %}
+            <li><a href="{{ url_for_security('forgot_password') }}">{{_('Forget paswword')}}</a></li>
+            {% endif %}
+            {% if security.confirmable %}
+            <li><a href="{{ url_for_security('send_confirmation') }}">{{_('Activate account')}}</a></li>
+            {% endif %}
+        </ul>
+    </li>					
+
+
+    {% endif %}
+</ul>
+</div>
+</div><!-- /.container -->
+</nav>
+{% endblock navbar %}
+
+{% block css %}
+<style type="text/css">
+body{
+    background-image:url("{{url_for('static', filename='images/index.JPG')}}")
+}
+</style>
+{% endblock %}
+
+{% block body %}
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="{{url_for('static', filename='images/logo.png')}}" /></a>
+        </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            {% if current_user and current_user.is_authenticated() %}
+            <li><a href="{{ url_for('security-frontend.index') }}">
+                {% if current_user.avatar %}
+                <span><img width="20" height="20" src="{{current_user.avatar}}" class="img-rounded"></span>
+                {% else %}
+                <span class="glyphicon glyphicon-user"></span>
+                {% endif %}
+                    {{current_user.nickname or current_user.username or current_user.email}}
+            </a>
+            </li>
+            {% if current_user.canAdmin() %}
+            <li><a href="/admin"><span class="glyphicon glyphicon-cog"></span> {{_('Admin')}}</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('security.logout', next=request.path) }}"><span class="glyphicon glyphicon-log-out"></span> {{_('Exit')}}</a></li>
+            {% else %}
+            <li><a href="{{ url_for('security.login', next=request.path) }}"><span class="glyphicon glyphicon-log-in"></span> {{_('Login')}}</a></li>
+            {% if security.registerable %}
+            <li><a href="{{ url_for_security('register') }}">{{_('Signup')}}</a></li>
+            {% endif %}
+
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">更多<span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+            {% if security.recoverable %}
+            <li><a href="{{ url_for_security('forgot_password') }}">{{_('Forget paswword')}}</a></li>
+            {% endif %}
+            {% if security.confirmable %}
+            <li><a href="{{ url_for_security('send_confirmation') }}">{{_('Activate account')}}</a></li>
+            {% endif %}
+        </ul>
+    </li>					
+
+
+    {% endif %}
+</ul>
+</div>
+</div><!-- /.container -->
+</nav>
+
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="text-center">清远大学城</h1>
+        <div class="text-center"><img src="{{url_for('static', filename='images/full-logo.png')}}" alt="0763dxc" class=""></div>
+        <p class="text-center"><h2 class="text-center">这里的生活，HAVE YOU, WITH ME</h2></p>
+        <div>
+            <ul class="nav nav-pills nav-justified">
+                <li role="presentation"><h2 class="text-center"><a href="{{url_for('job.list_job')}}">我要Job</a></h2></li>
+                <li role="presentation"><h2 class="text-center"><a href="{{url_for('carpool.list_carinfo')}}">出行Easy</a></h2></li>
+                <li role="presentation"><h2 class="text-center"><a href="{{url_for('blog.list_blog', category=1)}}">校园News</a></h2></li>
+                <li role="presentation"><h2 class="text-center"><a href="{{url_for('blog.list_blog', category=1)}}">点滴Life</a></h2></li>
+            </ul>
+        </div>
     </div>
-
-	<script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>
-	<script	src="{{ url_for('static', filename='base/3partylib/bootstrap/js/bootstrap.min.js') }}"></script>
-  
-
-  </body>
-</html>
+</div>
+{% endblock body %}
