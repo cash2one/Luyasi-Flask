@@ -72,13 +72,16 @@
     {% endautoescape %}
     <!--回复按钮-->
     <hr/>
-    {% if current_user.is_active() %}
     <div class="row">
-        <div class="col-md-2">
-            <button type="button" class="btn btn-block btn-primary comment-btn">{{_('Comment')}}</button>
+        <div class="col-md-12">
+        {% if current_user.is_active() %}
+            <button type="button" class="btn btn-primary comment-btn">{{_('Comment')}}</button>
+        {% else %}
+            登陆后才可以评论哦~
+        {% endif %}
         </div>
     </div>
-    {% endif %}
+    
     <h3>{{_('Comment list')}}</h3>
     <hr/>
     <!-- 回复列表内容 -->
@@ -229,7 +232,7 @@ $('.btn-delete').click(function(){
 
 // Delete
 $('.btn-ok').click(function(){
-    url = "{{url_for('.delete_blog', blog_id=0)}}";
+    url = "{{url_for('.delete_blog', blog_id=0, category=category)}}";
     pos = url.lastIndexOf('/');
     url_delete = url.substr(0,pos+1) + blogId;
     location.pathname = url_delete;

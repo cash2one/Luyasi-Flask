@@ -56,14 +56,14 @@ def detail_blog(blog_id, category):
     return render_template('blog/detail.html', blog=blog, category=category)
 
 #----------------------------------------------------------------------
-@route(bp, '/blog/delete/<int:blog_id>')
+@route(bp, '/blog/delete/<int:category>/<int:blog_id>')
 @right_require('blog')
-def delete_blog(blog_id):
+def delete_blog(blog_id, category):
     """Delete blog.
     :param id: blog id.
     """
     api_blog.delete(api_blog.get_or_404(blog_id))
-    return redirect(url_for('.list'))
+    return redirect(url_for('.list_blog', category=category, page=1))
 
 #----------------------------------------------------------------------
 @route(bp, '/blog/change/<int:category>/<int:blog_id>')
