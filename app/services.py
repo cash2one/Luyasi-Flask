@@ -2,7 +2,7 @@
 
 from .qingbank import ContactService, DepartmentService, NodeService
 from .security import UserService, RoleService
-from .blog	import CommentService, BlogService
+from .blog import CommentService, BlogService
 from .job import JobService, ReportService
 from .carpool import CarpoolInfoService
 from .xiaoyuan import AcademyService, ClassService, MessageService, ClassApplyService, MemberInfoService

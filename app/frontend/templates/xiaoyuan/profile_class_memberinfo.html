@@ -5,7 +5,6 @@
 我的班级
 {% endblock title%}
 
-
 {% block rightmain %}
 <div class="row">
     <div class="col-md-12">
@@ -21,5 +20,11 @@
     </div>
     {% endif %}
 </div>
+<div class="row">
+    <div class="col-md-12">
+        {% if backurl %}
+        <a class="btn btn-primary" href="{{backurl}}">返回</a>
+        {% endif %}
+    </div>
 </div>
 {% endblock rightmain %}

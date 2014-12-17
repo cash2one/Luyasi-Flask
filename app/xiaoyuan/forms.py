@@ -17,10 +17,10 @@ class MsgForm(Form):
 class ReplayForm(Form):
     content = TextAreaField (lazy_gettext(u'Content'), validators=[Required()])
     attach = FileField(lazy_gettext(u'Attach'))
-    
+
 class MemberInfoForm(Form):
-	id = IntegerField(lazy_gettext(u'id'), default=0, widget=HiddenInput())
-	name = TextField(lazy_gettext(u'Name'), validators=[Required()])
-	student_no = TextField(lazy_gettext(u'Studentno'), validators=[Required()])
-	idcard = TextField(lazy_gettext(u'IDcard'), validators=[Required(), Length(min=18, max=18)])
-	captcha = CaptchaField()    
+    id = IntegerField(lazy_gettext(u'id'), default=0, widget=HiddenInput())
+    name = TextField(lazy_gettext(u'Name'), validators=[Required()])
+    student_no = TextField(lazy_gettext(u'Studentno'), validators=[Required()])
+    idcard = TextField(lazy_gettext(u'IDcard'), validators=[Required(), Length(min=18, max=18)])
+    captcha = CaptchaField()    

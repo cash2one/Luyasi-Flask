@@ -1,11 +1,11 @@
 
 {% macro render_field(field) %}
 <div class="form-group">
-    {{field.label(class="control-label col-sm-4")}}
-    <div class="col-sm-8">
-      <!--{{ gettext(field.label)}}-->
-      {{ field(class="form-control") }}
-    </div>
+  {{field.label(class="control-label col-sm-4")}}
+  <div class="col-sm-8">
+    <!--{{ gettext(field.label)}}-->
+    {{ field(class="form-control") }}
+  </div>
 </div>
 {% endmacro %}
 
@@ -23,30 +23,30 @@
 
 {% macro render_form(form, action, form_name) %}
 <form class="form-horizontal" method="post" action="{{action}}" name="{{form_name}}">
-	{{ form.hidden_tag() }}
-	{% for field in form %}
-		{%- if field.name not in ('id', 'csrf_token')%}
-		    {#
-		    {% if field is None %}
-		    <div class="form-group">
-			  {{field.label}}
-			  {% for subfield in field %}
-				{{subfield(class="form-control", placeholder=subfield.description or subfield.label.text)}}
-			  {% endfor %}
-		    </div>
-		    {% else %}
-		    #}
-		    <div class="form-group">
-			  {{ field.label }}
-			  {{field(class="form-control", placeholder=field.description or field.label.text)}}
-			  {{- render_error(field) }}
-		    </div>
-		    {#{% endif %}#}
-		{% endif -%}
-	{% endfor %}
-	<div class="form-group">
-		<button class="btn btn-lg btn-primary btn-block" type="submit">{{_('Submit')}}</button>
-	</div>
+  {{ form.hidden_tag() }}
+  {% for field in form %}
+    {%- if field.name not in ('id', 'csrf_token')%}
+      {#
+      {% if field is None %}
+      <div class="form-group">
+        {{field.label}}
+        {% for subfield in field %}
+          {{subfield(class="form-control", placeholder=subfield.description or subfield.label.text)}}
+        {% endfor %}
+      </div>
+      {% else %}
+      #}
+      <div class="form-group">
+        {{ field.label }}
+        {{field(class="form-control", placeholder=field.description or field.label.text)}}
+        {{- render_error(field) }}
+      </div>
+      {#{% endif %}#}
+    {% endif -%}
+  {% endfor %}
+  <div class="form-group">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">{{_('Submit')}}</button>
+  </div>
 </form>
 {% endmacro %}
 

@@ -6,7 +6,7 @@
   Created: 2014/6/12
 """
 from wtforms import ValidationError
-from flask import session
+from flask import session, current_app
 from flask_babel import gettext
 
 class ValidCaptcha(object):
@@ -17,6 +17,9 @@ class ValidCaptcha(object):
         self.message = message
 
     def __call__(self, form, field):
+        #测试情况下也不检查captcha了
+        if current_app.testing:
+            return
         code = field.data
         if session.get('captcha') is None or code.upper() != session.get('captcha'):
             raise ValidationError(self.message)

@@ -50,7 +50,7 @@ def openid_authenticate(provider):
     next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) or ''
 
     return redirect(c.auth_uri(redirect_uri=str.format('{0}/openid/{1}/login?next={2}', current_app.config['KINORSI_SERVER_HOST'], provider, next_url),
-                                scope='get_user_info,add_t', scope_delim=','))
+                               scope='get_user_info,add_t', scope_delim=','))
 
 #----------------------------------------------------------------------
 @bp.route('/openid/<provider>/login')
@@ -94,7 +94,7 @@ def openid_login(provider):
         login_user(user)
 
         next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) \
-                    or current_app.extensions['security'].post_login_view or ''
+            or current_app.extensions['security'].post_login_view or ''
 
         # 如果用户没有绑定，可以让用户尝试进行首次的帐号绑定。如果不绑也可以在以后再绑
         # 2014-12-5 先去掉绑定功能。不然似乎有点复杂过头了。
@@ -129,7 +129,7 @@ def bind_user():
         _datastore.commit()
 
         next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) \
-                    or current_app.extensions['security'].post_login_view or ''
+            or current_app.extensions['security'].post_login_view or ''
 
         return redirect(next_url)
 
@@ -140,11 +140,10 @@ def bind_user():
 def do_not_remind_bind():
     """Not remind user to bind the account again."""
     next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) \
-                or current_app.extensions['security'].post_login_view or ''
+        or current_app.extensions['security'].post_login_view or ''
 
     current_user.bind_remind = False
     _datastore.put(current_user)
     _datastore.commit()
 
     return  redirect(next_url)
-

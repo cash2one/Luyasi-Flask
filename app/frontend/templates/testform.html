@@ -41,66 +41,71 @@ body { padding-bottom: 71px; }
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
+        <script src="../../assets/js/html5shiv.js"></script>
+        <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
 </head>
 <body>
 <div class="container">
 <div class="row">
-<div class="col-md-4">
-<ul class="list-group">
-  <li class="list-group-item">Cras justo odio</li>
-  <li class="list-group-item">Dapibus ac facilisis in</li>
-  <li class="list-group-item">Morbi leo risus</li>
-  <li class="list-group-item">Porta ac consectetur ac</li>
-  <li class="list-group-item">Vestibulum at eros</li>
-</ul>
-	     
+<div class="col-md-12">
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    Dropdown
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+  </ul>
+</div>
+
 </div></div></div>
 
-	<script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script	src="{{ url_for('static', filename='base/3partylib/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script	src="{{ url_for('static', filename='base/3partylib/bootstrap/js/bootstrap.min.js') }}"></script>
 
-	  <!-- 本页js -->
-	  {% block pagescript %}
+    <!-- 本页js -->
+    {% block pagescript %}
 
-	  <script src="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
-	  <script src="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
-	  <script src="{{url_for('static', filename="base/3partylib/select2/select2.min.js")}}"></script>	
-	  <script type="text/javascript">
-		$(function() {
-		    $(".form_datetime").datetimepicker({
-			  format: "dd MM yyyy - hh:ii"
-		    });
-		    
-		    $('#e1').select2();
-		    $('#e3').select2({
-		    });
-		    $('#hidden').select2({
-			  multiple: true,
-			  ajax:{
-						  url: "/security/search_user",
-						  dataType: 'json',
-						  data: function(term, page){
-							  return {
-								  term: term,
-								  page: page,
-								  per_page: 20
-							  }
-						  },
-						  results: function(data, page){
-							  var more = (page * 20) < data.total;
-							  return {
-								  results: data.results,
-								  more: more
-							  }
-						  }
-					  }
-		    });		    
-		});
-	  </script>
-	  {% endblock pagescript%}
+    <script src="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='base/3partylib/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
+    <script src="{{url_for('static', filename="base/3partylib/select2/select2.min.js")}}"></script>	
+    <script type="text/javascript">
+        $(function() {
+            $(".form_datetime").datetimepicker({
+                format: "dd MM yyyy - hh:ii"
+            });
+
+    $('#e1').select2();
+    $('#e3').select2({
+    });
+    $('#hidden').select2({
+        multiple: true,
+        ajax:{
+            url: "/security/search_user",
+            dataType: 'json',
+            data: function(term, page){
+                return {
+                    term: term,
+                    page: page,
+                    per_page: 20
+                }
+            },
+            results: function(data, page){
+                var more = (page * 20) < data.total;
+                return {
+                    results: data.results,
+                    more: more
+                }
+            }
+        }
+    });		    
+});
+</script>
+{% endblock pagescript%}
 </body>
 </html>

@@ -7,7 +7,7 @@ from flask_babelex import gettext
 from . import route
 from ..core import db
 
-from ..services import api_academy, api_class, api_msg, api_user, api_apply, api_meminfo
+from ..services import api_academy, api_class, api_msg, api_user, api_apply, api_meminfo, api_user
 from ..xiaoyuan.forms import MsgForm, ReplayForm, MemberInfoForm
 from ..xiaoyuan.models import MessageUserAssociation, Message
 
@@ -61,7 +61,7 @@ def send_msg():
     if form.validate_on_submit():
         receiver_ids = form.receivers.data
         receivers = api_user.get_all(*receiver_ids)
-        
+
         content = form.content.data
 
         # 没有id的
@@ -109,7 +109,7 @@ def list_receivers():
         # 如果当前的角色是学生，则只可以看到学生以外的角色
         teacher_role = api_role.first(name=u'辅导员')
         role_ids = [teacher_role.id]
-    
+
     users = api_user.get_user_from_classes(class_ids=[cls.id for cls in classes], role_ids=role_ids)
 
     #需要把users<pagenate对象>的相关属性提出来
@@ -126,7 +126,7 @@ def list_receivers():
 def list_myclass():
     """列出所有的班级"""
     myclasses = current_user.classes.all()
-    allclasses = api_class.all()
+    allclasses = [cls for cls in api_class.all() if cls not in myclasses]
     apply_ids = [apply.class_id for apply in current_user.join_applies]
     return render_template('profile_myclass.html', myclasses=myclasses, allclasses=allclasses, apply_ids=apply_ids)
 
@@ -142,8 +142,8 @@ def apply_joinclass(class_id):
     #action =1 表示加入
     apply = api_apply.create(action=1, class_id=class_id, user_id=current_user.get_id())
     return redirect(url_for('.list_myclass'))
-    
-    
+
+
 #----------------------------------------------------------------------
 @route(bp, '/list_apply/<int:page>', methods=['GET'])
 def list_class_apply(page=1):
@@ -151,21 +151,35 @@ def list_class_apply(page=1):
     myclses = current_user.classes.all()
     applies = api_apply.get_applies(class_ids=[cls.id for cls in myclses], page=page)
     return render_template('profile_class_apply.html', applies=applies)
-    
-    
+
+
 #----------------------------------------------------------------------
 @route(bp, '/newmemberinfo', methods=['GET', 'POST'])
 def create_classmemberinfo():
-    """"""
+    """创建自己的班级信息"""
     form = MemberInfoForm()
     if form.validate_on_submit():
-        api_meminfo.create(user=current_user, **form.data)
-        return redirect(url_for('.detail_classmemberinfo', form=form))
+        u = api_meminfo.create(user=current_user, **form.data)
+        return redirect(url_for('.detail_classmemberinfo', userid=current_user.id))
     return render_template('profile_class_memberinfo.html', form=form)
-    
+
 #----------------------------------------------------------------------
-@route(bp, '/detailmemberinfo', methods=['GET','POST'])
-def detail_classmemberinfo():
+@route(bp, '/detailmemberinfo/<int:userid>', methods=['GET','POST'])
+def detail_classmemberinfo(userid=None):
+    """显示个人的班级相关信息"""
+    user = api_user.get(userid)
+    backurl = request.args.get('backurl')#这个是用来返回上一个页面用的
+    return render_template('profile_class_memberinfo.html', meminfo=user.class_meminfo, backurl=backurl)
+
+#----------------------------------------------------------------------
+@route(bp, '/agreejoinapply/<int:applyid>', methods=['GET'])
+def agree_joinapply(applyid):
     """"""
-    return render_template('profile_class_memberinfo.html', meminfo=current_user.class_meminfo)
-    
+    apply = api_apply.get(applyid)
+    u = api_user.get(apply.user_id)
+    c = api_class.get(apply.class_id)
+    u.classes.append(c)
+    #apply.user.classes.append(apply.clazz)
+    api_apply.delete(apply)
+    db.session.commit()
+    return redirect(url_for('.list_class_apply', page=1))

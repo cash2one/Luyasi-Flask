@@ -7,25 +7,30 @@
 
 {% block rightmain %}
 <div class="row">
-	<div class="col-md-12">
-		<div class="page-header">
-			<h3>申请列表</h3>
-		</div>
-	</div>
+    <div class="col-md-12">
+        <div class="page-header">
+            <h4>申请列表<span class="label label-primay">{{applies.items|length}}</span></h4>
+        </div>
+    </div>
 </div>
 
 <div class="row">
-	<div class="col-md-12 item">
-	{% for apply in applies.items %}
-		<div class="row">
-			<div class="col-md-9">
-				<h4 class="list-group-item-heading" >
-				<a href="#">【{{apply.user}}】</a> 申请加入 【{{apply.clazz.name}}】
-				</h4>
-			</div>
-		</div>
-		<hr/>
-	{% endfor %}
-	</div>
+    <div class="col-md-12 item">
+    {% for apply in applies.items %}
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="list-group-item-heading" >
+                <a href="{{url_for('xiaoyuan.detail_classmemberinfo', userid=apply.user.id, backurl=request.path)}}">【{{apply.user}}】</a> 申请加入 【{{apply.clazz.name}}】
+                </h4>
+            </div>
+            <div class="col-md-3">
+                <a href="#" class="btn btn-danger pull-right">拒绝</a><a href="{{url_for('.agree_joinapply', applyid=apply.id)}}" class="btn btn-success pull-right">通过</a>
+            </div>
+        </div>
+        <hr/>
+    {% else %}
+        没有申请
+    {% endfor %}
+    </div>
 </div>
 {% endblock rightmain %}

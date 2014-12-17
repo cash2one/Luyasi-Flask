@@ -2,11 +2,11 @@
 
 {% block actionbar %}
 <div class="row">
-	<div class="col-md-12">
-		<div class="btn-group pull-right" style="margin-bottom: 12px">
-			<a href="{{url_for('.list_carinfo')}}" type="button" class="btn btn-default">{{_('View carinfos')}}</a>
-		</div>
-	</div>
+    <div class="col-md-12">
+        <div class="btn-group pull-right" style="margin-bottom: 12px">
+            <a href="{{url_for('.list_carinfo')}}" type="button" class="btn btn-default">{{_('View carinfos')}}</a>
+        </div>
+    </div>
 </div>
 {% endblock actionbar %}
 
@@ -16,17 +16,17 @@
 {% endblock breadpiece %}
 
 {% block rightmain %}
-	<div class="page-header">
-		<h1>{{carinfo.start}} - {{carinfo.target}}</h1>
-	</div>
-	<div>
-		<dl>
-			<dd><h3>{{_('Start point')}}{{_(': ')}}{{carinfo.start}}</h3></dd>
-			<dd><h3>{{_('Target point')}}{{_(': ')}}{{carinfo.target }}</h3></dd>
-			<dd><h3>{{_('Route')}}{{_(': ')}}{{carinfo.route }}</h3></dd>
-			<dd><h3>{{_('Send out time')}}{{_(': ')}}{{momentjs(carinfo.start_time).format('LLLL')}}</h3></dd>
-			<dd><h3>{{_('Price')}}{{_(': ')}}{{carinfo.price }}</h3></dd>
-			<dd><h3>{{_('Contact info')}}{{_(': ')}}{{carinfo.contact }}</h3></dd>
-		</dl>
-	</div>
+    <div class="page-header">
+        <h1>{{carinfo.start}} - {{carinfo.target}}</h1>
+    </div>
+    <div>
+        <dl>
+            <dd><h3>{{_('Start point')}}{{_(': ')}}{{carinfo.start}}</h3></dd>
+            <dd><h3>{{_('Target point')}}{{_(': ')}}{{carinfo.target }}</h3></dd>
+            <dd><h3>{{_('Route')}}{{_(': ')}}{{carinfo.route }}</h3></dd>
+            <dd><h3>{{_('Send out time')}}{{_(': ')}}{{momentjs(carinfo.start_time).format('LLLL')}}</h3></dd>
+            <dd><h3>{{_('Price')}}{{_(': ')}}{{carinfo.price }}</h3></dd>
+            <dd><h3>{{_('Contact info')}}{{_(': ')}}{{carinfo.contact }}</h3></dd>
+        </dl>
+    </div>
 {% endblock %}

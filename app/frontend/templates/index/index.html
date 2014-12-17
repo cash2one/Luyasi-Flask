@@ -66,14 +66,6 @@
 </nav>
 {% endblock navbar %}
 
-{% block css %}
-<style type="text/css">
-body{
-    background-image:url("{{url_for('static', filename='images/index.JPG')}}")
-}
-</style>
-{% endblock %}
-
 {% block body %}
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -141,7 +133,7 @@ body{
                 <li role="presentation"><h2 class="text-center"><a href="{{url_for('job.list_job')}}">我要Job</a></h2></li>
                 <li role="presentation"><h2 class="text-center"><a href="{{url_for('carpool.list_carinfo')}}">出行Easy</a></h2></li>
                 <li role="presentation"><h2 class="text-center"><a href="{{url_for('blog.list_blog', category=1)}}">校园News</a></h2></li>
-                <li role="presentation"><h2 class="text-center"><a href="{{url_for('blog.list_blog', category=1)}}">点滴Life</a></h2></li>
+                <li role="presentation"><h2 class="text-center"><a href="{{url_for('blog.list_blog', category=2)}}">点滴Life</a></h2></li>
             </ul>
         </div>
     </div>
