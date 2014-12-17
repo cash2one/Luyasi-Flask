@@ -1,8 +1,8 @@
 {% extends "blog/base.html" %}
 
-{% block title %}
+{% block subtitle %}
 {{blog.title}}
-{% endblock title%}
+{% endblock subtitle%}
 
 {% block actionbar %}
 <div class="row">
@@ -42,7 +42,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <textarea class="ckeditor hidden"></textarea>
+                        <textarea id="commetcontent" class="form-control" rows="3"></textarea>
                     </div>
                 </div>
                 <div class='row' style='margin-top:12px'>
@@ -266,7 +266,8 @@ $('#commentModal .captcha').children('img').click(function(){
 
 // function: 提交评论
 $('#commentModal .btn-primary').click(function(){
-    var comment = $('#commentModal .ckeditor').val();
+    //var comment = $('#commentModal .ckeditor').val();
+    var comment = $('#commentModal #commetcontent').val();
     if(comment ===''){
         alert("{{_('The comment forgot you~')}}");
     }
@@ -297,7 +298,7 @@ $('#commentModal .btn-primary').click(function(){
             var floor = buildComment(data.comment);
             $('#commentList').prepend(floor);
             // 成功了才变为空，若是失败虽然会隐藏，但不清空内容。
-            $('#commentModal .ckeditor').val('');
+            $('#commentModal #commetcontent').val('');
         }else{
             var errors = '';
             for(var field in data.message){

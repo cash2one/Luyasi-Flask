@@ -2,9 +2,15 @@
 
 {% from "macros/_pager.html" import render_pager %}
 
-{% block title %}
-Miss Lu
-{% endblock title%}
+{% block subtitle %}
+    {% if category==0 %}
+    Miss Lu
+    {% elif category==1 %}
+    校园News
+    {% elif category==2 %}
+    点滴Life
+    {% endif %}
+{% endblock subtitle%}
 
 {% block actionbar %}
 <div class="row">
