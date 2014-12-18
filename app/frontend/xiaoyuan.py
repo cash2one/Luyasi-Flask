@@ -4,11 +4,11 @@ from flask import Blueprint, redirect, render_template, request, jsonify, flash,
 from flask_security import current_user
 from flask_babelex import gettext
 
-from . import route
+from . import route, right_require
 from ..core import db
 
-from ..services import api_academy, api_class, api_msg, api_user, api_apply, api_meminfo, api_user
-from ..xiaoyuan.forms import MsgForm, ReplayForm, MemberInfoForm
+from ..services import api_academy, api_class, api_msg, api_user, api_apply, api_meminfo, api_user, api_notice
+from ..xiaoyuan.forms import MsgForm, ReplayForm, MemberInfoForm, NoticeForm
 from ..xiaoyuan.models import MessageUserAssociation, Message
 
 
@@ -183,3 +183,29 @@ def agree_joinapply(applyid):
     api_apply.delete(apply)
     db.session.commit()
     return redirect(url_for('.list_class_apply', page=1))
+
+
+#----------------------------------------------------------------------
+@route(bp, '/newnotice/<int:class_id>', methods=['GET', 'POST'])
+@right_require('xiaoyuan')
+def create_notice(class_id):
+    """"""
+    form = NoticeForm()
+    if form.validate_on_submit():
+        notice = api_notice.create(user=current_user, clazz_id=class_id, **form.data)
+        return redirect(url_for('.detail_notice', notice_id=notice.id))
+    return render_template('.profile_detail_notice.html', form=form)
+
+#----------------------------------------------------------------------
+@route(bp, '/notices/<int:class_id>/<int:page>', methods=['GET'])
+def list_notice(class_id, page=1):
+    """"""
+    notices = api_notice.get_latest_page_filterby(class_id=class_id)
+    return render_template('.profile_list_notice.html', notices=notices)
+
+#----------------------------------------------------------------------
+@route(bp, '/notices/<int:notice_id>', methods=['GET'])
+def detail_notice(notice_id):
+    #打开notice的时候，记录当前用户为其中一个reader
+    notice = api_notice.get(notice_id)
+    return render_template('.profile_detail_notice.html', notice=notice)

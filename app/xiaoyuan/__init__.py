@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 from ..core import Service, db
-from .models import Academy, Class, Message, MessageUserAssociation, ClassApply, MemberInfo
+from .models import Academy, Class, Message, MessageUserAssociation, ClassApply, MemberInfo, Notice
 
 class AcademyService(Service):
     __model__ = Academy
@@ -46,3 +46,6 @@ class ClassApplyService(Service):
         
 class MemberInfoService(Service):
     __model__ = MemberInfo
+    
+class NoticeService(Service):
+    __model__ = Notice

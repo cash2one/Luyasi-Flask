@@ -21,6 +21,11 @@ messages_users = db.Table('xiaoyuan_msges_users',
                        db.Column('messsage_id', db.Integer(), db.ForeignKey('xiaoyuan_message.id')),
                        db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id'))) 
 
+#记录阅读情况
+notices_users = db.Table('xiaoyuan_notices_users',
+                       db.Column('notice_id', db.Integer(), db.ForeignKey('xiaoyuan_notice.id')),
+                       db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id'))) 
+
 
 ########################################################################
 class Academy(db.Model, ModelVersion, JsonSerializer):
@@ -144,5 +149,24 @@ class MemberInfo(db.Model, ModelVersion, JsonSerializer):
     user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
     user = db.relationship(User, backref=db.backref('class_meminfo', uselist=False))   
         
+    
+########################################################################
+class Notice(db.Model, ModelVersion, JsonSerializer):
+    """发送的通知，需要记录被阅读的情况"""
+
+    __tablename__ = "xiaoyuan_notice"
+    id = db.Column(db.Integer(), primary_key=True)
+    content = db.Column(db.Text())
+    
+    #发出人
+    user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
+    user = db.relationship(User, backref=db.backref('sent_notices', uselist=True, lazy='dynamic'))
+    
+    #发送班级
+    class_id = db.Column(db.Integer(), db.ForeignKey('xiaoyuan_class.id'))
+    clazz = db.relationship(Class)    
+    
+    #阅读人
+    readers = db.relationship(User, secondary=notices_users, lazy='dynamic')
     
     
