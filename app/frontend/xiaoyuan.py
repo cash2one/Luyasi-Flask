@@ -194,18 +194,18 @@ def create_notice(class_id):
     if form.validate_on_submit():
         notice = api_notice.create(user=current_user, clazz_id=class_id, **form.data)
         return redirect(url_for('.detail_notice', notice_id=notice.id))
-    return render_template('.profile_detail_notice.html', form=form)
+    return render_template('profile_notice_detail.html', form=form)
 
 #----------------------------------------------------------------------
 @route(bp, '/notices/<int:class_id>/<int:page>', methods=['GET'])
 def list_notice(class_id, page=1):
     """"""
     notices = api_notice.get_latest_page_filterby(class_id=class_id)
-    return render_template('.profile_list_notice.html', notices=notices)
+    return render_template('profile_notice_list.html', notices=notices)
 
 #----------------------------------------------------------------------
 @route(bp, '/notices/<int:notice_id>', methods=['GET'])
 def detail_notice(notice_id):
     #打开notice的时候，记录当前用户为其中一个reader
     notice = api_notice.get(notice_id)
-    return render_template('.profile_detail_notice.html', notice=notice)
+    return render_template('profile_notice_detail.html', notice=notice)

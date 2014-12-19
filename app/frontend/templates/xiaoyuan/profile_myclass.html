@@ -23,7 +23,7 @@
             {% for clz in myclasses %}
             <div class="row">        
                 <div class="col-md-12">
-                    <h4>{{clz.name}}  {% if has_right('create', 'xiaoyuan', 'notice') %}<a href="#">发送通知</a>{%endif%}<a href="#">通知列表<a/></h4>
+                    <h4>{{clz.name}}{% if has_right('create','xiaoyuan','notice') %}<a href="{{url_for('.create_notice', class_id=clz.id)}}">发送通知</a>{%endif%}<a href="#">通知列表<a/></h4>
                 </div>
             </div>
             {% endfor %}
