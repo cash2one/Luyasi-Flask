@@ -70,12 +70,12 @@ else:
 # MAIL_PASSWORD = 'laogong2LAOPO'
 
 #mail.qq.com-使用helpers.SslSMTPHandler就可以了。
-MAIL_DEFAULT_SENDER = "administrator@kinorsi.com"
+MAIL_DEFAULT_SENDER = "admin@0763dxc.com"
 MAIL_SERVER = 'smtp.qq.com'
 MAIL_PORT = 465
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
-MAIL_USERNAME = 'administrator@kinorsi.com'
+MAIL_USERNAME = 'admin@0763dxc.com'
 MAIL_PASSWORD = 'chouchou2TOUTOU'
 
 #收邮件用的管理员
