@@ -156,6 +156,7 @@ class Notice(db.Model, ModelVersion, JsonSerializer):
 
     __tablename__ = "xiaoyuan_notice"
     id = db.Column(db.Integer(), primary_key=True)
+    title = db.Column(db.String(100))
     content = db.Column(db.Text())
     
     #发出人

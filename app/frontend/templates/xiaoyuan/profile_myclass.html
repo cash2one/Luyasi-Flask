@@ -1,8 +1,8 @@
 {% extends "security/profile.html" %}
 
-{% block title %}
+{% block subtitle %}
 我的班级
-{% endblock title%}
+{% endblock subtitle%}
 
 
 {% block rightmain %}
@@ -22,9 +22,10 @@
         </div>
             {% for clz in myclasses %}
             <div class="row">        
-                <div class="col-md-12">
-                    <h4>{{clz.name}}{% if has_right('create','xiaoyuan','notice') %}<a href="{{url_for('.create_notice', class_id=clz.id)}}">发送通知</a>{%endif%}<a href="#">通知列表<a/></h4>
+                <div class="col-md-8">
+                    <h3>{{clz.name}}</h3>
                 </div>
+                <div class="col-md-4 text-right">{% if has_right('create','xiaoyuan','notice') %}<a href="{{url_for('.create_notice', class_id=clz.id)}}" class="btn btn-primary btn-sm">发送通知</a>{%endif%}<a href="{{url_for('.list_notice', class_id=clz.id)}}" class="btn btn-success btn-sm">通知列表<a/></div>
             </div>
             {% endfor %}
         {% endif %}

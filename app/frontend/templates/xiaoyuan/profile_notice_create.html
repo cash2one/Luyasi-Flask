@@ -3,12 +3,12 @@
 
 {% block subtitle %}
 写通知
-{% endblock subtitle%}
+{% endblock subtitle %}
 
 {% block rightmain %}
 <div class="row">
     <div class="col-md-12">
-    {% render_form(form, url_for('.create_notice'), 'notice_form') %}
+    {{ render_form(form, url_for('.create_notice', class_id=class_id), 'notice_form') }}
     </div>
 </div>
 {% endblock rightmain %}

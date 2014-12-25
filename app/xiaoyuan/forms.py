@@ -28,5 +28,6 @@ class MemberInfoForm(Form):
     
 class NoticeForm(Form):
     id = IntegerField(u'id', default=0, widget=HiddenInput())
-    content = CKEditorField(lazy_gettext(u'通知内容'), validators=[CKEditorRequired(message=gettext(u'请填写内容'))])
+    title = TextField(lazy_gettext(u'标题'), validators=[Required()])
+    content = CKEditorField(lazy_gettext(u'通知内容'), import_js=True, validators=[CKEditorRequired(message=gettext(u'请填写内容'))])
     captcha = CaptchaField()    

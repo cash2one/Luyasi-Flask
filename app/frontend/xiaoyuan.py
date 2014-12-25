@@ -145,7 +145,7 @@ def apply_joinclass(class_id):
 
 
 #----------------------------------------------------------------------
-@route(bp, '/list_apply/<int:page>', methods=['GET'])
+@route(bp, '/list_apply/<int:page>','/list_apply', methods=['GET'])
 def list_class_apply(page=1):
     """申请列表"""
     myclses = current_user.classes.all()
@@ -179,9 +179,7 @@ def agree_joinapply(applyid):
     u = api_user.get(apply.user_id)
     c = api_class.get(apply.class_id)
     u.classes.append(c)
-    #apply.user.classes.append(apply.clazz)
     api_apply.delete(apply)
-    db.session.commit()
     return redirect(url_for('.list_class_apply', page=1))
 
 
@@ -192,20 +190,21 @@ def create_notice(class_id):
     """"""
     form = NoticeForm()
     if form.validate_on_submit():
-        notice = api_notice.create(user=current_user, clazz_id=class_id, **form.data)
-        return redirect(url_for('.detail_notice', notice_id=notice.id))
-    return render_template('profile_notice_detail.html', form=form)
+        notice = api_notice.create(user=current_user, class_id=class_id, **form.data)
+        return render_template('profile_notice_detail.html', notice=notice)
+    return render_template('profile_notice_create.html', form=form, class_id=class_id)
 
 #----------------------------------------------------------------------
-@route(bp, '/notices/<int:class_id>/<int:page>', methods=['GET'])
+@route(bp, '/notices/<int:class_id>/<int:page>','/notices/<int:class_id>', methods=['GET'])
 def list_notice(class_id, page=1):
     """"""
     notices = api_notice.get_latest_page_filterby(class_id=class_id)
-    return render_template('profile_notice_list.html', notices=notices)
+    return render_template('profile_notice_list.html', notices=notices, class_id=class_id)
 
 #----------------------------------------------------------------------
-@route(bp, '/notices/<int:notice_id>', methods=['GET'])
+@route(bp, '/notice/<int:notice_id>', methods=['GET'])
 def detail_notice(notice_id):
     #打开notice的时候，记录当前用户为其中一个reader
     notice = api_notice.get(notice_id)
+    notice.readers.append(current_user)
     return render_template('profile_notice_detail.html', notice=notice)

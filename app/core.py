@@ -15,7 +15,7 @@ from flask_security import current_user
 import datetime
 # Flask-SQLAlchemy extension instance
 # Version 1.0 Flask-SQLalchemy autoflush default value is False. Here let it be True.
-db = SQLAlchemy(session_options={'autocommit': False, 'autoflush': True})
+db = SQLAlchemy(session_options={'autocommit': True, 'autoflush': True})
 
 def before_update(mapper, connection, target):
     target.update_at = datetime.datetime.utcnow()
