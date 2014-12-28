@@ -2,7 +2,7 @@
 from sqlalchemy import or_
 
 from ..core import Service
-from .models import User, Role, App
+from .models import User, Role, App, Profile
 from ..xiaoyuan.models import Class
 from ..qingbank.models import Contact
 
@@ -32,3 +32,6 @@ class UserService(Service):
 
 class RoleService(Service):
     __model__ = Role
+    
+class ProfileService(Service):
+    __model__ = Profile

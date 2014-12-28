@@ -16,9 +16,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="btn-group pull-right" style="margin-bottom: 12px">
-            {% if has_right('create', 'blog', 'blog') %}
+            {##% if has_right('create', 'blog', 'blog') %#}
             <a href="{{url_for('.create_blog', category=category)}}" type="button" class="btn btn-success">写文章</a>
-            {% endif %}
+            {##% endif %#}
         </div>
     </div>
 </div>
@@ -26,8 +26,8 @@
 
 {% block rightmain %}
 <div class="row">
-    {% for blog in blogs.items %}
     <div class="col-md-12 item">
+    {% for blog in blogs.items %}
         <div class="row">
             <div class="col-md-10">
                 <a href="{{url_for('.detail_blog', blog_id=blog.id, category=category)}}">
@@ -38,12 +38,12 @@
             <div class="col-md-2">
                 {# 有权限才可以编辑 #}
                 <div class="edit-btns hidden">
-                    {% if blog.user == current_user and has_right('delete', 'blog', 'blog') %}
+                    {% if blog.user == current_user %}
                     <button type="button" data-del-id="{{blog.id}}" class="btn btn-danger btn-xs btn-delete">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
                     {% endif %}
-                    {% if blog.user == current_user and has_right('change', 'blog', 'blog') %}
+                    {% if blog.user == current_user %}
                     <a href="{{url_for('.change_blog', blog_id=blog.id, category=category)}}" type="button" class="btn btn-primary btn-xs">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
@@ -53,7 +53,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h5>[{{blog.user.nikename or blog.user.email or blog.user.username}}] {{_('post')}} [{{momentjs(blog.update_at or blog.create_at).format('LLLL')}}]</h5>
+                <h5>[{{blog.user.nikename or blog.user.email or blog.user.username}}] 发表于 [{{momentjs(blog.update_at or blog.create_at).format('LLLL')}}]</h5>
             </div>
         </div>
     <div class="row">
@@ -61,8 +61,8 @@
             <hr/>
         </div>
     </div>
+    {% endfor %}
 </div>
-{% endfor %}
 </div>
 <!--pager-->
 <div class="row">

@@ -2,6 +2,7 @@
 
 
 {% block rightmain %}
+<div class="row">
 <div class="col-md-6">
     <form class="form-horizontal" method="POST" action="{{ url_for('.profile_contact') }}">
         {% for field in form %}
@@ -22,5 +23,6 @@
         {% endfor %}
         <button class="btn btn-lg btn-primary btn-block">{{_('Save')}}</button>
     </form>
+</div>
 </div>
 {% endblock rightmain %}

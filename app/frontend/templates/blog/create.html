@@ -1,6 +1,6 @@
 {% extends "blog/base.html" %}
 
-{% from "macros/fieldmacros.html" import render_form %}
+{% from "macros/fieldmacros.html" import render_error, render_form %}
 
 {% block subtitle %}
 写文章
@@ -23,7 +23,41 @@
 
 {% block container %}
 <div class="col-md-12">
-    {{render_form(blog_form, url_for('.create_blog', category=category), 'blog_form')}}
+    {##{render_form(blog_form, url_for('.create_blog', category=category), 'blog_form')#}
+    <div class="well">
+    <form class="form-horizontal" method="post" action="{{action_url}}" name="blog_form">
+        {{ blog_form.hidden_tag() }}
+        <div class="form-group">
+            {{ blog_form.title.label }}
+            {{blog_form.title(class="form-control", placeholder=blog_form.title.label.text)}}
+            {{- render_error(blog_form.title) }}
+        </div>
+        <!--
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2">
+                {{blog_form.category.label }}
+                {{blog_form.category(class="form-control", placeholder=blog_form.category.label.text)}}
+                {{- render_error(blog_form.category) }}
+                </div>
+            </div>
+        </div> 
+        -->
+        <div class="form-group">
+            {{blog_form.content.label }}
+            {{blog_form.content(class="form-control", placeholder=blog_form.content.label.text)}}
+            {{- render_error(blog_form.content) }}
+        </div>   
+        <div class="form-group">
+            {{blog_form.captcha.label }}
+            {{blog_form.captcha(class="form-control", placeholder=blog_form.captcha.label.text)}}
+            {{- render_error(blog_form.captcha) }}
+        </div>         
+        <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">{{_('Submit')}}</button>
+        </div>
+    </form>    
+    </div>
 </div>
 {% endblock container %}
 

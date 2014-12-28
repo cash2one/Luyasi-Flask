@@ -18,18 +18,18 @@ bp = Blueprint('blog', __name__, template_folder='templates', static_folder='sta
 
 #--------------------------------------------------------
 @route(bp, '/new/<int:category>', methods=['GET', 'POST'])
-@right_require('blog')
+#@right_require('blog')
 def create_blog(category):
     #此处category并没有使用，只是传递一下。用在界面上
-    blog_form = BlogForm()
+    blog_form = BlogForm(category=category)
     if blog_form.validate_on_submit():
-        blog_id = blog_form.id.data
-        if blog_id == 0:
-            blog = api_blog.create(user=current_user, **blog_form.data)
-        else:
-            api_blog.update(api_blog.get(blog_id), **blog_form.data)
+        blog = api_blog.create(user=current_user, **blog_form.data)
+        flash(u'创建成功')
         return redirect(url_for('.list_blog', category=category))
-    return render_template('blog/create.html', blog_form=blog_form, category=category)
+    if request.method=='POST':
+        flash(u'创建失败，请检查', category='danger')
+    return render_template('blog/create.html', blog_form=blog_form, category=category,
+                           action_url=url_for('.create_blog', category=category))
 
 #--------------------------------------------------------
 @bp.route('/blogs/<int:category>/<int:page>', methods=['GET'])
@@ -57,7 +57,7 @@ def detail_blog(blog_id, category):
 
 #----------------------------------------------------------------------
 @route(bp, '/blog/delete/<int:category>/<int:blog_id>')
-@right_require('blog')
+#@right_require('blog')
 def delete_blog(blog_id, category):
     """Delete blog.
     :param id: blog id.
@@ -66,8 +66,8 @@ def delete_blog(blog_id, category):
     return redirect(url_for('.list_blog', category=category, page=1))
 
 #----------------------------------------------------------------------
-@route(bp, '/blog/change/<int:category>/<int:blog_id>')
-@right_require('blog')
+@route(bp, '/blog/change/<int:category>/<int:blog_id>', methods=['GET','POST'])
+#@right_require('blog')
 def change_blog(blog_id, category):
     """Edit the blog.
     :param id: blog id.
@@ -76,8 +76,16 @@ def change_blog(blog_id, category):
     if blog.user != current_user:
         flash(gettext('This is not your blog'), category='error')
         abort(403)
+
     blog_form = BlogForm(obj=blog)
-    return render_template('blog/create.html', blog_form=blog_form, category=category)
+    if blog_form.validate_on_submit():
+        flash(u'更新成功')
+        api_blog.update(blog, **blog_form.data)
+        return redirect(url_for('.detail_blog', blog_id=blog_id, category=category))
+    if request.method=='POST':
+        flash(u'更新失败，请检查', category='danger')
+    return render_template('blog/create.html', blog_form=blog_form, category=category, 
+                           action_url=url_for('.change_blog', blog_id=blog_id, category=category))
 
 #----------------------------------------------------------------------
 @route(bp, '/blog/comment/<int:blog_id>', methods=['POST'])

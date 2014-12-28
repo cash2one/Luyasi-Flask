@@ -15,7 +15,7 @@ from flask_security import current_user
 import datetime
 # Flask-SQLAlchemy extension instance
 # Version 1.0 Flask-SQLalchemy autoflush default value is False. Here let it be True.
-db = SQLAlchemy(session_options={'autocommit': True, 'autoflush': True})
+db = SQLAlchemy(session_options={'autocommit': False, 'autoflush': True})
 
 def before_update(mapper, connection, target):
     target.update_at = datetime.datetime.utcnow()
@@ -182,7 +182,12 @@ class Service(object):
         :param kwargs: filter parameters
         """
         return self.find(**kwargs).first()
-
+    
+    def exist(self, **kwargs):
+        if self.find(**kwargs).first():
+            return True
+        return False
+        
     def get_or_404(self, id):
         """Returns an instance of the service's model with the specified id or
         raises an 404 error if an instance with the specified id does not exist.

@@ -8,16 +8,12 @@
 <div class="row">
     <div class="col-md-12">
         <div class="btn-group pull-right" style="margin-bottom: 12px">
-            {% if has_right('create', 'blog', 'blog') %}
+            <a href="{{url_for('.list_blog', category=category)}}" type="button" class="btn btn-default">返回文章列表</a>
             <a href="{{url_for('.create_blog', category=category)}}" type="button" class="btn btn-success">写文章</a>
+            {% if blog.user == current_user %}
+            <a href="{{url_for('.change_blog',  category=category, blog_id=blog.id)}}" type="button" class="btn btn-primary">{{_('Edit')}}</a>
             {% endif %}
-            <a href="{{url_for('.list_blog', category=category)}}" type="button" class="btn btn-default">看文章</a>
-            {% if has_right('change', 'blog', 'blog') and blog.user == current_user %}
-            <a href="{{url_for('.change_blog',  category=category, blog_id=blog.id)}}" type="button" class="btn btn-default">{{_('Edit')}}</a>
-            {% endif %}
-            {% if has_right('delete', 'blog', 'blog') and blog.user == current_user %}
             <button type="button" class="btn btn-danger btn-delete">{{_('Delete')}}</button>
-            {% endif %}
         </div>
     </div>
 </div>
@@ -75,7 +71,7 @@
     <div class="row">
         <div class="col-md-12">
         {% if current_user.is_active() %}
-            <button type="button" class="btn btn-primary comment-btn">{{_('Comment')}}</button>
+            <button type="button" class="btn btn-primary comment-btn">评论</button>
         {% else %}
             登陆后才可以评论哦~
         {% endif %}

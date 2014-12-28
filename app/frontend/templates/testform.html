@@ -47,22 +47,15 @@ body { padding-bottom: 71px; }
 </head>
 <body>
 <div class="container">
-<div class="row">
-<div class="col-md-12">
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-    Dropdown
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-  </ul>
+<dl class="dl-horizontal">
+  <dt>dt1</dt>
+  <dd>dd1</dd>
+  <dt>dt2</dt>
+  <dd>  </dd>  
+  <dt>dt3</dt>
+  <dd>dd3</dd>    
+</dl>
 </div>
-
-</div></div></div>
 
     <script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

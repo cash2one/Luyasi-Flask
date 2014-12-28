@@ -120,13 +120,17 @@ body { padding-bottom: 71px; }
         </ul>
         <ul class="nav navbar-nav navbar-right">
             {% if current_user and current_user.is_authenticated() %}
-            <li><a href="{{ url_for('security-frontend.index') }}">
+            <li><a href="{{ url_for('security-frontend.detail_profile', user_id=current_user.id) }}">
                 {% if current_user.avatar %}
                 <span><img width="20" height="20" src="{{current_user.avatar}}" class="img-rounded"></span>
                 {% else %}
                 <span class="glyphicon glyphicon-user"></span>
                 {% endif %}
+                {% if current_user.profile %}
+                    {{current_user.profile.nickname or current_user.nickname or current_user.username or current_user.email}}
+                {%else%}
                     {{current_user.nickname or current_user.username or current_user.email}}
+                {%endif%}
             </a>
             </li>
             {% if current_user.canAdmin() %}
@@ -243,6 +247,8 @@ body { padding-bottom: 71px; }
         <div class="row">
         </div>
         {% endblock rightmainactionbar %}
+        
+        <div class="well">
         {% block rightmain %}
         <div class="row">
             <div class="col-md-8">
@@ -253,6 +259,8 @@ body { padding-bottom: 71px; }
             </div>
         </div>
         {% endblock rightmain %}
+        </div>
+        
     </div>
     {% endblock container %}
     </div>

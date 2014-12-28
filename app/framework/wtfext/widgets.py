@@ -15,9 +15,9 @@ class CaptchaWidget(object):
     def __call__(self, field, **kwargs):
         html  = "<div class='row'>\
                     <div class='col-md-3'>\
-                        <a href='#' class='captcha'></a>\
+                        <div class='captcha btn'></div>\
                     </div>\
-                    <div class='col-md-9'>\
+                    <div class='col-md-2'>\
                         <input %s/>\
                     </div>\
                 </div>"
