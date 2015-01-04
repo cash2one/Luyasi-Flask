@@ -52,7 +52,7 @@ def list_profileblogs(category=0, page=1):
 #----------------------------------------------------------------------
 @bp.route('/blog/<int:category>/<int:blog_id>', methods=['GET'])
 def detail_blog(blog_id, category):
-    blog = api_blog.get(blog_id)
+    blog = api_blog.get_or_404(blog_id)
     return render_template('blog/detail.html', blog=blog, category=category)
 
 #----------------------------------------------------------------------

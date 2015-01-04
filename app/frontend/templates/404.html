@@ -2,9 +2,9 @@
 
 {% block container %}
 <div class="row">
-    <h1 class="bg-warning text-center">{{_('The page you are looking for has been gone.')}}</h1>
+    <h1 class="bg-warning text-center">你找的内容不存在~看看其它呗~</h1>
 </div>
 <div class="row">
-    <a class="btn btn-primary btn-block" href="{{request.environ['HTTP_REFERER']}}">{{_('Back')}}</a>
+    <a class="btn btn-primary btn-block" href="/">返回主页</a>
 </div>
 {% endblock container %}

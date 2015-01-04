@@ -17,7 +17,7 @@ def allowed_files(filename):
     """Allowed file type.
     :param filename: file name.
     """
-    return '.' in filename and filename.rsplit('.', 1)[1] in current_app.config['ALLOWED_EXTENSIONS']
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
 
 @route(bp, '/upload', methods=['GET', 'POST'])
 def upload_file():

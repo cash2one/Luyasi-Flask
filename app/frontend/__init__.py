@@ -29,7 +29,7 @@ def create_app(settings_override=None):
     admin.init_app(app)
 
     # Register custom error handlers
-    if app.debug:
+    if not app.debug:
         for e in [500, 404, 403]:
             app.errorhandler(e)(handle_error)
 
