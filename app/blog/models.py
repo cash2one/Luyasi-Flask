@@ -24,6 +24,9 @@ class Blog(db.Model, ModelVersion, JsonSerializer):
 
     def __repr__(self):
         return str.format('<Blog: {}>', self.title)
+    
+    def __str__(self):
+        return  u'%s' % self.title             
 
 ####################################################
 class Comment(db.Model, ModelVersion, JsonSerializer):
@@ -54,3 +57,6 @@ class Comment(db.Model, ModelVersion, JsonSerializer):
 
     def __repr__(self):
         return str.format('<Comment: {}>', self.id)
+    
+    def __str__(self):
+        return  u'%s' % self.id

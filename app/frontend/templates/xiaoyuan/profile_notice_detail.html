@@ -28,4 +28,16 @@
     </div>
 </div>
 
+<h3>已阅同学：</h3>
+{% for reader in readers %}
+    {{reader.profile.truename}}
+
+{% endfor %}
+
+<h3>未阅同学：</h3>
+{% for notReader in notReaders %}
+    {{notReader.id}}
+
+{% endfor %}
+
 {% endblock rightmain %}

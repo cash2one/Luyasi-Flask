@@ -20,7 +20,9 @@
         {% if current_user.class_meminfo %}
         <a class="list-group-item {% if request.environ['PATH_INFO']==url_for('xiaoyuan.detail_classmemberinfo', userid=current_user.id)%}active{%endif%}" href="{{ url_for('xiaoyuan.detail_classmemberinfo', userid=current_user.id) }}">我在班级的信息</a>
         {% endif %}
+        {% if has_role("班主任") %}
         <a class="list-group-item {% if request.environ['PATH_INFO']==url_for('xiaoyuan.list_class_apply')%}active{%endif%}" href="{{ url_for('xiaoyuan.list_class_apply') }}">班级申请</a>
+        {% endif %}
     </ul>
 </div>
 {% endblock sidebar %}

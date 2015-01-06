@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 from ..core import Service, db
-from .models import Academy, Class, Message, MessageUserAssociation, ClassApply, MemberInfo, Notice
+from .models import Academy, Class, Message, MessageUserAssociation, ClassApply, Notice
 
 class AcademyService(Service):
     __model__ = Academy
@@ -44,8 +44,17 @@ class ClassApplyService(Service):
                         .paginate(page, per_page, error_out)
         return query        
         
-class MemberInfoService(Service):
-    __model__ = MemberInfo
+#class MemberInfoService(Service):
+    #__model__ = MemberInfo
     
 class NoticeService(Service):
     __model__ = Notice
+    
+    #----------------------------------------------------------------------
+    def readNoticeByUser(self, notice_id, user):
+        """"""
+        notice = self.get(notice_id);
+        if user not in notice.clazz.users:
+            notice.clazz.users.append(user)
+        db.session.commit()
+        

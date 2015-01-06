@@ -13,9 +13,9 @@ academies_users = db.Table('xiaoyuan_academies_users',
                        db.Column('academy_id', db.Integer(), db.ForeignKey('xiaoyuan_academy.id')),
                        db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id')))
 
-classes_users = db.Table('xiaoyuan_classes_users',
-                       db.Column('class_id', db.Integer(), db.ForeignKey('xiaoyuan_class.id')),
-                       db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id')))
+#classes_users = db.Table('xiaoyuan_classes_users',
+                       #db.Column('class_id', db.Integer(), db.ForeignKey('xiaoyuan_class.id')),
+                       #db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id')))
 
 messages_users = db.Table('xiaoyuan_msges_users',
                        db.Column('messsage_id', db.Integer(), db.ForeignKey('xiaoyuan_message.id')),
@@ -42,7 +42,7 @@ class Academy(db.Model, ModelVersion, JsonSerializer):
         return "<Academy: %s>" % self.name
 
     def __str__(self):
-        return self.name
+        return  u'%s' % self.name
 
 
 ########################################################################
@@ -54,7 +54,7 @@ class Class(db.Model, ModelVersion, JsonSerializer):
     name = db.Column(db.String(30), nullable=False, unique=True)
 
     # 在这个班的人
-    users = db.relationship(User, secondary=classes_users, backref=db.backref('classes', lazy='dynamic'))
+    #users = db.relationship(User, secondary=classes_users, backref=db.backref('classes', lazy='dynamic'))
 
     # 这个班所在的学院
     academy_id = db.Column(db.Integer(), db.ForeignKey('xiaoyuan_academy.id'))
@@ -65,7 +65,28 @@ class Class(db.Model, ModelVersion, JsonSerializer):
         return "<Class: %s>" % self.name
 
     def __str__(self):
-        return self.name
+        return  u'%s' % self.name
+    
+    
+########################################################################
+class ClassUserAssociation(db.Model, JsonSerializer):
+    """班级和用户的关系，加了是否为班主任的字段"""
+    __tablename__ = "xiaoyuan_class_user"
+    
+    user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'), primary_key=True)
+    class_id = db.Column(db.Integer(), db.ForeignKey('xiaoyuan_class.id'), primary_key=True)
+    #是否为班主任
+    is_charger = db.Column(db.Boolean(name='is_charger'), default=False)
+
+    clazz = db.relationship(Class, backref=db.backref('user_assocs', lazy='dynamic'))
+    user = db.relationship(User, backref=db.backref('class_assocs', lazy='dynamic'))
+
+    def __repr__(self):
+        return "<ClassUserAssociation: %s - %s>" % (self.user_id, self.class_id)
+
+    def __str__(self):
+        return  u'%s' % (str(self.user_id) + '-' + str(self.class_id))
+        
 
 class MessageUserAssociation(db.Model, JsonSerializer):
     """Middle table for message and user with extra info for reading"""
@@ -82,7 +103,8 @@ class MessageUserAssociation(db.Model, JsonSerializer):
         return "<MessageUserAssociation: %s - %s>" % (self.user_id, self.message_id)
 
     def __str__(self):
-        return self.user_id + '-' + self.message_id
+        return  u'%s' % (str(self.user_id) + '-' + str(self.message_id))
+    
 
 class Message(db.Model, ModelVersion, JsonSerializer):
 
@@ -109,7 +131,7 @@ class Message(db.Model, ModelVersion, JsonSerializer):
         return "<Message: %s>" % self.content
 
     def __str__(self):
-        return self.content
+        return  u'%s' % self.content
 
 ########################################################################
 class ClassApply(db.Model, ModelVersion, JsonSerializer):
@@ -134,20 +156,25 @@ class ClassApply(db.Model, ModelVersion, JsonSerializer):
     #0表示申请中，1表示成功，2表示失败
     status = db.Column(db.Integer(), default=0, nullable=False)
         
+    def __repr__(self):
+        return "<ClassApply: %s>" % self.id
+
+    def __str__(self):
+        return  u'%s' % self.id       
     
 ########################################################################
-class MemberInfo(db.Model, ModelVersion, JsonSerializer):
-    """作为班级成员需要提供的信息"""
+#class MemberInfo(db.Model, ModelVersion, JsonSerializer):
+    #"""作为班级成员需要提供的信息"""
 
-    __tablename__ = "xiaoyuan_memberinfo"
-    id = db.Column(db.Integer(), primary_key=True)
+    #__tablename__ = "xiaoyuan_memberinfo"
+    #id = db.Column(db.Integer(), primary_key=True)
     
-    name = db.Column(db.String(10))
-    student_no = db.Column(db.String(15))
-    idcard = db.Column(db.String(18))
+    #name = db.Column(db.String(10))
+    #student_no = db.Column(db.String(15))
+    #idcard = db.Column(db.String(18))
     
-    user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
-    user = db.relationship(User, backref=db.backref('class_meminfo', uselist=False))   
+    #user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
+    #user = db.relationship(User, backref=db.backref('class_meminfo', uselist=False))   
         
     
 ########################################################################
@@ -170,4 +197,9 @@ class Notice(db.Model, ModelVersion, JsonSerializer):
     #阅读人
     readers = db.relationship(User, secondary=notices_users, lazy='dynamic')
     
+    def __repr__(self):
+        return "<Notice: %s>" % self.id
+
+    def __str__(self):
+        return  u'%s' % self.id         
     

@@ -10,7 +10,7 @@ class UserView(app.core.AuthModelView):
     column_searchable_list = ('username',)
     #内联一个表单
     # inline_models = (Contact,)
-    column_exclude_list = ('password')
+    column_exclude_list = ('password','version')
     def __init__(self):
         super(UserView, self).__init__(User, app.core.db.session, name='Users', endpoint='users', category='Security Manage')
 

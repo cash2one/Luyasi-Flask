@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-	Jinja template helper. see `http://flask.pocoo.org/docs/templating/#context-processors`_
-	~~~~~~~~~~~
+    Jinja template helper. see `http://flask.pocoo.org/docs/templating/#context-processors`_
+    ~~~~~~~~~~~
 
     :copyright: (c) 2014 by Kinorsi -- <kinorsi@gmail.com>
     :license: BSD, see LICENSE for more details.

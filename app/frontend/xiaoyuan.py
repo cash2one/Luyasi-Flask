@@ -7,7 +7,7 @@ from flask_babelex import gettext
 from . import route, right_require
 from ..core import db
 
-from ..services import api_academy, api_class, api_msg, api_user, api_apply, api_meminfo, api_user, api_notice
+from ..services import api_academy, api_class, api_msg, api_user, api_apply, api_user, api_notice
 from ..xiaoyuan.forms import MsgForm, ReplayForm, MemberInfoForm, NoticeForm
 from ..xiaoyuan.models import MessageUserAssociation, Message
 
@@ -125,7 +125,7 @@ def list_receivers():
 @route(bp, '/list_class', methods=['GET'])
 def list_myclass():
     """列出所有的班级"""
-    myclasses = current_user.classes.all()
+    myclasses = current_user.class_assocs.all()
     allclasses = [cls for cls in api_class.all() if cls not in myclasses]
     apply_ids = [apply.class_id for apply in current_user.join_applies]
     return render_template('profile_myclass.html', myclasses=myclasses, allclasses=allclasses, apply_ids=apply_ids)
@@ -148,20 +148,20 @@ def apply_joinclass(class_id):
 @route(bp, '/list_apply/<int:page>','/list_apply', methods=['GET'])
 def list_class_apply(page=1):
     """申请列表"""
-    myclses = current_user.classes.all()
+    myclses = current_user.class_assocs.all()
     applies = api_apply.get_applies(class_ids=[cls.id for cls in myclses], page=page)
     return render_template('profile_class_apply.html', applies=applies)
 
 
 #----------------------------------------------------------------------
-@route(bp, '/newmemberinfo', methods=['GET', 'POST'])
-def create_classmemberinfo():
-    """创建自己的班级信息"""
-    form = MemberInfoForm()
-    if form.validate_on_submit():
-        u = api_meminfo.create(user=current_user, **form.data)
-        return redirect(url_for('.detail_classmemberinfo', userid=current_user.id))
-    return render_template('profile_class_memberinfo.html', form=form)
+#@route(bp, '/newmemberinfo', methods=['GET', 'POST'])
+#def create_classmemberinfo():
+    #"""创建自己的班级信息"""
+    #form = MemberInfoForm()
+    #if form.validate_on_submit():
+        #u = api_meminfo.create(user=current_user, **form.data)
+        #return redirect(url_for('.detail_classmemberinfo', userid=current_user.id))
+    #return render_template('profile_class_memberinfo.html', form=form)
 
 #----------------------------------------------------------------------
 @route(bp, '/detailmemberinfo/<int:userid>', methods=['GET','POST'])
@@ -204,7 +204,17 @@ def list_notice(class_id, page=1):
 #----------------------------------------------------------------------
 @route(bp, '/notice/<int:notice_id>', methods=['GET'])
 def detail_notice(notice_id):
-    #打开notice的时候，记录当前用户为其中一个reader
-    notice = api_notice.get(notice_id)
-    notice.readers.append(current_user)
-    return render_template('profile_notice_detail.html', notice=notice)
+    #打开notice的时候，记录当前用户已经读了此文.同时还要为老师显示哪些人没有读这个通知。
+    api_notice.readNoticeByUser(notice_id, current_user)
+    notice=api_notice.get(notice_id)
+
+    #初始化为空
+    notReaders = []
+    readers = []
+
+    #所有的学生
+    classmates = notice.clazz.users
+    #已经阅读的学生
+    readers = notice.readers
+    notReaders = [ r for r in classmates if r not in readers]
+    return render_template('profile_notice_detail.html', notice=notice, notReaders=notReaders, readers=readers)

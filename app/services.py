@@ -5,7 +5,7 @@ from .security import UserService, RoleService, ProfileService
 from .blog import CommentService, BlogService
 from .job import JobService, ReportService
 from .carpool import CarpoolInfoService
-from .xiaoyuan import AcademyService, ClassService, MessageService, ClassApplyService, MemberInfoService, NoticeService
+from .xiaoyuan import AcademyService, ClassService, MessageService, ClassApplyService, NoticeService
 
 api_contact = ContactService()
 api_department = DepartmentService()
@@ -32,5 +32,5 @@ api_academy = AcademyService()
 api_class = ClassService()
 api_msg = MessageService()
 api_apply = ClassApplyService()
-api_meminfo = MemberInfoService()
+#api_meminfo = MemberInfoService()
 api_notice = NoticeService()

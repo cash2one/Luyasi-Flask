@@ -28,6 +28,12 @@ class Job(db.Model, ModelVersion, JsonSerializer):
     user = db.relationship('User', backref=db.backref('pub_jobs', uselist=True, lazy='dynamic'))
 
     reports = db.relationship('Report', uselist=True, lazy='dynamic')
+    
+    def __repr__(self):
+        return str.format('<Job: {}>', self.title)
+    
+    def __str__(self):
+        return  u'%s' % self.title                 
 
 
 ########################################################################
@@ -40,3 +46,8 @@ class Report(db.Model, ModelVersion, JsonSerializer):
     # Only audit report can be seen
     is_audit = db.Column(db.Boolean(name='is_audit'), default=False)
 
+    def __repr__(self):
+        return str.format('<Report: {}>', self.id)
+    
+    def __str__(self):
+        return  u'%s' % self.id             

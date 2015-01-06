@@ -35,10 +35,11 @@ class Role(db.Model, ModelVersion, RoleMixin, JsonSerializer):
         return u'<Role: %s>' % self.name
     
     def __str__(self):
-        return self.name
+        return  u'%s' % self.name
     
 ########################################################################
 class User(db.Model, ModelVersion, UserMixin, JsonSerializer):
+    #关于user的名字要描述一下：user有nickname, username, email这些基本的，然后还会有其它模块的信息如个人中心的真实名字。
     __tablename__ = 'security_user'
     __json_hidden__ = ['blogs',  'contact', 'password']
 
@@ -73,12 +74,12 @@ class User(db.Model, ModelVersion, UserMixin, JsonSerializer):
     last_login_ip = db.Column(db.String(80))
     current_login_ip = db.Column(db.String(80))
     login_count = db.Column(db.Integer())
-
+    
     def __repr__(self):
         return '<User: %s>' % (self.username or self.email or self.nickname)
 
     def __str__(self):
-        return self.username or self.email or self.nickname
+        return u'%s' % (self.username or self.email or self.nickname)
 
     def canAdmin(self):
         for role in self.roles:
@@ -97,7 +98,7 @@ class App(db.Model, ModelVersion, JsonSerializer):
         return u'<App: %s>', self.name
     
     def __str__(self):
-        return self.name
+        return u'%s' % self.name
 
 ########################################################################
 class Right(db.Model, ModelVersion, JsonSerializer):
@@ -113,7 +114,7 @@ class Right(db.Model, ModelVersion, JsonSerializer):
         return u'<Right: %s>', self.description
 
     def __str__(self):
-        return self.description
+        return u'%s' % self.description
         
 
 ########################################################################
@@ -150,5 +151,5 @@ class Profile(db.Model, ModelVersion, JsonSerializer):
         return u'<Profile: %s>', self.id
 
     def __str__(self):
-        return self.id    
+        return u'%s' % self.id    
     

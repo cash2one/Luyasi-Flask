@@ -24,7 +24,7 @@ from ..framework.wtfext.widgets import DatetimeWidget
 class ProfileForm(Form):
     """"""
     id = IntegerField(u'id', default=0, widget=HiddenInput())
-    nickname = TextField(u'昵称', validators=[Required()])
+    nickname = TextField(u'昵称', validators=[Required(), Length(max=10)])
     sex = SelectField(lazy_gettext(u'性别'), choices=[(0, lazy_gettext(u'女生')),
                                                         (1, lazy_gettext(u'男生')),
                                                         (2, lazy_gettext(u'喜欢女生')),

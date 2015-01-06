@@ -30,5 +30,11 @@ class CarpoolInfo(db.Model, ModelVersion, JsonSerializer):
     user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
     user = db.relationship('User', backref=db.backref('carpool_infos', uselist=True, lazy='dynamic'))
 
+    #----------------------------------------------------------------------
+    def __repr__(self):
+        return "<CarpoolInfo: %s - %s>" % self.start, self.target
+
+    def __str__(self):
+        return u" %s - %s" % (self.start, self.target)
 
 

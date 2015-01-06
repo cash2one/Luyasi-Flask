@@ -13,6 +13,9 @@ class Department(db.Model, ModelVersion, JsonSerializer):
 
     def __repr__(self):
         return str.format('<Department {}>', self.name)
+    
+    def __str__(self):
+        return  u'%s' % self.name
 
 
 
@@ -42,6 +45,10 @@ class Contact(db.Model, ModelVersion, JsonSerializer):
     def __repr__(self):
         return str.format('<Contact {}>', self.name)
 
+    
+    def __str__(self):
+        return  u'%s' % self.name    
+
 
 class DocNode(db.Model, ModelVersion, JsonSerializer):
     """Node for document"""
@@ -57,3 +64,6 @@ class DocNode(db.Model, ModelVersion, JsonSerializer):
 
     def __repr__(self):
         return str.format('<DocNode {}>', self.name)
+    
+    def __str__(self):
+        return  u'%s' % self.name    
