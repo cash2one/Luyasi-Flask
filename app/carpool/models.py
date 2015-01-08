@@ -32,7 +32,7 @@ class CarpoolInfo(db.Model, ModelVersion, JsonSerializer):
 
     #----------------------------------------------------------------------
     def __repr__(self):
-        return "<CarpoolInfo: %s - %s>" % self.start, self.target
+        return "<CarpoolInfo: %s - %s>" % (self.start, self.target)
 
     def __str__(self):
         return u" %s - %s" % (self.start, self.target)
