@@ -53,7 +53,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h5>[{{blog.user.nikename or blog.user.email or blog.user.username}}] 发表于 [{{momentjs(blog.update_at or blog.create_at).format('LLLL')}}]</h5>
+                <h5><!--[{{blog.user.nickname or blog.user.email or blog.user.username}}]--> 发表时间： [{{momentjs(blog.update_at or blog.create_at).format_utc('LLLL')}}]</h5>
             </div>
         </div>
     <div class="row">
