@@ -10,10 +10,17 @@
 
 import app.core
 from .models import Blog, Comment
+from ..framework.ckeditor import CKEditorField
 
 class BlogView(app.core.AuthModelView):
 
     column_list=('title',)
+    form_overrides = dict(content=CKEditorField)
+    form_args = {
+        'content': {
+            'import_js': True
+        }
+    }
     def __init__(self):
         super(BlogView, self).__init__(Blog, app.core.db.session, name="Blogs", endpoint="blogs", category='Blog')
 
