@@ -4,7 +4,7 @@ import re
 from json import loads
 import urllib
 
-from flask import Blueprint, render_template, request, redirect, session, g, current_app, url_for
+from flask import abort, Blueprint, render_template, request, redirect, session, g, current_app, url_for
 from flask_security import login_user, LoginForm, current_user, url_for_security
 from flask_security.utils import get_url
 from werkzeug.local import LocalProxy
@@ -44,7 +44,9 @@ def openid_authenticate(provider):
 
     :param provider: OAuth2 provider.
     """
-    oauth_kwargs = current_app.config[str.format('OAUTH_{0}', provider.upper())]
+    oauth_kwargs = current_app.config.get(str.format('OAUTH_{0}', provider.upper()))
+    if oauth_kwargs is None:
+        abort(404);
     c = Client(**oauth_kwargs)
 
     next_url = get_url(request.args.get('next')) or get_url(request.form.get('next')) or ''
