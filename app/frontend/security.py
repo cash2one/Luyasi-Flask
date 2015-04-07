@@ -78,7 +78,7 @@ def create_profile():
 
 @route(bp, '/myprofile/change/<int:user_id>', methods=['GET', 'POST'])
 def change_profile(user_id):
-    readonly=('nickname',) #不让在macro进行自动处理
+    readonly=('nickname', 'truename', 'college', 'major', 'clazz', 'in_college_date') #不让在macro进行自动处理
     if request.method=='GET':
         user = api_user.get(user_id)
         form = ProfileForm(obj=user.profile)
@@ -87,7 +87,8 @@ def change_profile(user_id):
     if request.method=='POST':
         form = ProfileForm()
         if form.validate_on_submit():
-            del form.nickname #不让改nickname
+            for pro in readonly:
+                delattr(form, pro) #把不让改的属性移除。
             profile = api_profile.get(form.id.data)
             api_profile.update(profile, **form.data)
             flash(u'更新个人信息成功')
