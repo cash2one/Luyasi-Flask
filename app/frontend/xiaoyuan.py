@@ -7,9 +7,10 @@ from flask_babelex import gettext
 from . import route, right_require
 from ..core import db
 
-from ..services import api_academy, api_class, api_msg, api_user, api_apply, api_user, api_notice
+from ..services import api_academy, api_class, api_msg, api_user, api_apply, api_user, api_notice, api_sysmsg
 from ..xiaoyuan.forms import MsgForm, ReplayForm, MemberInfoForm, NoticeForm
-from ..xiaoyuan.models import MessageUserAssociation, Message
+from ..security.forms import SysMessageForm
+from ..xiaoyuan.models import MessageUserAssociation, Message, ClassUserAssociation
 
 
 bp = Blueprint('xiaoyuan', __name__, template_folder='templates/xiaoyuan', static_folder='static', url_prefix='/xiaoyuan')
@@ -125,7 +126,8 @@ def list_receivers():
 @route(bp, '/list_class', methods=['GET'])
 def list_myclass():
     """列出所有的班级"""
-    myclasses = current_user.class_assocs.all()
+    myclassAsscosications = current_user.class_assocs.all()
+    myclasses = [assoc.clazz for assoc in myclassAsscosications]
     allclasses = [cls for cls in api_class.all() if cls not in myclasses]
     apply_ids = [apply.class_id for apply in current_user.join_applies]
     return render_template('profile_myclass.html', myclasses=myclasses, allclasses=allclasses, apply_ids=apply_ids)
@@ -135,10 +137,11 @@ def list_myclass():
 def apply_joinclass(class_id):
     """申请加入"""
     #如果没有填写班级的个人信息。则先提示要填写。不然不能加入。
-    if current_user.class_meminfo is None:
+    if current_user.profile is None:
         flash(u'你还没有填写班级个人信息，补充后才能申请加入班级')
-        form = MemberInfoForm()
-        return render_template('profile_class_memberinfo.html', form=form)
+        #form = MemberInfoForm()
+        #return render_template('profile_class_memberinfo.html', form=form)
+        return redirect(url_for('security-frontend.create_profile'))
     #action =1 表示加入
     apply = api_apply.create(action=1, class_id=class_id, user_id=current_user.get_id())
     return redirect(url_for('.list_myclass'))
@@ -148,8 +151,9 @@ def apply_joinclass(class_id):
 @route(bp, '/list_apply/<int:page>','/list_apply', methods=['GET'])
 def list_class_apply(page=1):
     """申请列表"""
-    myclses = current_user.class_assocs.all()
-    applies = api_apply.get_applies(class_ids=[cls.id for cls in myclses], page=page)
+    assocs = current_user.class_assocs.all()
+    class_ids = [assoc.clazz.id for assoc in assocs]
+    applies = api_apply.get_applies(class_ids=class_ids, page=page)
     return render_template('profile_class_apply.html', applies=applies)
 
 
@@ -178,9 +182,35 @@ def agree_joinapply(applyid):
     apply = api_apply.get(applyid)
     u = api_user.get(apply.user_id)
     c = api_class.get(apply.class_id)
-    u.classes.append(c)
+    assoc = ClassUserAssociation(user=u, clazz=c)
+    #u.class_assocs.append(assoc)
     api_apply.delete(apply)
     return redirect(url_for('.list_class_apply', page=1))
+
+#----------------------------------------------------------------------
+@route(bp, '/rejectjoinapply', methods=['POST'])
+def reject_joinapply():
+    """拒绝请求"""
+    form = SysMessageForm()
+    form.csrf_enabled = False
+    
+    message = None
+    applyid = request.json.get('apply_id', 0)
+    apply = api_apply.get(applyid)
+    if apply is None: 
+        message = '申请无效'
+    
+    if form.validate_on_submit():
+        userid = apply.user_id
+        api_sysmsg.create(receiver_id=userid, **form.data)
+        api_apply.delete(apply)
+        return jsonify(dict(success=True))
+    
+    message = u"填写不正确"
+    return jsonify(dict(success=False, message=message))
+        
+    
+    
 
 
 #----------------------------------------------------------------------
@@ -213,8 +243,23 @@ def detail_notice(notice_id):
     readers = []
 
     #所有的学生
-    classmates = notice.clazz.users
+    assocs = notice.clazz.user_assocs
+    classmates = [assoc.user for assoc in assocs]
     #已经阅读的学生
-    readers = notice.readers
+    readers = notice.readers.all()
     notReaders = [ r for r in classmates if r not in readers]
     return render_template('profile_notice_detail.html', notice=notice, notReaders=notReaders, readers=readers)
+
+
+#-------------------------------------------------------
+# 放在页面上用的，用来检查一个用户是否为某些班级的charger
+def is_charger_processor():
+    """Jinja context processor for right test."""
+    def is_charger():
+        assocs = current_user.class_assocs.all()
+        for assoc in assocs:
+            if assoc.is_charger:
+                return True
+            
+        return False
+    return dict(is_charger=is_charger)

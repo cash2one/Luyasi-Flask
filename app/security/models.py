@@ -80,6 +80,9 @@ class User(db.Model, ModelVersion, UserMixin, JsonSerializer):
 
     def __str__(self):
         return u'%s' % (self.username or self.email or self.nickname)
+    
+    def validname(self):
+        return u'%s' % (self.nickname or self.username or self.email)
 
     def canAdmin(self):
         for role in self.roles:
@@ -153,3 +156,10 @@ class Profile(db.Model, ModelVersion, JsonSerializer):
     def __str__(self):
         return u'%s' % self.id    
     
+class SysMessage(db.Model, ModelVersion, JsonSerializer):
+    """系统通知"""
+    __tablename__ = 'security_sysmessage'
+    id = db.Column(db.Integer(), primary_key=True)
+    content = db.Column(db.String(512), nullable=False)
+    receiver_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
+    receiver = db.relationship(User, backref=db.backref('sys_messages'))

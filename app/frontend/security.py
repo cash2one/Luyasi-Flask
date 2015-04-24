@@ -6,7 +6,7 @@ from flask_babel import gettext
 
 from . import route
 from ..qingbank.forms import ContactForm
-from ..services import api_contact, api_department, api_user, api_role, api_job, api_profile
+from ..services import api_contact, api_department, api_user, api_role, api_job, api_profile, api_sysmsg
 from ..security.forms import ProfileForm
 
 bp = Blueprint('security-frontend', __name__, template_folder='templates', static_folder='static', url_prefix='/security')
@@ -78,14 +78,22 @@ def create_profile():
 
 @route(bp, '/myprofile/change/<int:user_id>', methods=['GET', 'POST'])
 def change_profile(user_id):
-    readonly=('nickname', 'truename', 'college', 'major', 'clazz', 'in_college_date') #不让在macro进行自动处理
+    readonly=['nickname', 'truename']#, 'college', 'major', 'clazz', 'in_college_date') #不让在macro进行自动处理
+    user = api_user.get(user_id)
+    
+    #已经有值的才真正的设置为readonly，否则还是可以编辑的
+    for pro in readonly:
+        val = getattr(user.profile, pro)
+        if not val and not val.strip():
+            readonly.remove(pro)    
+
     if request.method=='GET':
-        user = api_user.get(user_id)
         form = ProfileForm(obj=user.profile)
         return render_template('security/create_profile.html', form=form, readonly=readonly,
                                    action_url=url_for('.change_profile', user_id=user_id))
     if request.method=='POST':
         form = ProfileForm()
+        
         if form.validate_on_submit():
             for pro in readonly:
                 delattr(form, pro) #把不让改的属性移除。
@@ -108,3 +116,11 @@ def detail_profile(user_id):
     else:
         flash(u'你还没有填写个人信息，补充信息有惊喜哦')
         return redirect(url_for('.create_profile'))
+    
+#----------------------------------------------------------------------
+@route(bp, '/sysmessages', methods=['GET'])
+def list_sysmessages():
+    """显示系统消息"""
+    pages = api_sysmsg.get_latest_page_filterby(receiver_id=current_user.id)
+    return render_template('security/profile_sysmessages.html', msgs = pages)
+    

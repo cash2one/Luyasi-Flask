@@ -30,14 +30,13 @@
 
 <h3>已阅同学：</h3>
 {% for reader in readers %}
-    {{reader.profile.truename}}
+<button class="btn btn-success">{{reader.validname()}}</button>
 
 {% endfor %}
 
 <h3>未阅同学：</h3>
 {% for notReader in notReaders %}
-    {{notReader.id}}
-
+<button class="btn btn-warning">{{notReader.validname()}}</button>
 {% endfor %}
 
 {% endblock rightmain %}

@@ -30,7 +30,7 @@
                 {{ field.label }}
                 {%if field.flags.required%}(必填){%endif%}
                     {% if field.name in readonly%}
-                        {{field(class="form-control", disabled="true", placeholder=field.description or field.label.text)}}
+                        {{field(class="form-control", readonly="true", placeholder=field.description or field.label.text)}}
                     {%else%}
                         {{field(class="form-control", placeholder=field.description or field.label.text)}}
                     {%endif%}
@@ -52,10 +52,10 @@
 {% for field in formdata %}
     <div class="row">
     {%- if field.name not in ('id', 'csrf_token', 'captcha')%}
-        <div class="col-md-2 text-right">
+        <div class="col-md-4 text-right">
         <strong>{{ field.label.text }}：</strong>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-8">
         {%if field.choices%}
             {%for choice in field.choices%}
                 {% if choice[0] == field.data %}

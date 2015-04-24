@@ -86,12 +86,15 @@ def right_require(app):
 
 #----------------------------------------------------------------------
 def init_context_processor(app):
+    """注册页面用的方法"""
     from ..security.jinjahelpers import has_role_processor, has_right_processor, use_momentjs
     from ..momentjs import momentjs
+    from ..frontend.xiaoyuan import is_charger_processor
     # context_processor 是个decorator
     app.context_processor(has_role_processor)
     app.context_processor(has_right_processor)
     app.context_processor(use_momentjs)
+    app.context_processor(is_charger_processor)
 
 @babel.localeselector
 def get_locale():

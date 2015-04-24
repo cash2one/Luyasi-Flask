@@ -1,0 +1,37 @@
+{% extends "security/profile.html" %}
+
+{% from "macros/fieldmacros.html" import render_formdata %}
+{% from "macros/_pager.html" import render_pager %}
+
+{% block rightmain %}
+系统消息
+<div class="row">
+    <div class="col-md-12 item">
+    {% for msg in msgs.items %}
+        <div class="row">
+            <div class="col-md-10">
+                <a href="#">
+                    <h4 class="list-group-item-heading" >{{msg.content | truncate(30, True)}}</h4>
+                </a>
+            </div>
+            <div class="col-md-2">
+                {# 有权限才可以编辑 #}
+                <div class="edit-btns hidden">
+                    {% if msg.user == current_user %}
+                    <button type="button" data-del-id="{{msg.id}}" class="btn btn-danger btn-xs btn-delete">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
+<!--pager-->
+<div class="row">
+    <div class="col-md-12">
+    {{render_pager(msgs,'.profile_sysmessages') }}
+    </div>
+</div>
+{% endblock rightmain %}

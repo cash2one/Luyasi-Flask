@@ -62,7 +62,7 @@ class Class(db.Model, ModelVersion, JsonSerializer):
 
     #----------------------------------------------------------------------
     def __repr__(self):
-        return "<Class: %s>" % self.name
+        return u"<Class: %s>" % self.name
 
     def __str__(self):
         return  u'%s' % self.name

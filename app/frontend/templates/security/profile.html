@@ -8,6 +8,7 @@
 <div data-spy="affix">
     <ul class="list-group">
         <a class="list-group-item {% if request.environ['PATH_INFO']==url_for('security-frontend.detail_profile', user_id=current_user.id)%}active{%endif%}" href="{{ url_for('security-frontend.detail_profile', user_id=current_user.id) }}">个人中心</a>
+        <a class="list-group-item {% if request.environ['PATH_INFO']==url_for('security-frontend.list_sysmessages')%}active{%endif%}" href="{{ url_for('security-frontend.list_sysmessages') }}">系统消息</a>
         {% if not current_user.openid %}
         <a class="list-group-item {% if request.environ['PATH_INFO']==url_for_security('change_password')%}active{%endif%}" href="{{ url_for_security('change_password') }}">{{_('Change password')}}</a>
         {% endif %}
@@ -20,7 +21,8 @@
         {% if current_user.class_meminfo %}
         <a class="list-group-item {% if request.environ['PATH_INFO']==url_for('xiaoyuan.detail_classmemberinfo', userid=current_user.id)%}active{%endif%}" href="{{ url_for('xiaoyuan.detail_classmemberinfo', userid=current_user.id) }}">我在班级的信息</a>
         {% endif %}
-        {% if has_role("班主任") %}
+        {{current_user.class_assocs.is_charger}}
+        {% if is_charger() %}
         <a class="list-group-item {% if request.environ['PATH_INFO']==url_for('xiaoyuan.list_class_apply')%}active{%endif%}" href="{{ url_for('xiaoyuan.list_class_apply') }}">班级申请</a>
         {% endif %}
     </ul>

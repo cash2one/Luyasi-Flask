@@ -40,7 +40,7 @@ class ClassApplyService(Service):
             return None
 
         query = self.__model__.query\
-                        .filter(Class.id.in_(class_ids))\
+                        .filter(ClassApply.class_id.in_(class_ids))\
                         .paginate(page, per_page, error_out)
         return query        
         
@@ -54,7 +54,9 @@ class NoticeService(Service):
     def readNoticeByUser(self, notice_id, user):
         """"""
         notice = self.get(notice_id);
-        if user not in notice.clazz.users:
-            notice.clazz.users.append(user)
+        #accocs = notice.clazz.user_assocs;
+        #users = [assoc.user for assoc in accocs]
+        if user not in notice.readers.all():
+            notice.readers.append(user)
         db.session.commit()
         

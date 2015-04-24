@@ -9,7 +9,7 @@
 """
 
 import app.core
-from .models import Academy, Class, Message
+from .models import Academy, Class, Message, ClassUserAssociation
 
 class AcademyView(app.core.AuthModelView):
     column_list=('name',)
@@ -24,4 +24,8 @@ class ClassView(app.core.AuthModelView):
 class MessageView(app.core.AuthModelView):
     column_list=('content','sender', 'receiver')
     def __init__(self):
-        super(MessageView, self).__init__(Message, app.core.db.session, name="Messages", endpoint="messages", category='Xiaoyuan')        
+        super(MessageView, self).__init__(Message, app.core.db.session, name="Messages", endpoint="messages", category='Xiaoyuan')
+        
+class ClassUserView(app.core.AuthModelView):
+    def __init__(self):
+        super(ClassUserView, self).__init__(ClassUserAssociation, app.core.db.session, name="Chagers", endpoint="chagers", category="Xiaoyuan")

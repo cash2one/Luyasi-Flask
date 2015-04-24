@@ -2,7 +2,7 @@
 from sqlalchemy import or_
 
 from ..core import Service
-from .models import User, Role, App, Profile
+from .models import User, Role, App, Profile, SysMessage
 from ..xiaoyuan.models import Class
 from ..qingbank.models import Contact
 
@@ -35,3 +35,6 @@ class RoleService(Service):
     
 class ProfileService(Service):
     __model__ = Profile
+    
+class SysMessageService(Service):
+    __model__ = SysMessage
