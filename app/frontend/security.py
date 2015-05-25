@@ -123,4 +123,21 @@ def list_sysmessages():
     """显示系统消息"""
     pages = api_sysmsg.get_latest_page_filterby(receiver_id=current_user.id)
     return render_template('security/profile_sysmessages.html', msgs = pages)
+
+#----------------------------------------------------------------------
+@route(bp, '/sysmessages/<int:msg_id>', methods=['GET'])
+def detail_sysmessage(msg_id):
+    """显示具体消息内容"""
+    msg = api_sysmsg.get_or_404(msg_id)
+    api_sysmsg.update(msg, is_read=True)
+    return render_template('security/profile_detail_sysmessage.html', msg=msg)
+
+#----------------------------------------------------------------------
+@route(bp, '/sysmessages/<int:msg_id>', methods=['POST'])
+def delete_sysmessage(msg_id):
+    """删除"""
+    msg = api_sysmsg.get_or_404(msg_id)
+    api_sysmsg.delete(msg)
+    return redirect(url_for('.list_sysmessages'))
+    
     

@@ -77,13 +77,13 @@ body { padding-bottom: 71px; }
                     <h4 class="modal-title" id="globalAlertModalLabel">{{_('Info')}}</h4>
                 </div>
                 <div class="modal-body">
-
+                    确定？
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{_('OK')}}</button>
+            </div>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">{{_('OK')}}</button>
-    </div>
-</div>
-</div>
 </div>
 {% endblock infomodal %}
 <!-- modals -->
@@ -136,7 +136,7 @@ body { padding-bottom: 71px; }
             {% if current_user.canAdmin() %}
             <li><a href="/admin"><span class="glyphicon glyphicon-cog"></span> {{_('Admin')}}</a></li>
             {% endif %}
-            <li><a href="{{ url_for('security.logout', next=request.path) }}"><span class="glyphicon glyphicon-log-out"></span> {{_('Exit')}}</a></li>
+            <li><a href="{{ url_for('security.logout', next='/') }}"><span class="glyphicon glyphicon-log-out"></span> {{_('Exit')}}</a></li>
             {% else %}
             <li><a href="{{ url_for('security.login', next=request.path) }}"><span class="glyphicon glyphicon-log-in"></span> {{_('Login')}}</a></li>
             {% if security.registerable %}

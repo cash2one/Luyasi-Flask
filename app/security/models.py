@@ -161,5 +161,6 @@ class SysMessage(db.Model, ModelVersion, JsonSerializer):
     __tablename__ = 'security_sysmessage'
     id = db.Column(db.Integer(), primary_key=True)
     content = db.Column(db.String(512), nullable=False)
+    is_read = db.Column(db.Boolean(name="is_read"), default=False, nullable=False)
     receiver_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
     receiver = db.relationship(User, backref=db.backref('sys_messages'))

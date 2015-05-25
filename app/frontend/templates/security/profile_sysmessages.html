@@ -3,21 +3,41 @@
 {% from "macros/fieldmacros.html" import render_formdata %}
 {% from "macros/_pager.html" import render_pager %}
 
+
+{% block modal %}
+<!-- modal: delete info dialog for blog.-->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="infoModalLabel">{{_('Warning')}}</h4>
+            </div>
+            <div class="modal-body">
+                你确定删除这个消息么？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Cancle')}}</button>
+                <button type="button" class="btn btn-primary btn-ok">{{_('OK')}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock modal %}
+
 {% block rightmain %}
-系统消息
+<h4>系统消息</h4>
 <div class="row">
-    <div class="col-md-12 item">
+    <div class="col-md-12">
     {% for msg in msgs.items %}
-        <div class="row">
+        <div class="row item">
             <div class="col-md-10">
-                <a href="#">
-                    <h4 class="list-group-item-heading" >{{msg.content | truncate(30, True)}}</h4>
-                </a>
+                <h4 class="list-group-item-heading" ><a href="{{url_for('.detail_sysmessage', msg_id=msg.id)}}">{{msg.content | truncate(30, True)}}</a></h4>
             </div>
             <div class="col-md-2">
                 {# 有权限才可以编辑 #}
                 <div class="edit-btns hidden">
-                    {% if msg.user == current_user %}
+                    {% if msg.receiver == current_user %}
                     <button type="button" data-del-id="{{msg.id}}" class="btn btn-danger btn-xs btn-delete">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
@@ -35,3 +55,30 @@
     </div>
 </div>
 {% endblock rightmain %}
+
+{% block pagescript %}
+<script type="text/javascript">
+$(function(){
+    var msgId = 0;
+    $('.btn-delete').click(function(){
+        msgId = $(this).attr('data-del-id');
+        $('#infoModal').modal();
+    });
+
+    $('.btn-ok').click(function(){
+        url = "{{url_for('.delete_sysmessage', msg_id=0)}}";
+        pos = url.lastIndexOf('/');
+        url_delete = url.substr(0,pos+1) + msgId;
+        location.pathname = url_delete;
+    });
+
+    $('.item').mouseover(function(){
+        $(this).find('.edit-btns').removeClass('hidden');
+    });
+
+    $('.item').mouseout(function(){
+        $(this).find('.edit-btns').addClass('hidden');
+    });
+});
+</script>
+{% endblock pagescript%}

@@ -202,7 +202,9 @@ def reject_joinapply():
     
     if form.validate_on_submit():
         userid = apply.user_id
-        api_sysmsg.create(receiver_id=userid, **form.data)
+        classname = apply.clazz.name
+        reason = u"你的申请加入【%s】被拒绝了，理由为：【%s】" % (classname, form.content.data)
+        api_sysmsg.create(receiver_id=userid, content=reason)
         api_apply.delete(apply)
         return jsonify(dict(success=True))
     
