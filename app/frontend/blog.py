@@ -1,5 +1,6 @@
 #-*- coding:utf-8 -*-
 import re
+import json
 from functools import partial
 
 from flask import current_app, abort, flash, session
@@ -7,6 +8,8 @@ from flask import Blueprint, render_template, request, redirect, url_for, jsonif
 from flask_security import current_user
 from flask_principal import Permission, Need
 from flask_babel import gettext
+
+import requests
 
 from . import route, right_require
 from ..core import RightNeed
@@ -23,6 +26,23 @@ def create_blog(category):
     #此处category并没有使用，只是传递一下。用在界面上
     blog_form = BlogForm(category=category)
     if blog_form.validate_on_submit():
+        payload = json.dumps(blog_form.data)
+        r = requests.post('http://127.0.0.1:5000/api/blog/create', json=payload)
+        res = r.json()
+        print res[u'method']
+        flash(u'创建成功')
+        return redirect(url_for('.list_blog', category=category))
+    if request.method=='POST':
+        flash(u'创建失败，请检查', category='danger')
+    return render_template('blog/create.html', blog_form=blog_form, category=category,
+                           action_url=url_for('.create_blog', category=category))
+
+@route(bp, '/new2/<int:category>', methods=['GET', 'POST'])
+#@right_require('blog')
+def create_blog2(category):
+    #此处category并没有使用，只是传递一下。用在界面上
+    blog_form = BlogForm(category=category)
+    if blog_form.validate_on_submit():
         blog = api_blog.create(user=current_user, **blog_form.data)
         flash(u'创建成功')
         return redirect(url_for('.list_blog', category=category))
@@ -30,6 +50,8 @@ def create_blog(category):
         flash(u'创建失败，请检查', category='danger')
     return render_template('blog/create.html', blog_form=blog_form, category=category,
                            action_url=url_for('.create_blog', category=category))
+
+
 
 #--------------------------------------------------------
 @bp.route('/blogs/<int:category>/<int:page>', methods=['GET'])
@@ -47,7 +69,7 @@ def list_profileblogs(category=0, page=1):
     if page == None or page <= 0:
         page = 1
     blogs = api_blog.get_latest_page_filterby(page=page, category=category, user=current_user)
-    return render_template('blog/profile_blogs.html', blogs = blogs, category=category)    
+    return render_template('blog/profile_blogs.html', blogs = blogs, category=category)
 
 #----------------------------------------------------------------------
 @bp.route('/blog/<int:category>/<int:blog_id>', methods=['GET'])
@@ -84,7 +106,7 @@ def change_blog(blog_id, category):
         return redirect(url_for('.detail_blog', blog_id=blog_id, category=category))
     if request.method=='POST':
         flash(u'更新失败，请检查', category='danger')
-    return render_template('blog/create.html', blog_form=blog_form, category=category, 
+    return render_template('blog/create.html', blog_form=blog_form, category=category,
                            action_url=url_for('.change_blog', blog_id=blog_id, category=category))
 
 #----------------------------------------------------------------------
@@ -104,7 +126,7 @@ def create_comment(blog_id):
         if ref_comment:
             floor = ref_comment.floor + 1
             first_comment = ref_comment.first_comment or ref_comment
-        
+
         com = api_comment.create(user=current_user, blog_id=blog_id, floor = floor,
                                  first_comment = first_comment,
                                  ref_comment=ref_comment, content=comment_form.content.data)

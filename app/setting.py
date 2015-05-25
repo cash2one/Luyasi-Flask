@@ -66,7 +66,7 @@ else:
 #kinorsi.com - 可用
 # MAIL_DEFAULT_SENDER = "postmaster@kinorsi.com"
 # MAIL_SERVER = 'smtp.kinorsi.com'
-# MAIL_USERNAME = 'postmaster@kinorsi.com'	
+# MAIL_USERNAME = 'postmaster@kinorsi.com'
 # MAIL_PASSWORD = 'laogong2LAOPO'
 
 #mail.qq.com-使用helpers.SslSMTPHandler就可以了。
