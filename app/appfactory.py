@@ -6,7 +6,7 @@ from flask_principal import identity_loaded, ItemNeed
 
 from app import setting
 from app.security.models import Role, User
-from .core import db, security, babel, mail, RightNeed
+from .core import db, security, babel, mail, RightNeed, MatrixConverter
 from .helpers import register_blueprints, SslSTMPHandler
 
 
@@ -27,6 +27,9 @@ def create_app(package_name, package_path, settings_override=None, register_secu
     :param register_security_blueprint: flag to specify if the Flask-Security to register blueprint or not.
     """
     app = Flask(package_name, instance_relative_config=True)
+    # 增加matrix转换器
+    app.url_map.converters['matrix'] = MatrixConverter
+
 
     # principal
     identity_loaded.connect_via(app)(_app_on_identity_loaded)

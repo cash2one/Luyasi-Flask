@@ -30,27 +30,35 @@ def handle_error(e):
     #500的系统错误需要回滚db，不然数据库状态不对
     if e == 500:
         db.session.rollback()
-        
+
     #这个表示内容的是问题的，但是返回正常的协议。
-    return jsonres(rv=None, metacode=404, msg='Not found')
+    return jsonres(rv=None, metacode=e.code, msg=str.format("{}: {}", e.name, e.description) , code=e.code)
 
 def route(bp, *args, **kwargs):
     # kwargs.setdefault('strict_slashes', False)
 
     def decorator(f):
-        @bp.route(*args, **kwargs)
+        #@bp.route(*args, **kwargs)
         @auth_token_required
         @wraps(f)
         def wrapper(*args, **kwargs):
-            rv = f(*args, **kwargs)
-            return jsonres(rv)
-        return f
+            return f(*args, **kwargs)
+        #return bp.route(*args, **kwargs)(wrapper)
+        # 这样就可以处理多个映射的问题。
+        for arg in args:
+            wrapper = bp.route(arg, **kwargs)(wrapper)
+        return wrapper
 
     return decorator
 
 
 def jsonres(rv=None, metacode=200, msg='', code=200):
-    '''这样api可以返回一致的结构。主要是
+    '''这样api可以返回一致的结构。
+    @param rv 主要的返回内容
+    @param metacode 业务上的代码
+    @param msg 简要信息
+    @param desc 详细描述
+    @param code 这是http返回的statucode
     '''
 #    code = 200
  #   msg = ''
@@ -66,4 +74,4 @@ def paginationInfo(pagination):
     @param pagination 分页信息
     '''
     return dict(hasNext=pagination.has_next, hasPrev=pagination.has_prev, nextNum=pagination.next_num,
-                            page=pagination.page, pages=pagination.pages, perPage=pagination.per_page, total=pagination.total)    
+                            page=pagination.page, pages=pagination.pages, perPage=pagination.per_page, total=pagination.total)

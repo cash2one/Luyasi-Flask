@@ -12,6 +12,8 @@ from flask_mail import Mail
 from flask_admin.contrib.sqla import ModelView
 from flask_security import current_user
 
+from werkzeug.routing import BaseConverter, ValidationError
+
 import datetime
 # Flask-SQLAlchemy extension instance
 # Version 1.0 Flask-SQLalchemy autoflush default value is False. Here let it be True.
@@ -30,6 +32,31 @@ def before_insert(mapper, connection, target):
 event.listen(mapper, 'before_update', before_update)
 event.listen(mapper, 'before_insert', before_insert)
 
+########################################################################
+class MatrixConverter(BaseConverter):
+    """Coverter for matrix url like 'http://host:port/blog;name=1,name=2'
+    """
+    def __init__(self, url_map, **defaults):
+        super(MatrixConverter, self).__init__(url_map)
+        self.defaults = {k: str(v) for k, v in defaults.items()}
+
+    def to_python(self, value):
+        if not value.startswith(';'):
+            raise ValidationError()
+        value = value[1:]
+        parts = value.split(';')
+        result = self.defaults.copy()
+        for part in value.split(';'):
+            try:
+                key, value = part.split('=')
+            except ValueError:
+                raise ValidationError()
+            result[key.strip()] = value.strip()
+        return result
+
+    def to_url(self, value):
+        return ';' + ';'.join('{}={}'.format(*item) for item in value.items())
+
 
 class ModelVersion(object):
     """Predefine some columns.
@@ -43,11 +70,11 @@ class ModelVersion(object):
     #: Datetime for creation of this record.
     create_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow())
 
-    #: Optimistic locking    
+    #: Optimistic locking
     version = db.Column(db.Integer(), nullable=False, default=1)
     __mapper_args__ = {
         "version_id_col": version
-    }    
+    }
 
 # 修改sqlalchemy生成约束时的命名规则。其中要注意ck，这是个check，这样以后在定义db.Boolean的时候要加个name:db.Boolean(name='sth')
 convention = {
@@ -182,12 +209,12 @@ class Service(object):
         :param kwargs: filter parameters
         """
         return self.find(**kwargs).first()
-    
+
     def exist(self, **kwargs):
         if self.find(**kwargs).first():
             return True
         return False
-        
+
     def get_or_404(self, id):
         """Returns an instance of the service's model with the specified id or
         raises an 404 error if an instance with the specified id does not exist.
