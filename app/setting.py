@@ -8,7 +8,7 @@ import os
 from flask.ext.babel import gettext, lazy_gettext
 
 #Flask的debug开关。有利于看出错信息。正式启用时要关掉
-DEBUG = True
+DEBUG = False
 #我靠。。原来testing为true的时候是不用登陆的！login_required会无效。
 TESTING = False
 
@@ -66,7 +66,7 @@ else:
 #kinorsi.com - 可用
 # MAIL_DEFAULT_SENDER = "postmaster@kinorsi.com"
 # MAIL_SERVER = 'smtp.kinorsi.com'
-# MAIL_USERNAME = 'postmaster@kinorsi.com'	
+# MAIL_USERNAME = 'postmaster@kinorsi.com'
 # MAIL_PASSWORD = 'laogong2LAOPO'
 
 #mail.qq.com-使用helpers.SslSMTPHandler就可以了。
