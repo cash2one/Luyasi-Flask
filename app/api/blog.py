@@ -9,6 +9,7 @@
     :license: BSD, see LICENSE for more details.
 """
 import json
+import time
 
 from flask import Blueprint, jsonify, request
 from flask_security import current_user
@@ -36,15 +37,17 @@ def create_blog():
 
 #----------------------------------------------------------------------
 @bp.route('<matrix:blogs_matrix>', methods=['GET'])
-def list_blog(blogs_matrix=dict(), page=1):
+def list_blog(blogs_matrix=dict()):
+    page = int(request.args.get('page', 1));
     if page == None or page <= 0:
         page = 1
-    blogs = api_blog.get_latest_page_filterby(page=page, category=int(blogs_matrix.get('category', 0)))
+    blogs = api_blog.get_latest_page_filterby(page=page, per_page=10,
+                                              category=int(blogs_matrix.get('category', 0)))
     pageInfo = paginationInfo(blogs)
     blogdatas = [dict(id=blog.id,
                       title=blog.title,
-                      content=blog.content) for blog in blogs.items]
-    return jsonres(rv=dict(pageInfo=pageInfo, datas=blogdatas, userid=current_user.email))
+                      create_at=time.mktime(blog.create_at.time())*1000) for blog in blogs.items]
+    return jsonres(rv=dict(pageInfo=pageInfo, datas=blogdatas))
 
 
 #----------------------------------------------------------------------

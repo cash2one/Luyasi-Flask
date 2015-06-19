@@ -6,29 +6,34 @@ from ..core import LuyasiError, LuyasiFormError
 from ..services import api_carpool
 from flask.ext.babel import gettext
 
-bp = Blueprint('carpool', __name__, url_prefix='/carpool')
+bp = Blueprint('api_carpool', __name__, url_prefix='/carpools')
 
 #----------------------------------------------------------------------
-@bp.route('/<int:carinfo_id>', methods=['GET'])
-def detail_carinfo(carinfo_id):
+@bp.route('/carpool-<int:carpool_id>', methods=['GET'])
+def detail_carpool(carpool_id):
     """"""
-    carinfo = api_carpool.get(carinfo_id)
-    return jsonres(rv=carinfo)
+    carpool = api_carpool.get(carpool_id)
+    return jsonres(rv=dict(id=carpool.id,
+                     price=carpool.price,
+                     start=carpool.start,
+                     target=carpool.target,
+                     route=carpool.route,
+                     publish_time=carpool.create_at))
 
 #----------------------------------------------------------------------
-@bp.route('/carinfos/<int:page>', methods=['GET', 'POST'])
-@bp.route('/carinfos/', methods=['GET', 'POST'])
-def list_carinfo(page=None):
+@bp.route('', methods=['GET'])
+def list_carpool(page=None):
     """"""
+    page = int(request.args.get('page', 1));
     if page == None or page <= 0:
         page = 1
-    carinfos = api_carpool.get_lastest_page(page)
-    pageInfo = paginationInfo(carinfos)
-    carinfos = [dict(id=carinfo.id,
-                     price=carinfo.price, 
-                     start=carinfo.start,
-                     target=carinfo.target,
-                     route=carinfo.route,
-                     publish_time=carinfo.create_at)
-                for carinfo in carinfos.items]
-    return jsonres(rv=dict(carInfos=carinfos, pageInfo=pageInfo))
+    carpools = api_carpool.get_lastest_page(page)
+    pageInfo = paginationInfo(carpools)
+    carpools = [dict(id=carpool.id,
+                     price=carpool.price,
+                     start=carpool.start,
+                     target=carpool.target,
+                     route=carpool.route,
+                     publish_time=carpool.create_at)
+                for carpool in carpools.items]
+    return jsonres(rv=dict(datas=carpools, pageInfo=pageInfo))
