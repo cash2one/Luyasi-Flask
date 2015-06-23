@@ -8,7 +8,7 @@ import os
 from flask.ext.babel import gettext, lazy_gettext
 
 #Flask的debug开关。有利于看出错信息。正式启用时要关掉
-DEBUG = True
+DEBUG = False
 #我靠。。原来testing为true的时候是不用登陆的！login_required会无效。
 TESTING = False
 
