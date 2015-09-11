@@ -8,6 +8,7 @@ from flask.ext.babel import gettext
 from . import route, jsonres
 from ..core import LuyasiError, LuyasiFormError
 from ..services import api_job
+from ..helpers import mkmillseconds
 from . import paginationInfo, jsonres
 
 
@@ -26,7 +27,7 @@ def detail_job(job_id):
                            content=job.content,
                            userId=job.user_id,
                            type=job.job_type,
-                           create_at=job.create_at))
+                           create_at=mkmillseconds(job.create_at)))
 
 #----------------------------------------------------------------------
 @bp.route('', methods=['GET'])
@@ -40,5 +41,5 @@ def list_job(page=None):
     jobs = [dict(id=job.id,
                  title=job.title,
                  type=job.job_type,
-                 create_at=time.mktime(job.create_at.time())*1000) for job in jobs.items]
+                 create_at=mkmillseconds(job.create_at)) for job in jobs.items]
     return jsonres(rv=dict(datas=jobs, pageInfo=pageInfo))

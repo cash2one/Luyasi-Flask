@@ -14,7 +14,7 @@ import time
 from flask import Blueprint, jsonify, request
 from flask_security import current_user
 from . import route
-
+from ..helpers import mkmillseconds
 from ..services import api_blog, api_comment
 from . import paginationInfo, jsonres
 from ..blog.forms import BlogForm, BlogUpdateForm, CommentForm
@@ -46,7 +46,7 @@ def list_blog(blogs_matrix=dict()):
     pageInfo = paginationInfo(blogs)
     blogdatas = [dict(id=blog.id,
                       title=blog.title,
-                      create_at=time.mktime(blog.create_at.time())*1000) for blog in blogs.items]
+                      create_at=mkmillseconds(blog.create_at)) for blog in blogs.items]
     return jsonres(rv=dict(pageInfo=pageInfo, datas=blogdatas))
 
 
@@ -114,4 +114,4 @@ def change_blog(blog_id):
 @bp.route('/blog-<int:blog_id>', methods=['GET'])
 def detail_blog(blog_id):
     blog = api_blog.get_or_404(blog_id)
-    return jsonres(rv=dict(id=blog.id, title=blog.title, content=blog.content))
+    return jsonres(rv=dict(id=blog.id, title=blog.title, content=blog.content, create_at=mkmillseconds(blog.create_at)))

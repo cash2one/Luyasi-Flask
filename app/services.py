@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 
 from .qingbank import ContactService, DepartmentService, NodeService
-from .security import UserService, RoleService, ProfileService, SysMessageService
+from .security import UserService, RoleService, ProfileService, SysMessageService, AppService
 from .blog import CommentService, BlogService
 from .job import JobService, ReportService
 from .carpool import CarpoolInfoService
@@ -16,6 +16,7 @@ api_user = UserService()
 api_role = RoleService()
 api_profile = ProfileService()
 api_sysmsg = SysMessageService()
+api_app = AppService()
 
 # blog
 api_blog = BlogService()

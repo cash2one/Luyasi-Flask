@@ -32,9 +32,17 @@ class UserService(Service):
 
 class RoleService(Service):
     __model__ = Role
-    
+
 class ProfileService(Service):
     __model__ = Profile
-    
+
 class SysMessageService(Service):
     __model__ = SysMessage
+
+########################################################################
+class AppService(Service):
+    """"""
+    __model__ = App
+
+
+

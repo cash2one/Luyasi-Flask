@@ -4,6 +4,8 @@ from flask import Blueprint, request,jsonify
 from . import route, jsonres, paginationInfo
 from ..core import LuyasiError, LuyasiFormError
 from ..services import api_carpool
+from ..helpers import mkmillseconds
+
 from flask.ext.babel import gettext
 
 bp = Blueprint('api_carpool', __name__, url_prefix='/carpools')
@@ -18,6 +20,7 @@ def detail_carpool(carpool_id):
                      start=carpool.start,
                      target=carpool.target,
                      route=carpool.route,
+                     start_time=mkmillseconds(carpool.start_time),
                      publish_time=carpool.create_at))
 
 #----------------------------------------------------------------------
@@ -34,6 +37,6 @@ def list_carpool(page=None):
                      start=carpool.start,
                      target=carpool.target,
                      route=carpool.route,
-                     publish_time=carpool.create_at)
+                     publish_time=mkmillseconds(carpool.create_at))
                 for carpool in carpools.items]
     return jsonres(rv=dict(datas=carpools, pageInfo=pageInfo))

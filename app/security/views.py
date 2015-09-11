@@ -30,7 +30,7 @@ class RightView(app.core.AuthModelView):
 
 class AppView(app.core.AuthModelView):
     """Admin view for :class:`~app.security.models.App`"""
-    column_searchable_list = ('name',)
+    column_searchable_list = ('name','app_version')
 
     #----------------------------------------------------------------------
     def __init__(self):

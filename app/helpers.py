@@ -3,6 +3,7 @@ import importlib
 import pkgutil
 import logging.handlers
 import inspect
+import time, datetime
 
 from flask import Blueprint, current_app
 from flask.json import JSONEncoder as BaseJSONEncoder
@@ -229,3 +230,10 @@ class SslSTMPHandler(logging.handlers.SMTPHandler):
             raise
         except:
             self.handleError(record)
+
+
+#----------------------------------------------------------------------
+def mkmillseconds(datetime):
+    """转成毫秒值"""
+    return time.mktime(datetime.timetuple()) * 1000
+
