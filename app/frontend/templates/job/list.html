@@ -2,10 +2,6 @@
 
 {% from "macros/_pager.html" import render_pager %}
 
-{% block subtitle %}
-我要Job
-{% endblock subtitle%}
-
 {% block actionbar %}
 <div class="row">
     <div class="col-md-12">
@@ -29,7 +25,7 @@
                     <small><a class="text-danger" href="{{url_for('.list_report', job_id=job.id)}}">{{_('Caution! This job has been reported, see reports')}}</a></small>
                     {% endif %}
                     </h4>
-                    <h5>职业类型：	
+                    <h5>职业类型：
                         {% if job.job_type == 1 %}
                             {{_('Fulltime job')}}
                         {% else %}
