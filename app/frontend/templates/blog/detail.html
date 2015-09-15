@@ -12,8 +12,8 @@
             <a href="{{url_for('.create_blog', category=category)}}" type="button" class="btn btn-success">写文章</a>
             {% if blog.user == current_user %}
             <a href="{{url_for('.change_blog',  category=category, blog_id=blog.id)}}" type="button" class="btn btn-primary">{{_('Edit')}}</a>
-            {% endif %}
             <button type="button" class="btn btn-danger btn-delete">{{_('Delete')}}</button>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -77,7 +77,7 @@
         {% endif %}
         </div>
     </div>
-    
+
     <h3>{{_('Comment list')}}</h3>
     <hr/>
     <!-- 回复列表内容 -->
