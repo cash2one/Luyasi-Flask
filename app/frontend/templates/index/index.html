@@ -1,6 +1,6 @@
 {% extends "index/base.html" %}
 
-{% block title %}
+{% block subtitle %}
 欢迎您~
 {% endblock %}
 
@@ -60,7 +60,7 @@
             <li><a href="{{ url_for_security('send_confirmation') }}">{{_('Activate account')}}</a></li>
             {% endif %}
         </ul>
-    </li>					
+    </li>
 
 
     {% endif %}
@@ -118,7 +118,7 @@
             <li><a href="{{ url_for_security('send_confirmation') }}">{{_('Activate account')}}</a></li>
             {% endif %}
         </ul>
-    </li>					
+    </li>
 
 
     {% endif %}
