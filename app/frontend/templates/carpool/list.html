@@ -2,9 +2,7 @@
 
 {% from "macros/_pager.html" import render_pager %}
 
-{% block subtitle %}
-出行Easy
-{% endblock subtitle%}
+
 
 {% block actionbar %}
 <div class="row">
@@ -30,7 +28,7 @@
                         <div class="col-md-4">
                         <strong>{{_('Target point')}}{{_(': ')}}{{carinfo.target}}</strong>
                         </div>
-                    </div>	
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                         {{_('Route')}}{{_(': ')}}{{carinfo.route}}
@@ -40,7 +38,7 @@
                         <div class="col-md-12">
                         {{_('Price')}}{{_(': ')}}{{carinfo.price}}
                         </div>
-                    </div>	
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                         {{_('Send out time')}}{{_(': ')}}{{momentjs(carinfo.start_time).format('LLLL')}}
@@ -49,15 +47,15 @@
                     </a>
                 </a>
             </div>
-        </div>	
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <hr/>
             </div>
-        </div>					
+        </div>
     </div>
     {% endfor %}
-</div>	
+</div>
 <!--pager-->
 <div class="row">
     <div class="col-md-12">
