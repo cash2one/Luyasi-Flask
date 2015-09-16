@@ -35,7 +35,7 @@ def change_carinfo(carinfo_id):
 #----------------------------------------------------------------------
 @bp.route('/detail/<int:carinfo_id>', methods=['GET'])
 def detail_carinfo(carinfo_id):
-    carinfo = api_carpool.get(carinfo_id)
+    carinfo = api_carpool.get_or_404(carinfo_id)
     return render_template('carpool/detail.html', carinfo=carinfo)
 
 
