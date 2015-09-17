@@ -1,5 +1,5 @@
 #-*- coding:utf-8 -*-
-from ..core import db, ModelVersion
+from ..core import db, ModelVersion, UUID
 from ..helpers import JsonSerializer
 from ..security.models import User
 
@@ -60,3 +60,13 @@ class Comment(db.Model, ModelVersion, JsonSerializer):
     
     def __str__(self):
         return  u'%s' % self.id
+
+class Category(db.Model, ModelVersion, JsonSerializer):
+    __tablename__ = 'blog_category'
+
+    id = db.Column(UUID, primary_key=True)
+    name = db.Column(db.String(50))
+    order = db.Column(db.Integer(), default=0)
+    # is_leaf = db.Column(db.Boolean(name='is_leaf'), default=False)
+    parent_id = db.Column(db.Integer(), db.ForeignKey('qingbank_doc.id'))
+    parent = db.relationship('Category', remote_side=[id], backref='children')

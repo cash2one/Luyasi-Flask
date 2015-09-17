@@ -1,11 +1,14 @@
 #-*- coding:utf-8 -*-
 # from flask_mail import Mail
 from collections import namedtuple
+import uuid
 
 from flask_admin import Admin
 from flask_security import Security
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import or_, event, asc, desc
+from sqlalchemy import or_, event, asc, desc, func
+from sqlalchemy.types import CHAR, TypeDecorator
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import mapper
 from flask_babelex import Babel
 from flask_mail import Mail
@@ -56,6 +59,36 @@ class MatrixConverter(BaseConverter):
 
     def to_url(self, value):
         return ';' + ';'.join('{}={}'.format(*item) for item in value.items())
+
+
+class UUID(TypeDecorator):
+    """与平台无关的GUID类型。
+    """
+    impl = CHAR
+
+    def load_dialect_impl(self, dialect):
+        if dialect.name == 'postgresql':
+            return dialect.type_descriptor(UUID())
+        else:
+            return dialect.type_descriptor(CHAR(32))
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return value
+        elif dialect.name == 'postgresql':
+            return str(value)
+        else:
+            if not isinstance(value, uuid.UUID):
+                return "%.32x" % uuid.UUID(value)
+            else:
+                return "%.32x" % value
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return value
+        else:
+            return uuid.UUID(value)
+
 
 
 class ModelVersion(object):
@@ -282,3 +315,7 @@ class Service(object):
         return self.__model__.query \
                .order_by(self.__model__.update_at.desc(), self.__model__.create_at.desc()) \
                .paginate(page, per_page, error_out)
+
+    #-------------------------------------------
+    def get_count(self, **kwargs):
+        return self.__model__.query.filter_by(**kwargs).count()

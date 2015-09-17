@@ -13,7 +13,9 @@ bp = Blueprint('security-frontend', __name__, template_folder='templates', stati
 
 @route(bp, '/profile/', methods=['GET'])
 def index():
-    """Rerturn personal profile page."""
+    #取未读消息
+    # count = api_sysmsg.get_count(is_read=False)
+    # print count
     return render_template('security/profile.html')
 
 

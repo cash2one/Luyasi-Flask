@@ -20,7 +20,7 @@ def login():
     print 'csrf_token:', csrf_token
 
     data = {'csrf_token':csrf_token,'email':'172440249@qq.com', 'password':'luyasi'}
-    jdata = json.dumps(data);
+    jdata = json.dumps(data)
     loginRes = requests.post(loginurl, json=data, cookies=cookies)
 
     print loginRes.text
