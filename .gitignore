@@ -214,9 +214,9 @@ pip-log.txt
 .mr.developer.cfg
 
 ############
-# diea
+# idea
 ############
-.diea
+.idea
 
 #############
 ## Python-Flask
