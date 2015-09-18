@@ -9,23 +9,41 @@
 """
 
 import app.core
-from .models import Blog, Comment
+from .models import Blog, Comment, Category
 from ..framework.ckeditor import CKEditorField
 
-class BlogView(app.core.AuthModelView):
 
-    column_list=('title',)
+class BlogView(app.core.AuthModelView):
+    column_list = ('title',)
     form_overrides = dict(content=CKEditorField)
     form_args = {
         'content': {
             'import_js': True
         }
     }
+
     def __init__(self):
-        super(BlogView, self).__init__(Blog, app.core.db.session, name="Blogs", endpoint="blogs", category='Blog')
+        super(BlogView, self).__init__(Blog, app.core.db.session,
+                                       name="Blogs",
+                                       endpoint="blogs",
+                                       category='Blog')
+
 
 class CommentView(app.core.AuthModelView):
+    column_list = ('content',)
 
-    column_list=('content',)
     def __init__(self):
-        super(CommentView, self).__init__(Comment, app.core.db.session, name="Comments", endpoint="comments", category='Blog')
+        super(CommentView, self).__init__(Comment, app.core.db.session,
+                                          name="Comments",
+                                          endpoint="comments",
+                                          category='Blog')
+
+
+class CategoryView(app.core.AuthModelView):
+    column_list = ('name',)
+
+    def __init__(self):
+        super(CategoryView, self).__init__(Category, app.core.db.session,
+                                           name="Categories",
+                                           endpoint="Categories",
+                                           category='Blog')

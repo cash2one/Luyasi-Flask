@@ -2,6 +2,7 @@
 # from flask_mail import Mail
 from collections import namedtuple
 import uuid
+import base64
 
 from flask_admin import Admin
 from flask_security import Security
@@ -61,7 +62,7 @@ class MatrixConverter(BaseConverter):
         return ';' + ';'.join('{}={}'.format(*item) for item in value.items())
 
 
-class UUID(TypeDecorator):
+class GUID(TypeDecorator):
     """与平台无关的GUID类型。
     """
     impl = CHAR
@@ -88,6 +89,16 @@ class UUID(TypeDecorator):
             return value
         else:
             return uuid.UUID(value)
+
+    def uuid2slug(self, uuid):
+        """把uuid变短成22个字符
+        """
+        return base64.urlsafe_b64encode(uuid.UUID(uuid).bytes).decode("utf-8").rstrip('=\n').replace('/', '_')
+
+    def slug2uuid(self, slug):
+        """还原22个字符为uuid
+        """
+        return uuid.UUID(bytes=base64.urlsafe_b64decode((slug + '==').replace('_', '/')))
 
 
 

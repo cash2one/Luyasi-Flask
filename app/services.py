@@ -2,7 +2,7 @@
 
 from .qingbank import ContactService, DepartmentService, NodeService
 from .security import UserService, RoleService, ProfileService, SysMessageService, AppService
-from .blog import CommentService, BlogService
+from .blog import CommentService, BlogService, CategoryService
 from .job import JobService, ReportService
 from .carpool import CarpoolInfoService
 from .xiaoyuan import AcademyService, ClassService, MessageService, ClassApplyService, NoticeService
@@ -21,6 +21,7 @@ api_app = AppService()
 # blog
 api_blog = BlogService()
 api_comment = CommentService()
+api_category = CategoryService()
 
 #job
 api_job = JobService()
