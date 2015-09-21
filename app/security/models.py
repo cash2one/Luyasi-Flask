@@ -1,32 +1,32 @@
 #-*- coding:utf-8 -*-
+import uuid
 from flask.ext.security import RoleMixin, UserMixin
-from flask.ext.babel import gettext
-
 from ..helpers import JsonSerializer
-from ..core import db, ModelVersion
+from ..core import db, ModelVersion, GUID
+
 
 # 用在Flask-Security里的
 users_roles = db.Table('security_users_roles',
-                       db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id')),
-                       db.Column('role_id', db.Integer(), db.ForeignKey('security_role.id')))
+                       db.Column('user_id', GUID(), db.ForeignKey('security_user.id')),
+                       db.Column('role_id', GUID(), db.ForeignKey('security_role.id')))
 # 用来记录应用和用户的关系
 users_apps = db.Table('security_users_apps',
-                       db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id')),
-                       db.Column('app_id', db.Integer(), db.ForeignKey('security_app.id')))
+                       db.Column('user_id', GUID(), db.ForeignKey('security_user.id')),
+                       db.Column('app_id', GUID(), db.ForeignKey('security_app.id')))
 
 users_rights = db.Table('security_users_rights',
-                       db.Column('user_id', db.Integer(), db.ForeignKey('security_user.id')),
-                       db.Column('right_id', db.Integer(), db.ForeignKey('security_right.id')))
+                       db.Column('user_id', GUID(), db.ForeignKey('security_user.id')),
+                       db.Column('right_id', GUID(), db.ForeignKey('security_right.id')))
 
 roles_rights = db.Table('security_roles_rights',
-                       db.Column('role_id', db.Integer(), db.ForeignKey('security_role.id')),
-                       db.Column('right_id', db.Integer(), db.ForeignKey('security_right.id')))
+                       db.Column('role_id', GUID(), db.ForeignKey('security_role.id')),
+                       db.Column('right_id', GUID(), db.ForeignKey('security_right.id')))
 
 ########################################################################
 class Role(db.Model, ModelVersion, RoleMixin, JsonSerializer):
     __tablename__ = 'security_role'
 
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(GUID(), primary_key=True,default=uuid.uuid4)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
     rights = db.relationship('Right', secondary=roles_rights, lazy='dynamic')
@@ -43,7 +43,7 @@ class User(db.Model, ModelVersion, UserMixin, JsonSerializer):
     __tablename__ = 'security_user'
     __json_hidden__ = ['blogs',  'contact', 'password']
 
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(GUID(), primary_key=True,default=uuid.uuid4)
     email = db.Column(db.String(255), unique=True)
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(255))
@@ -94,7 +94,7 @@ class User(db.Model, ModelVersion, UserMixin, JsonSerializer):
 class App(db.Model, ModelVersion, JsonSerializer):
     __tablename__ = 'security_app'
 
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(GUID(), primary_key=True,default=uuid.uuid4)
     name = db.Column(db.String(80), unique=True)
     app_version = db.Column(db.String(32))
     app_vercode = db.Column(db.Integer())
@@ -110,7 +110,7 @@ class App(db.Model, ModelVersion, JsonSerializer):
 class Right(db.Model, ModelVersion, JsonSerializer):
     __tablename__ = 'security_right'
 
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(GUID(), primary_key=True,default=uuid.uuid4)
     action = db.Column(db.String(50))
     app = db.Column(db.String(50))
     entity = db.Column(db.String(50))
@@ -127,7 +127,7 @@ class Right(db.Model, ModelVersion, JsonSerializer):
 class Profile(db.Model, ModelVersion, JsonSerializer):
     """"""
     __tablename__ = 'security_profile'
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(GUID(), primary_key=True,default=uuid.uuid4)
     #nickname，需要唯一的昵称
     nickname = db.Column(db.String(10), nullable=False, unique=True)
     # 1-male, 0-female, 2-喜欢女生，3-喜欢男生，100-other
@@ -150,7 +150,7 @@ class Profile(db.Model, ModelVersion, JsonSerializer):
     #家乡
     hometown = db.Column(db.String(100))
 
-    user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
+    user_id = db.Column(GUID(), db.ForeignKey('security_user.id'))
     user = db.relationship(User, backref=db.backref('profile', uselist=False))
 
     def __repr__(self):
@@ -162,8 +162,8 @@ class Profile(db.Model, ModelVersion, JsonSerializer):
 class SysMessage(db.Model, ModelVersion, JsonSerializer):
     """系统通知"""
     __tablename__ = 'security_sysmessage'
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(GUID(), primary_key=True,default=uuid.uuid4)
     content = db.Column(db.String(512), nullable=False)
     is_read = db.Column(db.Boolean(name="is_read"), default=False, nullable=False)
-    receiver_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
+    receiver_id = db.Column(GUID(), db.ForeignKey('security_user.id'))
     receiver = db.relationship(User, backref=db.backref('sys_messages'))

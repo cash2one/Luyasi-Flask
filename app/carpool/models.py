@@ -6,7 +6,8 @@
     :copyright: (c) 2014 by Kinorsi -- <kinorsi@gmail.com>
     :license: BSD, see LICENSE for more details.
 """
-from ..core import db, ModelVersion
+import uuid
+from ..core import db, ModelVersion, GUID
 from ..helpers import JsonSerializer
 
 ########################################################################
@@ -14,7 +15,7 @@ class CarpoolInfo(db.Model, ModelVersion, JsonSerializer):
     """Job model"""
     __tablename__ = 'carpool_carpoolinfo'
 
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(GUID(), primary_key=True,default=uuid.uuid4)
 
     start = db.Column(db.String(50))
     target = db.Column(db.String(50))
@@ -27,7 +28,7 @@ class CarpoolInfo(db.Model, ModelVersion, JsonSerializer):
     deleted = db.Column(db.Boolean(name='deleted'), default=False, nullable=False)
 
     # commentor
-    user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
+    user_id = db.Column(GUID(), db.ForeignKey('security_user.id'))
     user = db.relationship('User', backref=db.backref('carpool_infos', uselist=True, lazy='dynamic'))
 
     #----------------------------------------------------------------------

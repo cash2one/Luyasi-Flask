@@ -22,6 +22,6 @@ application = DispatcherMiddleware(frontend_app, {'/api': api_app})
 
 if __name__ == "__main__":
 
-    run_simple('127.0.0.1', 5000, application, use_reloader=True, use_debugger=True)
+    run_simple('127.0.0.1', 5000, application, use_reloader=False, use_debugger=True)
     #If you’re using Aptana/Eclipse for debugging you’ll need to set both use_debugger and use_reloader to False.
     #run_simple('192.168.1.249', 5000, application, use_reloader=False, use_debugger=False, threaded=True)

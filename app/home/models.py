@@ -1,12 +1,13 @@
 #-*- coding:utf-8 -*-
-from ..core import db
+import uuid
+from ..core import db, GUID
 from ..helpers import JsonSerializer
 
 class Loupan(db.Model, JsonSerializer):
     """Loupan building"""
     __tablename__ = 'home_loupan'
 
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(GUID(), primary_key=True,default=uuid.uuid4)
     name = db.Column(db.String(20), unique=True)
     address = db.Column(db.String(255))
     def __repr__(self):
@@ -18,7 +19,7 @@ class Building(db.Model, JsonSerializer):
 
     __tablename__ = 'home_building'
     
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(GUID(), primary_key=True,default=uuid.uuid4)
     
         
     

@@ -30,7 +30,7 @@ def create_job():
     return render_template('job/create.html', form=form)
 
 #----------------------------------------------------------------------
-@bp.route('/<int:job_id>', methods=['GET'])
+@bp.route('/<job_id>', methods=['GET'])
 def detail_job(job_id):
     """"""
     job = api_job.get_or_404(job_id)
@@ -48,7 +48,7 @@ def list_job(page=None):
 
 
 #----------------------------------------------------------------------
-@bp.route('/report/<int:job_id>', methods=['GET', 'POST'])
+@bp.route('/report/<job_id>', methods=['GET', 'POST'])
 def report_job(job_id):
     """Report a job
     """
