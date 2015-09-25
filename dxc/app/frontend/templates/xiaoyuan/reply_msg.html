@@ -1,0 +1,10 @@
+{% extends "xiaoyuan/base.html" %}
+
+{% from "macros/fieldmacros.html" import render_form %}
+
+
+{% block container %}
+<div class="col-md-9">
+    {{render_form(form, url_for('xiaoyuan.reply_msg', msg_id=msg_id), 'reply_form')}}
+</div>
+{% endblock container %}

@@ -1,0 +1,42 @@
+{% extends "security/profile.html" %}
+{% from "macros/fieldmacros.html" import render_form %}
+
+{% block subtitle %}
+我的班级
+{% endblock subtitle%}
+
+
+{% block rightmainactionbar %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group pull-right" style="margin-bottom: 12px">
+            <a href="{{url_for('.list_notice', class_id=notice.class_id)}}" type="button" class="btn btn-primary">返回通知列表</a>
+        </div>
+    </div>
+</div>
+{% endblock rightmainactionbar %}
+
+{% block rightmain %}
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>{{notice.title or '无标题'}}</h3>
+        <hr/>
+        {% autoescape false %}
+        <div>{{notice.content}}</div>
+        {% endautoescape %}
+    </div>
+</div>
+
+<h3>已阅同学：</h3>
+{% for reader in readers %}
+<button class="btn btn-success">{{reader.validname()}}</button>
+
+{% endfor %}
+
+<h3>未阅同学：</h3>
+{% for notReader in notReaders %}
+<button class="btn btn-warning">{{notReader.validname()}}</button>
+{% endfor %}
+
+{% endblock rightmain %}

@@ -1,0 +1,47 @@
+{% extends "security/profile.html" %}
+
+{% from "macros/_pager.html" import render_pager %}
+
+{% block rightmain %}
+<div class="row">
+    <div class="col-md-12">
+
+    <ul class="nav nav-tabs" id="job_tab" role="tablist"  style="margin-bottom:15px">
+        <li class="{% if status==1 %}active{%endif%}"><a href="{{url_for('job.list_publisedjobs', status=1)}}">审核通过</a></li>
+        <li class="{% if status==0 %}active{%endif%}"><a href="{{url_for('job.list_publisedjobs', status=0)}}">审核中</a></li>
+        <li class="{% if status==2 %}active{%endif%}"><a href="{{url_for('job.list_publisedjobs', status=2)}}">审核不通过</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active">
+            <div class="row">
+                {% for job in jobs.items %}
+                <div class="col-md-12 item">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{{url_for('job.detail_job', job_id=job.id)}}">
+                                <h4 class="list-group-item-heading" >
+                                {{job.title}}
+                                {% if job.reports and job.reports.count() > 0 %}
+                                <small><a class="text-danger" href="{{url_for('.list_report', job_id=job.id)}}">{{_('Caution! This job has been reported, see reports')}}</a></small>
+                                {% endif %}
+                                </h4>
+                                <h6>{{momentjs(job.create_at).format('LLLL')}}</h6>
+                                <hr/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>        
+            <!--pager-->
+            <div class="row">
+                <div class="col-md-12">
+                {{render_pager(jobs,'job.list_publisedjobs', status=status) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock rightmain %}

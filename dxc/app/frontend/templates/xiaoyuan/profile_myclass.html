@@ -1,0 +1,69 @@
+{% extends "security/profile.html" %}
+
+{% block subtitle %}
+我的班级
+{% endblock subtitle%}
+
+
+{% block rightmain %}
+<div class="row">
+    <div class="col-md-12">
+        {% if myclasses|length==0 %}
+        <div class="alert alert-warning" role="alert">
+            你还没有加入任何班级
+        </div>
+        {% else %}
+        <div class="page-header">
+            <h4>我已经加入的班级 <span class="label label-primary">{{myclasses|length}}</span></h4>
+        </div>
+            {% for clz in myclasses %}
+            <div class="row">        
+                <div class="col-md-8">
+                    <h5>{{clz.name}}</h5>
+                </div>
+                <div class="col-md-4 text-right">
+                    {% if has_right('create','xiaoyuan','notice') %}
+                        <a href="{{url_for('.create_notice', class_id=clz.id)}}" class="btn btn-primary btn-sm">发送通知</a>
+                    {% endif %}
+                    <a href="{{url_for('.list_notice', class_id=clz.id)}}" class="btn btn-success btn-sm">通知列表</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h4>你可能感兴趣的其它班级 <span class="label label-primary">{{allclasses|length}}</span></h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 item">
+    {% for clazz in allclasses %}
+        <div class="row">
+            <div class="col-md-9">
+                <a href="#">
+                    <h5>{{clazz.name}}</h5>
+                </a>
+            </div>
+            <div class="col-md-3 text-right">
+                {%if clazz.id in apply_ids %}
+                    已经申请，等待审核
+                {%else%}
+                <a href="{{url_for('.apply_joinclass', class_id=clazz.id)}}" class="btn btn-primary btn-xs">
+                    申请加入
+                </a>
+                {%endif%}
+            </div>
+        </div>
+        <hr/>
+    {% else %}
+        没有其它班级了
+    {% endfor %}
+    </div>
+</div>
+{% endblock rightmain %}

@@ -1,0 +1,22 @@
+{% macro render_pager(items, page_url) %}
+  <ul class="pagination">
+    {% if items.has_prev %}
+      <li><a href="{{ url_for(page_url, page=items.prev_num, **kwargs) }}">&laquo;</a></li>
+    {% endif %}
+    {% for page in items.iter_pages(left_current=3, right_current=4) %}
+      {% if page %}
+        {% if page != items.page %}
+          <li><a href="{{ url_for(page_url, page=page, **kwargs) }}">{{ page }}</a></li>
+        {% else %}
+           <li class="active"><span>{{page}}<span class="sr-only">{{page}}</span></span></li>
+        {% endif %}
+      {% else %}
+        <li><span class="ellipsis">…</span><li>
+      {% endif %}
+    {% endfor %}
+    {% if items.has_next %}
+         <li><a href="{{url_for(page_url, page=items.next_num, **kwargs) }}">&raquo;</a></li>
+    {% endif %}
+  </ul>
+
+{% endmacro %}

@@ -1,0 +1,348 @@
+{% extends "blog/base.html" %}
+
+{% block subtitle %}
+{{blog.title}}
+{% endblock subtitle%}
+
+{% block actionbar %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group pull-right" style="margin-bottom: 12px">
+            <a href="{{url_for('.list_blog', category=category)}}" type="button" class="btn btn-default">返回文章列表</a>
+            <a href="{{url_for('.create_blog', category=category)}}" type="button" class="btn btn-success">写文章</a>
+            {% if blog.user == current_user %}
+            <a href="{{url_for('.change_blog',  category=category, blog_id=blog.id)}}" type="button" class="btn btn-primary">{{_('Edit')}}</a>
+            <button type="button" class="btn btn-danger btn-delete">{{_('Delete')}}</button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock actionbar %}
+
+{% block breadpiece %}
+{{super()}}
+<li><a href="{{url_for('blog.detail_blog', category=category, blog_id=blog.id)}}">{{_('Detail')}}</a></li>
+{% endblock breadpiece %}
+
+{% block modal %}
+{{super()}}
+
+<!--modal: comment commit.-->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="commetModalLabel">{{_('Comment')}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <textarea id="commetcontent" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class='row' style='margin-top:12px'>
+                    <div class='col-md-3'>
+                        <a href='#' class='captcha'><img src=''/></a>
+                    </div>
+                    <div class='col-md-9'>
+                        <input name='commentCaptcha' id='commentCaptcha' class='form-control' placeholder="{{_('repeat captcha')}}" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Cancle')}}</button>
+                <button type="button" data-loading-text="Submiting..." class="btn btn-primary">{{_('Submit')}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock modal %}
+
+{% block rightmain %}
+    {% autoescape false %}
+    <div class="page-header">
+        <h1>{{blog.title}}</h1>
+    </div>
+    <div>{{blog.content}}</div>
+    {% endautoescape %}
+    <!--回复按钮-->
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">
+        {% if current_user.is_active() %}
+            <button type="button" class="btn btn-primary comment-btn">评论</button>
+        {% else %}
+            登陆后才可以评论哦~
+        {% endif %}
+        </div>
+    </div>
+
+    <h3>{{_('Comment list')}}</h3>
+    <hr/>
+    <!-- 回复列表内容 -->
+    <div class="row">
+        <div class="col-md-12">
+            <ul id="commentList" class="list-group">
+
+    </ul>
+</div>
+</div>
+{% endblock %}
+
+{% block pagescript %}
+<script type="text/javascript" src="{{url_for('static', filename='base/3partylib/ckeditor/ckeditor.js')}}"></script>
+<!--jquery adapter for ckeditor-->
+<script type="text/javascript" src="{{url_for('static', filename='base/3partylib/ckeditor/adapters/jquery.js')}}"></script>
+
+<script type="text/javascript">
+// list_group的模板
+var list_template = "<li class='list-group-item'>{0}</li>";
+// 回帖阶梯模板
+var floor_template =
+    "<div class='panel panel-warning'>" +
+        "<div class='panel-body bg-warning'>" +
+            "{0}" +
+            "{1}" +
+        "</div>" +
+    "</div>";
+// 回帖平等模板，因为很多才会使用平行，所以叫many
+<!--var floor_many_template =-->
+    <!--"<div class='row'>" +-->
+        <!--"{0}" +-->
+        <!--"{1}" +-->
+        <!--"<hr/>" +-->
+    <!--"</div>";-->
+// 最后一个回贴专用模板。
+var floor_last_template =
+    "<div class='row' style='color: lightblue'>" +
+        "<div class='col-md-8'>{0} {{_('say:')}}</div>" +
+        "<div class='col-md-3 text-right'>{1}</div>" +
+        "<div class='col-md-1'>{2}</div>" +
+    "</div>" +
+    "{3}" +
+    "{4}"
+    {% if current_user.is_active() %}
+    +
+    "<div class='row answer'>" +
+        "<div class='col-md-2 pull-right'><button type='button' comment_id='{5}' class='btn btn-default invisible comment-btn'>回复</button></div>" +
+    "</div>"
+    {% endif %}
+    ;
+var content_template =
+    "<div class='row'>" +
+        "<div class='col-md-12'>" +
+            "<div class='row' style='color: lightblue'>" +
+                "<div class='col-md-8'>{0} {{_('say:')}}</div>" +
+                "<div class='col-md-3 text-right'>{1}</div>" +
+                "<div class='col-md-1'>{2}</div>" +
+            "</div>" +
+            "<div class='row'>" +
+                "<div class='col-md-12'>{3}</div>" +
+            "</div>"
+            {% if current_user.is_active() %}
+            +
+            "<div class='row answer'>" +
+                "<div class='col-md-2 pull-right'><button type='button'  comment_id='{4}' class='btn btn-default invisible comment-btn'>回复</button></div>" +
+            "</div>" +
+            {% endif %}
+        "</div>" +
+    "</div>";
+// 评论总页数
+var totalCommentPage = 0;
+// 评论的当前加载页码
+var currentCommentPage = 1;
+var finishedLoadingComment = true;
+$(function(){
+
+    //加载comment
+    loadCommnet(currentCommentPage);
+
+    // 滚动加载更多的评论
+    $(document).scroll(function(){
+        var isPageBottom = $(window).scrollTop() == $(document).height() - $(window).height();
+        if(isPageBottom && currentCommentPage < totalCommentPage)	{
+            loadCommnet(++currentCommentPage);
+        }
+    });
+
+});
+
+/**
+    * 加载评论
+    * param page: 页码
+**/
+function loadCommnet(page){
+    if (!finishedLoadingComment)
+        return;
+
+    //加载comment
+    finishedLoadingComment = false;
+    $.getJSONEx("{{url_for('.list_comment', blog_id=blog.id)}}", {'page': page})
+    .done(function(data, textStatus, jqXHR){
+        totalCommentPage = data.totalPages;
+        for(var i in data.comments){
+            // 相当于第几楼了。
+            var comments = data.comments[i];
+            var floor = buildComment(comments);
+            var parent = $('#commentList').append(floor);
+        }
+        finishedLoadingComment = true;
+    });
+}
+
+/**
+    * 创建一个回贴，主要是把他的引用贴一起使用起来。
+    * param comments: 回帖及引用贴排列成的数组。
+**/
+function buildComment(comments){
+    var content = '';
+    for(var j in comments){
+        var com = comments[j];
+        var floor_content = '';
+        var time = com.time ? new Date(com.time).toLocaleTimeString() : '';
+        if(com === 'more'){
+            floor_content = "<button type='button' comment_id='" + comments[2].id + "' class='btn btn-default show-more-comment'>显示隐藏楼层...</button>";
+        }else{
+            floor_content = content_template.format(com.user, time, com.floor, com.content, com.id)
+        }
+
+    if (j == comments.length - 1){
+        //这是最后一层
+        content = floor_last_template.format(com.user, time, com.floor, content, com.content, com.id);
+    } else {
+        //不是最后一层
+        content = floor_template.format(content, floor_content);
+    }
+}
+var oneFloor = list_template.format(content)
+
+    return oneFloor;
+}
+
+// Show alert
+var blogId = {{blog.id}};
+$('.btn-delete').click(function(){
+    $('#infoModal').modal();
+});
+
+// Delete
+$('.btn-ok').click(function(){
+    url = "{{url_for('.delete_blog', blog_id=0, category=category)}}";
+    pos = url.lastIndexOf('/');
+    url_delete = url.substr(0,pos+1) + blogId;
+    location.pathname = url_delete;
+});
+
+// function: 显示评论
+$(document).on('click', '.comment-btn', function(){
+    var ck = $('textarea.ckeditor').ckeditor({
+        customConfig: '{{url_for('static', filename='base/ckeditor-comment-config.js')}}'
+    });
+
+    // 加载新的验证码
+    $('#commentModal .captcha').children('img').attr('src', '/common/captcha/?nothing=' + new Date().getTime());
+    $('#commentCaptcha').val('');
+
+    $('#commentModal').modal({backdrop: 'static'});
+
+    // 点击按钮显示对话框时记录comment id.
+    var commentId = $(this).attr('comment_id');
+    if(commentId){
+        $('#commentModal').attr('comment_id', commentId);
+    } else {
+        $('#commentModal').removeAttr('comment_id');
+    }
+});
+
+// 评论对话框的验证码刷新。
+$('#commentModal .captcha').children('img').click(function(){
+    $(this).attr('src', '/common/captcha/?nothing=' + new Date().getTime());
+});
+
+// function: 提交评论
+$('#commentModal .btn-primary').click(function(){
+    //var comment = $('#commentModal .ckeditor').val();
+    var comment = $('#commentModal #commetcontent').val();
+    if(comment ===''){
+        alert("{{_('The comment forgot you~')}}");
+    }
+
+    var captcha = $('#commentCaptcha').val();
+    if(captcha === ''){
+        alert("{{_('Captcha required.')}}")
+    }
+
+    var postData = {
+        content: comment,
+        captcha: captcha
+    };
+    var comment_id = $('#commentModal').attr('comment_id');
+    if(comment_id){
+        postData.comment_id = comment_id;
+    }
+
+    var btn = $(this);
+    btn.button('loading');
+
+    $.postJSONEx(
+        '{{url_for('.create_comment', blog_id=blog.id)}}',
+        postData
+    )
+    .done(function(data, textStatus, jqXHR){
+        if(data.success){
+            var floor = buildComment(data.comment);
+            $('#commentList').prepend(floor);
+            // 成功了才变为空，若是失败虽然会隐藏，但不清空内容。
+            $('#commentModal #commetcontent').val('');
+        }else{
+            var errors = '';
+            for(var field in data.message){
+                var fieldName = field;
+                var fieldError = '';
+                for(var msg in data.message[field]){
+                    fieldError = data.message[field][msg];
+                    errors += fieldError;
+                }
+            }
+            alert(errors);
+        }
+    })
+    .always(function(){
+        btn.button('reset');
+        $('#commentModal').modal('hide');
+    });
+});
+
+// function: 鼠标经过时显示回复按钮
+$('#commentList').on('mouseover', '.answer', function(evt){
+    evt.stopPropagation();
+    $(this).find('button').last().removeClass('invisible');
+
+});
+
+// function: 鼠标离开时隐藏回复按钮
+$('#commentList').on('mouseout', '.answer', function(evt){
+    evt.stopPropagation();
+    $(this).find('button').last().addClass('invisible');
+
+});
+
+//function: 当点击‘显示隐藏楼层时’显示完整的楼层信息。
+$('#commentList').on('click', '.show-more-comment', function(evt){
+    var comment_id = $(this).attr('comment_id');
+    // 查找本层楼主体
+    var parent = $(this).parents('.list-group-item').first();
+    $.getJSONEx("{{url_for('.show_more_comment')}}", {'comment_id':comment_id})
+    .done(function(data){
+        // 相当于第几楼了。
+        var comments = data.comments;
+        var floor = buildComment(comments);
+
+    // 更换为新的内容
+    $(parent).replaceWith(floor);
+});
+});
+
+</script>
+{% endblock pagescript%}

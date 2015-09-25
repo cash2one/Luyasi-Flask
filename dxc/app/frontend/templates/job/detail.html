@@ -1,0 +1,43 @@
+{% extends "job/base.html" %}
+
+{% from "macros/fieldmacros.html" import render_error %}
+
+{% block subtitle %}
+{{ job.title }}
+{% endblock subtitle%}
+
+{% block breadpiece %}
+{{super()}}
+<li><a href="{{url_for('job.detail_job', job_id=job.id)}}">{{_('Detail')}}</a></li>
+{% endblock breadpiece %}
+
+{% block actionbar %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group pull-right" style="margin-bottom: 12px">
+            <a href="{{url_for('.list_job')}}" type="button" class="btn btn-default">{{_('Job list')}}</a>
+            <a href="{{url_for('.report_job', job_id=job.id)}}" type="button" class="btn btn-warning">{{_('Report this job')}}</a>
+        </div>
+    </div>
+</div>
+{% endblock actionbar %}
+
+{% block rightmain %}
+    {% autoescape false %}
+    <div class="page-header">
+        <h1 class="text-right">{{job.title}}
+            {% if job.reports and job.reports.count() > 0 %}
+            <small><a class="text-danger" href="{{url_for('.list_report', job_id=job.id)}}">{{_('Caution! This job has been reported, see reports')}}</a></small>
+            {% endif %}
+        </h1>
+        <h5 class="text-right">职业类型：	
+            {% if job.job_type == 1 %}
+                {{_('Fulltime job')}}
+            {% else %}
+                {{_('Parttime job')}}
+            {% endif %} |
+            发布时间：{{momentjs(job.create_at).format('LL')}}</h5>
+    </div>
+    <div>{{job.content}}</div>
+    {% endautoescape %}
+{% endblock %}

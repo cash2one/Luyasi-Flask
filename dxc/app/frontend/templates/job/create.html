@@ -1,0 +1,35 @@
+{% extends "job/base.html" %}
+
+{% from "macros/fieldmacros.html" import render_form %}
+
+{% block subtitle %}
+{{_('Publish job')}}
+{% endblock subtitle %}
+
+{% block breadpiece %}
+{{super()}}
+<li><a href="{{url_for('job.create_job')}}">{{_('Publish job')}}</a></li>
+{% endblock breadpiece %}
+
+{% block actionbar %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group pull-right" style="margin-bottom: 12px">
+            <a href="{{url_for('.list_job')}}" type="button" class="btn btn-default">{{_('Job list')}}</a>
+        </div>
+    </div>
+</div>
+{% endblock actionbar %}
+
+{% block container %}
+<div class="col-md-12">
+    <div class="well">
+    {{render_form(form, url_for('.create_job'), 'create_job_form')}}
+    </div>
+</div>
+{% endblock container %}
+
+<!-- 本页js -->
+{% block pagescript %}
+<script type="text/javascript" src="{{url_for('static', filename='base/ckeditor-job-config.js')}}"></script>
+{% endblock pagescript%}

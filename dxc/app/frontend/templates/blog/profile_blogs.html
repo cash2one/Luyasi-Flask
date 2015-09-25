@@ -1,0 +1,43 @@
+{% extends "security/profile.html" %}
+
+{% from "macros/_pager.html" import render_pager %}
+
+{% block rightmain %}
+<div class="row">
+    <div class="col-md-12">
+
+    <ul class="nav nav-tabs" id="job_tab" role="tablist"  style="margin-bottom:15px">
+        <li class="{% if category==1 %}active{%endif%}"><a href="{{url_for('blog.list_profileblogs', category=1, page=1)}}">校园News</a></li>
+        <li class="{% if category==2 %}active{%endif%}"><a href="{{url_for('blog.list_profileblogs', category=2, page=1)}}">点滴Life</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active">
+            <div class="row">
+                {% for blog in blogs.items %}
+                <div class="col-md-12 item">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{{url_for('blog.detail_blog', blog_id=blog.id, category=category)}}">
+                                <h4 class="list-group-item-heading" >
+                                {{blog.title}}
+                                </h4>
+                                <h6>{{momentjs(blog.create_at).format('LLLL')}}</h6>
+                                <hr/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>        
+            <!--pager-->
+            <div class="row">
+                <div class="col-md-12">
+                {{render_pager(blogs,'blog.list_profileblogs', category=category) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock rightmain %}
