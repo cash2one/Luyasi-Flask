@@ -3,7 +3,7 @@
 from flaskframe.core import db, ModelVersion
 from flaskframe.helpers import JsonSerializer
 
-from flaskframe.security.models import User
+from dxc.app.models.security.models import User
 
 academies_classes = db.Table('xiaoyuan_academies_classes',
                        db.Column('academy_id', db.Integer(), db.ForeignKey('xiaoyuan_academy.id')),

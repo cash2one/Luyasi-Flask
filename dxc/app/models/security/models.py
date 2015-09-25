@@ -66,7 +66,7 @@ class User(db.Model, ModelVersion, UserMixin, JsonSerializer):
     apps = db.relationship('App', secondary=users_apps, lazy='dynamic')
     rights = db.relationship('Right', secondary=users_rights, lazy='dynamic')
 
-    # 要有邮件服务器才能使用
+    # 要打开SECURITY_TRACKABLE
     confirmed_at = db.Column(db.DateTime())
     last_login_at = db.Column(db.DateTime())
     current_login_at = db.Column(db.DateTime())

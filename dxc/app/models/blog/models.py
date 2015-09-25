@@ -1,9 +1,8 @@
 #-*- coding:utf-8 -*-
-import uuid
 
-from flaskframe.core import db, ModelVersion, GUID
+from flaskframe.core import db, ModelVersion
 from flaskframe.helpers import JsonSerializer
-from flaskframe.security.models import User
+from dxc.app.models.security.models import User
 
 
 ####################################################

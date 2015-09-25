@@ -4,12 +4,11 @@ from functools import wraps
 
 from flask import render_template, abort, session
 from flask_security import login_required
-from flask_admin import Admin
 from flask_principal import Permission
 
 from flaskframe import appfactory
 from flaskframe.core import db, RightNeed, babel
-from flaskframe.helpers import collect_admin_views, JSONEncoder
+from flaskframe.helpers import JSONEncoder
 
 def create_app(settings_override=None):
     """Create frontend application.
@@ -85,7 +84,7 @@ def right_require(app):
 #----------------------------------------------------------------------
 def init_context_processor(app):
     """注册页面用的方法"""
-    from flaskframe.security.jinjahelpers import has_role_processor, has_right_processor, use_momentjs
+    from dxc.app.models.security import has_role_processor, has_right_processor, use_momentjs
     from ..frontend.xiaoyuan import is_charger_processor
     # context_processor 是个decorator
     app.context_processor(has_role_processor)

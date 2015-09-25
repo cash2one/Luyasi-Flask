@@ -21,7 +21,7 @@ app.config.from_object(config)
 
 db = SQLAlchemy(app)
 #我去，这个放在这里是因为model里用到了db
-from flaskframe.security.models import *
+from dxc.app.models.security.models import *
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)

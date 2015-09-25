@@ -157,4 +157,4 @@ BABEL_DEFAULT_TIMEZONE = 'UTC'
 # 生成：pybabel init -i messages.pot -d frontend/translations -l cs
 # 由于security的一些文本有特殊标签如%(value)s，所以需要自己导入。这个会在factory里导入。但是这个一旦启动就不会再理会别外一个语言。后续再处理吧。
 if BABEL_DEFAULT_LOCALE != 'en':
-    SECURITY_TRANSLATION_PATH='flaskframe.security.translations.' + BABEL_DEFAULT_LOCALE
+    SECURITY_TRANSLATION_PATH='dxc.app.models.security.translations.' + BABEL_DEFAULT_LOCALE

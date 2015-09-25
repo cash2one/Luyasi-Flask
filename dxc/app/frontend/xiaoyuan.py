@@ -5,9 +5,9 @@ from flask_security import current_user
 from flask_babelex import gettext
 
 from . import route, right_require
-from dxc.services import api_class, api_msg, api_apply, api_user, api_notice, api_sysmsg
+from dxc.services import api_class, api_msg, api_apply, api_user, api_notice, api_sysmsg, api_role
 from dxc.app.models.xiaoyuan import MsgForm, ReplayForm, NoticeForm
-from flaskframe.security import SysMessageForm
+from dxc.app.models.security import SysMessageForm
 from ..models.xiaoyuan import MessageUserAssociation, ClassUserAssociation
 
 bp = Blueprint('xiaoyuan', __name__, template_folder='templates/xiaoyuan', static_folder='static', url_prefix='/xiaoyuan')

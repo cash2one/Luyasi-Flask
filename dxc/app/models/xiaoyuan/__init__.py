@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 from flaskframe.core import Service, db
-from .models import Academy, Class, ClassApply, Notice, Message
+from .models import Academy, Class, ClassApply, Notice, Message, ClassUserAssociation, MessageUserAssociation
 from .forms import ReplayForm, MsgForm, NoticeForm, MemberInfoForm
 
 class AcademyService(Service):

@@ -3,22 +3,22 @@ from sqlalchemy import or_
 from flaskframe.core import Service
 from .models import User, Right, Role, Profile, App, SysMessage
 from .forms import ProfileForm, SysMessageForm
-# from dxc.app.models.xiaoyuan import Class
+from dxc.app.models.xiaoyuan import Class
 
 
 class UserService(Service):
     __model__ = User
 
     #----------------------------------------------------------------------
-    # def get_user_from_classes(self, class_ids=None, role_ids=None, page=1, per_page=20, error_out=True):
-    #     if class_ids is None:
-    #         return None
-    #
-    #     query = self.__model__.query.join(self.__model__.classes).join(self.__model__.roles)\
-    #                     .filter(Class.id.in_(class_ids))\
-    #                     .filter(Role.id.in_(role_ids))\
-    #                     .paginate(page, per_page, error_out)
-    #     return query
+    def get_user_from_classes(self, class_ids=None, role_ids=None, page=1, per_page=20, error_out=True):
+        if class_ids is None:
+            return None
+
+        query = self.__model__.query.join(self.__model__.classes).join(self.__model__.roles)\
+                        .filter(Class.id.in_(class_ids))\
+                        .filter(Role.id.in_(role_ids))\
+                        .paginate(page, per_page, error_out)
+        return query
 
     #----------------------------------------------------------------------
     # def search_user(self, term):

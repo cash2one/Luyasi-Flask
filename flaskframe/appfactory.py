@@ -5,7 +5,7 @@ from flask_security import SQLAlchemyUserDatastore, current_user
 from flask_principal import identity_loaded
 
 from flaskframe import setting
-from flaskframe.security.models import Role, User
+from dxc.app.models.security.models import Role, User
 from flaskframe.core import db, security, babel, mail, RightNeed, MatrixConverter
 from flaskframe.helpers import register_blueprints, SslSTMPHandler
 
