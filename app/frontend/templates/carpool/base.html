@@ -1,9 +1,0 @@
-{% extends "index/base.html" %}
-{% block sublogo %}
-<a class="navbar-brand" href="{{ url_for('carpool.list_carinfo') }}">{{_('Carpool')}}</a>
-{% endblock sublogo %}
-
-{% block breadpiece %}
-{{super()}}
-<li><a href="{{url_for('carpool.list_carinfo')}}">拼车包车</a></li>
-{% endblock breadpiece %}
