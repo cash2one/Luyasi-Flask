@@ -25,7 +25,8 @@ api_app = api.create_app(settings_override=setting)
 
 
 # 可以分发给不同的app
-# application = DispatcherMiddleware(frontend_app)
+# application = DispatcherMiddleware(frontend)
+# application = DispatcherMiddleware(api_app)
 application = DispatcherMiddleware(frontend_app, {'/api': api_app})
 
 if __name__ == "__main__":

@@ -72,10 +72,18 @@ def create_app(package_name, package_path, settings_override=None, register_secu
         import os
         if not os.path.exists(app.config['LOGGING_DIR']):
             os.makedirs(app.config['LOGGING_DIR'])
-        file_handler = RotatingFileHandler(os.path.join(app.config['LOGGING_DIR'], 'dxc.log'), mode='a', maxBytes=5 * 1024 * 1024, backupCount=10, encoding='utf-8')
+
+        # 一般日志
+        file_handler = RotatingFileHandler(os.path.join(app.config['LOGGING_DIR'], 'app.log'), mode='a', maxBytes=5 * 1024 * 1024, backupCount=10, encoding='utf-8')
         file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
         file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)
+
+        # 错误日志
+        file_handler_error = RotatingFileHandler(os.path.join(app.config['LOGGING_DIR'], 'app_error.log'), mode='a', maxBytes=5 * 1024 * 1024, backupCount=10, encoding='utf-8')
+        file_handler_error.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        file_handler_error.setLevel(logging.ERROR)
+        app.logger.addHandler(file_handler_error)
 
         # 默认log
         app.logger.setLevel(logging.INFO)

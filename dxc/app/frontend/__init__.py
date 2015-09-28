@@ -84,7 +84,7 @@ def right_require(app):
 #----------------------------------------------------------------------
 def init_context_processor(app):
     """注册页面用的方法"""
-    from dxc.app.models.security import has_role_processor, has_right_processor, use_momentjs
+    from dxc.app.models.security.jinjahelpers import has_role_processor, has_right_processor, use_momentjs
     from ..frontend.xiaoyuan import is_charger_processor
     # context_processor 是个decorator
     app.context_processor(has_role_processor)

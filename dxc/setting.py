@@ -82,10 +82,10 @@ MAIL_PASSWORD = 'chouchou2TOUTOU'
 ADMINS=['172440249@qq.com']
 
 # SecretKeyForSessionSigning
-SECRET_KEY = '\xe2\x95\x96\xd8\xba\xda\xb6\x1e\xf9Ev\n\xfd\x0c\xb6\xca\xf1a9l-S\xe3\xd9'
+SECRET_KEY = 'ac29dcfe9dc14393881b9805fbb8993d'
 
 #和app同一级路径存储log
-LOGGING_DIR = os.path.join(_basedir, '../logs')
+LOGGING_DIR = os.path.join(_basedir, './logs')
 
 #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'luyasi_flask.db')
 

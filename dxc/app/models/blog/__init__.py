@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 from flaskframe.core import Service
 from .models import Blog, Comment, Category
-from .forms import BlogForm, CommentForm
+from .forms import BlogForm, CommentForm, BlogUpdateForm
 
 class BlogService(Service):
     __model__ = Blog
