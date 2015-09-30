@@ -225,3 +225,4 @@ docs/
 test.db
 *.wpu
 upload/
+.idea
