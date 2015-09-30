@@ -28,7 +28,7 @@ RECAPTCHA_PRIVATE_KEY = "6Lex_PQSAAAAANICoSeoV0BWR_IN3FlBFAawQXHN"
 _basedir = os.path.abspath(os.path.dirname(__file__))
 
 #---------------------上传配置-----------------------------------------
-UPLOAD_FOLDER = os.path.join(_basedir, 'frontend/static/upload')
+# UPLOAD_FOLDER = os.path.join(_basedir, 'frontend/static/upload') 直接把流转给oss，不用再本地存储了
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 # 16M upload
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024

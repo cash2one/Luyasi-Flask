@@ -53,7 +53,7 @@ def create_blog2(category):
 def list_blog(category=0, page=1):
     if page == None or page <= 0:
         page = 1
-    blogs = api_blog.get_latest_page_filterby(page=page, category=category)
+    blogs = api_blog.get_latest_page_filterby(page=page, category_id=category)
     return render_template('blog/list.html', blogs = blogs, category=category)
 
 #----------------------------------------------------------------------
@@ -62,7 +62,7 @@ def list_profileblogs(category=0, page=1):
     """在个人中心显示自己发的blog"""
     if page == None or page <= 0:
         page = 1
-    blogs = api_blog.get_latest_page_filterby(page=page, category=category, user=current_user)
+    blogs = api_blog.get_latest_page_filterby(page=page, category_id=category, user=current_user)
     return render_template('blog/profile_blogs.html', blogs = blogs, category=category)
 
 #----------------------------------------------------------------------

@@ -24,10 +24,10 @@ def upload_file():
     if request.method == 'POST':
         upload_file = request.files['upload']
         if upload_file and allowed_files(upload_file.filename):
-            filename = secure_filename(upload_file.filename)
-            filenames = os.path.splitext(filename)
+            # filename = secure_filename(upload_file.filename)
+            filenames = os.path.splitext(upload_file.filename)
             filename = filenames[0] + '_' + str(datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S_%f')) + filenames[1]
-            upload_file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+            # upload_file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
             res = oss.put_object_from_fp('img-kinorsi', filename, upload_file)
             #file_url = url_for('.uploaded_file', filename=filename)
             file_url = 'http://img-kinorsi.oss-cn-hangzhou.aliyuncs.com/' + filename
