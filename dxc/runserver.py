@@ -9,7 +9,7 @@ from werkzeug.wsgi import DispatcherMiddleware
 
 from app import frontend
 from app import api
-import setting
+from dxc import setting
 
 
 reload(sys)
