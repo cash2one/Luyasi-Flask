@@ -139,7 +139,9 @@ body { padding-bottom: 71px; }
             <li><a href="{{ url_for('security.logout', next='/') }}"><span class="glyphicon glyphicon-log-out"></span> {{_('Exit')}}</a></li>
             {% else %}
             <li><a href="{{ url_for('security.login', next=request.path) }}"><span class="glyphicon glyphicon-log-in"></span> {{_('Login')}}</a></li>
+                <!--
             <li><a href="{{ url_for('security-frontend.index') }}"><span class="glyphicon glyphicon-envelope"></span> <span class="badge">999</span></a></li>
+            -->
             <!--
             {% if security.registerable %}
             <li><a href="{{ url_for_security('register') }}">{{_('Signup')}}</a></li>
