@@ -7,9 +7,9 @@ import sys
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 
-from app import frontend
-from app import api
-import setting
+from dxc.app import frontend
+from dxc.app import api
+from dxc import setting
 
 
 reload(sys)
