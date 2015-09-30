@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{%block title %}清远大学城{%endblock title%} {% block subtitle %}{% endblock subtitle%}</title>
+<!--icon-->
+<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="qc:admins" content="136467546634036375" />
+<meta name="baidu-site-verification" content="cxFUtWHdDg" />
+<!--moment-->
+<script src="{{ url_for('static', filename='base/3partylib/moment/moment-with-locales.js') }}"></script>
+<script>
+moment.locale("{{session['moment-lang'] or 'zh-cn'}}");
+</script>
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap/css/bootstrap.min.css') }}" media="screen">
+{% block css %}
+
+{% endblock %}
+<style type="text/css">
+.border-r {
+    border:solid 1px red;
+}
+.border-g {
+    border:solid 1px green;
+}
+.border-b {
+    border:solid 1px lightblue;
+}
+
+/*小于990时*/
+@media (max-width: 990px) {
+    .affix {
+        position: static;
+    }
+    .footer{
+        display:none;
+    }
+}
+
+/*大于992时*/
+@media (min-width: 992px) {
+    .affix{
+        width: 263px;
+    }
+    .affix-bottom{
+        width: 263px;
+    }
+}
+
+/* body { padding-top: 51px; } */
+body { padding-top: 71px; }
+body { padding-bottom: 71px; }
+
+</style>
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="../../assets/js/html5shiv.js"></script>
+        <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+
+<!-- 头部js或者和css -->
+{% block headscript %}
+<script type="text/javascript"></script>
+{% endblock headscript%}
+</head>
+<body>
+    {% block body %}
+    <!--info modal : like alert-->
+    {% block infomodal %}
+    <div class="modal fade" id="globalAlertModal" tabindex="-1" role="dialog" aria-labelledby="globalAlertModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="globalAlertModalLabel">{{_('Info')}}</h4>
+                </div>
+                <div class="modal-body">
+                    确定？
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{_('OK')}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock infomodal %}
+<!-- modals -->
+{% block modal %}
+{% endblock modal %}
+
+    <!--header-->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {% block logo %}
+                <a class="navbar-brand" href="/"><img src="{{url_for('static', filename='images/logo.png')}}" /></a>
+                <!--
+                {% block sublogo %}
+                {% endblock sublogo %}
+                -->
+                {% endblock logo %}
+            </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav ">
+            <li><a href="{{url_for('job.list_job')}}">工作兼职</a></li>
+            <li><a href="{{url_for('carpool.list_carinfo')}}">拼车包车</a></li>
+            <li><a href="{{url_for('blog.list_blog', category=1)}}">校园新闻</a></li>
+            <li><a href="{{url_for('blog.list_blog', category=2)}}">校园生活</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if current_user and current_user.is_authenticated() %}
+            <li><a href="{{ url_for('security-frontend.detail_profile', user_id=current_user.id) }}">
+                {% if current_user.avatar %}
+                <span><img width="20" height="20" src="{{current_user.avatar}}" class="img-rounded"></span>
+                {% else %}
+                <span class="glyphicon glyphicon-user"></span>
+                {% endif %}
+                {% if current_user.profile %}
+                    {{current_user.profile.nickname or current_user.nickname or current_user.username or current_user.email}}
+                {%else%}
+                    {{current_user.nickname or current_user.username or current_user.email}}
+                {%endif%}
+                </a>
+            </li>
+            {% if current_user.canAdmin() %}
+            <li><a href="/admin"><span class="glyphicon glyphicon-cog"></span> {{_('Admin')}}</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('security.logout', next='/') }}"><span class="glyphicon glyphicon-log-out"></span> {{_('Exit')}}</a></li>
+            {% else %}
+            <li><a href="{{ url_for('security.login', next=request.path) }}"><span class="glyphicon glyphicon-log-in"></span> {{_('Login')}}</a></li>
+            <li><a href="{{ url_for('security-frontend.index') }}"><span class="glyphicon glyphicon-envelope"></span> <span class="badge">999</span></a></li>
+            <!--
+            {% if security.registerable %}
+            <li><a href="{{ url_for_security('register') }}">{{_('Signup')}}</a></li>
+            {% endif %}
+            -->
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">更多<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    {% if security.recoverable %}
+                    <li><a href="{{ url_for_security('forgot_password') }}">{{_('Forget paswword')}}</a></li>
+                    {% endif %}
+                    {% if security.confirmable %}
+                    <li><a href="{{ url_for_security('send_confirmation') }}">{{_('Activate account')}}</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+
+            {% endif %}
+            {##
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">语言/Language <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/common/lang/zh">中文</a></li>
+                    <li><a href="/common/lang/en">English</a></li>
+                </ul>
+            </li>
+            #}
+        </ul>
+
+    <!--search form-->
+    <!--
+    <form class="navbar-form form-inline navbar-right" role="search" action="{% block search %}{% endblock %}">
+        <div class="form-group">
+            <div class="input-group" style="width:300px">
+                <input type="text" class="form-control" placeholder="请输入查找内容">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button">查找</button>
+                </span>
+            </div>
+        </div>
+    </form>
+    -->
+</div>
+<!-- /.navbar-collapse -->
+</div><!-- /.container -->
+</nav>
+
+    <!-- container 所有的row直接起在父层，block里的内容直接起col就行了，不再需要使用row -->
+    <!--
+    <div class="container">
+        <ul class="nav nav-pills nav-justified">
+            <li role="presentation" class="active"><a href="#">{{_('Jobs')}}</a></li>
+            <li role="presentation"><a href="#">{{_('Carinfos')}}</a></li>
+        </ul>
+    </div>
+    -->
+    <div class="container">
+        <!--
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <form class="form-inline" role="search" action="">
+                    <div class="form-group">
+                        <div class="input-group" style="width:300px">
+                            <input type="text" class="form-control" placeholder="请输入查找内容">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button">查找</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        -->
+        <div class="row">
+            <div class="col-md-12">
+            {% block breadcrumb %}
+                <ol class="breadcrumb">
+                    {% block breadpiece %}
+                    <li><a href="{{url_for('frontend-index.index')}}">{{_('Index')}}</a></li>
+                    {% endblock breadpiece %}
+                </ol>
+            {% endblock %}
+            </div>
+        </div>
+
+    <!-- Row for actionbar -->
+    {% block actionbar %}
+    <div class="row">
+    </div>
+    {% endblock actionbar %}
+
+    {% block flashmessage %}
+        {% include "macros/_messages.html" %}
+    {% endblock %}
+
+    <!-- Row for content -->
+    <div class="row">
+        {% block container %}
+        <!--#### side bar ####-->
+        <div class="col-md-3">
+            {% block sidebar %}{% endblock sidebar %}
+        </div>
+
+    <!--#### right main ####-->
+    <div class="col-md-9">
+        {% block rightmainactionbar %}
+        <div class="row">
+        </div>
+        {% endblock rightmainactionbar %}
+
+        <div class="well">
+        {% block rightmain %}
+        <div class="row">
+            <div class="col-md-8">
+                {% block main %}{% endblock main %}
+            </div>
+            <div class="col-md-4">
+                {% block rightsidebar %}{% endblock rightsidebar %}
+            </div>
+        </div>
+        {% endblock rightmain %}
+        </div>
+
+    </div>
+    {% endblock container %}
+    </div>
+
+    </div>
+    {% endblock body%}
+    <!-- footer -->
+    <!--<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">-->
+        <!--<div class="container text-center">-->
+            <!--copyright 2014 <a href='http://www.miibeian.gov.cn/'><span>粤ICP备14019158号-1</span></a>-->
+        <!--</div>-->
+    <!--</nav>-->
+        <!--footer-->
+    <div style="bottom:0; position:fixed; width:100%; z-index:-10" class="footer">
+        <div class="container">
+            <div class="text-center">
+                Copyright© 2014 <a href='http://www.miibeian.gov.cn/'><span>粤ICP备14019158号-2</span></a>
+                    <!--百度统计-->
+            <script type="text/javascript">
+            var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+            document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F84f192aec0d5e251363a2be90ef26b26' type='text/javascript'%3E%3C/script%3E"));
+            </script>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script	src="{{ url_for('static', filename='base/3partylib/bootstrap/js/bootstrap.min.js') }}"></script>
+    <!-- extension ajax for jquery.ajax -->
+    <script	src="{{ url_for('static', filename='base/kinorsi.jquery.ajax.extend.js') }}"></script>
+    <!-- String.format -->
+    <script	src="{{ url_for('static', filename='base/common.js') }}"></script>
+
+    <script type="text/javascript">
+        <!--注册全局的服务器ajax错误处理-->
+        $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError ){
+            $('#globalAlertModal .modal-body').text(thrownError);
+            $('#globalAlertModal').modal({backdrop:'static'});
+        });
+
+    var orgalert = window.alert;
+    window.alert = function(msg){
+        $('#globalAlertModal .modal-body').text(msg);
+        $('#globalAlertModal').modal();
+    }
+
+    <!--没有ckeditor的时候，需要在这里重新请求captcha-->
+    $(function(){
+        try{
+            CKEDITOR;
+        }catch(e){
+            var __captcha = $('form').find('.captcha');
+            if(__captcha.length != 0){
+                __captcha.prepend('<img src="/common/captcha/?nothing=' + (new Date().getTime()) + '">');
+                __captcha.click(function(){
+                    var __anytime = new Date().getTime();
+                    __captcha.find("img").attr("src", "/common/captcha/?nothing=" + __anytime);
+                });
+            }
+        }
+    });
+</script>
+
+    <!-- 本页js -->
+    {% block pagescript %}
+    <script type="text/javascript"></script>
+    {% endblock pagescript%}
+</body>
+</html>

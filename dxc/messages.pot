@@ -1,0 +1,647 @@
+# Translations template for PROJECT.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2015-06-19 12:44+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: blog/forms.py:14 job/forms.py:23
+msgid "Title"
+msgstr ""
+
+#: blog/forms.py:15
+msgid "发表栏目"
+msgstr ""
+
+#: blog/forms.py:16
+msgid "Xiaoyuan News"
+msgstr ""
+
+#: blog/forms.py:17
+msgid "Life points"
+msgstr ""
+
+#: blog/forms.py:18 xiaoyuan/forms.py:14 xiaoyuan/forms.py:19
+msgid "Content"
+msgstr ""
+
+#: blog/forms.py:18 frontend/templates/blog/detail.html:268 job/forms.py:25
+msgid "The comment forgot you~"
+msgstr ""
+
+#: blog/forms.py:25 frontend/templates/blog/detail.html:36
+msgid "Comment"
+msgstr ""
+
+#: carpool/forms.py:25 frontend/templates/carpool/detail.html:28
+#: frontend/templates/carpool/list.html:28
+msgid "Start point"
+msgstr ""
+
+#: carpool/forms.py:26 frontend/templates/carpool/detail.html:29
+#: frontend/templates/carpool/list.html:31
+msgid "Target point"
+msgstr ""
+
+#: carpool/forms.py:27 frontend/templates/carpool/detail.html:30
+#: frontend/templates/carpool/list.html:36
+msgid "Route"
+msgstr ""
+
+#: carpool/forms.py:28 frontend/templates/carpool/detail.html:32
+#: frontend/templates/carpool/list.html:41
+msgid "Price"
+msgstr ""
+
+#: carpool/forms.py:29 frontend/templates/carpool/detail.html:31
+#: frontend/templates/carpool/list.html:46
+msgid "Send out time"
+msgstr ""
+
+#: carpool/forms.py:30 frontend/templates/carpool/detail.html:33
+#: frontend/templates/qingbank/contact_detail.html:17
+msgid "Contact info"
+msgstr ""
+
+#: framework/ckeditor.py:66
+msgid "Content can't be empty"
+msgstr ""
+
+#: framework/wtfext/fields.py:23 frontend/templates/blog/detail.html:49
+#: frontend/templates/xiaoyuan/profile_class_apply.html:30
+msgid "repeat captcha"
+msgstr ""
+
+#: framework/wtfext/fields.py:24
+msgid "captcha"
+msgstr ""
+
+#: framework/wtfext/fields.py:40
+msgid "Not a valid int array value"
+msgstr ""
+
+#: framework/wtfext/fields.py:56 framework/wtfext/fields.py:62
+#: framework/wtfext/fields.py:79 framework/wtfext/fields.py:85
+msgid "日期格式无效"
+msgstr ""
+
+#: framework/wtfext/validators.py:16
+msgid "Captcha is not valid"
+msgstr ""
+
+#: frontend/blog.py:77
+msgid "This is not your blog"
+msgstr ""
+
+#: frontend/job.py:58
+msgid "Thanks for your report. We will check it soon."
+msgstr ""
+
+#: frontend/security.py:27
+msgid "Maybe you can show more of yourself"
+msgstr ""
+
+#: frontend/security.py:35
+msgid "Update personal info success"
+msgstr ""
+
+#: frontend/security.py:41
+msgid "Add personal info success"
+msgstr ""
+
+#: frontend/xiaoyuan.py:78 frontend/xiaoyuan.py:91
+msgid "Message is sent"
+msgstr ""
+
+#: frontend/templates/403.html:10
+msgid "You have no rights to continue this action"
+msgstr ""
+
+#: frontend/templates/403.html:13 frontend/templates/500.html:8
+#: frontend/templates/job/report_list.html:13
+msgid "Back"
+msgstr ""
+
+#: frontend/templates/500.html:5
+msgid "Come on! I, I have some problems."
+msgstr ""
+
+#: frontend/templates/admin/admin_base.html:10
+#: frontend/templates/base/base.html:139 frontend/templates/index/index.html:46
+#: frontend/templates/index/index.html:104
+msgid "Exit"
+msgstr ""
+
+#: frontend/templates/base/base.html:77
+msgid "Info"
+msgstr ""
+
+#: frontend/templates/base/base.html:83 frontend/templates/blog/base.html:20
+#: frontend/templates/security/change_password.html:27
+#: frontend/templates/security/forgot_password.html:19
+#: frontend/templates/security/profile_sysmessages.html:21
+#: frontend/templates/security/send_confirmation.html:22
+msgid "OK"
+msgstr ""
+
+#: frontend/templates/base/base.html:137 frontend/templates/index/index.html:44
+#: frontend/templates/index/index.html:102
+msgid "Admin"
+msgstr ""
+
+#: frontend/templates/base/base.html:141
+#: frontend/templates/index/index-cover.html:38
+#: frontend/templates/index/index.html:48
+#: frontend/templates/index/index.html:106
+#: frontend/templates/security/login_user.html:6
+msgid "Login"
+msgstr ""
+
+#: frontend/templates/base/base.html:143
+#: frontend/templates/index/index-cover.html:38
+#: frontend/templates/index/index.html:50
+#: frontend/templates/index/index.html:108
+#: frontend/templates/security/login_user.html:50
+#: frontend/templates/security/register_user.html:6
+msgid "Signup"
+msgstr ""
+
+#: frontend/templates/base/base.html:150 frontend/templates/index/index.html:57
+#: frontend/templates/index/index.html:115
+msgid "Forget paswword"
+msgstr ""
+
+#: frontend/templates/base/base.html:153 frontend/templates/index/index.html:60
+#: frontend/templates/index/index.html:118
+#: frontend/templates/security/send_confirmation.html:6
+msgid "Activate account"
+msgstr ""
+
+#: frontend/templates/base/base.html:192
+#: frontend/templates/index/index-right.html:33
+msgid "Jobs"
+msgstr ""
+
+#: frontend/templates/base/base.html:193
+#: frontend/templates/index/index-right.html:45
+msgid "Carinfos"
+msgstr ""
+
+#: frontend/templates/base/base.html:219
+msgid "Index"
+msgstr ""
+
+#: frontend/templates/blog/base.html:13
+#: frontend/templates/security/profile_sysmessages.html:14
+msgid "Warning"
+msgstr ""
+
+#: frontend/templates/blog/base.html:16
+msgid "Are your sure delete this blog?"
+msgstr ""
+
+#: frontend/templates/blog/base.html:19 frontend/templates/blog/detail.html:54
+#: frontend/templates/security/profile_sysmessages.html:20
+#: frontend/templates/xiaoyuan/profile_class_apply.html:35
+msgid "Cancle"
+msgstr ""
+
+#: frontend/templates/blog/create.html:57
+#: frontend/templates/blog/detail.html:55
+#: frontend/templates/macros/fieldmacros.html:43
+#: frontend/templates/security/register_user.html:26
+#: frontend/templates/xiaoyuan/profile_class_apply.html:36
+msgid "Submit"
+msgstr ""
+
+#: frontend/templates/blog/detail.html:14
+msgid "Edit"
+msgstr ""
+
+#: frontend/templates/blog/detail.html:16
+msgid "Delete"
+msgstr ""
+
+#: frontend/templates/blog/detail.html:24
+#: frontend/templates/carpool/detail.html:19
+#: frontend/templates/job/detail.html:11
+msgid "Detail"
+msgstr ""
+
+#: frontend/templates/blog/detail.html:81
+msgid "Comment list"
+msgstr ""
+
+#: frontend/templates/blog/detail.html:119
+#: frontend/templates/blog/detail.html:136
+msgid "say:"
+msgstr ""
+
+#: frontend/templates/blog/detail.html:273
+#: frontend/templates/xiaoyuan/profile_class_apply.html:100
+msgid "Captcha required."
+msgstr ""
+
+#: frontend/templates/carpool/base.html:3
+msgid "Carpool"
+msgstr ""
+
+#: frontend/templates/carpool/create.html:13
+#: frontend/templates/carpool/detail.html:11
+msgid "View carinfos"
+msgstr ""
+
+#: frontend/templates/carpool/create.html:21
+#: frontend/templates/carpool/list.html:13
+msgid "Publish carinfos"
+msgstr ""
+
+#: frontend/templates/carpool/detail.html:28
+#: frontend/templates/carpool/detail.html:29
+#: frontend/templates/carpool/detail.html:30
+#: frontend/templates/carpool/detail.html:31
+#: frontend/templates/carpool/detail.html:32
+#: frontend/templates/carpool/detail.html:33
+#: frontend/templates/carpool/list.html:28
+#: frontend/templates/carpool/list.html:31
+#: frontend/templates/carpool/list.html:36
+#: frontend/templates/carpool/list.html:41
+#: frontend/templates/carpool/list.html:46
+msgid ": "
+msgstr ""
+
+#: frontend/templates/job/base.html:4
+msgid "Job"
+msgstr ""
+
+#: frontend/templates/job/base.html:20 frontend/templates/job/create.html:18
+#: frontend/templates/job/detail.html:18 frontend/templates/job/report.html:13
+#: frontend/templates/job/report_list.html:14
+msgid "Job list"
+msgstr ""
+
+#: frontend/templates/job/create.html:6 frontend/templates/job/create.html:11
+#: frontend/templates/job/list.html:13
+msgid "Publish job"
+msgstr ""
+
+#: frontend/templates/job/detail.html:19
+msgid "Report this job"
+msgstr ""
+
+#: frontend/templates/job/detail.html:30 frontend/templates/job/list.html:29
+#: frontend/templates/job/profile_publishedjobs.html:26
+#: frontend/templates/security/profile_publishedjobs.html:26
+msgid "Caution! This job has been reported, see reports"
+msgstr ""
+
+#: frontend/templates/job/detail.html:35 frontend/templates/job/list.html:34
+msgid "Fulltime job"
+msgstr ""
+
+#: frontend/templates/job/detail.html:37 frontend/templates/job/list.html:36
+msgid "Parttime job"
+msgstr ""
+
+#: frontend/templates/job/report.html:6
+msgid "Report job"
+msgstr ""
+
+#: frontend/templates/job/report_list.html:6
+msgid "Report list"
+msgstr ""
+
+#: frontend/templates/qingbank/base.html:3
+msgid "Qingbank"
+msgstr ""
+
+#: frontend/templates/qingbank/contact_detail.html:4
+#: frontend/templates/qingbank/contact_list.html:5
+#: frontend/templates/qingbank/index.html:4
+#: frontend/templates/qingbank/index.html:13
+msgid "Contacts"
+msgstr ""
+
+#: frontend/templates/qingbank/contact_detail.html:20
+#: frontend/templates/qingbank/contact_list.html:32
+msgid "Telephone:"
+msgstr ""
+
+#: frontend/templates/qingbank/contact_detail.html:21
+msgid "Inner phone:"
+msgstr ""
+
+#: frontend/templates/qingbank/contact_detail.html:22
+#: frontend/templates/qingbank/contact_list.html:33
+msgid "Mobile:"
+msgstr ""
+
+#: frontend/templates/qingbank/contact_detail.html:23
+msgid "Fax:"
+msgstr ""
+
+#: frontend/templates/qingbank/contact_list.html:13
+msgid "Fullname | pinyin | first letter | phone | department"
+msgstr ""
+
+#: frontend/templates/qingbank/contact_list.html:15
+msgid "Search"
+msgstr ""
+
+#: frontend/templates/security/base.html:3
+msgid "Profile"
+msgstr ""
+
+#: frontend/templates/security/bind_user.html:6
+#: frontend/templates/security/bind_user.html:14
+msgid "Bind account"
+msgstr ""
+
+#: frontend/templates/security/bind_user.html:17
+msgid "username or email"
+msgstr ""
+
+#: frontend/templates/security/bind_user.html:21
+#: frontend/templates/security/login_user.html:37
+msgid "password"
+msgstr ""
+
+#: frontend/templates/security/bind_user.html:25
+msgid "Bind"
+msgstr ""
+
+#: frontend/templates/security/bind_user.html:26
+msgid "Next time"
+msgstr ""
+
+#: frontend/templates/security/bind_user.html:27
+msgid "Don't remind me again"
+msgstr ""
+
+#: frontend/templates/security/change_password.html:6
+#: frontend/templates/security/profile.html:13
+#: frontend/templates/security/profile_security.html:4
+msgid "Change password"
+msgstr ""
+
+#: frontend/templates/security/change_password.html:15
+msgid "old password"
+msgstr ""
+
+#: frontend/templates/security/change_password.html:19
+msgid "new password"
+msgstr ""
+
+#: frontend/templates/security/change_password.html:23
+msgid "repeat password"
+msgstr ""
+
+#: frontend/templates/security/forgot_password.html:4
+#: frontend/templates/security/login_user.html:53
+msgid "Forget password"
+msgstr ""
+
+#: frontend/templates/security/forgot_password.html:12
+msgid "Send password reset instructions"
+msgstr ""
+
+#: frontend/templates/security/forgot_password.html:15
+#: frontend/templates/security/login_user.html:33
+msgid "email"
+msgstr ""
+
+#: frontend/templates/security/login_user.html:42
+msgid "remember me"
+msgstr ""
+
+#: frontend/templates/security/login_user.html:46
+msgid "login"
+msgstr ""
+
+#: frontend/templates/security/login_user.html:50
+msgid "No account?"
+msgstr ""
+
+#: frontend/templates/security/profile.html:16
+msgid "My published jobs"
+msgstr ""
+
+#: frontend/templates/security/profile_contact.html:24
+msgid "Save"
+msgstr ""
+
+#: frontend/templates/security/register_user.html:16
+msgid "Register info"
+msgstr ""
+
+#: frontend/templates/security/register_user.html:18
+#: frontend/templates/security/send_confirmation.html:18
+msgid "Email"
+msgstr ""
+
+#: frontend/templates/security/register_user.html:22
+msgid "Password"
+msgstr ""
+
+#: frontend/templates/security/send_confirmation.html:15
+msgid "Resend confirmation instructions"
+msgstr ""
+
+#: frontend/templates/security/success.html:8
+msgid "Operation success!"
+msgstr ""
+
+#: frontend/templates/security/email/change_notice.html:1
+msgid "Your password has been changed."
+msgstr ""
+
+#: frontend/templates/security/email/change_notice.html:3
+msgid "If you did not change your password, "
+msgstr ""
+
+#: frontend/templates/security/email/change_notice.html:3
+msgid "click here to reset it"
+msgstr ""
+
+#: frontend/templates/security/email/confirmation_instructions.html:1
+msgid "Please confirm your email through the link below"
+msgstr ""
+
+#: frontend/templates/security/email/confirmation_instructions.html:3
+#: frontend/templates/security/email/welcome.html:6
+msgid "Confirm my account"
+msgstr ""
+
+#: frontend/templates/security/email/login_instructions.html:1
+#: frontend/templates/security/email/welcome.html:1
+msgid "Welcome"
+msgstr ""
+
+#: frontend/templates/security/email/login_instructions.html:3
+msgid "You can log into your through the link below"
+msgstr ""
+
+#: frontend/templates/security/email/login_instructions.html:5
+msgid "Login now"
+msgstr ""
+
+#: frontend/templates/security/email/reset_instructions.html:1
+msgid "Click here to reset your password"
+msgstr ""
+
+#: frontend/templates/security/email/reset_notice.html:1
+msgid "Your password has been reset"
+msgstr ""
+
+#: frontend/templates/security/email/welcome.html:4
+msgid "You can confirm your email through the link below"
+msgstr ""
+
+#: frontend/templates/xiaoyuan/base.html:4
+msgid "Xiaoyuan"
+msgstr ""
+
+#: frontend/templates/xiaoyuan/base.html:16
+msgid "Send message"
+msgstr ""
+
+#: frontend/templates/xiaoyuan/base.html:23
+msgid "Inbox"
+msgstr ""
+
+#: frontend/templates/xiaoyuan/detail.html:7
+msgid "Reply"
+msgstr ""
+
+#: frontend/templates/xiaoyuan/list.html:19
+msgid "send"
+msgstr ""
+
+#: frontend/templates/xiaoyuan/profile_class_apply.html:16
+msgid "拒绝理由"
+msgstr ""
+
+#: job/forms.py:24
+msgid "Job type"
+msgstr ""
+
+#: job/forms.py:24
+msgid "Part time job"
+msgstr ""
+
+#: job/forms.py:24
+msgid "Full time job"
+msgstr ""
+
+#: job/forms.py:25
+msgid "Job detail"
+msgstr ""
+
+#: job/forms.py:35
+msgid "Report content"
+msgstr ""
+
+#: qingbank/forms.py:14 qingbank/forms.py:31 xiaoyuan/forms.py:24
+msgid "Name"
+msgstr ""
+
+#: qingbank/forms.py:15 qingbank/forms.py:35
+msgid "Duty"
+msgstr ""
+
+#: qingbank/forms.py:17 qingbank/forms.py:37
+msgid "Mobile"
+msgstr ""
+
+#: qingbank/forms.py:18 qingbank/forms.py:39
+msgid "Telephone"
+msgstr ""
+
+#: qingbank/forms.py:19 qingbank/forms.py:41
+msgid "Innerphone"
+msgstr ""
+
+#: qingbank/forms.py:20 qingbank/forms.py:29
+msgid "Fax"
+msgstr ""
+
+#: qingbank/forms.py:33
+msgid "Dept"
+msgstr ""
+
+#: qingbank/forms.py:43
+msgid "Description"
+msgstr ""
+
+#: security/forms.py:28
+msgid "性别"
+msgstr ""
+
+#: security/forms.py:28
+msgid "女生"
+msgstr ""
+
+#: security/forms.py:29
+msgid "男生"
+msgstr ""
+
+#: security/forms.py:30
+msgid "喜欢女生"
+msgstr ""
+
+#: security/forms.py:31
+msgid "喜欢男生"
+msgstr ""
+
+#: security/forms.py:32
+msgid "保密哦"
+msgstr ""
+
+#: security/forms.py:38
+msgid "入学时间"
+msgstr ""
+
+#: xiaoyuan/forms.py:13
+msgid "Receivers"
+msgstr ""
+
+#: xiaoyuan/forms.py:16 xiaoyuan/forms.py:20
+msgid "Attach"
+msgstr ""
+
+#: xiaoyuan/forms.py:23
+msgid "id"
+msgstr ""
+
+#: xiaoyuan/forms.py:25
+msgid "Studentno"
+msgstr ""
+
+#: xiaoyuan/forms.py:26
+msgid "IDcard"
+msgstr ""
+
+#: xiaoyuan/forms.py:31
+msgid "标题"
+msgstr ""
+
+#: xiaoyuan/forms.py:32
+msgid "通知内容"
+msgstr ""
+
+#: xiaoyuan/forms.py:32
+msgid "请填写内容"
+msgstr ""
+

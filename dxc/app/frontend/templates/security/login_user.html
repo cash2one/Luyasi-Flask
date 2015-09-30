@@ -1,0 +1,53 @@
+{% extends "security/base.html" %} {% from "macros/fieldmacros.html" import render_error %} {% block subtitle %}
+{{_('Login')}} {% endblock subtitle%} {% block container %}
+<div class="col-md-4 col-md-offset-8">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">合作帐号登陆，免注册</div>
+                <div class="panel-body">
+                    <a
+                        href="{{url_for('openid-qq-frontend.openid_authenticate', provider='qq', next=login_user_form.next.data)}}"
+                        class="btn btn-primaryd"> <!--<img src="{{ url_for('static', filename='images/qq70.png') }}" />QQ登陆，免注册-->
+                        <img src="{{ url_for('static', filename='images/Connect_logo_4.png') }}" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <form class="form-horizontal" action="{{ url_for_security('login') }}" method="post"
+                        name="login_user_form">
+                        {{ login_user_form.hidden_tag() }}
+                        <h2>本网站账号登录</h2>
+
+                        <div class="form-group">{{login_user_form.email(class="form-control",
+                            placeholder=_("email"), autofocus="")}} {{render_error(login_user_form.email)}}</div>
+                        <div class="form-group">{{login_user_form.password(class="form-control",
+                            placeholder=_("password"))}} {{render_error(login_user_form.password)}}</div>
+                        <div class="form-group">{{login_user_form.remember}}{{_('remember me')}}</div>
+                        <div class="form-group">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">{{_('login')}}</button>
+                        </div>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                        <div class="text-center">
+                            {{_('No account?')}}<a href="{{url_for_security('register')}}">{{_('Signup')}}</a>
+                        </div>
+                        <div class="text-center">
+                            <a href="{{url_for_security('forgot_password')}}">{{_('Forget password')}}</a>
+                        </div>
+                    </form>
+
+                    <div>
+                        {% for pr in providers %} <a href="{{url_for_security('openid_login', openid=pr.url)}}">{{pr.name}}</a>|
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
