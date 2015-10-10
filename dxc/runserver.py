@@ -6,6 +6,8 @@ import sys
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 
+sys.path.insert(0, '/home/pythonprojects/flask/Luyasi-Flask')
+
 from app import frontend
 from app import api
 from dxc import setting
