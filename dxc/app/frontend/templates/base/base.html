@@ -116,7 +116,7 @@ body { padding-bottom: 71px; }
             <li><a href="{{url_for('job.list_job')}}">工作兼职</a></li>
             <li><a href="{{url_for('carpool.list_carinfo')}}">拼车包车</a></li>
             <li><a href="{{url_for('blog.list_blog', category=1)}}">校园新闻</a></li>
-            <li><a href="{{url_for('blog.list_blog', category=2)}}">校园生活</a></li>
+            <li><a href="{{url_for('blog.list_blog', category=2)}}">点滴生活</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             {% if current_user and current_user.is_authenticated() %}
@@ -139,7 +139,7 @@ body { padding-bottom: 71px; }
             <li><a href="{{ url_for('security.logout', next='/') }}"><span class="glyphicon glyphicon-log-out"></span> {{_('Exit')}}</a></li>
             {% else %}
             <li><a href="{{ url_for('security.login', next=request.path) }}"><span class="glyphicon glyphicon-log-in"></span> {{_('Login')}}</a></li>
-            <li><a href="{{ url_for('security-frontend.index') }}"><span class="glyphicon glyphicon-envelope"></span> <span class="badge">999</span></a></li>
+            
             <!--
             {% if security.registerable %}
             <li><a href="{{ url_for_security('register') }}">{{_('Signup')}}</a></li>

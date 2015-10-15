@@ -3,9 +3,10 @@
 
 #解决jinja2在从view返回中文到template会出错的问题。
 import sys
-sys.path.insert(0, 'P:\PythonProjects\FlaskProject\Luyasi-Flask')
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
+
+sys.path.insert(0, '/home/pythonprojects/flask/Luyasi-Flask')
 
 from app import frontend
 from app import api
