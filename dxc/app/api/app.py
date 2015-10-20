@@ -8,7 +8,7 @@ from . import jsonres
 bp = Blueprint('api_app', __name__, url_prefix='/dxc')
 
 #----------------------------------------------------------------------
-@bp.route('/info-<appname>', methods=['GET'])
+@bp.route('/appinfo-<appname>', methods=['GET'])
 def appinfo(appname):
     """"""
     app = api_app.first(name=appname)

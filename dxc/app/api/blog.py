@@ -9,7 +9,7 @@
     :license: BSD, see LICENSE for more details.
 """
 
-from flask import Blueprint, request
+from flask import Blueprint, request, render_template
 from flask_security import current_user
 
 from flaskframe.helpers import mkmillseconds
@@ -40,7 +40,7 @@ def list_blog(blogs_matrix=dict()):
     if page == None or page <= 0:
         page = 1
     blogs = api_blog.get_latest_page_filterby(page=page, per_page=10,
-                                              category=int(blogs_matrix.get('category', 0)))
+                                              category_id=int(blogs_matrix.get('category', 0)))
     pageInfo = paginationInfo(blogs)
     blogdatas = [dict(id=blog.id,
                       title=blog.title,
