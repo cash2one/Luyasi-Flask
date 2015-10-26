@@ -1,0 +1,97 @@
+{% extends "base/base.html" %}
+{% from "macros/fieldmacros.html" import render_form %}
+{% block css %}
+<style type="text/css">
+    body{
+        background-image: url({{url_for('static', filename='images/wish/img1.jpg')}});
+        background-repeat: repeat-y;
+        background-color: #FFA54E;
+    }
+
+    h3, h4, h5{
+        color: white !important;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+    <div class="container" style="">
+        <div class="row" style="">
+            <div class="col-md-12">
+                <div class="words">
+                    <h4>岁月有你</h4>
+                    <h4>比春夏秋冬多了一季</h4>
+                    <h4>是幸福季</h4>
+                </div>
+                <br>
+                <div class="words">
+                    <h4>生活有你</h4>
+                    <h4>比酸甜苦辣咸多了一味</h4>
+                    <h4>是感动味</h4>
+                </div>
+                <br>
+                <div class="words">
+                    <h4>生命有你</h4>
+                    <h4>比生老病死多了一种活法</h4>
+                    <h4>是至死不渝</h4>
+                </div>
+                <br>
+                <div class="words">
+                    <h4>在这个特别的日子里</h4>
+                    <h4>静静的想你</h4>
+                    <h4>想起我们的过去</h4>
+                    <h4>想到我们的现在</h4>
+                    <h4>想着我们的未来</h4>
+                </div>
+                <br>
+                <div class="words">
+                    <h4>是的，就是简单的一句</h4>
+                    <h4>我们要好好的</h4>
+                </div>
+
+            </div>
+
+        </div>
+        <br><br><br>
+        <div class="row" style="">
+            <div class="col-md-12" style="background-color: #fbb450;opacity: 0.7; padding: 12px">
+                <h4>亲爱的Luyasi</h4>
+                <h4>祝妳</h4>
+                <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生日快乐</h4>
+                <h4>愿妳</h4>
+                <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身体安康</h4>
+                <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工作顺利</h4>
+            </div>
+        </div>
+        <div class="row" style="">
+            <div class="col-md-12 text-right">
+                <h5>——最爱你的老公</h5>
+
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>我也要写上祝福~</h3>
+                <div class="well">
+                {{render_form(form, url_for('.luyasi'), 'wish_form')}}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row" style="color: white;font-weight: bold">
+            <div class="col-md-12">
+                {% for wish in wishes %}
+                <div class="wish">
+                    <span class="name">{{ wish.name }} 说：</span>
+                    <span class="content">{{ wish.content }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+{% endblock body %}

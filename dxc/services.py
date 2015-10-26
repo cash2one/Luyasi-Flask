@@ -6,6 +6,7 @@ from dxc.app.models.blog import CommentService, BlogService, CategoryService
 from dxc.app.models.job import JobService, ReportService
 from dxc.app.models.carpool import CarpoolInfoService
 from dxc.app.models.xiaoyuan import AcademyService, ClassService, MessageService, ClassApplyService, NoticeService
+from dxc.app.models.wish import WishService
 
 api_contact = ContactService()
 api_department = DepartmentService()
@@ -37,3 +38,6 @@ api_msg = MessageService()
 api_apply = ClassApplyService()
 #api_meminfo = MemberInfoService()
 api_notice = NoticeService()
+
+# wish
+api_wish = WishService()
