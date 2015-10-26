@@ -23,7 +23,7 @@ class RoleView(flaskframe.core.AuthModelView):
 
 class RightView(flaskframe.core.AuthModelView):
     """Admin view for :class:`~dxc.security.models.Right`"""
-    column_searchable_list = ('dxc',)
+    # column_searchable_list = ('dxc',)
     #----------------------------------------------------------------------
     def __init__(self):
         super(RightView, self).__init__(Right, flaskframe.core.db.session, name="Rights", endpoint="rights", category='Security Manage')
