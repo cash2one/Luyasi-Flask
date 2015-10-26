@@ -5,10 +5,11 @@ from functools import wraps
 from flask import render_template, abort, session
 from flask_security import login_required
 from flask_principal import Permission
+from flask_admin import  Admin
 
 from flaskframe import appfactory
 from flaskframe.core import db, RightNeed, babel
-from flaskframe.helpers import JSONEncoder
+from flaskframe.helpers import JSONEncoder, collect_admin_views
 
 def create_app(settings_override=None):
     """Create frontend application.
@@ -18,12 +19,12 @@ def create_app(settings_override=None):
     app = appfactory.create_app(__name__, __path__, settings_override)
     app.json_encoder = JSONEncoder
 
-    # from .. import models
+    from .. import models
 
     #这个只有网页上使用，放在这里的最大原因是为了防止在单元测试时重复增加adminview的endpoint
-    # admin = Admin(name='Admin', base_template='admin/admin_base.html')
-    # collect_admin_views(models, admin)
-    # admin.init_app(app)
+    admin = Admin(name='Admin', base_template='admin/admin_base.html')
+    collect_admin_views(models, admin, app)
+    admin.init_app(app)
 
     # Register custom error handlers
     if not app.debug:

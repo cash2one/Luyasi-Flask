@@ -12,6 +12,8 @@ DEBUG = False
 #我靠。。原来testing为true的时候是不用登陆的！login_required会无效。
 TESTING = False
 
+#应用文件夹名字,在admin的collect_view里会用得着
+APP_NAME='dxc'
 #是否需要显示所有的blueprint route
 DEBUG_PRINT_ROUTE = False
 #: In some case, email will not used at all. e.g. When use qingbank module only.
