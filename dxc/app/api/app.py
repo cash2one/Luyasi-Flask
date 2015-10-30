@@ -5,7 +5,7 @@ from flask import Blueprint
 from dxc.services import api_app
 from . import jsonres
 
-bp = Blueprint('api_app', __name__, url_prefix='/dxc')
+bp = Blueprint('api_app', __name__)
 
 #----------------------------------------------------------------------
 @bp.route('/appinfo-<appname>', methods=['GET'])
