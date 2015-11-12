@@ -8,14 +8,14 @@ import os
 from flask.ext.babel import gettext, lazy_gettext
 
 #Flask的debug开关。有利于看出错信息。正式启用时要关掉
-DEBUG = False
+DEBUG = True
 #我靠。。原来testing为true的时候是不用登陆的！login_required会无效。
 TESTING = False
 
 #应用文件夹名字,在admin的collect_view里会用得着
 APP_NAME='dxc'
 #是否需要显示所有的blueprint route
-DEBUG_PRINT_ROUTE = False
+DEBUG_PRINT_ROUTE = True
 #: In some case, email will not used at all. e.g. When use qingbank module only.
 ENABLE_SECURITY_MAIL = True
 
@@ -45,16 +45,24 @@ OAUTH_QQ = {
 }
 
 #SERVER_NAME就flask的自有配置。。上次不小心用了SERVER_NAME，搞到所有请求都是not found
-KINORSI_SERVER_NAME = '0763dxc.com'
-KINORSI_SERVER_PORT = '5000'
-if not DEBUG:
-    KINORSI_SERVER_PORT = ''
+KINORSI_SERVER_NAME = None
+KINORSI_SERVER_PORT = None
+if DEBUG:
+    KINORSI_SERVER_NAME = '192.168.1.249'
+    KINORSI_SERVER_PORT = 5000
+else:
+    KINORSI_SERVER_NAME = '0763dxc.com'
+    KINORSI_SERVER_PORT = None
 
 KINORSI_SERVER_HOST = ''
-if KINORSI_SERVER_PORT and len(KINORSI_SERVER_PORT)>0:
+if KINORSI_SERVER_PORT and KINORSI_SERVER_PORT is not None:
     KINORSI_SERVER_HOST = str.format('{}:{}', KINORSI_SERVER_NAME, KINORSI_SERVER_PORT)
 else:
     KINORSI_SERVER_HOST = KINORSI_SERVER_NAME
+
+
+API_URL = str.format('http://{}', KINORSI_SERVER_HOST)
+
 
 #gmail.com-for logging.写log和正常发邮件有所不同。。
 # MAIL_DEFAULT_SENDER = "kinorsi@gmail.com"
