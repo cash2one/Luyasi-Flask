@@ -15,7 +15,7 @@ TESTING = False
 #应用文件夹名字,在admin的collect_view里会用得着
 APP_NAME='dxc'
 #是否需要显示所有的blueprint route
-DEBUG_PRINT_ROUTE = True
+DEBUG_PRINT_ROUTE = False
 #: In some case, email will not used at all. e.g. When use qingbank module only.
 ENABLE_SECURITY_MAIL = True
 
@@ -35,7 +35,7 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 # 16M upload
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
-#OAuth client配置信息
+#OAuth client配置信息 connect.qq.com
 OAUTH_QQ = {
     "auth_endpoint": "https://graph.qq.com/oauth2.0/authorize",
     "token_endpoint": "https://graph.qq.com/oauth2.0/token",
@@ -43,6 +43,8 @@ OAUTH_QQ = {
     "client_id" :"101176056",
     "client_secret": "4be2b7d2999ec0376bc5378d7af7429b"
 }
+# QQ的移动appkey
+APPKEY_QQ_MOBILE = '1103291585'
 
 #SERVER_NAME就flask的自有配置。。上次不小心用了SERVER_NAME，搞到所有请求都是not found
 KINORSI_SERVER_NAME = None
