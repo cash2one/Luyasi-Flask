@@ -8,6 +8,8 @@ import requests
 import re
 import json
 
+from dxc.services import api_user
+
 from . import jsonres
 
 bp = Blueprint('api_login', __name__)
@@ -40,10 +42,14 @@ def login():
     data = {'csrf_token':csrf_token,'email':username, 'password': passwd}
     jdata = json.dumps(data)
     loginRes = requests.post(loginUrl, json=data, cookies=cookies)
-    return loginRes.text
-    #print loginRes
+    resJson = loginRes.json()
 
-    # return jsonres(rv=dict(msg='ok'))
+    if resJson['meta']['code'] == 200:
+        user = api_user.get(int(resJson['response']['user']['id']))
+        del resJson['response']['user']['id']
+        resJson['response']['user']['nickname'] = user.nickname or user.email
+
+    return json.dumps(resJson)
 
 @bp.route('/openid/qq/applogin', methods=['POST'])
 def app_login():
@@ -56,7 +62,7 @@ def app_login():
     res = requests.get(str.format('https://graph.qq.com/user/get_user_info?oauth_consumer_key={0}&access_token={1}&openid={2}&format=json', appkey, access_token, userid))
 
     resJson = res.json()
-    if resJson.ret != 0:
+    if resJson['ret'] != 0:
         return jsonres(rv=resJson)
 
     userinfo = resJson
@@ -78,5 +84,5 @@ def app_login():
     login_user(user)
 
     # print user.get_auth_token()
-    loginRes = dict(authentication_token=user.get_auth_token(), id=user.id)
+    loginRes = dict(authentication_token=user.get_auth_token(), nickname=(user.nickname or user.email))
     return jsonres(rv=dict(user=loginRes))
