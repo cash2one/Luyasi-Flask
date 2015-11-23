@@ -4,6 +4,7 @@ from . import route
 
 from flask import Blueprint, url_for, current_app, request
 from flask_security import login_user
+from flask_security.utils import  verify_and_update_password
 import requests
 import re
 import json
@@ -15,9 +16,9 @@ from . import jsonres
 bp = Blueprint('api_login', __name__)
 
 
-@bp.route('/login', methods=['POST'])
-def login():
-    """"""
+@bp.route('/login2', methods=['POST'])
+def login2():
+    """这是从内部请求面页的方式做的，比较麻烦。主要是原来想去掉crsf_token"""
 
     username = request.json.get('username', '')
     passwd = request.json.get('password', '')
@@ -50,6 +51,25 @@ def login():
         resJson['response']['user']['nickname'] = user.nickname or user.email
 
     return json.dumps(resJson)
+
+
+@bp.route('/login', methods=['POST'])
+def login():
+    """直接使用flask-security的工具方法完成登陆验证"""
+    username = request.json.get('username', '')
+    passwd = request.json.get('password', '')
+
+    security = current_app.extensions['security']
+    datastore = security.datastore
+    user = datastore.get_user(username)
+    if not verify_and_update_password(passwd, user):
+        return jsonres(metacode=401, msg=u'用户不在在或密码不正确')
+
+    login_user(user)
+
+    loginRes = dict(authentication_token=user.get_auth_token(), nickname=(user.nickname or user.email), avatar=user.avatar)
+    return jsonres(rv=dict(user=loginRes))
+
 
 @bp.route('/openid/qq/applogin', methods=['POST'])
 def app_login():
@@ -84,5 +104,5 @@ def app_login():
     login_user(user)
 
     # print user.get_auth_token()
-    loginRes = dict(authentication_token=user.get_auth_token(), nickname=(user.nickname or user.email))
+    loginRes = dict(authentication_token=user.get_auth_token(), nickname=(user.nickname or user.email), avatar=user.avatar)
     return jsonres(rv=dict(user=loginRes))

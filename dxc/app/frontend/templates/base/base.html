@@ -119,6 +119,13 @@ body { padding-bottom: 71px; }
             <li><a href="{{url_for('blog.list_blog', category=2)}}">点滴生活</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">下载手机APP<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <h4>目前只有Android版,ios版还没有呀</h4>
+                    <img src="/static/images/dxcapp_ma.png" alt="">
+                </ul>
+            </li>
             {% if current_user and current_user.is_authenticated() %}
             <li><a href="{{ url_for('security-frontend.detail_profile', user_id=current_user.id) }}">
                 {% if current_user.avatar %}
@@ -155,6 +162,7 @@ body { padding-bottom: 71px; }
                     {% if security.confirmable %}
                     <li><a href="{{ url_for_security('send_confirmation') }}">{{_('Activate account')}}</a></li>
                     {% endif %}
+                    <img src="/static/images/logo.png" alt="">
                 </ul>
             </li>
 
