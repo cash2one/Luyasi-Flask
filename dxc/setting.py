@@ -8,7 +8,7 @@ import os
 from flask.ext.babel import gettext, lazy_gettext
 
 #Flask的debug开关。有利于看出错信息。正式启用时要关掉
-DEBUG = False
+DEBUG = True
 #我靠。。原来testing为true的时候是不用登陆的！login_required会无效。
 TESTING = False
 
@@ -35,7 +35,7 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 # 16M upload
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
-#OAuth client配置信息
+#OAuth client配置信息 connect.qq.com
 OAUTH_QQ = {
     "auth_endpoint": "https://graph.qq.com/oauth2.0/authorize",
     "token_endpoint": "https://graph.qq.com/oauth2.0/token",
@@ -43,18 +43,28 @@ OAUTH_QQ = {
     "client_id" :"101176056",
     "client_secret": "4be2b7d2999ec0376bc5378d7af7429b"
 }
+# QQ的移动appkey
+APPKEY_QQ_MOBILE = '1103291585'
 
 #SERVER_NAME就flask的自有配置。。上次不小心用了SERVER_NAME，搞到所有请求都是not found
-KINORSI_SERVER_NAME = '0763dxc.com'
-KINORSI_SERVER_PORT = '5000'
-if not DEBUG:
-    KINORSI_SERVER_PORT = ''
+KINORSI_SERVER_NAME = None
+KINORSI_SERVER_PORT = None
+if DEBUG:
+    KINORSI_SERVER_NAME = '192.168.1.249'
+    KINORSI_SERVER_PORT = 5000
+else:
+    KINORSI_SERVER_NAME = '0763dxc.com'
+    KINORSI_SERVER_PORT = None
 
 KINORSI_SERVER_HOST = ''
-if KINORSI_SERVER_PORT and len(KINORSI_SERVER_PORT)>0:
+if KINORSI_SERVER_PORT and KINORSI_SERVER_PORT is not None:
     KINORSI_SERVER_HOST = str.format('{}:{}', KINORSI_SERVER_NAME, KINORSI_SERVER_PORT)
 else:
     KINORSI_SERVER_HOST = KINORSI_SERVER_NAME
+
+
+API_URL = str.format('http://{}', KINORSI_SERVER_HOST)
+
 
 #gmail.com-for logging.写log和正常发邮件有所不同。。
 # MAIL_DEFAULT_SENDER = "kinorsi@gmail.com"

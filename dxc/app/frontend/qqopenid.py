@@ -10,7 +10,6 @@ from flask_security.utils import get_url
 from werkzeug.local import LocalProxy
 from sanction import Client
 
-from . import route
 
 bp = Blueprint('openid-qq-frontend', __name__, template_folder='templates', static_folder='static')
 _security = LocalProxy(lambda: current_app.extensions['security'])
@@ -149,3 +148,5 @@ def do_not_remind_bind():
     _datastore.commit()
 
     return  redirect(next_url)
+
+
