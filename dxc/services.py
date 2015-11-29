@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 
 from dxc.app.models.qingbank import ContactService, DepartmentService, NodeService
-from dxc.app.models.security import UserService, RoleService, ProfileService, SysMessageService, AppService
+from flaskframe.security import UserService, RoleService, ProfileService, SysMessageService, AppService
 from dxc.app.models.blog import CommentService, BlogService, CategoryService
 from dxc.app.models.job import JobService, ReportService
 from dxc.app.models.carpool import CarpoolInfoService

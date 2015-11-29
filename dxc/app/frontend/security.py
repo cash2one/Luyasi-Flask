@@ -6,7 +6,7 @@ from flask_babel import gettext
 from . import route
 from dxc.app.models.qingbank import ContactForm
 from dxc.services import api_contact, api_user, api_profile, api_sysmsg
-from dxc.app.models.security import ProfileForm
+from flaskframe.security import ProfileForm
 
 bp = Blueprint('security-frontend', __name__, template_folder='templates', static_folder='static', url_prefix='/security')
 

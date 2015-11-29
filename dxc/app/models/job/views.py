@@ -21,4 +21,4 @@ class JobView(flaskframe.core.AuthModelView):
         }
     }    
     def __init__(self):
-        super(JobView, self).__init__(Job, flaskframe.core.db.session, name="Jobs", endpoint="jobs", category='Job')
+        super(JobView, self).__init__(Job, flaskframe.core.db.session, name=u"工作", endpoint="jobs", category=u'工作管理')

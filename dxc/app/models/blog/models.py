@@ -2,7 +2,7 @@
 
 from flaskframe.core import db, ModelVersion
 from flaskframe.helpers import JsonSerializer
-from dxc.app.models.security.models import User
+from flaskframe.security.models import User
 
 
 ####################################################

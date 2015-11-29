@@ -1,9 +1,9 @@
 from sqlalchemy import or_
 
 from flaskframe.core import Service
-from .models import User, Right, Role, Profile, App, SysMessage
+from .models import User, Right, Role, App, SysMessage
+from dxc.app.models.xiaoyuan.models import Profile
 from .forms import ProfileForm, SysMessageForm
-from dxc.app.models.xiaoyuan import Class
 
 
 class UserService(Service):
@@ -14,10 +14,11 @@ class UserService(Service):
         if class_ids is None:
             return None
 
-        query = self.__model__.query.join(self.__model__.classes).join(self.__model__.roles)\
-                        .filter(Class.id.in_(class_ids))\
-                        .filter(Role.id.in_(role_ids))\
-                        .paginate(page, per_page, error_out)
+        raise NotImplemented()
+        # query = self.__model__.query.join(self.__model__.classes).join(self.__model__.roles)\
+        #                 .filter(Class.id.in_(class_ids))\
+        #                 .filter(Role.id.in_(role_ids))\
+        #                 .paginate(page, per_page, error_out)
         return query
 
     #----------------------------------------------------------------------

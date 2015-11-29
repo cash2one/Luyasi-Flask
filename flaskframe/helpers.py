@@ -23,7 +23,7 @@ def register_blueprints(app, package_name, package_path):
     """
     rv = []
     for _, name, _ in pkgutil.iter_modules(package_path):
-        # print "-------%s-------%s", package_name, name
+        print str.format("packagename:{}---module name:{}", package_name, name)
         m = importlib.import_module('%s.%s' % (package_name, name))
         for item in dir(m):
             item = getattr(m, item)
@@ -40,19 +40,25 @@ def register_blueprints(app, package_name, package_path):
 
 
 def collect_admin_views(package, admin, app):
-    """Collect `Flask-Admin <http://flask-admin.readthedocs.org/en/latest/index.html>`_ views in each module"""
-    # doc_pos = app_package_name.rfind(r'.')
-    # parent = app_package_name[:doc_pos]
-    # from dxc.app.models.blog import views
-    # admin.add_view(views.BlogView())
+    """自动收集所有的管理视图
+    :param package 包
+    :param admin admin应用
+    :param app app实例
+    """
 
-    appname = app.config['APP_NAME']
+    # 单独把flaskframe里的用户model加一下
+    from flaskframe.security.views import AppView, RightView, RoleView, UserView
+    admin.add_view(AppView())
+    admin.add_view(RightView())
+    admin.add_view(RoleView())
+    admin.add_view(UserView())
+
+    appname=app.config['APP_NAME']
     path = os.path.dirname(package.__file__)
     for _, name, ispkg in pkgutil.walk_packages([path]):
         if ispkg:
             for _, module_name, ispkg in pkgutil.iter_modules([path + '/' + name]):
                 if not ispkg and module_name == 'views':
-
                     module_name = '%s.%s.%s.%s' % (appname, package.__name__, name, module_name)
                     m = importlib.import_module(module_name)
                     for item in dir(m):

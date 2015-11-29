@@ -24,9 +24,9 @@ class BlogView(flaskframe.core.AuthModelView):
 
     def __init__(self):
         super(BlogView, self).__init__(Blog, flaskframe.core.db.session,
-                                       name="Blogs",
+                                       name=u"文章",
                                        endpoint="blogs",
-                                       category='Blog')
+                                       category=u'文章管理')
 
 
 class CommentView(flaskframe.core.AuthModelView):
@@ -34,9 +34,9 @@ class CommentView(flaskframe.core.AuthModelView):
 
     def __init__(self):
         super(CommentView, self).__init__(Comment, flaskframe.core.db.session,
-                                          name="Comments",
+                                          name=u"评论",
                                           endpoint="comments",
-                                          category='Blog')
+                                          category=u'文章管理')
 
 
 class CategoryView(flaskframe.core.AuthModelView):
@@ -44,6 +44,6 @@ class CategoryView(flaskframe.core.AuthModelView):
 
     def __init__(self):
         super(CategoryView, self).__init__(Category, flaskframe.core.db.session,
-                                           name="Categories",
+                                           name=u"栏目",
                                            endpoint="Categories",
-                                           category='Blog')
+                                           category=u'文章管理')

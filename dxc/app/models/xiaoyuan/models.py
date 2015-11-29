@@ -2,8 +2,9 @@
 
 from flaskframe.core import db, ModelVersion
 from flaskframe.helpers import JsonSerializer
+from flaskframe.security import User
 
-from dxc.app.models.security.models import User
+from flaskframe.security.models import User
 
 academies_classes = db.Table('xiaoyuan_academies_classes',
                        db.Column('academy_id', db.Integer(), db.ForeignKey('xiaoyuan_academy.id')),
@@ -201,5 +202,40 @@ class Notice(db.Model, ModelVersion, JsonSerializer):
         return "<Notice: %s>" % self.id
 
     def __str__(self):
-        return  u'%s' % self.id         
-    
+        return  u'%s' % self.id
+
+
+class Profile(db.Model, ModelVersion, JsonSerializer):
+    """"""
+    __tablename__ = 'xiaoyuan_profile'
+    id = db.Column(db.Integer(), primary_key=True)
+    # nickname，需要唯一的昵称
+    nickname = db.Column(db.String(10), nullable=False, unique=True)
+    # 1-male, 0-female, 2-喜欢女生，3-喜欢男生，100-other
+    sex = db.Column(db.Integer(), nullable=False, default=2)
+    truename = db.Column(db.String(10))
+    mobile = db.Column(db.String(11))
+    email = db.Column(db.String(50))
+    # 所在学校
+    college = db.Column(db.String(30))
+    # 入学时间
+    in_college_date = db.Column(db.Date())
+    # 专业
+    major = db.Column(db.String(30))
+    # 所在班级
+    clazz = db.Column(db.String(30))
+    # 兴趣
+    hobby = db.Column(db.String(100))
+    # 特长
+    special = db.Column(db.String(100))
+    # 家乡
+    hometown = db.Column(db.String(100))
+
+    user_id = db.Column(db.Integer(), db.ForeignKey('security_user.id'))
+    user = db.relationship(User, backref=db.backref('profile', uselist=False))
+
+    def __repr__(self):
+        return u'<Profile: %s>', self.id
+
+    def __str__(self):
+        return u'%s' % self.id

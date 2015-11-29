@@ -9,7 +9,7 @@ import factory.alchemy
 # from tests import test_setting
 # appilcation = create_app(settings_override=test_setting)
 # print appilcation.name
-import dxc.app.models.security.models
+import flaskframe.security.models
 import dxc.app.models.qingbank.models
 from flaskframe.core import db
 
@@ -18,14 +18,14 @@ Factory for generate test datas
 """
 
 class RoleFactory(factory.alchemy.SQLAlchemyModelFactory):
-    FACTORY_FOR = dxc.app.models.security.models.Role
+    FACTORY_FOR = flaskframe.security.models.Role
     FACTORY_SESSION = db.session
 
     id = factory.Sequence(lambda n: n)
     name  = factory.Sequence(lambda n: u'Role_%d' % n)
 
 class UserFactory(factory.alchemy.SQLAlchemyModelFactory):
-    FACTORY_FOR = dxc.app.models.security.models.User
+    FACTORY_FOR = flaskframe.security.models.User
     FACTORY_SESSION = db.session
 
     id = factory.Sequence(lambda n: n)
