@@ -12,21 +12,21 @@ class UserView(flaskframe.core.AuthModelView):
     # inline_models = (Contact,)
     column_exclude_list = ('password','version')
     def __init__(self):
-        super(UserView, self).__init__(User, flaskframe.core.db.session, name='Users', endpoint='users', category='Security Manage')
+        super(UserView, self).__init__(User, flaskframe.core.db.session, name=u'用户', endpoint='users', category=u'用户管理')
 
 class RoleView(flaskframe.core.AuthModelView):
     """Admin view for :class:`~dxc.security.models.Role`"""
 
     column_searchable_list = ('name',)
     def __init__(self):
-        super(RoleView, self).__init__(Role, flaskframe.core.db.session, name="Roles", endpoint="roles", category='Security Manage')
+        super(RoleView, self).__init__(Role, flaskframe.core.db.session, name=u'角色', endpoint='roles', category=u'用户管理')
 
 class RightView(flaskframe.core.AuthModelView):
     """Admin view for :class:`~dxc.security.models.Right`"""
     # column_searchable_list = ('dxc',)
     #----------------------------------------------------------------------
     def __init__(self):
-        super(RightView, self).__init__(Right, flaskframe.core.db.session, name="Rights", endpoint="rights", category='Security Manage')
+        super(RightView, self).__init__(Right, flaskframe.core.db.session, name=u'权限', endpoint='rights', category=u'用户管理')
 
 class AppView(flaskframe.core.AuthModelView):
     """Admin view for :class:`~dxc.security.models.App`"""
@@ -34,5 +34,5 @@ class AppView(flaskframe.core.AuthModelView):
 
     #----------------------------------------------------------------------
     def __init__(self):
-        super(AppView, self).__init__(App, flaskframe.core.db.session, name="Apps", endpoint="apps", category='Security Manage')
+        super(AppView, self).__init__(App, flaskframe.core.db.session, name=u'应用', endpoint='apps', category=u'用户管理')
 
