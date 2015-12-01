@@ -134,7 +134,7 @@ def detail_sysmessage(msg_id):
     return render_template('security/profile_detail_sysmessage.html', msg=msg)
 
 #----------------------------------------------------------------------
-@route(bp, '/sysmessages/<int:msg_id>', methods=['POST'])
+@route(bp, '/sysmessages/delete/<int:msg_id>')
 def delete_sysmessage(msg_id):
     """删除"""
     msg = api_sysmsg.get_or_404(msg_id)

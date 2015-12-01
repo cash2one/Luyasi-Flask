@@ -170,7 +170,7 @@ def detail_classmemberinfo(userid=None):
     """显示个人的班级相关信息"""
     user = api_user.get(userid)
     backurl = request.args.get('backurl')#这个是用来返回上一个页面用的
-    return render_template('profile_class_memberinfo.html', meminfo=user.class_meminfo, backurl=backurl)
+    return render_template('profile_class_memberinfo.html', meminfo=user.profile, backurl=backurl)
 
 #----------------------------------------------------------------------
 @route(bp, '/agreejoinapply/<int:applyid>', methods=['GET'])

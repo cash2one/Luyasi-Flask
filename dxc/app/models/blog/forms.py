@@ -13,7 +13,7 @@ from flaskframe.wtfext.fields import CaptchaField
 class BlogForm(Form):
     id = IntegerField(u'id', default=0, widget=HiddenInput())
     title = TextField(lazy_gettext(u'Title'), validators=[Required()])
-    category = SelectField(lazy_gettext(u'发表栏目'), choices=[#(0, lazy_gettext(u'Blog')),
+    category_id = SelectField(lazy_gettext(u'发表栏目'), choices=[#(0, lazy_gettext(u'Blog')),
                                                                 (1, lazy_gettext(u'Xiaoyuan News')),
                                                                 (2, lazy_gettext(u'Life points'))], coerce=int, validators=[Required()])
     content = CKEditorField(lazy_gettext(u'Content'), import_js=True, validators=[CKEditorRequired(message=gettext('The comment forgot you~'))])
