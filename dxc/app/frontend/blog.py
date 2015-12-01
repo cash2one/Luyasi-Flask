@@ -14,9 +14,9 @@ from dxc.app.models.blog import BlogForm, CommentForm
 bp = Blueprint('blog', __name__, template_folder='templates', static_folder='static', url_prefix='/blog')
 
 #--------------------------------------------------------
-@route(bp, '/new/<int:category>', methods=['GET', 'POST'])
+@route(bp, '/new2/<int:category>', methods=['GET', 'POST'])
 #@right_require('blog')
-def create_blog(category):
+def create_blog2(category):
     #此处category并没有使用，只是传递一下。用在界面上
     blog_form = BlogForm(category=category)
     if blog_form.validate_on_submit():
@@ -31,11 +31,11 @@ def create_blog(category):
     return render_template('blog/create.html', blog_form=blog_form, category=category,
                            action_url=url_for('.create_blog', category=category))
 
-@route(bp, '/new2/<int:category>', methods=['GET', 'POST'])
+@route(bp, '/new/<int:category>', methods=['GET', 'POST'])
 #@right_require('blog')
-def create_blog2(category):
+def create_blog(category):
     #此处category并没有使用，只是传递一下。用在界面上
-    blog_form = BlogForm(category=category)
+    blog_form = BlogForm(category_id=category)
     if blog_form.validate_on_submit():
         blog = api_blog.create(user=current_user, **blog_form.data)
         flash(u'创建成功')
