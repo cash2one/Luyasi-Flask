@@ -12,6 +12,7 @@ from flask.ext.admin.contrib.sqla import ModelView
 
 from flaskframe.core import db
 
+
 def register_blueprints(app, package_name, package_path):
     """
     Register all Blueprint instances on the specified Flask application found
@@ -23,7 +24,7 @@ def register_blueprints(app, package_name, package_path):
     """
     rv = []
     for _, name, _ in pkgutil.iter_modules(package_path):
-        print str.format("packagename:{}---module name:{}", package_name, name)
+        # print str.format("blue print  :  packagename:{}---module name:{}", package_name, name)
         m = importlib.import_module('%s.%s' % (package_name, name))
         for item in dir(m):
             item = getattr(m, item)
@@ -53,7 +54,7 @@ def collect_admin_views(package, admin, app):
     admin.add_view(RoleView())
     admin.add_view(UserView())
 
-    appname=app.config['APP_NAME']
+    appname = app.config['APP_NAME']
     path = os.path.dirname(package.__file__)
     for _, name, ispkg in pkgutil.walk_packages([path]):
         if ispkg:
@@ -65,7 +66,6 @@ def collect_admin_views(package, admin, app):
                         item = getattr(m, item)
                         if inspect.isclass(item) and issubclass(item, ModelView):
                             admin.add_view(item())
-
 
 
 def import_model(model_path):
@@ -81,6 +81,7 @@ class JSONEncoder(BaseJSONEncoder):
     """Custom :class:`JSONEncoder` which respects objects that include the
     :class:`JsonSerializer` mixin.
     """
+
     def default(self, obj):
         if isinstance(obj, JsonSerializer):
             self.max_depth = current_app.config['SQLALCHMY_MAX_DEPTH']
@@ -103,7 +104,7 @@ class JsonSerializer(object):
     #: Field in this collect is not limited by the depth.
     __json_depth_no_limit__ = None
 
-    #--------------------------------------------------------------
+    # --------------------------------------------------------------
     def get_field_names(self):
         for p in self.__mapper__.iterate_properties:
             yield p.key
@@ -111,7 +112,7 @@ class JsonSerializer(object):
     # def is_valid_json(self, val):
     #     return isinstance(val, (dict,list,int,long,float,True,False,None,str,unicode, db.Model))
 
-    #--------------------------------------------------------------
+    # --------------------------------------------------------------
     def to_json(self, max_depth):
         """Just filter the fields which will be left for json to encode.
         """
@@ -138,7 +139,7 @@ class JsonSerializer(object):
         rvfinal = dict()
         for key in rv:
             # 注意：移除不能被tojson的属性~即如果是类的属性，但是却没有继承JsonSerializer的话就移除。
-            #AppenderBaseQuery似乎是生成的类，在文件里找不到。所以只能用名字。
+            # AppenderBaseQuery似乎是生成的类，在文件里找不到。所以只能用名字。
 
             # 处理集合的情况，要取一个元素出来比较其类型是否为JsonSerialzer。
             test = rv[key]
@@ -155,7 +156,7 @@ class JsonSerializer(object):
                 else:
                     if not is_collect:
                         rvfinal[key] = rv[key].to_json(max_depth)
-                    else: # is_collect = True
+                    else:  # is_collect = True
                         json_list = list()
                         for item in rv[key]:
                             json_list.append(item.to_json(max_depth))
@@ -164,7 +165,7 @@ class JsonSerializer(object):
             elif rv[key] and type(rv[key]).__name__ == 'AppenderBaseQuery':
                 continue
 
-            rvfinal[key]=rv[key]
+            rvfinal[key] = rv[key]
 
         return rvfinal
 
@@ -172,6 +173,7 @@ class JsonSerializer(object):
 ##############################################################
 class TlsSMTPHandler(logging.handlers.SMTPHandler):
     """Gmail should use this to do email logging. But it seems not work!"""
+
     def emit(self, record):
         """
         Emit a record.
@@ -206,9 +208,11 @@ class TlsSMTPHandler(logging.handlers.SMTPHandler):
         except:
             self.handleError(record)
 
+
 ##############################################################
 class SslSTMPHandler(logging.handlers.SMTPHandler):
     """When use SSL, need to use this. Currently used with QQEmail"""
+
     def emit(self, record):
         """
         Emit a record.
@@ -221,7 +225,7 @@ class SslSTMPHandler(logging.handlers.SMTPHandler):
             port = self.mailport
             if not port:
                 port = smtplib.SMTP_PORT
-            smtp = smtplib.SMTP_SSL(self.mailhost, port)#, timeout=self._timeout)
+            smtp = smtplib.SMTP_SSL(self.mailhost, port)  # , timeout=self._timeout)
             msg = self.format(record)
             msg = "From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\n\r\n%s" % (
                 self.fromaddr,
@@ -242,8 +246,7 @@ class SslSTMPHandler(logging.handlers.SMTPHandler):
             self.handleError(record)
 
 
-#----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 def mkmillseconds(datetime):
     """转成毫秒值"""
     return time.mktime(datetime.timetuple()) * 1000
-
