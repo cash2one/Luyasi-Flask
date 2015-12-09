@@ -62,10 +62,13 @@ def create_app(package_name, package_path, settings_override=None, register_secu
     if not app.debug and not app.testing:
         import logging
         from logging.handlers import RotatingFileHandler
-        mail_handler = SslSTMPHandler((app.config['MAIL_SERVER'], app.config['MAIL_PORT']), app.config['MAIL_DEFAULT_SENDER'],
-                                      app.config['ADMINS'], 'kinoris.com  failed!', credentials=(app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD']))
+        mail_handler = SslSTMPHandler((app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
+                                      app.config['MAIL_DEFAULT_SENDER'],
+                                      app.config['ADMINS'], 'kinoris.com  failed!',
+                                      credentials=(app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD']))
         mail_handler.setLevel(logging.ERROR)
-        mail_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        mail_handler.setFormatter(
+            logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
         app.logger.addHandler(mail_handler)
 
         # 文件log
@@ -74,14 +77,18 @@ def create_app(package_name, package_path, settings_override=None, register_secu
             os.makedirs(app.config['LOGGING_DIR'])
 
         # 一般日志
-        file_handler = RotatingFileHandler(os.path.join(app.config['LOGGING_DIR'], 'app.log'), mode='a', maxBytes=5 * 1024 * 1024, backupCount=10, encoding='utf-8')
-        file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        file_handler = RotatingFileHandler(os.path.join(app.config['LOGGING_DIR'], 'app.log'), mode='a',
+                                           maxBytes=5 * 1024 * 1024, backupCount=10, encoding='utf-8')
+        file_handler.setFormatter(
+            logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
         file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)
 
         # 错误日志
-        file_handler_error = RotatingFileHandler(os.path.join(app.config['LOGGING_DIR'], 'app_error.log'), mode='a', maxBytes=5 * 1024 * 1024, backupCount=10, encoding='utf-8')
-        file_handler_error.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        file_handler_error = RotatingFileHandler(os.path.join(app.config['LOGGING_DIR'], 'app_error.log'), mode='a',
+                                                 maxBytes=5 * 1024 * 1024, backupCount=10, encoding='utf-8')
+        file_handler_error.setFormatter(
+            logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
         file_handler_error.setLevel(logging.ERROR)
         app.logger.addHandler(file_handler_error)
 
@@ -91,13 +98,14 @@ def create_app(package_name, package_path, settings_override=None, register_secu
 
     return app
 
-#----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
 def _app_on_identity_loaded(sender, identity):
     """Define dxc needed flask_pricipal identity loaded handler.
     :param sender: Signle sender.
     "param identity: Identity.
     """
-    #identity.provides.add(ItemNeed('delete', 13, 'blog'))
+    # identity.provides.add(ItemNeed('delete', 13, 'blog'))
     if current_user.get_id() is not None:
         for right in current_user.rights:
             identity.provides.add(RightNeed(right.action, right.app, right.entity))

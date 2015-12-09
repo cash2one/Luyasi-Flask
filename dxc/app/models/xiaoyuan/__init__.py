@@ -1,4 +1,5 @@
 #-*- coding:utf-8 -*-
+from dxc.app.models.xiaoyuan.models import Profile
 from flaskframe.core import Service, db
 from .models import Academy, Class, ClassApply, Notice, Message, ClassUserAssociation, MessageUserAssociation
 from .forms import ReplayForm, MsgForm, NoticeForm, MemberInfoForm
@@ -60,4 +61,7 @@ class NoticeService(Service):
         if user not in notice.readers.all():
             notice.readers.append(user)
         db.session.commit()
-        
+
+
+class ProfileService(Service):
+    __model__ = Profile

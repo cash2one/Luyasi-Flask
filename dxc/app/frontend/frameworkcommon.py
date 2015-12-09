@@ -5,7 +5,7 @@ from flask import Blueprint, send_file, session, request, redirect
 
 from flaskframe.captcha import make_simple_captcha
 
-bp = Blueprint('frameworkd', __name__, template_folder='templates', static_folder='static', url_prefix='/common')
+bp = Blueprint('framework', __name__, template_folder='templates', static_folder='static', url_prefix='/common')
 
 #----------------------------------------------------------------------
 @bp.route('/captcha/', methods=['GET'])

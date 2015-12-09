@@ -72,7 +72,7 @@ def import_model(model_path):
     m = importlib.import_module(model_path)
     for item in dir(m):
         item = getattr(m, item)
-        print item
+        # print item
         if isinstance(item, db.Model):
             importlib.import_module('%s.%s' % (model_path, item))
 
