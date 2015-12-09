@@ -20,13 +20,12 @@ def list_garage():
     return jsonres(rv=dict(datas=carpools, pageInfo=page_info))
 
 
-@route(bp, 'garage-new', methods=['POST'])
+@route(bp, '', methods=['POST'])
 def create_garage():
     form = GarageForm()
     if form.validate_on_submit():
         apiGarageRent.create(publisher=current_user, **form.data)
         return jsonres()
-
     return jsonres(success=False, msg=u'创建失败')
 
 
@@ -36,7 +35,25 @@ def detail_garage():
     return _garage_json(garage)
 
 
+@bp.route('/garage-<int:id>', methods=['POST'])
+def close_garage():
+    """关闭发布
+    修改close状态而已"""
+    garage = apiGarageRent.get_or_404(id)
+    apiGarageRent.update(garage, close=True)
+    return jsonres()
+
+
+@bp.route('/garage-<int:id>', methods=['DELETE'])
+def delete_garage():
+    garage = apiGarageRent.get_or_404(id)
+    apiGarageRent.delete(garage)
+    return jsonres()
+
+
 def _garage_json(garage):
+    """把对象格式化一下。
+    """
     return dict(id=garage.id,
                 price=garage.price,
                 position=garage.position,

@@ -72,7 +72,7 @@ def jsonres(rv=None, metacode=200, msg='', code=200, success=True):
     # code = res[1]
     # if len(res)==3:
     # msg = res[2]
-    return jsonify(dict(response=rv, meta=dict(code=metacode, msg=msg))), code
+    return jsonify(dict(response=rv, meta=dict(code=metacode, msg=msg, success=success))), code
 
 
 def paginationInfo(pagination):

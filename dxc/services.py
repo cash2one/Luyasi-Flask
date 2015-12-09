@@ -1,11 +1,12 @@
 #-*- coding:utf-8 -*-
 
 from dxc.app.models.qingbank import ContactService, DepartmentService, NodeService
-from flaskframe.security import UserService, RoleService, ProfileService, SysMessageService, AppService
+from flaskframe.security import UserService, RoleService, SysMessageService, AppService
 from dxc.app.models.blog import CommentService, BlogService, CategoryService
 from dxc.app.models.job import JobService, ReportService
 from dxc.app.models.carpool import CarpoolInfoService
-from dxc.app.models.xiaoyuan import AcademyService, ClassService, MessageService, ClassApplyService, NoticeService
+from dxc.app.models.xiaoyuan import AcademyService, ClassService, MessageService, ClassApplyService, NoticeService, \
+    ProfileService
 from dxc.app.models.wish import WishService
 
 api_contact = ContactService()

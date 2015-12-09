@@ -9,7 +9,7 @@ from werkzeug.wsgi import DispatcherMiddleware
 
 sys.path.insert(0, '/home/pythonprojects/flask/Luyasi-Flask')
 
-from app import frontend
+# from app import thld_web
 from app import api
 from thld import setting
 
@@ -19,7 +19,7 @@ sys.setdefaultencoding('utf-8')
 # from flask.ext.security import forms
 
 # web应用
-frontend_app = frontend.create_app(settings_override=setting)
+# frontend_app = thld_web.create_app(settings_override=setting)
 
 # api接口
 api_app = api.create_app(settings_override=setting)
@@ -28,9 +28,10 @@ api_app = api.create_app(settings_override=setting)
 # 可以分发给不同的app
 # application = DispatcherMiddleware(frontend)
 # application = DispatcherMiddleware(api_app)
-application = DispatcherMiddleware(frontend_app, {'/api': api_app})
+application = DispatcherMiddleware(api_app, {'/api': api_app})
 
 if __name__ == "__main__":
+    print u'App thld starts:'
     ip = api_app.config['KINORSI_SERVER_NAME']
     port = api_app.config['KINORSI_SERVER_PORT']
     # run_simple('127.0.0.1', 5000, application, use_reloader=True, use_debugger=True)

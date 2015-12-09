@@ -48,7 +48,7 @@ def smooth():
     return drawer
 
 
-def curve(color='#5C87B2', width=4, number=6):
+def curve(color='#5C87B2', width=1, number=10):
     from wheezy.captcha.bezier import make_bezier
     if not callable(color):
         c = getrgb(color)
@@ -70,7 +70,7 @@ def curve(color='#5C87B2', width=4, number=6):
     return drawer
 
 
-def noise(number=50, color='#EEEECC', level=2):
+def noise(number=40, color='#EEEECC', level=2):
     if not callable(color):
         c = getrgb(color)
         color = lambda: c
@@ -171,7 +171,7 @@ def rotate(angle=25):
     return drawer
 
 
-def make_simple_captcha():
+def make_simple_captcha(width=200, height=75, font_sizes=None):
     import string
     import os
     cwd = os.path.dirname(os.path.abspath(__file__))
@@ -180,17 +180,18 @@ def make_simple_captcha():
         text(fonts=[
             cwd + '/fonts/CourierNew-Bold.ttf',
             cwd + '/fonts/LiberationMono-Bold.ttf'],
+            font_sizes=font_sizes,
             drawings=[
                 warp(),
                 rotate(),
                 offset()
             ]),
-            curve(),
+            curve(),# 想增加线条就再多一个方法就好
             noise(color='#5C87B2'),
             smooth()
-        ])
+        ], width=width, height=height)
     #validate_code = random.sample(string.uppercase + string.digits, 4)
-    validate_code = random.sample('ABCDEFGHJKLMNPRSTUVWXYZ' + '2345689', 4)
+    validate_code = random.sample('ABCDEFHJKLMNPRSTUVWXYZ' + '234589', 4)
     image = captcha_image(validate_code)
     validate_string = ''.join(validate_code)
     return image, validate_string
