@@ -24,3 +24,14 @@ $.getJSONEx = function(url, data, args){
     }, args);
     return $.ajax(args);
 }
+
+$.deleteJSONEx = function(url, data, args){
+    args = $.extend({
+        url: url,
+        type: 'DELETE',
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json'
+    }, args);
+    return $.ajax(args);
+};

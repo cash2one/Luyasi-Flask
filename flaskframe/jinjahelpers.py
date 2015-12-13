@@ -15,6 +15,8 @@ from flaskframe.momentjs import momentjs
 def has_role_processor():
     """Jinja context processor for role test."""
     def has_role(role):
+        # 不加个unicode中文就没得玩了
+        role = unicode(role)
         can = Permission(RoleNeed(role)).can()
         return can
     return dict(has_role=has_role)

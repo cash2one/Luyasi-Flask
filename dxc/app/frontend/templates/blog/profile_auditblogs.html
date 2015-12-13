@@ -12,7 +12,7 @@
                 <h4 class="modal-title" id="infoModalLabel">{{_('Warning')}}</h4>
             </div>
             <div class="modal-body">
-                确定要删除吗？
+                确定要这样操作吗？
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Cancle')}}</button>
@@ -27,27 +27,6 @@
     <div class="row">
         <div class="col-md-12">
 
-{#            <ul class="nav nav-pills" id="job_tab" role="tablist" style="margin-bottom:15px">#}
-{#                <li class="{% if category==1 %}active{% endif %}"><a#}
-{#                        href="{{ url_for('blog.list_profileblogs', category=1, page=1) }}">通知通告</a></li>#}
-{#                <li class="{% if category==2 %}active{% endif %}"><a#}
-{#                        href="{{ url_for('blog.list_profileblogs', category=2, page=1) }}">点滴Life</a></li>#}
-{#            </ul>#}
-
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="true">
-                    选择类别
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="{{ url_for('blog.list_profileblogs', category=5, page=1) }}">通知通告</a></li>
-                    <li><a href="{{ url_for('blog.list_profileblogs', category=2, page=1) }}">校园生活</a></li>
-                    <li><a href="{{ url_for('blog.list_profileblogs', category=6, page=1) }}">有滋有味</a></li>
-                </ul>
-            </div>
-
-            <hr>
 
             <div class="tab-content">
                 <div class="tab-pane active">
@@ -56,7 +35,7 @@
                             <div class="col-md-12 item">
                                 <div class="row">
                                     <div class="col-md-9">
-                                        <a href="{{ url_for('blog.detail_blog', blog_id=blog.id, category=category) }}">
+                                        <a href="{{ url_for('blog.detail_blog', blog_id=blog.id, category=blog.category_id) }}">
                                             <h4 class="list-group-item-heading">
                                                 {{ blog.title }}
                                             </h4>
@@ -66,10 +45,10 @@
                                     </div>
                                     <div class="col-md-3">
                                         {% if blog.can_publish == 0 %}
-                                            审核中
-                                        {% elif blog.can_publish == 2 %}
-                                            审核不通过
-                                            <button class="btn btn-danger" onclick="deleteBlog({{ blog.id }})">删除</button>
+                                            <div class="btn-group">
+                                                <button class="btn btn-success" onclick="audit({{ blog.id }}, 1)" id="canBtn">可以发布</button>
+                                                <button class="btn btn-warning" onclick="audit({{ blog.id }}, 2)" id="cannotBan">不可以发布</button>
+                                            </div>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -79,7 +58,7 @@
                     <!--pager-->
                     <div class="row">
                         <div class="col-md-12">
-                            {{ render_pager(blogs,'blog.list_profileblogs', category=category) }}
+                            {{ render_pager(blogs,'blog.list_auditblogs') }}
                         </div>
                     </div>
                 </div>
@@ -90,24 +69,27 @@
 
 {% block pagescript %}
 <script>
+    var can_publish = 1;
     var blog_id = null;
-    function deleteBlog(blogId){
+    function audit(blogId, can){
+        can_publish = can;
         blog_id = blogId;
         $('#infoModal').modal();
     }
 
     $('.btn-ok').click(function(){
-        $.deleteJSONEx(
-            "{{url_for('blog.delete_blog')}}",
+        $.postJSONEx(
+            "{{url_for('blog.audit_blog')}}",
             {
                 blog_id: blog_id,
+                can_publish: can_publish
             }
         )
         .done(function(res){
             if(!res.success){
                 alert(res.message);
             }else{
-                location.pathname = "{{ url_for('blog.list_profileblogs', category=category, page=1) }}";
+                location.pathname = "{{ url_for('blog.list_auditblogs', page=1) }}";
             }
         })
         .always(function(){
