@@ -13,6 +13,8 @@ class Blog(db.Model, ModelVersion, JsonSerializer):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(100))
     content = db.Column(db.Text())
+    # 是否可以发布，默认是可以的。只有校园通告这个的栏目，要修改默认值为不可以。需要审核才可以发布.1-可以，0-审核中, 2-不可以
+    can_publish = db.Column(db.Integer(), default=1)
     #类别，blog这个模块可以放在不同的模块，由于其它功能差不多。就用一个type进行区分0-blog,1-news,2-life
     # category = db.Column(db.Integer(), default=0, nullable=False)
     #阅读次数

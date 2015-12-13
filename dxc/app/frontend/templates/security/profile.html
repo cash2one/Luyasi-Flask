@@ -15,7 +15,8 @@
         {% if current_user.pub_jobs %}
         <a class="list-group-item {% if request.environ['PATH_INFO']==url_for('job.list_publisedjobs', status=1)%}active{%endif%}" href="{{ url_for('job.list_publisedjobs', status=1) }}">{{_('My published jobs')}}</a>
         {% endif %}
-        <a class="list-group-item {% if request.environ['PATH_INFO']==url_for('blog.list_profileblogs', category=1)%}active{%endif%}" href="{{ url_for('blog.list_profileblogs', category=1) }}">我的博客</a>
+        <a class="list-group-item {% if request.environ['PATH_INFO']==url_for('blog.list_profileblogs', category=5)%}active{%endif%}" href="{{ url_for('blog.list_profileblogs', category=5) }}">我的文章</a>
+        <a class="list-group-item {% if request.environ['PATH_INFO']==url_for('blog.list_auditblogs', page=1)%}active{%endif%}" href="{{ url_for('blog.list_auditblogs', page=1) }}">待审核的文章</a>
         <!--<li class="list-group-item"><a href="{{ url_for('job.list_publisedjobs', status=1) }}">我的收藏</a></li>-->
         <a class="list-group-item {% if request.environ['PATH_INFO']==url_for('xiaoyuan.list_myclass')%}active{%endif%}" href="{{ url_for('xiaoyuan.list_myclass') }}">我的班级</a>
         {% if current_user.class_meminfo %}

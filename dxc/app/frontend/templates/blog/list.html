@@ -9,7 +9,13 @@
     <div class="col-md-12">
         <div class="btn-group pull-right" style="margin-bottom: 12px">
             {##% if has_right('create', 'blog', 'blog') %#}
-            <a href="{{url_for('.create_blog', category=category)}}" type="button" class="btn btn-success">写文章</a>
+            {% if category==5 and has_role('校园通知发布者') %}
+                <a href="{{url_for('.create_blog', category=category)}}" type="button" class="btn btn-success">发布新通知</a>
+            {% endif %}
+            {% if category != 5 %}
+                <a href="{{url_for('.create_blog', category=category)}}" type="button" class="btn btn-success">我要发布</a>
+            {% endif %}
+
             {##% endif %#}
         </div>
     </div>
@@ -30,6 +36,7 @@
             <div class="col-md-2">
                 {# 有权限才可以编辑 #}
                 <div class="edit-btns hidden">
+                {#
                     {% if blog.user == current_user %}
                     <button type="button" data-del-id="{{blog.id}}" class="btn btn-danger btn-xs btn-delete">
                         <span class="glyphicon glyphicon-remove"></span>
@@ -40,6 +47,7 @@
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                     {% endif %}
+                 #}
                 </div>
             </div>
         </div>

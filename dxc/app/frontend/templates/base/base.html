@@ -80,7 +80,7 @@ body { padding-bottom: 71px; }
                     确定？
                 </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{_('OK')}}</button>
+                <button type="button"  class="btn btn-default" data-dismiss="modal">{{_('OK')}}</button>
             </div>
         </div>
     </div>
@@ -113,10 +113,11 @@ body { padding-bottom: 71px; }
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav ">
+            <li><a href="{{url_for('blog.list_blog', category=5)}}">通知通告</a></li>
+            <li><a href="{{url_for('blog.list_blog', category=2)}}">校园生活</a></li>
+            <li><a href="{{url_for('blog.list_blog', category=6)}}">有滋有味</a></li>
             <li><a href="{{url_for('job.list_job')}}">工作兼职</a></li>
             <li><a href="{{url_for('carpool.list_carinfo')}}">拼车包车</a></li>
-            <li><a href="{{url_for('blog.list_blog', category=1)}}">校园新闻</a></li>
-            <li><a href="{{url_for('blog.list_blog', category=2)}}">点滴生活</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -288,12 +289,14 @@ body { padding-bottom: 71px; }
     <div style="bottom:0; position:fixed; width:100%; z-index:-10" class="footer">
         <div class="container">
             <div class="text-center">
-                Copyright© 2014 <a href='http://www.miibeian.gov.cn/'><span>粤ICP备14019158号-2</span></a>
+               <!-- Copyright© 2014 <a href='http://www.miibeian.gov.cn/'><span>粤ICP备14019158号-2</span></a> -->
                     <!--百度统计-->
-            <script type="text/javascript">
-            var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-            document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F84f192aec0d5e251363a2be90ef26b26' type='text/javascript'%3E%3C/script%3E"));
-            </script>
+                <div style="visibility: hidden;">
+                    <script type="text/javascript">
+                    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F84f192aec0d5e251363a2be90ef26b26' type='text/javascript'%3E%3C/script%3E"));
+                    </script>
+                </div>
             </div>
         </div>
     </div>

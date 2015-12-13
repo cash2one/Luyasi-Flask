@@ -28,11 +28,16 @@
 {{super()}}
 <li><a href="{{url_for('blog.list_blog', page=1, category=category)}}">
     {% if category==0 %}
-    Miss Lu
+        Miss Lu
     {% elif category==1 %}
-    校园新闻
+        校园新闻
     {% elif category==2 %}
-    点滴生活
+        校园生活
+    {% elif category==5 %}
+        通知通告
+    {% elif category==6 %}
+        有滋有味
     {% endif %}
+
 </a></li>
 {% endblock breadpiece %}
