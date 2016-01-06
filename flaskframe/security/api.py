@@ -3,15 +3,50 @@
 import re
 import json
 
-from flask import Blueprint, url_for, current_app, request
+from flask import Blueprint, url_for, current_app, request, make_response
 from flask_security import login_user
 from flask_security.utils import verify_and_update_password
+from flaskframe.helpers import generate_csrf_token
 import requests
 
 from dxc.services import api_user
-from . import jsonres
+from ..helpers import jsonres
 
 bp = Blueprint('api_login', __name__)
+
+
+@bp.route('/login', methods=['POST'])
+def login():
+    """这里自己调用security的login。主要是为了返回csrfToken给前端的ng使用"""
+
+    email = request.json.get('email', '')
+    passwd = request.json.get('password', '')
+    app_id = request.headers.get('app_id') or request.args.get('app_id')
+    headers = {'app-id': app_id}
+    # print username
+
+    loginUrl = url_for(current_app.config['SECURITY_BLUEPRINT_NAME'] + '.login')
+    loginUrl = current_app.config['API_URL'] + loginUrl
+
+    data = {'email': email, 'password': passwd}
+    jdata = json.dumps(data)
+    loginRes = requests.post(loginUrl, json=data, headers=headers)
+    resJson = loginRes.json()
+
+    if resJson['meta']['code'] == 200:
+        user = api_user.get(int(resJson['response']['user']['id']))
+        del resJson['response']['user']['id']
+        resJson['response']['user']['nickname'] = user.nickname or user.email
+        resJson['meta']['success'] = True
+        gen_csrf = generate_csrf_token(user)
+
+    response = make_response(json.dumps(resJson))
+
+    if resJson['meta']['code'] == 200:
+        response.set_cookie('XSRF-TOKEN', gen_csrf)
+
+    return response
+    # return jsonString
 
 
 @bp.route('/login2', methods=['POST'])
@@ -51,8 +86,8 @@ def login2():
     return json.dumps(resJson)
 
 
-@bp.route('/login', methods=['POST'])
-def login():
+@bp.route('/login3', methods=['POST'])
+def login3():
     """直接使用flask-security的工具方法完成登陆验证"""
     username = request.json.get('username', '')
     passwd = request.json.get('password', '')

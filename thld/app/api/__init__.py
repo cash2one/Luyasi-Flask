@@ -5,18 +5,20 @@
 
 from functools import wraps
 
-from flask import jsonify
 from flask_security import (auth_token_required)
 
 from flaskframe import appfactory
 from flaskframe.core import db
-from flaskframe.helpers import JSONEncoder
+from flaskframe.helpers import JSONEncoder, check_app_key, jsonres
 
 
 def create_app(settings_override=None, register_security_blueprint=True):
     app = appfactory.create_app(__name__, __path__, settings_override=settings_override,
                                 register_security_blueprint=register_security_blueprint)
     app.json_encoder = JSONEncoder
+
+    # 注册app检测
+    app.before_request(check_app_key)
 
     # Register custom error handlers
     if app.debug:
@@ -54,25 +56,6 @@ def route(bp, *args, **kwargs):
         return wrapper
 
     return decorator
-
-
-def jsonres(rv=None, metacode=200, msg='', code=200, success=True):
-    '''这样api可以返回一致的结构。
-    @param rv 主要的返回内容
-    @param metacode 业务上的代码
-    @param msg 简要信息
-    @param desc 详细描述
-    @param code 这是http返回的statucode
-    @param success metacode有点复杂，一般用这个来表示请求是否成功吧
-    '''
-    #    code = 200
-    #   msg = ''
-    # if isinstance(res, tuple):
-    # rv = res[0]
-    # code = res[1]
-    # if len(res)==3:
-    # msg = res[2]
-    return jsonify(dict(response=rv, meta=dict(code=metacode, msg=msg, success=success))), code
 
 
 def paginationInfo(pagination):

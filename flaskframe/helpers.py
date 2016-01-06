@@ -6,11 +6,14 @@ import inspect
 import time
 import os
 
-from flask import Blueprint, current_app
+from itsdangerous import Signer, BadSignature
+from flask import Blueprint, current_app, request, abort, jsonify, url_for
 from flask.json import JSONEncoder as BaseJSONEncoder
 from flask.ext.admin.contrib.sqla import ModelView
+from flask_security import current_user
 
 from flaskframe.core import db
+
 
 def register_blueprints(app, package_name, package_path):
     """
@@ -30,6 +33,10 @@ def register_blueprints(app, package_name, package_path):
             if isinstance(item, Blueprint):
                 app.register_blueprint(item)
             rv.append(item)
+
+    # 注册通用api
+    from flaskframe.security import api
+    app.register_blueprint(api.bp)
 
     if app.config['DEBUG_PRINT_ROUTE']:
         print 'route rules:'
@@ -53,7 +60,7 @@ def collect_admin_views(package, admin, app):
     admin.add_view(RoleView())
     admin.add_view(UserView())
 
-    appname=app.config['APP_NAME']
+    appname = app.config['APP_NAME']
     path = os.path.dirname(package.__file__)
     for _, name, ispkg in pkgutil.walk_packages([path]):
         if ispkg:
@@ -65,7 +72,6 @@ def collect_admin_views(package, admin, app):
                         item = getattr(m, item)
                         if inspect.isclass(item) and issubclass(item, ModelView):
                             admin.add_view(item())
-
 
 
 def import_model(model_path):
@@ -81,6 +87,7 @@ class JSONEncoder(BaseJSONEncoder):
     """Custom :class:`JSONEncoder` which respects objects that include the
     :class:`JsonSerializer` mixin.
     """
+
     def default(self, obj):
         if isinstance(obj, JsonSerializer):
             self.max_depth = current_app.config['SQLALCHMY_MAX_DEPTH']
@@ -103,7 +110,7 @@ class JsonSerializer(object):
     #: Field in this collect is not limited by the depth.
     __json_depth_no_limit__ = None
 
-    #--------------------------------------------------------------
+    # --------------------------------------------------------------
     def get_field_names(self):
         for p in self.__mapper__.iterate_properties:
             yield p.key
@@ -111,7 +118,7 @@ class JsonSerializer(object):
     # def is_valid_json(self, val):
     #     return isinstance(val, (dict,list,int,long,float,True,False,None,str,unicode, db.Model))
 
-    #--------------------------------------------------------------
+    # --------------------------------------------------------------
     def to_json(self, max_depth):
         """Just filter the fields which will be left for json to encode.
         """
@@ -138,7 +145,7 @@ class JsonSerializer(object):
         rvfinal = dict()
         for key in rv:
             # 注意：移除不能被tojson的属性~即如果是类的属性，但是却没有继承JsonSerializer的话就移除。
-            #AppenderBaseQuery似乎是生成的类，在文件里找不到。所以只能用名字。
+            # AppenderBaseQuery似乎是生成的类，在文件里找不到。所以只能用名字。
 
             # 处理集合的情况，要取一个元素出来比较其类型是否为JsonSerialzer。
             test = rv[key]
@@ -155,7 +162,7 @@ class JsonSerializer(object):
                 else:
                     if not is_collect:
                         rvfinal[key] = rv[key].to_json(max_depth)
-                    else: # is_collect = True
+                    else:  # is_collect = True
                         json_list = list()
                         for item in rv[key]:
                             json_list.append(item.to_json(max_depth))
@@ -164,7 +171,7 @@ class JsonSerializer(object):
             elif rv[key] and type(rv[key]).__name__ == 'AppenderBaseQuery':
                 continue
 
-            rvfinal[key]=rv[key]
+            rvfinal[key] = rv[key]
 
         return rvfinal
 
@@ -172,6 +179,7 @@ class JsonSerializer(object):
 ##############################################################
 class TlsSMTPHandler(logging.handlers.SMTPHandler):
     """Gmail should use this to do email logging. But it seems not work!"""
+
     def emit(self, record):
         """
         Emit a record.
@@ -206,9 +214,11 @@ class TlsSMTPHandler(logging.handlers.SMTPHandler):
         except:
             self.handleError(record)
 
+
 ##############################################################
 class SslSTMPHandler(logging.handlers.SMTPHandler):
     """When use SSL, need to use this. Currently used with QQEmail"""
+
     def emit(self, record):
         """
         Emit a record.
@@ -221,7 +231,7 @@ class SslSTMPHandler(logging.handlers.SMTPHandler):
             port = self.mailport
             if not port:
                 port = smtplib.SMTP_PORT
-            smtp = smtplib.SMTP_SSL(self.mailhost, port)#, timeout=self._timeout)
+            smtp = smtplib.SMTP_SSL(self.mailhost, port)  # , timeout=self._timeout)
             msg = self.format(record)
             msg = "From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\n\r\n%s" % (
                 self.fromaddr,
@@ -242,8 +252,110 @@ class SslSTMPHandler(logging.handlers.SMTPHandler):
             self.handleError(record)
 
 
-#----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 def mkmillseconds(datetime):
     """转成毫秒值"""
-    return time.mktime(datetime.timetuple()) * 1000
+    # return time.mktime(datetime.timetuple()) * 1000
+    return int(time.time()) * 1000
 
+
+def check_app_key():
+    """在before_request里检查appid"""
+    apps = [{'app_id': 'app0001', 'app_key': '12345678', 'app_type': 'web'}]
+    appids = [app['app_id'] for app in apps]
+    """注册到before_request，检查调用api的应用是否在注册列表，如果不在的话，就没得玩啦"""
+    # for he in request.headers:
+    #     print he
+    app_id = request.headers.get('app_id') or request.args.get('app_id')
+    if app_id is None or app_id not in appids:
+        abort(403)
+
+    # flask-security提供的登陆服务直接被卡掉
+    if request.path == url_for(current_app.config['SECURITY_BLUEPRINT_NAME'] + '.login'):
+        abort(404)
+
+    # app类型检测
+    app_type = None
+    for app in apps:
+        if app['app_id'] == app_id:
+            app_type = app['app_type']
+    if app_type == 'web':
+        # 登陆的相关的就不检查了，其它的才检查
+        if request.blueprint not in [current_app.config['SECURITY_BLUEPRINT_NAME'], 'api_login']:
+            if request.method in ['POST', 'DELETE', 'DELETE']:
+                # 只检查这些有个改能力的操作
+                csrf_token = request.headers.get('X-XSRF-TOKEN')
+                valid = validate_csrf_token(csrf_token)
+                if not valid:
+                    return jsonres(success=False, msg=u'csrf_token无效或超时')
+
+    elif app_type == 'mobile':
+        # 不检查csrf
+        pass
+    else:
+        # 没有授权的应用
+        abort(401)
+
+    pass
+
+
+def generate_csrf_token(user):
+    """产生token"""
+    secret_key = current_app.config.get(
+        'WTF_CSRF_SECRET_KEY', current_app.secret_key
+    )
+    nonce = os.urandom(24)
+    user_id = user.id
+    signer = Signer(secret_key)
+    csrf_token = signer.sign(str(user_id))
+    print csrf_token
+    return csrf_token
+
+
+def validate_csrf_token(csrf_token):
+    secret_key = current_app.config.get(
+        'WTF_CSRF_SECRET_KEY', current_app.secret_key
+    )
+    signer = Signer(secret_key)
+    # if current_user.is_anonymous():
+    #     return False
+
+    try:
+        signer.unsign(csrf_token)
+    except BadSignature:
+        return False
+
+    # if str(current_user.get_id()) == id:
+    #     return True
+    return True
+#
+# def require_api_key(api_method):
+#     """用来检查调用者是否是授权的app"""
+#     @wraps(api_method)
+#     def check_api_key(*arg, **kwargs):
+#         api_id = request.headers.get('api_id')
+#
+#         if api_id and api_id == '1111':
+#             return api_method(*arg, **kwargs)
+#         else:
+#             abort(401)
+#
+#     return check_api_key
+
+def jsonres(rv=None, metacode=200, msg='', code=200, success=True):
+    '''这样api可以返回一致的结构。
+    @param rv 主要的返回内容
+    @param metacode 业务上的代码
+    @param msg 简要信息
+    @param desc 详细描述
+    @param code 这是http返回的statucode
+    @param success metacode有点复杂，一般用这个来表示请求是否成功吧
+    '''
+    #    code = 200
+    #   msg = ''
+    # if isinstance(res, tuple):
+    # rv = res[0]
+    # code = res[1]
+    # if len(res)==3:
+    # msg = res[2]
+    return jsonify(dict(response=rv, meta=dict(code=metacode, msg=msg, success=success))), code

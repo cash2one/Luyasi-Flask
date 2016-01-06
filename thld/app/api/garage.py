@@ -3,7 +3,7 @@
 from flask import Blueprint, request
 from flask_security import current_user
 
-from flaskframe.helpers import mkmillseconds
+from flaskframe.helpers import mkmillseconds, jsonres
 from thld.services import apiGarageRent
 from thld.app.models.garage.forms import GarageForm
 from . import paginationInfo, jsonres, route
