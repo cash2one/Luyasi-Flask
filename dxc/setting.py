@@ -103,9 +103,9 @@ LOGGING_DIR = os.path.join(_basedir, './logs')
 
 # 用mysql的话，alembic的detected有点问题.喜欢重新删除约束，重建，或者修改boolean为tinyint等。。~看来要手动改改代码。我顶他个肺肺
 if DEBUG:
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:qingbank@127.0.0.1/dxc?charset=utf8&use_unicode=0'
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:qingbank@localhost/dxc?charset=utf8&use_unicode=0'
 else:
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://dxc:dxcdb@127.0.0.1/dxc?charset=utf8&use_unicode=0'
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://dxc:dxcdb@localhost/dxc?charset=utf8&use_unicode=0'
 
 # 模型返回json时最大的解析层次。
 SQLALCHMY_MAX_DEPTH = 3
