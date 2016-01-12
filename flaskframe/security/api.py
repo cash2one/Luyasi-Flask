@@ -12,7 +12,7 @@ import requests
 from dxc.services import api_user
 from ..helpers import jsonres
 
-bp = Blueprint('api_login', __name__)
+bp = Blueprint('framework_api_login', __name__)
 
 
 @bp.route('/login', methods=['POST'])
@@ -109,8 +109,10 @@ def login3():
 def app_login():
     """这是app端登陆的方法。app端发送取得的token，这里再取到用户信息进去注册或者登陆"""
     access_token = request.json.get('access_token')
+    #openid
     userid = request.json.get('userid')
-    appkey = current_app.config['APPKEY_QQ_MOBILE']
+    appkey = request.json.get('appId');
+    # appkey = current_app.config['APPKEY_QQ_MOBILE']
     userInfoUrl = str.format(
         'https://graph.qq.com/user/get_user_info?oauth_consumer_key={0}&access_token={1}&openid={2}&format=json',
         appkey, access_token, userid)
