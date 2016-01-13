@@ -26,7 +26,8 @@ def register_blueprints(app, package_name, package_path):
     """
     rv = []
     for _, name, _ in pkgutil.iter_modules(package_path):
-        # print str.format("packagename:{}---module name:{}", package_name, name)
+
+        # print str.format("blue print  :  packagename:{}---module name:{}", package_name, name)
         m = importlib.import_module('%s.%s' % (package_name, name))
         for item in dir(m):
             item = getattr(m, item)

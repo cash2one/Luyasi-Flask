@@ -42,7 +42,7 @@ def create_blog(category):
     if blog_form.validate_on_submit():
         can_publish = 1
         if cate_name.name == u'通知通告':
-            can_publish = 0
+            can_publish = 1
             flash(u'请等待审核')
         blog = api_blog.create(user=current_user, can_publish=can_publish, **blog_form.data)
         flash(u'创建成功')

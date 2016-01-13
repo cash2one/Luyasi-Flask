@@ -8,7 +8,7 @@ import os
 from flask.ext.babel import gettext, lazy_gettext
 
 #Flask的debug开关。有利于看出错信息。正式启用时要关掉
-DEBUG = True
+DEBUG = False
 #我靠。。原来testing为true的时候是不用登陆的！login_required会无效。
 TESTING = False
 
@@ -102,7 +102,11 @@ LOGGING_DIR = os.path.join(_basedir, './logs')
 #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'luyasi_flask.db')
 
 # 用mysql的话，alembic的detected有点问题.喜欢重新删除约束，重建，或者修改boolean为tinyint等。。~看来要手动改改代码。我顶他个肺肺
-SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:qingbank@127.0.0.1/luyasi-flask?charset=utf8&use_unicode=0'
+if DEBUG:
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:qingbank@localhost/dxc?charset=utf8&use_unicode=0'
+else:
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://dxc:dxcdb@localhost/dxc?charset=utf8&use_unicode=0'
+
 # 模型返回json时最大的解析层次。
 SQLALCHMY_MAX_DEPTH = 3
 # database migrate
