@@ -100,7 +100,10 @@ LOGGING_DIR = os.path.join(_basedir, './logs')
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'luyasi_flask.db')
 
 # 用mysql的话，alembic的detected有点问题.喜欢重新删除约束，重建，或者修改boolean为tinyint等。。~看来要手动改改代码。我顶他个肺肺
-SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:qingbank@127.0.0.1/thld?charset=utf8&use_unicode=0'
+if DEBUG:
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:qingbank@127.0.0.1/thld?charset=utf8&use_unicode=0'
+else:
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://thld:thlddb@localhost/thld?charset=utf8&use_unicode=0'
 # 模型返回json时最大的解析层次。
 SQLALCHMY_MAX_DEPTH = 3
 # database migrate

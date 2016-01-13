@@ -8,7 +8,7 @@ from flask import  request
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 
-sys.path.insert(0, '/home/pythonprojects/flask/Luyasi-Flask')
+sys.path.insert(0, '/home/flask/Luyasi-Flask')
 
 # from app import thld_web
 from app import api
