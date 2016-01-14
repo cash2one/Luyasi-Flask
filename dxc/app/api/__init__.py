@@ -10,12 +10,15 @@ from flask_security import (auth_token_required)
 
 from flaskframe import appfactory
 from flaskframe.core import db
-from flaskframe.helpers import JSONEncoder
+from flaskframe.helpers import JSONEncoder, check_app_key
 
 
 def create_app(settings_override=None, register_security_blueprint=True):
     app = appfactory.create_app(__name__, __path__, settings_override=settings_override, register_security_blueprint=register_security_blueprint)
     app.json_encoder = JSONEncoder
+
+    # 注册app检测
+    app.before_request(check_app_key)
 
     # Register custom error handlers
     if app.debug:
