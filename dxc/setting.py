@@ -8,7 +8,7 @@ import os
 from flask.ext.babel import gettext, lazy_gettext
 
 #Flask的debug开关。有利于看出错信息。正式启用时要关掉
-DEBUG = False
+DEBUG = True
 #我靠。。原来testing为true的时候是不用登陆的！login_required会无效。
 TESTING = False
 
@@ -148,8 +148,8 @@ SECURITY_POST_CHANGE_VIEW = '/security/change'
 SECURITY_SEND_REGISTER_EMAIL=ENABLE_SECURITY_MAIL #发送注册邮件
 SECURITY_SEND_PASSWORD_CHANGE_EMAIL=ENABLE_SECURITY_MAIL #发送密码更新邮件
 
-SECURITY_TOKEN_AUTHENTICATION_HEADER = 'auth_token'
-SECURITY_TOKEN_AUTHENTICATION_KEY = 'auth_token'
+# SECURITY_TOKEN_AUTHENTICATION_HEADER = 'auth_token'
+# SECURITY_TOKEN_AUTHENTICATION_KEY = 'auth_token'
 #注册邮件是否需要进行验证
 SECURITY_CONFIRMABLE=ENABLE_SECURITY_MAIL
 

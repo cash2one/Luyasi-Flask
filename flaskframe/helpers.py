@@ -6,9 +6,11 @@ import inspect
 import time
 import os
 
-from flask import Blueprint, current_app
+from itsdangerous import Signer, BadSignature
+from flask import Blueprint, current_app, request, abort, jsonify, url_for
 from flask.json import JSONEncoder as BaseJSONEncoder
 from flask.ext.admin.contrib.sqla import ModelView
+from flask_security import current_user
 
 from flaskframe.core import db
 
@@ -32,6 +34,10 @@ def register_blueprints(app, package_name, package_path):
             if isinstance(item, Blueprint):
                 app.register_blueprint(item)
             rv.append(item)
+
+    # 注册通用api
+    from flaskframe.security import api
+    app.register_blueprint(api.bp)
 
     if app.config['DEBUG_PRINT_ROUTE']:
         print 'route rules:'
@@ -250,4 +256,107 @@ class SslSTMPHandler(logging.handlers.SMTPHandler):
 # ----------------------------------------------------------------------
 def mkmillseconds(datetime):
     """转成毫秒值"""
-    return time.mktime(datetime.timetuple()) * 1000
+    # return time.mktime(datetime.timetuple()) * 1000
+    return int(time.time()) * 1000
+
+
+def check_app_key():
+    """在before_request里检查appid"""
+    apps = [{'app_id': 'app0001', 'app_key': '12345678', 'app_type': 'web'}, {'app_id': 'app0002', 'app_key': 'sdfadfadsf', 'app_type': 'mobile'}]
+    appids = [app['app_id'] for app in apps]
+    """注册到before_request，检查调用api的应用是否在注册列表，如果不在的话，就没得玩啦"""
+    # for he in request.headers:
+    #     print he
+    app_id = request.headers.get('app_id') or request.args.get('app_id')
+    if app_id is None or app_id not in appids:
+        abort(403)
+
+    # flask-security提供的登陆服务直接被卡掉
+    if request.path == url_for(current_app.config['SECURITY_BLUEPRINT_NAME'] + '.login'):
+        abort(404)
+
+    # app类型检测
+    app_type = None
+    for app in apps:
+        if app['app_id'] == app_id:
+            app_type = app['app_type']
+    if app_type == 'web':
+        # 登陆的相关的就不检查了，其它的才检查
+        if request.blueprint not in [current_app.config['SECURITY_BLUEPRINT_NAME'], 'api_login']:
+            if request.method in ['POST', 'DELETE', 'DELETE']:
+                # 只检查这些有个改能力的操作
+                csrf_token = request.headers.get('X-XSRF-TOKEN')
+                valid = validate_csrf_token(csrf_token)
+                if not valid:
+                    return jsonres(success=False, msg=u'csrf_token无效或超时')
+
+    elif app_type == 'mobile':
+        # 不检查csrf
+        pass
+    else:
+        # 没有授权的应用
+        abort(401)
+
+    pass
+
+
+def generate_csrf_token(user):
+    """产生token"""
+    secret_key = current_app.config.get(
+        'WTF_CSRF_SECRET_KEY', current_app.secret_key
+    )
+    nonce = os.urandom(24)
+    user_id = user.id
+    signer = Signer(secret_key)
+    csrf_token = signer.sign(str(user_id))
+    print csrf_token
+    return csrf_token
+
+
+def validate_csrf_token(csrf_token):
+    secret_key = current_app.config.get(
+        'WTF_CSRF_SECRET_KEY', current_app.secret_key
+    )
+    signer = Signer(secret_key)
+    # if current_user.is_anonymous():
+    #     return False
+
+    try:
+        signer.unsign(csrf_token)
+    except BadSignature:
+        return False
+
+    # if str(current_user.get_id()) == id:
+    #     return True
+    return True
+#
+# def require_api_key(api_method):
+#     """用来检查调用者是否是授权的app"""
+#     @wraps(api_method)
+#     def check_api_key(*arg, **kwargs):
+#         api_id = request.headers.get('api_id')
+#
+#         if api_id and api_id == '1111':
+#             return api_method(*arg, **kwargs)
+#         else:
+#             abort(401)
+#
+#     return check_api_key
+
+def jsonres(rv=None, metacode=200, msg='', code=200, success=True):
+    '''这样api可以返回一致的结构。
+    @param rv 主要的返回内容
+    @param metacode 业务上的代码
+    @param msg 简要信息
+    @param desc 详细描述
+    @param code 这是http返回的statucode
+    @param success metacode有点复杂，一般用这个来表示请求是否成功吧
+    '''
+    #    code = 200
+    #   msg = ''
+    # if isinstance(res, tuple):
+    # rv = res[0]
+    # code = res[1]
+    # if len(res)==3:
+    # msg = res[2]
+    return jsonify(dict(response=rv, meta=dict(code=metacode, msg=msg, success=success))), code

@@ -4,10 +4,11 @@
 # 解决jinja2在从view返回中文到template会出错的问题。
 import sys
 
+from flask import  request
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 
-sys.path.insert(0, '/home/pythonprojects/flask/Luyasi-Flask')
+sys.path.insert(0, '/home/flask/Luyasi-Flask')
 
 # from app import thld_web
 from app import api
@@ -23,6 +24,15 @@ sys.setdefaultencoding('utf-8')
 
 # api接口
 api_app = api.create_app(settings_override=setting)
+
+# apps = [{'api_id': 'app0001', 'app_key': '12345678', 'app_type': 'web'}]
+#
+#
+# @api_app.before_first_request
+# def api_gateway():
+#     api_id = request.args.get('api_id')
+#     print api_id
+#     return js
 
 
 # 可以分发给不同的app

@@ -15,7 +15,7 @@ TESTING = False
 # 应用文件夹名字,在admin的collect_view里会用得着
 APP_NAME = 'thld'
 # 是否需要显示所有的blueprint route
-DEBUG_PRINT_ROUTE = False
+DEBUG_PRINT_ROUTE = True
 #: In some case, email will not used at all. e.g. When use qingbank module only.
 ENABLE_SECURITY_MAIL = True
 
@@ -100,7 +100,10 @@ LOGGING_DIR = os.path.join(_basedir, './logs')
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'luyasi_flask.db')
 
 # 用mysql的话，alembic的detected有点问题.喜欢重新删除约束，重建，或者修改boolean为tinyint等。。~看来要手动改改代码。我顶他个肺肺
-SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:qingbank@127.0.0.1/thld?charset=utf8&use_unicode=0'
+if DEBUG:
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:qingbank@127.0.0.1/thld?charset=utf8&use_unicode=0'
+else:
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://thld:thlddb@localhost/thld?charset=utf8&use_unicode=0'
 # 模型返回json时最大的解析层次。
 SQLALCHMY_MAX_DEPTH = 3
 # database migrate
@@ -109,8 +112,8 @@ DATABASE_CONNECT_OPTIONS = {}
 
 THREADS_PER_PAGE = 8
 
-CSRF_ENABLED = True
-CSRF_SESSION_KEY = "kinorsiluyasi"
+WTF_CSRF_ENABLED = False
+WTF_CSRF_SECRET_KEY = "kinorsiluyasi"
 
 # Flask-Security 配置
 SECURITY_EMAIL_SENDER = MAIL_DEFAULT_SENDER
@@ -142,8 +145,8 @@ SECURITY_POST_CHANGE_VIEW = '/security/change'
 SECURITY_SEND_REGISTER_EMAIL = ENABLE_SECURITY_MAIL  # 发送注册邮件
 SECURITY_SEND_PASSWORD_CHANGE_EMAIL = ENABLE_SECURITY_MAIL  # 发送密码更新邮件
 
-SECURITY_TOKEN_AUTHENTICATION_HEADER = 'auth_token'
-SECURITY_TOKEN_AUTHENTICATION_KEY = 'auth_token'
+# SECURITY_TOKEN_AUTHENTICATION_HEADER = 'Authentication-Token'
+# SECURITY_TOKEN_AUTHENTICATION_KEY = 'auth_token'
 # 注册邮件是否需要进行验证
 SECURITY_CONFIRMABLE = ENABLE_SECURITY_MAIL
 
