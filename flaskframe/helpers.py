@@ -262,7 +262,7 @@ def mkmillseconds(datetime):
 
 def check_app_key():
     """在before_request里检查appid"""
-    apps = [{'app_id': 'app0001', 'app_key': '12345678', 'app_type': 'web'}]
+    apps = [{'app_id': 'app0001', 'app_key': '12345678', 'app_type': 'web'}, {'app_id': 'app0002', 'app_key': 'sdfadfadsf', 'app_type': 'mobile'}]
     appids = [app['app_id'] for app in apps]
     """注册到before_request，检查调用api的应用是否在注册列表，如果不在的话，就没得玩啦"""
     # for he in request.headers:
