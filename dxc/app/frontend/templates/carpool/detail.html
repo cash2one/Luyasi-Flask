@@ -22,6 +22,7 @@
 {% block rightmain %}
     <div class="page-header">
         <h1>{{carinfo.start}} - {{carinfo.target}}</h1>
+        <h5 class="text-right">发布者:{{ carinfo.user.validname() }} | 发布时间：{{ momentjs(carinfo.create_at).format('LL') }}</h5>
     </div>
     <div>
         <dl>

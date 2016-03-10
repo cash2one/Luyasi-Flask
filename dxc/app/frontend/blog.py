@@ -95,6 +95,7 @@ def audit_blog():
 @bp.route('/blog/<int:category>/<int:blog_id>', methods=['GET'])
 def detail_blog(blog_id, category):
     blog = api_blog.get_or_404(blog_id)
+    api_blog.update(blog, read_count=blog.read_count + 1)
     return render_template('blog/detail.html', blog=blog, category=category)
 
 

@@ -34,6 +34,7 @@ def create_job():
 def detail_job(job_id):
     """"""
     job = api_job.get_or_404(job_id)
+    api_job.update(job, read_count = job.read_count + 1)
     return render_template('job/detail.html', job=job)
 
 #----------------------------------------------------------------------
