@@ -316,9 +316,9 @@ class Service(object):
         """
         """
         return self.__model__.query \
-               .filter_by(**kwargs) \
-               .order_by(self.__model__.update_at.desc(), self.__model__.create_at.desc()) \
-               .paginate(page, per_page, error_out)
+            .filter_by(**kwargs) \
+            .order_by(self.__model__.create_at.desc(), self.__model__.update_at.desc()) \
+            .paginate(page, per_page, error_out)
 
     #----------------------------------------------------------------------
     def get_lastest_page(self, page, per_page=20, error_out=True):
