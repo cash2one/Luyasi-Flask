@@ -52,12 +52,12 @@ moment.locale("{{session['moment-lang'] or 'zh-cn'}}");
 body { padding-top: 71px; }
 body { padding-bottom: 71px; }
 
-body{
-    -webkit-transform: rotate(-3deg);
-    -moz-transform: rotate(-3deg);
-    -o-transform: rotate(-3deg);
-	padding-top:20px;
-}
+{#body{#}
+{#    -webkit-transform: rotate(-3deg);#}
+{#    -moz-transform: rotate(-3deg);#}
+{#    -o-transform: rotate(-3deg);#}
+{#	padding-top:20px;#}
+{#}#}
 
 </style>
 
@@ -257,7 +257,10 @@ body{
         {% block container %}
         <!--#### side bar ####-->
         <div class="col-md-3">
-            {% block sidebar %}{% endblock sidebar %}
+            {% block sidebar %}
+                <div id="dongtan"></div>
+
+            {% endblock sidebar %}
         </div>
 
     <!--#### right main ####-->
@@ -314,6 +317,7 @@ body{
     <script	src="{{ url_for('static', filename='base/kinorsi.jquery.ajax.extend.js') }}"></script>
     <!-- String.format -->
     <script	src="{{ url_for('static', filename='base/common.js') }}"></script>
+    <script	src="{{ url_for('static', filename='components/bundle.js') }}"></script>
 
     <script type="text/javascript">
         <!--注册全局的服务器ajax错误处理-->

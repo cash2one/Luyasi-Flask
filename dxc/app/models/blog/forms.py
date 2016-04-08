@@ -19,7 +19,8 @@ class BlogForm(Form):
                                                                 (3, u'博客'),
                                                                 (4, u'物业公告'),
                                                                 (5, u'通知通告'),
-                                                                (6, u'有滋有味')],
+                                                                (6, u'有滋有味'),
+                                                                (7, u'动弹')],
                               coerce=int, validators=[Required()])
     content = CKEditorField(lazy_gettext(u'Content'), import_js=True,
                             validators=[CKEditorRequired(message=gettext('The comment forgot you~'))])
