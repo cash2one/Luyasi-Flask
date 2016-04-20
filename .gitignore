@@ -226,3 +226,8 @@ test.db
 *.wpu
 upload/
 .idea
+
+#############
+## reactjs
+#############
+node_modules/

@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 import os
 
-from flask import Blueprint, render_template, send_from_directory, current_app, url_for, abort
+from flask import Blueprint, render_template, send_from_directory, current_app, url_for, abort, redirect
 
 from . import route
 from dxc.services import api_job, api_carpool, api_blog
@@ -27,4 +27,5 @@ def index(html=None):
     jobs = api_job.get_lastest_page(1, per_page=5)
     carinfos = api_carpool.get_lastest_page(1, per_page=5)
     #blogs = api_blog.get_lastest_page(1, per_page=5)
-    return render_template('index/index.html', jobs=jobs, carinfos=carinfos)#, blogs=blogs)
+    # return render_template('index/index.html', jobs=jobs, carinfos=carinfos)#, blogs=blogs)
+    return redirect(url_for('job.list_job'))

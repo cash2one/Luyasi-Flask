@@ -8,14 +8,14 @@ import os
 from flask.ext.babel import gettext, lazy_gettext
 
 #Flask的debug开关。有利于看出错信息。正式启用时要关掉
-DEBUG = False
+DEBUG = True
 #我靠。。原来testing为true的时候是不用登陆的！login_required会无效。
 TESTING = False
 
 #应用文件夹名字,在admin的collect_view里会用得着
 APP_NAME='dxc'
 #是否需要显示所有的blueprint route
-DEBUG_PRINT_ROUTE = False
+DEBUG_PRINT_ROUTE = True
 #: In some case, email will not used at all. e.g. When use qingbank module only.
 ENABLE_SECURITY_MAIL = True
 

@@ -29,7 +29,13 @@
         <div class="row">
             <div class="col-md-10">
                 <a href="{{url_for('.detail_blog', blog_id=blog.id, category=category)}}">
-                    <h4 class="list-group-item-heading" >{{blog.title}}</h4>
+                    <h4 class="list-group-item-heading" >
+                        {% if blog.category_id==7 %}
+                            {{ blog.content }}
+                        {% else %}
+                            {{blog.title}}
+                        {% endif %}
+                    </h4>
                     <!--<p class="list-group-item-text">...</p>-->
                 </a>
             </div>
@@ -52,8 +58,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <h5><!--[{{blog.user.nickname or blog.user.email or blog.user.username}}]--> 发表时间： [{{momentjs(blog.update_at or blog.create_at).format_utc('LLLL')}}]</h5>
+            <div class="col-md-12 text-right">
+                <small>{{ blog.user.validname() }} 发表于{{momentjs(blog.update_at or blog.create_at).format_utc('LLLL')}}</small>
             </div>
         </div>
     <div class="row">

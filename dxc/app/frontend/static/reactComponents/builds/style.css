@@ -1,0 +1,15 @@
+.dongtan-input {
+  margin-bottom: 0.4em; }
+
+.dongtan-item {
+  display: flex;
+  display: -webkit-flex;
+  margin-bottom: 0.5em; }
+  .dongtan-item .item-avatar {
+    order: 1;
+    flex-shrink: 0; }
+  .dongtan-item .item-content {
+    order: 2;
+    flex-grow: 1;
+    align-self: flex-end;
+    border-bottom: dashed 1px gray; }

@@ -9,18 +9,18 @@
     :license: BSD, see LICENSE for more details.
 """
 
-from flask import Blueprint, request, render_template
+from flask import Blueprint, request, render_template, url_for
 from flask_security import current_user
 
-from flaskframe.helpers import mkmillseconds
+from flaskframe.helpers import mkmillseconds, jsonres
 from dxc.services import api_blog
-from . import paginationInfo, jsonres, route
+from . import paginationInfo, route
 from dxc.app.models.blog import BlogForm, BlogUpdateForm
 
 bp = Blueprint('api_blog', __name__, url_prefix='/blogs')
 
 #----------------------------------------------------------------------
-@bp.route('/blog-new', methods=['POST'])
+@route(bp, '/blog-new', methods=['POST'])
 def create_blog():
     """"""
     blog_form = BlogForm(**request.json)
@@ -42,9 +42,19 @@ def list_blog(blogs_matrix=dict()):
     blogs = api_blog.get_latest_page_filterby(page=page, per_page=10,
                                               category_id=int(blogs_matrix.get('category', 0)))
     pageInfo = paginationInfo(blogs)
-    blogdatas = [dict(id=blog.id,
+    #这个用在动弹里的
+    if blogs_matrix.get('showcontent'):
+            blogdatas = [dict(id=blog.id,
                       title=blog.title,
+                      content=blog.content,
+                      userid = blog.user_id,
+                      useravatar = blog.user.avatar or url_for('static', filename='/image/'),
+                      username = blog.user.validname(),
                       create_at=mkmillseconds(blog.create_at)) for blog in blogs.items]
+    else:
+        blogdatas = [dict(id=blog.id,
+                          title=blog.title,
+                          create_at=mkmillseconds(blog.create_at)) for blog in blogs.items]
     return jsonres(rv=dict(pageInfo=pageInfo, datas=blogdatas))
 
 
