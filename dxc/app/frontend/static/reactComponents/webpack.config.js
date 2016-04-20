@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var production = false;
+var production = true;
 // var production = process.env.NODE_ENV === 'production';
 
 var plugins = [
