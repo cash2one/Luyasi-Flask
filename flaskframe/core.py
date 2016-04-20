@@ -140,6 +140,7 @@ mail = Mail()
 # Flask-Security extension instance
 security = Security()
 
+
 # Flask-Babel
 babel = Babel()
 

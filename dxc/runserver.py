@@ -35,4 +35,4 @@ if __name__ == "__main__":
     port = api_app.config['KINORSI_SERVER_PORT']
     # run_simple('127.0.0.1', 5000, application, use_reloader=True, use_debugger=True)
     #If you’re using Aptana/Eclipse for debugging you’ll need to set both use_debugger and use_reloader to False.
-    run_simple(ip, port, application, use_reloader=False, use_debugger=False, threaded=True)
+    run_simple(ip, port, application, use_reloader=False, use_debugger=setting.DEBUG, threaded=True)

@@ -49,6 +49,7 @@ def create_blog(category):
         return redirect(url_for('.list_blog', category=category))
     if request.method == 'POST':
         flash(u'创建失败，请检查', category='danger')
+
     return render_template('blog/create.html', blog_form=blog_form, category=category,
                            action_url=url_for('.create_blog', category=category))
 

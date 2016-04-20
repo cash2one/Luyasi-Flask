@@ -6,7 +6,7 @@
 from functools import wraps
 
 from flask import jsonify
-from flask_security import (auth_token_required)
+from flask_security import auth_token_required, auth_required
 
 from flaskframe import appfactory
 from flaskframe.core import db
@@ -43,7 +43,8 @@ def route(bp, *args, **kwargs):
 
     def decorator(f):
         #@bp.route(*args, **kwargs)
-        @auth_token_required
+        # @auth_token_required
+        @auth_required('session', 'token')
         @wraps(f)
         def wrapper(*args, **kwargs):
             return f(*args, **kwargs)

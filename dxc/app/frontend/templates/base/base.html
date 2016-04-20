@@ -13,7 +13,9 @@
 moment.locale("{{session['moment-lang'] or 'zh-cn'}}");
 </script>
 <!-- Bootstrap -->
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap/css/bootstrap.min.css') }}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base/3partylib/bootstrap/css/bootstrap.min.css') }}" media="screen">
+    <!--self-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='reactComponents/builds/style.css') }}">
 {% block css %}
 
 {% endblock %}
@@ -134,7 +136,7 @@ body { padding-bottom: 71px; }
                     <img src="/static/images/dxcapp_ma.png" alt="">
                 </ul>
             </li>
-            {% if current_user and current_user.is_authenticated() %}
+            {% if current_user and current_user.is_authenticated %}
             <li><a href="{{ url_for('security-frontend.detail_profile', user_id=current_user.id) }}">
                 {% if current_user.avatar %}
                 <span><img width="20" height="20" src="{{current_user.avatar}}" class="img-rounded"></span>
@@ -258,7 +260,7 @@ body { padding-bottom: 71px; }
         <!--#### side bar ####-->
         <div class="col-md-3">
             {% block sidebar %}
-                <div id="dongtan"></div>
+                <div id="dongtan" hello="world"></div>
 
             {% endblock sidebar %}
         </div>
@@ -310,43 +312,44 @@ body { padding-bottom: 71px; }
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='reactComponents/builds/bundle.js') }}"></script>
+{#    <script src="{{ url_for('static', filename='base/3partylib/jquery/jquery.min.js') }}"></script>#}
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script	src="{{ url_for('static', filename='base/3partylib/bootstrap/js/bootstrap.min.js') }}"></script>
+{#    <script	src="{{ url_for('static', filename='base/3partylib/bootstrap/js/bootstrap.min.js') }}"></script>#}
     <!-- extension ajax for jquery.ajax -->
-    <script	src="{{ url_for('static', filename='base/kinorsi.jquery.ajax.extend.js') }}"></script>
+{#    <script	src="{{ url_for('static', filename='base/kinorsi.jquery.ajax.extend.js') }}"></script>#}
     <!-- String.format -->
-    <script	src="{{ url_for('static', filename='base/common.js') }}"></script>
-    <script	src="{{ url_for('static', filename='components/bundle.js') }}"></script>
+{#    <script	src="{{ url_for('static', filename='base/common.js') }}"></script>#}
 
     <script type="text/javascript">
         <!--注册全局的服务器ajax错误处理-->
-        $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError ){
-            $('#globalAlertModal .modal-body').text(thrownError);
-            $('#globalAlertModal').modal({backdrop:'static'});
-        });
-
-    var orgalert = window.alert;
-    window.alert = function(msg){
-        $('#globalAlertModal .modal-body').text(msg);
-        $('#globalAlertModal').modal();
-    }
+{#        $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError ){#}
+{##}
+{#            $('#globalAlertModal .modal-body').text(thrownError);#}
+{#            $('#globalAlertModal').modal({backdrop:'static'});#}
+{#        });#}
+{##}
+{#    var orgalert = window.alert;#}
+{#    window.alert = function(msg){#}
+{#        $('#globalAlertModal .modal-body').text(msg);#}
+{#        $('#globalAlertModal').modal();#}
+{#    }#}
 
     <!--没有ckeditor的时候，需要在这里重新请求captcha-->
-    $(function(){
-        try{
-            CKEDITOR;
-        }catch(e){
-            var __captcha = $('form').find('.captcha');
-            if(__captcha.length != 0){
-                __captcha.prepend('<img src="/common/captcha/?nothing=' + (new Date().getTime()) + '">');
-                __captcha.click(function(){
-                    var __anytime = new Date().getTime();
-                    __captcha.find("img").attr("src", "/common/captcha/?nothing=" + __anytime);
-                });
-            }
-        }
-    });
+{#    $(function(){#}
+{#        try{#}
+{#            CKEDITOR;#}
+{#        }catch(e){#}
+{#            var __captcha = $('form').find('.captcha');#}
+{#            if(__captcha.length != 0){#}
+{#                __captcha.prepend('<img src="/common/captcha/?nothing=' + (new Date().getTime()) + '">');#}
+{#                __captcha.click(function(){#}
+{#                    var __anytime = new Date().getTime();#}
+{#                    __captcha.find("img").attr("src", "/common/captcha/?nothing=" + __anytime);#}
+{#                });#}
+{#            }#}
+{#        }#}
+{#    });#}
 </script>
 
     <!-- 本页js -->
