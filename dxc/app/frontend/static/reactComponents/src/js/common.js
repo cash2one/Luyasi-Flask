@@ -8,7 +8,8 @@ $(function(){
 
     $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError ){
 
-        $('#globalAlertModal .modal-body').text(thrownError);
+        // $('#globalAlertModal .modal-body').text(thrownError);
+        $('#globalAlertModal .modal-body').text('您没有登陆，或是出现了其它错误');
         $('#globalAlertModal').modal({backdrop:'static'});
     });
 

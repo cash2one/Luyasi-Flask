@@ -10,6 +10,7 @@ import requests
 from . import route
 from dxc.services import api_blog, api_comment, api_category
 from dxc.app.models.blog import BlogForm, CommentForm
+from flaskframe.helpers import paginationInfo,jsonres,mkmillseconds
 
 bp = Blueprint('blog', __name__, template_folder='templates', static_folder='static', url_prefix='/blogs')
 
@@ -53,6 +54,18 @@ def create_blog(category):
     return render_template('blog/create.html', blog_form=blog_form, category=category,
                            action_url=url_for('.create_blog', category=category))
 
+@route(bp, '/blog-new', methods=['POST'])
+def create_dongtan():
+    """"""
+    blog_form = BlogForm(**request.json)
+    blog_form.csrf_enabled = False
+    del blog_form.captcha
+
+    if blog_form.validate_on_submit():
+        blog = api_blog.create(user=current_user, **request.json)
+        return jsonres(rv=dict(id=blog.id, title=blog.title, content=blog.content))
+
+    return jsonres(metacode=400, code=400, msg=blog_form.errors)
 
 # --------------------------------------------------------
 @bp.route('/blogs/<int:category>/<int:page>', methods=['GET'])
@@ -62,6 +75,9 @@ def list_blog(category=0, page=1):
         page = 1
     blogs = api_blog.get_latest_page_filterby(page=page, category_id=category, can_publish=1)
     return render_template('blog/list.html', blogs=blogs, category=category)
+
+
+
 
 
 # ----------------------------------------------------------------------
@@ -226,3 +242,27 @@ def __build_comment(comment, build):
     build.append(__extract_comment(comment))
     if comment.ref_comment:
         __build_comment(comment.ref_comment, build)
+
+
+@bp.route('<matrix:blogs_matrix>', methods=['GET'])
+def list_dongtan(blogs_matrix=dict()):
+    page = int(request.args.get('page', 1));
+    if page == None or page <= 0:
+        page = 1
+    blogs = api_blog.get_latest_page_filterby(page=page, per_page=10,
+                                              category_id=int(blogs_matrix.get('category', 0)))
+    pageInfo = paginationInfo(blogs)
+    #这个用在动弹里的
+    if blogs_matrix.get('showcontent'):
+            blogdatas = [dict(id=blog.id,
+                      title=blog.title,
+                      content=blog.content,
+                      userid = blog.user_id,
+                      useravatar = blog.user.avatar or url_for('static', filename='/image/'),
+                      username = blog.user.validname(),
+                      create_at=mkmillseconds(blog.create_at)) for blog in blogs.items]
+    else:
+        blogdatas = [dict(id=blog.id,
+                          title=blog.title,
+                          create_at=mkmillseconds(blog.create_at)) for blog in blogs.items]
+    return jsonres(rv=dict(pageInfo=pageInfo, datas=blogdatas))

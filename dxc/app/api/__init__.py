@@ -6,11 +6,11 @@
 from functools import wraps
 
 from flask import jsonify
-from flask_security import auth_token_required, auth_required
+from flask_security import auth_required
 
 from flaskframe import appfactory
 from flaskframe.core import db
-from flaskframe.helpers import JSONEncoder, check_app_key
+from flaskframe.helpers import JSONEncoder, check_app_key, jsonres
 
 
 def create_app(settings_override=None, register_security_blueprint=True):
@@ -57,26 +57,20 @@ def route(bp, *args, **kwargs):
     return decorator
 
 
-def jsonres(rv=None, metacode=200, msg='', code=200):
-    '''这样api可以返回一致的结构。
-    @param rv 主要的返回内容
-    @param metacode 业务上的代码
-    @param msg 简要信息
-    @param desc 详细描述
-    @param code 这是http返回的statucode
-    '''
-#    code = 200
- #   msg = ''
-    #if isinstance(res, tuple):
-        #rv = res[0]
-        #code = res[1]
-        #if len(res)==3:
-            #msg = res[2]
-    return jsonify(dict(response=rv, meta=dict(code=metacode, msg=msg))), code
+# def jsonres(rv=None, metacode=200, msg='', code=200):
+#     '''这样api可以返回一致的结构。
+#     @param rv 主要的返回内容
+#     @param metacode 业务上的代码
+#     @param msg 简要信息
+#     @param desc 详细描述
+#     @param code 这是http返回的statucode
+#     '''
+# #    code = 200
+#  #   msg = ''
+#     #if isinstance(res, tuple):
+#         #rv = res[0]
+#         #code = res[1]
+#         #if len(res)==3:
+#             #msg = res[2]
+#     return jsonify(dict(response=rv, meta=dict(code=metacode, msg=msg))), code
 
-def paginationInfo(pagination):
-    '''返回分布信息用
-    @param pagination 分页信息
-    '''
-    return dict(hasNext=pagination.has_next, hasPrev=pagination.has_prev, nextNum=pagination.next_num,
-                            page=pagination.page, pages=pagination.pages, perPage=pagination.per_page, total=pagination.total)

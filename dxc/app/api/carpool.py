@@ -1,9 +1,9 @@
 #-*- coding:utf-8 -*-
 from flask import Blueprint, request
 
-from . import jsonres, paginationInfo
+from . import jsonres
 from dxc.services import api_carpool
-from flaskframe.helpers import mkmillseconds
+from flaskframe.helpers import mkmillseconds, paginationInfo
 
 bp = Blueprint('api_carpool', __name__, url_prefix='/carpools')
 

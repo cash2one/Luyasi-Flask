@@ -12,9 +12,9 @@
 from flask import Blueprint, request, render_template, url_for
 from flask_security import current_user
 
-from flaskframe.helpers import mkmillseconds, jsonres
+from flaskframe.helpers import mkmillseconds, jsonres, paginationInfo
 from dxc.services import api_blog
-from . import paginationInfo, route
+from . import route
 from dxc.app.models.blog import BlogForm, BlogUpdateForm
 
 bp = Blueprint('api_blog', __name__, url_prefix='/blogs')

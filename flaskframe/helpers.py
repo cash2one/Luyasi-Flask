@@ -267,7 +267,9 @@ def check_app_key():
     """注册到before_request，检查调用api的应用是否在注册列表，如果不在的话，就没得玩啦"""
     # for he in request.headers:
     #     print he
-    app_id = request.headers.get('app_id') or request.args.get('app_id')
+    #     current_app.logger.info(he)
+    # 注意appid的大小写，在不同的地方，他的
+    app_id = request.headers.get('Appid') or request.args.get('appid')
     if app_id is None or app_id not in appids:
         abort(403)
 
@@ -360,3 +362,11 @@ def jsonres(rv=None, metacode=200, msg='', code=200, success=True):
     # if len(res)==3:
     # msg = res[2]
     return jsonify(dict(response=rv, meta=dict(code=metacode, msg=msg, success=success))), code
+
+
+def paginationInfo(pagination):
+    '''返回分布信息用
+    @param pagination 分页信息
+    '''
+    return dict(hasNext=pagination.has_next, hasPrev=pagination.has_prev, nextNum=pagination.next_num,
+                            page=pagination.page, pages=pagination.pages, perPage=pagination.per_page, total=pagination.total)

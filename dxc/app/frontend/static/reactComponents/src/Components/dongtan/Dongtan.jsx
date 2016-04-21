@@ -32,6 +32,7 @@ class DongtanInput extends React.Component{
         }
 
         $.ajax({
+          headers: {'Appid': this.props.appid || ''},
           type: 'POST',
           url: this.props.url + '/blog-new',
           data: JSON.stringify(this.state),
@@ -103,8 +104,8 @@ class Dongtan extends React.Component{
 
     loadDongtans(){
         $.ajax({
-            // headers: {'app_id': this.props.appid},
-            url: this.props.url + ';category=7;showcontent=True?app_id='+this.props.appid,
+            headers: {'Appid': this.props.appid || ''},
+            url: this.props.url + ';category=7;showcontent=True',
             dataType: 'json',
             type: 'GET',
             success: function(res){
@@ -126,7 +127,7 @@ class Dongtan extends React.Component{
        
         return (
             <div>
-                <DongtanInput url={this.props.url}/>
+                <DongtanInput url={this.props.url} appid={this.props.appid}/>
                 <DongtanList datas={this.state.dongtans} blogUrlPrefix={this.props.blogUrlPrefix}/>
             </div>
         );
@@ -134,7 +135,7 @@ class Dongtan extends React.Component{
 }
 
 ReactDOM.render(
-    <Dongtan url="/api/blogs" appid="app0001" blogUrlPrefix='/blogs/blog/7' />,
+    <Dongtan url="/blogs" appid="app0001" blogUrlPrefix='/blogs/blog/7' />,
     document.getElementById('dongtan')
 );
 
