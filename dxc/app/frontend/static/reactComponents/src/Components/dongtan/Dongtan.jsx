@@ -103,6 +103,7 @@ class Dongtan extends React.Component{
 
     loadDongtans(){
         $.ajax({
+            headers: {'app_id': this.props.appid},
             url: this.props.url + ';category=7;showcontent=True',
             dataType: 'json',
             type: 'GET',
@@ -133,7 +134,7 @@ class Dongtan extends React.Component{
 }
 
 ReactDOM.render(
-    <Dongtan url="/api/blogs" blogUrlPrefix='/blogs/blog/7' />,
+    <Dongtan url="/api/blogs" appid="app0001" blogUrlPrefix='/blogs/blog/7' />,
     document.getElementById('dongtan')
 );
 

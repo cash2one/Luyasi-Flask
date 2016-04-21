@@ -18,8 +18,8 @@ def create_app(settings_override=None, register_security_blueprint=True):
     app.json_encoder = JSONEncoder
 
     # 注册app检测
-    if not app.debug:
-        app.before_request(check_app_key)
+    # if not app.debug:
+    app.before_request(check_app_key)
 
     # Register custom error handlers
     if not app.debug:
