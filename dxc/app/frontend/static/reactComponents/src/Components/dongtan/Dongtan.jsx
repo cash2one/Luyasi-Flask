@@ -19,8 +19,6 @@ class DongtanInput extends React.Component{
 
     handleChange(e){
         this.setState({content: e.target.value.trim()});
-        var a = "{{url_for('static', filenamem='ddd')}}";
-        console.log(a);
     }
 
     postDongtan(e){
@@ -39,7 +37,8 @@ class DongtanInput extends React.Component{
           contentType:'application/json;charset=utf-8',
           success: function(data){
             alert('动弹成功');
-          },
+            this.setState({content: ''});
+          }.bind(this),
 
           error: function(xhr, status, err){
             if(xhr.status===401){
