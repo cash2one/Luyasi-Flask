@@ -46,7 +46,7 @@ class DongtanInput extends React.Component{
             }else{
                 alert('出错了~');
             }
-          }.bind(this),
+          },
           dataType: 'json'
         });
         // $.get(this.props.url);
@@ -98,7 +98,9 @@ class Dongtan extends React.Component{
         super();
         this.state = {
             dongtans:[]
-        }
+        };
+        this.loadDongtans = this.loadDongtans.bind(this);
+
     }
 
     loadDongtans(){
@@ -120,6 +122,7 @@ class Dongtan extends React.Component{
 
     componentDidMount(){
         this.loadDongtans();
+        setInterval(this.loadDongtans, 10000);
     }
 
     render(){
@@ -134,7 +137,7 @@ class Dongtan extends React.Component{
 }
 
 ReactDOM.render(
-    <Dongtan url="/blogs" appid="app0001" blogUrlPrefix='/blogs/blog/7' />,
+    <Dongtan url="/blogs" appid="app0001" blogUrlPrefix='/blogs/blog/7'/>,
     document.getElementById('dongtan')
 );
 
