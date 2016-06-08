@@ -1,0 +1,33 @@
+{% extends "taste/base.html" %}
+
+{% from "macros/_pager.html" import render_pager %}
+
+{% block actionbar %}
+
+{% endblock actionbar %}
+
+{% block rightmain %}
+<div class="row">
+    {% for item in items.items %}
+    <div class="col-md-6">
+        <div style="display:flex;  align-items: center">
+            <a href="{{ url_for('.list_item') }}">
+                <div><img src="https://fuss10.elemecdn.com/f/42/5bbe85853877677aa885cb1427605jpeg.jpeg?imageMogr2/thumbnail/70x70/format/webp/quality/85" alt="" width="70px"></div>
+                <div>
+                    <ul class="list-unstyled">
+                        <li>{{ item.name }}</li>
+                        <li>{{ item.desc }}</li>
+                    </ul>
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<!--pager-->
+<div class="row">
+    <div class="col-md-12">
+    {{render_pager(items,'.list_shop') }}
+    </div>
+</div>
+{% endblock %}

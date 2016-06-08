@@ -8,6 +8,7 @@ from dxc.app.models.carpool import CarpoolInfoService
 from dxc.app.models.xiaoyuan import AcademyService, ClassService, MessageService, ClassApplyService, NoticeService, \
     ProfileService
 from dxc.app.models.wish import WishService
+from dxc.app.models.taste import ShopService, ItemtService
 
 api_contact = ContactService()
 api_department = DepartmentService()
@@ -42,3 +43,7 @@ api_notice = NoticeService()
 
 # wish
 api_wish = WishService()
+
+#taste
+api_shop = ShopService()
+api_item = ItemtService()

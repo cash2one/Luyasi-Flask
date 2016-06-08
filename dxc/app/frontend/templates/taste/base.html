@@ -1,0 +1,24 @@
+{% extends "index/base.html" %}
+
+{% block sublogo %}
+<a class="navbar-brand" href="{{ url_for('taste.list_shop') }}">美味</a>
+{% endblock sublogo %}
+
+{% block search -%}
+
+{%- endblock %}
+
+{% block breadpiece %}
+{{super()}}
+<li><a href="{{url_for('job.list_job')}}">美味</a></li>
+{% endblock breadpiece %}
+
+{% block actionbar %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group pull-right" style="margin-bottom: 12px">
+            <a href="#" type="button" class="btn btn-success">~~</a>
+        </div>
+    </div>
+</div>
+{% endblock actionbar %}

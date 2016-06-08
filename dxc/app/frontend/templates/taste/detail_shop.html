@@ -1,0 +1,38 @@
+{% extends "taste/base.html" %}
+
+{% from "macros/_pager.html" import render_pager %}
+
+{% block actionbar %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group pull-right" style="margin-bottom: 12px">
+            <a href="#" type="button" class="btn btn-success">dd</a>
+        </div>
+    </div>
+</div>
+{% endblock actionbar %}
+
+{% block rightmain %}
+<div class="row">
+    {% for shop in shops.items %}
+    <div class="col-md-12 item">
+        <div class="row">
+            <div class="col-md-10">
+                <a href="{{url_for('.list_items', shop_id=shop.id)}}">
+                    <h4 class="list-group-item-heading" >
+                    {{shop.name}}
+                    </h4>
+                </a>
+                <hr/>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<!--pager-->
+<div class="row">
+    <div class="col-md-12">
+    {{render_pager(shops,'.list_shop') }}
+    </div>
+</div>
+{% endblock %}
